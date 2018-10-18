@@ -12,8 +12,6 @@ import util.DBConn;
 
 public class Animal_FileDaoImpl implements Animal_FileDao {
 
-	private Animal_Filetb animal_filetb;
-
 	private Connection conn = DBConn.getConnection();
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
@@ -49,14 +47,14 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 	}
 
 	@Override
-	public void deleteFiletbByfileno(Animal_Filetb animal_filetb) {
+	public void deleteFiletbByAnimalCode(Animal_Filetb animal_filetb) {
 
 		sql = "DELETE FROM animal_filetb";
-		sql+= " WHERE fileno=?";
+		sql += " WHERE animal_code=?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, animal_filetb.getFileno());
+			ps.setInt(1, animal_filetb.getAnimal_code());
 			
 			ps.executeUpdate();
 			
@@ -69,12 +67,6 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 				e.printStackTrace();
 			}
 		}
-		
-	}
-
-	@Override
-	public void updateFiletbByfileno(Animal_Filetb animal_filetb) {
-		// TODO Auto-generated method stub
 		
 	}
 
