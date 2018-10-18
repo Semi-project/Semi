@@ -69,8 +69,12 @@ public class AnimalServiceImpl implements AnimalService {
 
 	@Override
 	public Animal getParam(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Animal animal = new Animal();
+		
+		animal.setAnimal_Feature(req.getParameter("feature"));
+		
+		return animal;
 	}
 
 }

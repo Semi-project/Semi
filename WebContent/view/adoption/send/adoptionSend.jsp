@@ -1,36 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<jsp:include page="/view/layout/header.jsp"></jsp:include>
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="/view/adoption/send/se2/js/HuskyEZCreator.js" charset="UTF-8"></script>
 
-<!-- Smart Editor -->
-<script type="text/javascript" src="../se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<!-- <script type="text/javascript" src="../se2/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script> -->
- 
- 
-<!-- Smart Editor -->
 <script type="text/javascript">
- 
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-    oAppRef: oEditors,
-    elPlaceHolder: "textAreaContent",
-    sSkinURI: "../se2/SmartEditor2Skin.html",
-    fCreator: "createSEditor2"
+$(function(){
+	var oEditors = [];
+
+	nhn.husky.EZCreator.createInIFrame({
+
+	    oAppRef: oEditors,
+	    elPlaceHolder: "inputText",
+	    sSkinURI: "/view/adoption/send/se2/SmartEditor2Skin.html",
+
+	    htParams: {
+	    	bUseToolbar: true,
+	    	bUseVerticalResizer: true,
+	    	bUseModeChanger: true
+	    }
+
+	});
+	
+	$("#save").click(function(){
+		oEditors.getById["inputText"].exec("UPDATE_CONTENTS_FIELD", []);
+// 		textarea 값 가져오기
+// 		alert( $("#inputText").val() );
+		$("#contents").submit();
+		
+	});
 });
- 
 
- 
 </script>
-<h1>스마트에디터 적용</h1>
+
+
+<body>
+
+
+<h3>네이버 스마트 에디터 2.0</h3>
 <hr>
-<h3>TESTING</h3>
 
-<form>
+<form id="contents" method="get">
 
-<textarea style="width: 100%" rows="10" name="content" id="textAreaContent" cols="80"></textarea>
+<textarea name="feature" id="inputText" rows="10" cols="80"></textarea><br>
 
-<br>
-<button>저장하기</button>
+<button id="save">저장</button>
+
 </form>
 
-<jsp:include page="/view/layout/footer.jsp"></jsp:include>
+</body>
+</html>
