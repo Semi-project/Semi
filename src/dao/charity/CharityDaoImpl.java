@@ -140,7 +140,9 @@ public class CharityDaoImpl implements CharityDao {
 
 	@Override
 	public List<Member> selectCountCharityGroupByUserId(Member member) {
-		// TODO Auto-generated method stub
+
+		// 무슨 용도로 만든 method인가?
+		
 		return null;
 	}
 
