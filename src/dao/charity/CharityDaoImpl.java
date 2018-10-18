@@ -68,8 +68,37 @@ public class CharityDaoImpl implements CharityDao {
 
 	@Override
 	public Charity selectCharityByCharityCode(Charity charity) {
-		// TODO Auto-generated method stub
-		return null;
+
+		sql = "SELECT * FROM charity WHERE charity_code=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, charity.getCharity_Code());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				charity.setCharity_Cate_Code( rs.getInt("charity_cate_code"));
+				charity.setCharity_Amount( rs.getInt("charity_amount"));
+				charity.setUserId( rs.getString("userid"));
+				charity.setCharity_Date(rs.getDate("charity_date"));
+				charity.setCharity_Payment( rs.getInt("charity_payment_code"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return charity;
 	}
 
 	@Override
