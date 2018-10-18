@@ -103,7 +103,24 @@ public class CharityDaoImpl implements CharityDao {
 
 	@Override
 	public void deleteByCharityCode(Charity charity) {
-		// TODO Auto-generated method stub
+
+		sql = "DELETE FROM charity WHERE charity_code=?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, charity.getCharity_Code());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
