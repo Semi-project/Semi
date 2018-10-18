@@ -129,12 +129,10 @@ public class CharityDaoImpl implements CharityDao {
 	public List<Charity> selectAllByUserId(Member member) {
 
 		// sql = "SELECT * FROM charity WHERE userid=?";
-		
 		// 이 method의 userid는 userid인가 username인가?
-		
 		// 이 method의 존재 이유는?
-		
-		
+						
+				
 		return null;
 	}
 
@@ -143,6 +141,41 @@ public class CharityDaoImpl implements CharityDao {
 
 		// 무슨 용도로 만든 method인가?
 		
+	
+		sql = "SELECT Counts, name FROM (";
+		sql += "SELECT COUNT(*) AS Counts, charity.userid";
+		sql += " FROM charity, member";
+		sql += " WHERE member.userid = charity.userid";
+		sql += " GROUP BY charity.userid) c,";
+		sql += " member m";
+		sql += " WHERE c.userid = m.userid;";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(rs!=null)	rs.close();
+					if(ps!=null)	ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+						
 		return null;
 	}
 
