@@ -1,0 +1,29 @@
+package service.animal;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.file.Animal_FileDao;
+import dto.animal.Animal;
+
+public interface AnimalService {
+
+	//동물 정보 전체 조회
+	public List<Animal> selectAnimal();
+		
+	//동물 정보 전체 조회
+	public Animal selectAnimalByanimal_Code(Animal animal);
+		
+	//동물 정보 삽입
+	public void insertAnimal(Animal animal, Animal_FileDao animal_file);
+		
+	//동물 정보 수정
+	public void updateAnimalByAnimal_Code(Animal animal);
+		
+	//동물 정보 삭제
+	public void deleteAnimalByAnimal_Code(Animal animal);
+	
+	public Animal getParam(HttpServletRequest req, HttpServletResponse resp);
+}

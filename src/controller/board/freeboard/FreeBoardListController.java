@@ -1,0 +1,18 @@
+package controller.board.freeboard;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+import service.board.Free_BoardService;
+import service.board.Free_BoardServiceImpl;
+
+/**
+ * Servlet implementation class FreeBoardList
+ */
+@WebServlet("/freeboard/list")
+public class FreeBoardListController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private Free_BoardService freeboardService = new Free_BoardServiceImpl();
+
+}

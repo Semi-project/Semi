@@ -1,0 +1,30 @@
+package controller.member;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.member.MemberDao;
+import dao.member.MemberDaoImpl;
+
+/**
+ * Servlet implementation class MemberFindIDController
+ */
+@WebServlet("/member/findid")
+public class MemberFindIdController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private MemberDao memberDao = new MemberDaoImpl();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	};
+
+}
