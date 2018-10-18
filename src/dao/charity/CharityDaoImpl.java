@@ -128,7 +128,11 @@ public class CharityDaoImpl implements CharityDao {
 	@Override
 	public List<Charity> selectAllByUserId(Member member) {
 
-		sql = "SELECT * FROM charity WHERE userid=?";
+		// sql = "SELECT * FROM charity WHERE userid=?";
+		
+		// 이 method의 userid는 userid인가 username인가?
+		
+		// 이 method의 존재 이유는?
 		
 		
 		return null;
