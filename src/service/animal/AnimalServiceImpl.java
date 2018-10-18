@@ -12,6 +12,7 @@ import dao.animal.SpeciesDaoImpl;
 import dao.file.Animal_FileDao;
 import dao.file.Animal_FileDaoImpl;
 import dto.animal.Animal;
+import dto.file.Animal_Filetb;
 
 public class AnimalServiceImpl implements AnimalService {
 
@@ -22,31 +23,39 @@ public class AnimalServiceImpl implements AnimalService {
 
 	@Override
 	public List<Animal> selectAnimal() {
-		// TODO Auto-generated method stub
-		return null;
+		 
+		return animalDao.selectAnimal();
 	}
 
 	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return animalDao.selectAnimalByanimal_Code(animal);
 	}
 
 	@Override
-	public void insertAnimal(Animal animal, Animal_FileDao animal_file) {
-		// TODO Auto-generated method stub
+	public void insertAnimal(Animal animal, Animal_Filetb animal_file) {
+		
+		animalDao.insertAnimal(animal);
+		
+		animal_fileDao.insertFiletb(animal_file);
+		
 
 	}
 
 	@Override
 	public void updateAnimalByAnimal_Code(Animal animal) {
-		// TODO Auto-generated method stub
+		 
+		animalDao.updateAnimalByAnimal_Code(animal);
 
 	}
 
 	@Override
 	public void deleteAnimalByAnimal_Code(Animal animal) {
-		// TODO Auto-generated method stub
+
+		
+		animalDao.deleteAnimalByAnimal_Code(animal);
+		
 
 	}
 

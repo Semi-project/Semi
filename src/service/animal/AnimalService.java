@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.file.Animal_FileDao;
 import dto.animal.Animal;
+import dto.file.Animal_Filetb;
 
 public interface AnimalService {
 
@@ -17,7 +17,7 @@ public interface AnimalService {
 	public Animal selectAnimalByanimal_Code(Animal animal);
 		
 	//동물 정보 삽입
-	public void insertAnimal(Animal animal, Animal_FileDao animal_file);
+	public void insertAnimal(Animal animal, Animal_Filetb animal_file);
 		
 	//동물 정보 수정
 	public void updateAnimalByAnimal_Code(Animal animal);
