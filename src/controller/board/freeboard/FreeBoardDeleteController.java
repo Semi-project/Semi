@@ -1,12 +1,7 @@
 package controller.board.freeboard;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import service.board.Free_BoardService;
 import service.board.Free_BoardServiceImpl;
