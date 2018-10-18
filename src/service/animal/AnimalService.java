@@ -23,7 +23,7 @@ public interface AnimalService {
 	public void updateAnimalByAnimal_Code(Animal animal);
 		
 	//동물 정보 삭제
-	public void deleteAnimalByAnimal_Code(Animal animal);
+	public void deleteAnimalByAnimal_Code(Animal animal, Animal_Filetb animal_filetb);
 	
 	public Animal getParam(HttpServletRequest req, HttpServletResponse resp);
 }

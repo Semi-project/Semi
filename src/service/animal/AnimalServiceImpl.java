@@ -31,13 +31,17 @@ public class AnimalServiceImpl implements AnimalService {
 	public Animal selectAnimalByanimal_Code(Animal animal) {
 		
 		return animalDao.selectAnimalByanimal_Code(animal);
+		
+		
 	}
 
 	@Override
 	public void insertAnimal(Animal animal, Animal_Filetb animal_file) {
 		
+		// 동물정보 입력
 		animalDao.insertAnimal(animal);
 		
+		// 동물 사진 입력
 		animal_fileDao.insertFiletb(animal_file);
 		
 
@@ -51,10 +55,14 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public void deleteAnimalByAnimal_Code(Animal animal) {
+	public void deleteAnimalByAnimal_Code(Animal animal, Animal_Filetb animal_filetb) {
 
+		// 해당 동물사진 삭제
+		animal_fileDao.deleteFiletbByAnimalCode(animal_filetb);
 		
+		// 해당 동물정보 삭제
 		animalDao.deleteAnimalByAnimal_Code(animal);
+		
 		
 
 	}
