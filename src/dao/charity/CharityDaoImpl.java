@@ -30,12 +30,14 @@ public class CharityDaoImpl implements CharityDao {
 	@Override
 	public List<Charity> selectAll(Charity charity) {
 		
-		sql = "SELECT * FROM charity";
+		sql = "SELECT * FROM charity WHERE userid=?";
 		
 		List<Charity> list = new ArrayList<>();
 		
 		try {
 			ps = conn.prepareStatement(sql);
+			// 해당 userid 자료만 가져오기
+			ps.setString(1, charity.getUserId());
 			
 			rs = ps.executeQuery();
 			
@@ -44,7 +46,6 @@ public class CharityDaoImpl implements CharityDao {
 				charity.setCharity_Code( rs.getInt("charity_code"));
 				charity.setCharity_Cate_Code( rs.getInt("charity_cate_code"));
 				charity.setCharity_Amount( rs.getInt("charity_amount"));
-				charity.setUserId( rs.getString("userid"));
 				charity.setCharity_Date(rs.getDate("charity_date"));
 				charity.setCharity_Payment( rs.getInt("charity_payment_code"));
 				
@@ -126,7 +127,10 @@ public class CharityDaoImpl implements CharityDao {
 
 	@Override
 	public List<Charity> selectAllByUserId(Member member) {
-		// TODO Auto-generated method stub
+
+		sql = "SELECT * FROM charity WHERE userid=?";
+		
+		
 		return null;
 	}
 
