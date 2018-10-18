@@ -63,7 +63,6 @@ public class AnimalServiceImpl implements AnimalService {
 		// 해당 동물정보 삭제
 		animalDao.deleteAnimalByAnimal_Code(animal);
 		
-		
 
 	}
 
