@@ -29,10 +29,10 @@ public class QnABoardUpdateController extends HttpServlet {
 //			return;
 		
 		// 게시글 조회수행
-		QnA qnaView = qnaService.viewQnA(qna);
+//		QnA qnaView = qnaService.viewQnA(qna);
 	
 		// MODEL 전달
-		req.setAttribute("qnaView", qnaView);
+//		req.setAttribute("qnaView", qnaView);
 		
 		//글 작성자 닉네임 전달
 		
@@ -48,7 +48,7 @@ public class QnABoardUpdateController extends HttpServlet {
 	
 		req.setCharacterEncoding("UTF-8");
 		
-		qnaService.updateQnA(req);
+		//qnaService.updateQnA(req);
 		
 		resp.sendRedirect("/qnaboard/list");
 		

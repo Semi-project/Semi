@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Free_Board {
 
-	private int boradno; //게시글 코드
+	private int boardno; //게시글 코드
 	private int cateno; // 게시판코드
 	private String title; // 글제목
 	private String content; // 글내용
@@ -13,18 +13,12 @@ public class Free_Board {
 	private int hit ; //조회수
 	private String userid; //작성자
 	private int recommend; //추천수
-
-	@Override
-	public String toString() {
-		return "Free_Board [boradno=" + boradno + ", cateno=" + cateno + ", title=" + title + ", content=" + content
-				+ ", insert_Dat=" + insert_Dat + ", update_Dat=" + update_Dat + ", hit=" + hit + ", userid=" + userid
-				+ ", recommend=" + recommend + "]";
+	
+	public int getBoardno() {
+		return boardno;
 	}
-	public int getBoradno() {
-		return boradno;
-	}
-	public void setBoradno(int boradno) {
-		this.boradno = boradno;
+	public void setBoardno(int boardno) {
+		this.boardno = boardno;
 	}
 	public int getCateno() {
 		return cateno;
@@ -74,6 +68,12 @@ public class Free_Board {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
+	@Override
+	public String toString() {
+		return "Free_Board [boardno=" + boardno + ", cateno=" + cateno + ", title=" + title + ", content=" + content
+				+ ", insert_Dat=" + insert_Dat + ", update_Dat=" + update_Dat + ", hit=" + hit + ", userid=" + userid
+				+ ", recommend=" + recommend + "]";
+	}
 
-
+	
 }

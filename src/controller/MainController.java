@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementatssssssssssssion class MainController
+ * Servlet implementation class MainController
  */
 @WebServlet("/main")
 public class MainController extends HttpServlet {
