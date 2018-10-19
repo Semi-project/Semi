@@ -10,6 +10,8 @@ public interface MemberDao {
 
 	public List<Member> selectMemberAll();
 
+	public Member selectUseridByUserInfo(Member member);
+
 	// 회원가입
 	public int insertMember(Member member);
 
@@ -24,6 +26,8 @@ public interface MemberDao {
 
 	// 유저 id check
 	public int selectCntMemberByUserId(Member member);
+
+
 	// 유저 id+pw check
 	public int selectCntMemberByUser(Member member);
 	
@@ -35,4 +39,5 @@ public interface MemberDao {
 	
 	
 	
+
 }

@@ -9,11 +9,8 @@ public interface Animal_FileDao {
 	//삽입
 	public void insertFiletb(Animal_Filetb animal_filetb);
 	
-	//업데이트
-	public void updateFiletbByfileno(Animal_Filetb animal_filetb);
-
 	//삭제
-	public void deleteFiletbByfileno(Animal_Filetb animal_filetb);
+	public void deleteFiletbByAnimalCode(Animal_Filetb animal_filetb);
 	
 	//리스트
 	public List<Animal_Filetb> selectFiletbAll();

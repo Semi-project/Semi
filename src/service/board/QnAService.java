@@ -21,7 +21,11 @@ public interface QnAService {
 	public void deleteQnA(QnA qna);
 	
 	// 자유게시판 수정
+
+	public void updateQnA(QnA qna);// , File file);
+
 	public void updateQnA(QnA qna , QnA_Filetb QnA_File);// , File file);
+
 	
 	//게시판 제목으로 찾기
 	public String searchQnABytitle(QnA qna);

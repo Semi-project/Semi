@@ -12,7 +12,7 @@ import dao.board.Notice_BoardDaoImpl;
 import dao.comment.Notice_CommentDao;
 import dao.comment.Notice_CommentDaoImpl;
 import dao.file.Notice_FileDao;
-import dao.file.Notice_FileDaoImpl;
+import dao.file.Notice_FileDaoImpl123;
 import dto.board.Notice_Board;
 import dto.file.Notice_Filetb;
 import util.Paging;
@@ -20,7 +20,7 @@ import util.Paging;
 public class Notice_BoardServiceImpl implements Notice_BoardService {
 
 	private Notice_CommentDao notice_CommentDao = new Notice_CommentDaoImpl();
-	private Notice_FileDao notice_fileDao = new Notice_FileDaoImpl();
+	private Notice_FileDao notice_fileDao = new Notice_FileDaoImpl123();
 	private Notice_BoardDao notice_boardDao = new Notice_BoardDaoImpl();
 	private BoardCateDao board_cateDao = new BoardCateDaoImpl();
 

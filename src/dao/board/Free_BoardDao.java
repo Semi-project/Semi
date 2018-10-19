@@ -14,7 +14,7 @@ public interface Free_BoardDao {
 	public void insertFreeBoard(Free_Board freeBoard);
 
 	// 게시판 글읽기
-	public String viewFreeBoard(Free_Board freeBoard);
+	public Free_Board viewFreeBoard(Free_Board freeBoard);
 
 	// 게시판 글 수정
 	public void updateFreeBoard(Free_Board freeBoard);

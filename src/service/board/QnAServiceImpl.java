@@ -34,17 +34,23 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public void writeQnA(QnA qna, QnA_Filetb QnA_File) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void deleteQnA(QnA qna) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
+
+	public void updateQnA(QnA qna) {
+		// TODO Auto-generated method stub
+
+
 	public void updateQnA(QnA qna, QnA_Filetb QnA_File) {
 		// TODO Auto-generated method stub
 		
+
 	}
 	@Override
 	public String searchQnABytitle(QnA qna) {
@@ -74,7 +80,7 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public void updateRecommend(QnA qna) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public QnA searchByComment_no(QnA qna) {

@@ -6,7 +6,10 @@ import javax.servlet.http.HttpServlet;
 import service.charity.CharityService;
 import service.charity.CharityServiceImpl;
 
+
+
 @WebServlet("/charity/list")
+
 public class ChraitySelectController  extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
