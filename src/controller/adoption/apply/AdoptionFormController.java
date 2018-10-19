@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.adoption.AdoptionService;
 import service.adoption.AdoptionServiceImpl;
+import service.animal.AnimalService;
+import service.animal.AnimalServiceImpl;
 
 /**
- * Servlet implementation class AdoptionForm  
+ * Servlet implementation class AdoptionForm
  */
 @WebServlet("/adoption/form")
 public class AdoptionFormController extends HttpServlet {

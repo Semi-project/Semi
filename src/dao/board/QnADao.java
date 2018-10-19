@@ -15,7 +15,7 @@ public interface QnADao {
 		public void insertQnA(QnA qna);
 
 		// QnA 글읽기
-		public QnA selectQnAByBoardno(QnA qna);
+		public String viewQnA(QnA qna);
 
 		// QnA 글 수정
 		public void updateQnA(QnA qna);
@@ -23,26 +23,24 @@ public interface QnADao {
 		// QnA 글 삭제
 		public void deleteQnA(QnA qna);
 
+		// QnA 글 찾기
+		public String findQnA(QnA qna);
+
 		// QnA 리스트 페이징 처리
 		public List<QnA> selectQnAPagingList(Paging paging);
 
 		// QnA 총 글수 출력
 		public int selectQnACntAll();
-		
-		// QnA 다음게시글 반환
-		public int selectBoardno();
 
 		//QnA 제목으로 찾기
-		public QnA selectQnABytitle(QnA qna);
+		public String selectQnAByTitle(QnA qna);
 
-		//QnA 내용으로 찾기
-		public QnA selectQnABycontent(QnA qna);
+		//QnA내용으로 찾기
+		public String selectQnAByContent(QnA qna);
 
 		// QnA 아이디로 찾기
-		public QnA selectByuserid(QnA qna);
+		public String selectByuserId(QnA qna);
 		
 		// 댓글번호로 조회
-		public QnA selectByComment_no(QnA qna);
-		
-		
+		public QnA selectByComment_No(QnA qna);
 }

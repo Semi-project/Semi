@@ -1,19 +1,19 @@
 package service.member;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.member.MemberDao;
 import dao.member.MemberDaoImpl;
-import dao.member.RoleDao;
-import dao.member.RoleDaoImpl;
-import dao.member.SubscriptionDao;
-import dao.member.SubscriptionDaoImpl;
 import dto.member.Member;
-import dto.member.Subscription;
 
 public class MemberServiceImpl implements MemberService {
-	private MemberDao MemberDao = new MemberDaoImpl();
+	private MemberDao memberDao = new MemberDaoImpl();
 
 	@Override
 	public Member login(Member member) {
@@ -24,31 +24,30 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void logout(Member member) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Member selectMemberByUserId(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberDao.selectMemberByUserId(member);
 	}
 
 	@Override
 	public void updateMember(Member member) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void updateMemberPassword(Member member) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteMemberByUserId(Member member) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -65,14 +64,53 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member getParam(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
+		Member member = new Member();
+		DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		member.setUserid(req.getParameter("userid"));
+		try {
+			if ((req.getParameter("userbirth") != null))
+				member.setUserbirth(sdFormat.parse((req.getParameter("userbirth"))));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		member.setName(req.getParameter("username"));
+		// System.out.println(member.getName());
+		member.setUserpw(req.getParameter("userpw"));
+		member.setGender(req.getParameter("gender"));
+		member.setAddress(req.getParameter("address"));
+		member.setPhone(req.getParameter("smartPhone"));
+		member.setEmail(req.getParameter("email"));
+
+//		System.out.println(req.getParameter("subscriptionNews"));
+//		System.out.println(req.getParameter("subscriptionSms"));
+//		
+		return member;
 	}
 
 	@Override
-	public void join(Member param) {
+	public int join(Member param) {
+
+		return memberDao.insertMember(param);
+
+	}
+
+	@Override
+	public int checkUserId(Member member) {
+
+		return memberDao.selectCntMemberByUserId(member);
+	}
+
+	@Override
+	public int checkUserEmail(Member member) {
 		// TODO Auto-generated method stub
-		
+		return memberDao.selectCntMemberByUserEmail(member);
+	}
+
+	@Override
+	public int checkUser(Member member) {
+
+		return memberDao.selectCntMemberByUser(member);
 	}
 
 }

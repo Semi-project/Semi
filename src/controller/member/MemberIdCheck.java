@@ -25,7 +25,7 @@ MemberService memberService = new MemberServiceImpl();
 //		System.out.println(req.getParameter("userid"));
 		Member member = new Member();
 		member.setUserid(req.getParameter("userid"));
-//		int cnt=memberService.checkUserId(member);
-//		resp.getWriter().println(cnt);
+		int cnt=memberService.checkUserId(member);
+		resp.getWriter().println(cnt);
 	}
 }
