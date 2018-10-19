@@ -31,7 +31,6 @@ public class AdoptionRe_ListController extends HttpServlet {
 		
 		req.getRequestDispatcher("/view/adoption/send/adoptionSendList.jsp").forward(req, resp);
 		
-		
 	}
 	
 }
