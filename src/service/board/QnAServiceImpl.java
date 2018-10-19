@@ -109,7 +109,7 @@ public class QnAServiceImpl implements QnAService {
 					qna_Filetb = new QnA_Filetb();
 					qna_Filetb.setFile_OriginName(item.getName());
 					qna_Filetb.setFile_SaveName(save);
-					qna_Filetb.setFilesize(item.getSize());
+				//	qna_Filetb.setFilesize(item.getSize());
 
 					try {
 						item.write(up);
@@ -216,7 +216,7 @@ public class QnAServiceImpl implements QnAService {
 					qna_Filetb = new QnA_Filetb();
 					qna_Filetb.setFile_OriginName(item.getName());
 					qna_Filetb.setFile_SaveName(save);
-					qna_Filetb.setFilesize(item.getSize());
+					//qna_Filetb.setFilesize(item.getSize());
 
 					try {
 						item.write(up);
