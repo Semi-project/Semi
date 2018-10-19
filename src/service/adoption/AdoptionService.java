@@ -9,6 +9,7 @@ import dto.adoption.Adoption;
 import util.Paging;
 
 public interface AdoptionService {
+	
 	// 입양신청서 리스트 출력 (페이징)
 	public List<Adoption> getPagingList(Paging paging);
 
