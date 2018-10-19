@@ -6,6 +6,9 @@ import dto.animal.Animal;
 
 public interface AnimalDao {
 
+	// 새로운 게시글 넘버 
+	public int selectSeqNextval();
+	
 	// 입양보내기 승인된 동물들
 	public List<Animal> selectAnimal();
 

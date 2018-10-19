@@ -22,6 +22,28 @@ public class AnimalDaoImpl implements AnimalDao {
 	private String sql;
 
 	@Override
+	public int selectSeqNextval() {
+
+		sql = "SELECT animal_seq.nextval FROM dual";
+		
+		int animalSeqNext = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+					
+			while(rs.next())
+				animalSeqNext = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return animalSeqNext;
+	}
+	
+	@Override
 	public List<Animal> selectAnimal() {
 
 		sql = "SELECT * FROM animal WHERE status=0 ORDER BY animal_code DESC";
@@ -253,5 +275,6 @@ public class AnimalDaoImpl implements AnimalDao {
 			}
 		}
 	}
+
 
 }
