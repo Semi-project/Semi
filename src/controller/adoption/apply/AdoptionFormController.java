@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.adoption.AdoptionService;
 import service.adoption.AdoptionServiceImpl;
-import service.animal.AnimalService;
-import service.animal.AnimalServiceImpl;
 
 /**
  * Servlet implementation class AdoptionForm  
