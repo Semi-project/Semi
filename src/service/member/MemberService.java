@@ -35,6 +35,10 @@ public interface MemberService {
 	//파라미터 받기 
 	public Member getParam(HttpServletRequest req, HttpServletResponse resp);
 
-	public void join(Member param);
+	public int join(Member param);
+	
+	public int checkUserId(Member member);
+	public int checkUser(Member member);
+	public int checkUserEmail(Member member);
 
 }

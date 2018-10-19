@@ -1,16 +1,11 @@
 package dao.file;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import dto.file.Animal_Filetb;
-import util.DBConn;
 
 public class Animal_FileDaoImpl implements Animal_FileDao {
+
 
 	private Connection conn = DBConn.getConnection();
 	private PreparedStatement ps = null;
@@ -67,10 +62,24 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 				e.printStackTrace();
 			}
 		}
+
+	private Animal_Filetb animal_File = new Animal_Filetb();
+
+	@Override
+	public void insertFiletb(Animal_Filetb animal_filetb) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	public void updateFiletbByfileno(Animal_Filetb animal_filetb) {
+		// TODO Auto-generated method stub
+
+		
+	}
+
+	@Override
+
 	public List<Animal_Filetb> selectFiletbByBoardno(Animal_Filetb animal_filetb) {
 		 
 		List<Animal_Filetb> list = new ArrayList<>();
@@ -112,5 +121,17 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		}
 		
 		return list;
+
+	public void deleteFiletbByfileno(Animal_Filetb animal_filetb) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public List<Animal_Filetb> selectFiletbAll() {
+		// TODO Auto-generated method stub
+		return null;
+
+	}
+
 }

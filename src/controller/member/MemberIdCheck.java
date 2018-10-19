@@ -15,7 +15,7 @@ import service.member.MemberServiceImpl;
 /**
  * Servlet implementation class MemberIdCheck
  */
-@WebServlet("/member/memberidcheck")
+@WebServlet("/member/check")
 public class MemberIdCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 MemberService memberService = new MemberServiceImpl();
@@ -25,7 +25,7 @@ MemberService memberService = new MemberServiceImpl();
 //		System.out.println(req.getParameter("userid"));
 		Member member = new Member();
 		member.setUserid(req.getParameter("userid"));
-//		int cnt=memberService.checkUserId(member);
-//		resp.getWriter().println(cnt);
+		int cnt=memberService.checkUserId(member);
+		resp.getWriter().println(cnt);
 	}
 }

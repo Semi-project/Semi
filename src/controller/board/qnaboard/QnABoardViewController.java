@@ -4,6 +4,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 
+
+
+
 import service.board.QnAService;
 import service.board.QnAServiceImpl;
 
@@ -13,4 +16,13 @@ public class QnABoardViewController extends HttpServlet {
 
 	private QnAService qnaService = new QnAServiceImpl();
 	
+
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		req.getRequestDispatcher("/qnaboard/qnaview.jsp").forward(req, resp);
+		
+	}
+
 }
