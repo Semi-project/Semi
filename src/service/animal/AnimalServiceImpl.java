@@ -28,6 +28,12 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
+	public List<Animal> selectAnimalnotAutho() {
+		
+		return animalDao.selectAnimalnotAutho();
+	}
+	
+	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
 		
 		return animalDao.selectAnimalByanimal_Code(animal);
@@ -75,5 +81,7 @@ public class AnimalServiceImpl implements AnimalService {
 		
 		return animal;
 	}
+
+	
 
 }

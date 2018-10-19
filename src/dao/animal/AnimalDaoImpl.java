@@ -123,7 +123,6 @@ public class AnimalDaoImpl implements AnimalDao {
 		return list;
 	}
 	
-
 	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
 
@@ -164,19 +163,20 @@ public class AnimalDaoImpl implements AnimalDao {
 	public void insertAnimal(Animal animal) {
 		
 		sql = "INSERT INTO animal";
-		sql += " VALUES (animal.seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			ps = conn.prepareStatement(sql);
 			
-			ps.setString(1, animal.getAnimal_Name());
-			ps.setInt(2, animal.getAnimal_Age());
-			ps.setString(3, animal.getAnimal_Gender_Code());
-			ps.setString(4, animal.getAnimal_Gr());
-			ps.setString(5, animal.getAnimal_Neuters());
-			ps.setString(6, animal.getAnimal_Feature());
-			ps.setInt(7, 0);
-			ps.setInt(8, animal.getSpecies_Code());
+			ps.setInt(1, selectSeqNextval());
+			ps.setString(2, animal.getAnimal_Name());
+			ps.setInt(3, animal.getAnimal_Age());
+			ps.setString(4, animal.getAnimal_Gender_Code());
+			ps.setString(5, animal.getAnimal_Gr());
+			ps.setString(6, animal.getAnimal_Neuters());
+			ps.setString(7, animal.getAnimal_Feature());
+			ps.setInt(8, 0);
+			ps.setInt(9, animal.getSpecies_Code());
 			
 			ps.executeUpdate();
 			
