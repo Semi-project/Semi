@@ -21,16 +21,70 @@
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-<script src="https://code.jquery.com/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 <script>
-var checkid;
+	var checkid = -1;// 아이디 유효성 
+	var checkpw; // 비밀번호 유효성 
+
+	var mail = -1; //이메일
+	var regExp1 = /^[a-zA-Z0-9]{5,13}$/;
+	//id와 비밀번호의 유효성 검사
+	var regExp2 = /[a-z0-9]{4,}@[a-z0-9-]{2,}\.[a-z0-9]{2,}/i;
+	//e-mail의 유효성 검사
+	var regname = /^[가-힝]{2,}$/;
+	//이름의 유효성 검사
+	function checkPassword(password, id) {
+
+		if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+				.test(password)) {
+			alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+			$('#password').val('').focus();
+			return false;
+		}
+		var checkNumber = password.search(/[0-9]/g);
+		var checkEnglish = password.search(/[a-z]/ig);
+		if (checkNumber < 0 || checkEnglish < 0) {
+			alert("숫자와 영문자를 혼용하여야 합니다.");
+			$('#password').val('').focus();
+			return false;
+		}
+		if (/(\w)\1\1\1/.test(password)) {
+			alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+			$('#password').val('').focus();
+			return false;
+		}
+
+		if (password.search(id) > -1) {
+			alert("비밀번호에 아이디가 포함되었습니다.");
+			$('#password').val('').focus();
+			return false;
+		}
+		return true;
+	}
 
 	$(document)
 			.ready(
 					function() {
-						
+						$("#userid").keyup(function() {
+							if ($(this).val().length > 13) {
+								alert('아이디가 너무 깁니다.');
+								$(this).val($(this).val().substr(0, 13));
+
+							}
+						});
+						$("#userpw").change(
+								function() {
+									checkPassword($('#userpw').val(), $(
+											'#userid').val());
+								});
+						$("#userpwCheck").change(function() {
+
+							if ($("#userpw").val() != $("#userpwCheck").val()) {
+								alert("비밀번호가 다릅니다 다시 입력해주세요");
+							}
+						});
 						$("#btn")
 								.click(
 										function() {
@@ -108,72 +162,204 @@ var checkid;
 						});
 
 						$("#check").click(function() {
-							
-							$.ajax({
-								type : "post",
-								url : "/member/memberidcheck",
-								data : {
-									userid : $("#userid").val()
+							if (!regExp1.test($("#userid").val())) {
+								alert("형식에 맞춰 ID를 입력하세요");
+								$("#userid").val('');
+								$("#userid").focus();
+								return false;
 
-								},
-								dataType : "json",
-								success : function(d) {
-									//console.log("성공");
-									//console.log(d.two);
-									checkid=d;
-									if (d == 0) {
-										alert("사용가능한 아이디입니다.");
-									} else {
-										alert("아이디가 중복됩니다.");
-									}
+							} else {
+								if ($("#userid").val().length < 5) {
+									alert('아이디가 너무 짧습니다.');
+								} else {
+									$.ajax({
+										type : "post",
+										url : "/member/memberidcheck",
+										data : {
+											userid : $("#userid").val()
 
-								},
-								error : function() {
+										},
+										dataType : "json",
+										success : function(d) {
+											//console.log("성공");
+											//console.log(d.two);
+											checkid = d;
+											if (d == 0) {
+												alert("사용가능한 아이디입니다.");
+											} else {
+												alert("아이디가 중복됩니다.");
+											}
 
-									console.log("실패");
+										},
+										error : function() {
+
+											console.log("실패");
+										}
+
+									});
 								}
-
-							});
+							}//endof first if 
 						});
 
 						$("#check2").click(function() {
 							var email = "";
 							email += $("#email").val();
 							email += $("#email2").val();
-							console.log(email);
-							$.ajax({
-								type : "post",
-								url : "/member/membercheckemail",
-								data : {
-									useremail : email
+							//console.log(email);
+							if (!regExp2.test(email)) {
+								alert("이메일을 다시 입력해주세요");
+							} else {
 
-								},
-								dataType : "json",
-								success : function(d) {
-									//console.log("성공");
-									//console.log(d);
-									//console.log(d.two);
-									if(d==0){
-										alert("사용 할 수 있는 이메일 입니다.");
-										
-									}else{
-										alert("중복된 이메일입니다 다른 이메일을 입력해주세요");
+								$.ajax({
+									type : "post",
+									url : "/member/membercheckemail",
+									data : {
+										useremail : email
+
+									},
+									dataType : "json",
+									success : function(d) {
+										//console.log("성공");
+										console.log(d);
+										//console.log(d.two);
+										mail=d;
+										if (d == 0) {
+											alert("사용 할 수 있는 이메일 입니다.");
+
+										} else {
+											alert("중복된 이메일입니다 다른 이메일을 입력해주세요");
+										}
+
+									},
+									error : function() {
+
+										console.log("실패");
 									}
 
-								},
-								error : function() {
+								});
 
-									console.log("실패");
-								}
+							}
+						});
+						$("#join").click(
+								
+								function() {
+									var username=$("#name").val();
+									var userid=$("#userid").val();
+									var userbirth=$("#birth").val();
+									var userpw=$("#userpw").val();
+									var gender=$("input[name='gender']:checked").val(); // 성별 입력
+									var address=$("#home").val();
+									address+=$("#homeAddress").val();// 주소  
+									var phone=$("#phone1").val();
+									phone+=$("#phone2").val();//전화번호
+									phone+=$("#phone3").val();
+									var smartPhone=$("#smartPhone").val();
+									smartPhone+=$("#smartPhone1").val();// 휴대폰
+									smartPhone+=$("#smartPhone2").val();
+									var email = "";
+									email += $("#email").val();
+									email += $("#email2").val();
+									var subscriptionNews=$("input[name='news']:checked").val(); //수신동의 체크 이메일 
+									var subscriptionSms=$("input[name='sms']:checked").val(); // 수신동의 체크 sms 
+									//console.log(checkid);
+									console.log(userbirth);
 
-							});
-						});
-						$("#join").click(function(){
-							console.log(checkid);
-						});
+									if (!regname.test($("#name").val())) {
+										alert("이름을  확인해주세요");
+										$("#name").focus();
+										return false;
+									}
+									if ($("#birth").val() == "") {
+										alert("생년월일을 입력해주세요");
+										$("#birth").focus();
+										return false;
+									}
+									if ($("#userid").val() == "") {
+										alert("아이디를 입력해주세요");
+										$("#userid").focus();
+										return false;
+									}
+									if ($("#userpw").val() == "") {
+										alert("비밀번호를 입력해주세요");
+										$("#userpw").focus();
+										return false;
+									}
+									if ($("#postcode").val() == "") {
+										alert("우편번호를 입력해주세요");
+										$("#postcode").focus();
+										return false;
+									}
+									if ($("#phone1").val() == ""
+											|| $("#phone2").val() == ""
+											|| $("#phone3").val() == "") {
+										alert("전화번호를 입력해주세요");
+										$("#phone2").focus();
+										return false;
+									}
+
+									if ($("#smartPhone1").val() == ""
+											|| $("#smartPhone2").val() == "") {
+										alert("휴대전화 번호를 입력해주세요");
+										$("#smartPhone1").focus();
+										return false;
+									}
+									if ($("#email").val() == ""
+											|| $("#email2").val() == "") {
+										alert("이메일을 입력해주세요");
+										$("#email").focus();
+										return false;
+									}
+									if(checkid==-1){
+										alert("아이디 중복검사를 해주세요");
+										$("#check").focus();
+										return false;
+									}
+									if(mail==-1){
+										alert("이메일 중복검사를 해주세요");
+										$("#check2").focus();
+										return false;
+									}
+									
+									$.ajax({
+										type : "post",
+										url : "/member/join",
+										data : {
+											userid : userid,
+											userbirth:userbirth,
+											userpw:userpw,
+											username:username,
+											gender:gender,
+											address:address,
+											phone:phone,
+											smartPhone:smartPhone,
+											email : email,
+											subscriptionNews:subscriptionNews,
+											subscriptionSms:subscriptionSms
+											
+
+										},
+										dataType : "json",
+										success : function(d) {
+											console.log(d);
+											if(d.subscriptionCnt==1 && d.memberCnt==1){
+												//window.location.href = "/main";
+											
+												alert("회원가입 성공");
+												location.href = "/main";
+											}else{
+												alert("회원가입 실패");
+											}
+										},
+										error : function() {
+
+											console.log("실패");
+										}
+
+									}); //endof ajax
+
+								});
 
 					});
-	
 </script>
 </head>
 <body>
@@ -209,7 +395,7 @@ var checkid;
 			</tr>
 			<tr>
 				<td>성별</td>
-				<td><input type="radio" name="gender" value="남">남 <input
+				<td><input type="radio" name="gender" value="남" >남 <input
 					type="radio" name="gender" value="여" checked>여</td>
 			</tr>
 			<tr>
@@ -259,8 +445,8 @@ var checkid;
 						<option value="010">010</option>
 						<option value="011">011</option>
 						<option value="019">019</option>
-				</select> -<input type="text" name="smartPhone1" size="5"> -<input
-					type="text" name="smartPhone2" size="5"></td>
+				</select> -<input type="text" name="smartPhone1" id="smartPhone1" size="5">
+					-<input type="text" name="smartPhone2" id="smartPhone2" size="5"></td>
 			</tr>
 			<tr>
 				<td><label for="email">이메일</label></td>
@@ -274,13 +460,13 @@ var checkid;
 			</tr>
 			<tr>
 				<td><label for="news">뉴스메일 </label></td>
-				<td><input type="radio" name="news" checked>받습니다. <input
-					type="radio" name="news">받지 않습니다.</td>
+				<td><input type="radio" name="news" value="1" checked>받습니다. <input
+					type="radio" name="news" value="0">받지 않습니다.</td>
 			</tr>
 			<tr>
 				<td><label for="sms">SMS안내(이벤트)</label></td>
-				<td><input type="radio" name="sms" checked>받습니다. <input
-					type="radio" name="sms">받지 않습니다.</td>
+				<td><input type="radio" name="sms" value="1" checked>받습니다. <input
+					type="radio" name="sms" value="0">받지 않습니다.</td>
 			</tr>
 		</table>
 		<input type="button" id="join" value="회원가입">

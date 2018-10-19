@@ -3,6 +3,7 @@ package dao.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import dto.member.Member;
 import dto.member.Subscription;
@@ -17,8 +18,35 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
 	private Connection conn = DBConn.getConnection();
 
 	@Override
-	public void insertSubscription(Subscription sub) {
+	public int insertSubscription(Subscription sub) {
+		String sql = "";
+		sql += "INSERT INTO subscription(SUBSCRIPTION_NO,EMAIL_SUBSCRIPTION,SMS_SUBSCRIPTION) VALUES(subscription_seq.nextval,?,?)";
+		int cnt = -1;
+		try {
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, sub.getEmailSubscription());
+			ps.setInt(2, sub.getSmsSubscription());
+			cnt = ps.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return cnt;
 	}
 
 	@Override

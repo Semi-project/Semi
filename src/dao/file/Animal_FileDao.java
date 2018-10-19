@@ -13,6 +13,6 @@ public interface Animal_FileDao {
 	public void deleteFiletbByAnimalCode(Animal_Filetb animal_filetb);
 	
 	//리스트
-	public List<Animal_Filetb> selectFiletbByBoardno(Animal_Filetb animal_filetb);
+	public List<Animal_Filetb> selectFiletbAll();
 }
 

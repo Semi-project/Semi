@@ -25,7 +25,7 @@ public interface Free_BoardService {
 	public void deleteFreeboard(Free_Board freeBoard);
 	
 	// 자유게시판 수정
-	public void updateFreeboard(Free_Board freeBoard );//, File file);
+	public Free_Board updateFreeboard(Free_Board freeBoard );//, File file);
 	
 	//게시판 제목으로 찾기
 	public String searchFreeBoardBytitle(Free_Board freeBoard);
@@ -52,6 +52,8 @@ public interface Free_BoardService {
 
 	public Free_Board getParam(HttpServletRequest req, HttpServletResponse resp);
 	
+	//조회수올리기
+	public Free_Board view(Free_Board freeBoard);
 	
 
 }

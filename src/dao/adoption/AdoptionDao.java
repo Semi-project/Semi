@@ -33,5 +33,7 @@ public interface AdoptionDao {
 	
 	// 입양 신청하기
 	public void insertAdoption(Adoption adoption);
-
+	
+	//시퀀스 넘버 
+	public int selectSeqNextval();
 }

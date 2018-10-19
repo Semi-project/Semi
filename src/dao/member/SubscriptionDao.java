@@ -7,7 +7,7 @@ public interface SubscriptionDao {
 
 
 	//수신동의 여부
-	public void insertSubscription(Subscription sub);
+	public int insertSubscription(Subscription sub);
 
 	//유저아이디  수신여부 조회
 	public Subscription selectSubscriptionByuserId(Member member);

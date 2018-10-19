@@ -30,8 +30,8 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	
 	@Override
 	public List<Free_Board> selectFreeboard() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return freeboardDao.selectFreeBoard();
 	}
 	@Override
 	public void writeFreeboard(Free_Board freeBoard, Free_FileDao freeFileTb) {
@@ -44,8 +44,9 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 		
 	}
 	@Override
-	public void updateFreeboard(Free_Board freeBoard) {
-		// TODO Auto-generated method stub
+	public Free_Board updateFreeboard(Free_Board freeBoard) {
+	
+		return null;
 		
 	}
 	@Override
@@ -90,8 +91,22 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	}
 	@Override
 	public Free_Board getParam(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
+		Free_Board fb = new Free_Board();
+		
+		String boardno = req.getParameter("boardno");
+		//null이나 ""이 아니면 int로 변환하여 DTO에 저장
+				if( boardno != null && !"".equals(boardno) ) {
+					fb.setBoardno(Integer.parseInt(boardno));
+				}
+	
+		return fb;
+	}
+	@Override
+	public Free_Board view(Free_Board freeBoard) {
+	freeboardDao.updateHit(freeBoard);
+		
+		return freeboardDao.viewFreeBoard(freeBoard);
+		
 	}
 
 

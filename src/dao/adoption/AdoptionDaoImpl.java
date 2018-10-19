@@ -58,7 +58,13 @@ public class AdoptionDaoImpl implements AdoptionDao {
 	@Override
 	public void insertAdoption(Adoption adoption) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public int selectSeqNextval() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
