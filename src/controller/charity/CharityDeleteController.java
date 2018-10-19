@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import service.charity.CharityService;
 import service.charity.CharityServiceImpl;
 
-@WebServlet("/freeboard/delete")
+@WebServlet("/charity/delete")
 public class CharityDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

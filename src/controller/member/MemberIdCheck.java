@@ -15,7 +15,7 @@ import service.member.MemberServiceImpl;
 /**
  * Servlet implementation class MemberIdCheck
  */
-@WebServlet("/member/memberidcheck")
+@WebServlet("/member/check")
 public class MemberIdCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 MemberService memberService = new MemberServiceImpl();
