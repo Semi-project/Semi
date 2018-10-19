@@ -19,7 +19,7 @@ nhn.husky.SE_QuickEditor_Image = jindo.$Class({
         this.elEventTarget = null;
         this.elElement = null;
         this.welElement = null;
-        this.nMaxWidth = (nhn.husky.SE2M_Configuration.QuickEditor.Image.nImageMaxWidthSize || Infinity);
+        this.nMaxWidth = (nhn.husky.SE2M_Configuration.QuickEditor.Image.nImageMaxWidthSize || 4500);
         this.nMaxHeight = (nhn.husky.SE2M_Configuration.QuickEditor.Image.nImageMaxHeightSize || Infinity);
         this.bImgAutoAdjust = true;	/* true : 이미지의 가로/세로 비율을 유지함, false : 이미지의 가로/세로 비율을 유지하지 않고 각각 조절 가능함 */
     },
