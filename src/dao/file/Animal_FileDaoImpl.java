@@ -25,7 +25,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		 
 		 try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, animal_filetb.getAnimal_code());
+			ps.setInt(1, animal_filetb.getAnimal_Code());
 			ps.setString(2, animal_filetb.getFile_OriginName());
 			ps.setString(3, animal_filetb.getFilepath());
 			ps.setInt(4, animal_filetb.getFilesize());
@@ -54,7 +54,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, animal_filetb.getAnimal_code());
+			ps.setInt(1, animal_filetb.getAnimal_Code());
 			
 			ps.executeUpdate();
 			
@@ -71,7 +71,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 	}
 
 	@Override
-	public List<Animal_Filetb> selectFiletbByBoardno(Animal_Filetb animal_filetb) {
+	public List<Animal_Filetb> selectFiletbByAnimalCode(Animal_Filetb animal_filetb) {
 		 
 		List<Animal_Filetb> list = new ArrayList<>();
 		
@@ -80,7 +80,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, animal_filetb.getAnimal_code());
+			ps.setInt(1, animal_filetb.getAnimal_Code());
 			
 			rs = ps.executeQuery();
 			
@@ -89,7 +89,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 				animal_filetb = new Animal_Filetb();
 				
 				animal_filetb.setFileno( rs.getInt("fileno"));
-				animal_filetb.setAnimal_code( rs.getInt("animal_code"));
+				animal_filetb.setAnimal_Code( rs.getInt("animal_code"));
 				animal_filetb.setFile_OriginName( rs.getString("file_originName"));
 				animal_filetb.setFilepath( rs.getString("filepath"));
 				animal_filetb.setFilesize( rs.getInt("filesize"));

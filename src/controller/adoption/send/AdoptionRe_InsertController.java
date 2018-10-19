@@ -52,7 +52,6 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		// 파일명 - 싱글파일업로드와 다르게 멀티파일업로드는 HEADER로 넘어옴
 
 		String name = req.getHeader("file-name");
-
 		String ext = name.substring(name.lastIndexOf(".") + 1);
 
 		// 파일 기본경로

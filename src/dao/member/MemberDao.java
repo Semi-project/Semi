@@ -27,17 +27,10 @@ public interface MemberDao {
 	// 유저 id check
 	public int selectCntMemberByUserId(Member member);
 
-
 	// 유저 id+pw check
 	public int selectCntMemberByUser(Member member);
-	
-	
+		
 	// 유저 email check 
 	public int selectCntMemberByUserEmail(Member member);
 	
-	public Member selectUseridByUserInfo(Member member);
-	
-	
-	
-
 }

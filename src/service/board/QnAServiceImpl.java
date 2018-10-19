@@ -26,6 +26,7 @@ public class QnAServiceImpl implements QnAService {
 	private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
 	private QnA_FileDao qna_fileDao = new QnA_FileDaoImpl();
 	private QnADao qnaDao = new QnADaoImpl();
+	
 	@Override
 	public List<QnA> selectQnA() {
 		// TODO Auto-generated method stub
@@ -45,7 +46,7 @@ public class QnAServiceImpl implements QnAService {
 
 	public void updateQnA(QnA qna) {
 		// TODO Auto-generated method stub
-
+	}
 
 	public void updateQnA(QnA qna, QnA_Filetb QnA_File) {
 		// TODO Auto-generated method stub
