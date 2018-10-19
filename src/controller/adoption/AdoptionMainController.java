@@ -13,7 +13,7 @@ import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 
 /**
- * Servlet implementation class AdoptionMain
+ * Servlet implementationdddddddddddd class AdoptionMain
  */
 @WebServlet("/adoption/main")
 public class AdoptionMainController extends HttpServlet {
