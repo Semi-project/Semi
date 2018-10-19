@@ -27,6 +27,7 @@ public class AdoptionRe_ListController extends HttpServlet {
 		
 		List<Animal> list = animalService.selectAnimal();
 		
+		req.setAttribute("list", list);
 		
 		req.getRequestDispatcher("/view/adoption/send/adoptionSendList.jsp").forward(req, resp);
 		

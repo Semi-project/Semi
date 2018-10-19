@@ -37,7 +37,7 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 
 		// naver smart Editor 2.0에서 GET으로 보낸 값 가져오는거 확인
-		//		System.out.println(animal.getAnimal_Feature());
+//		System.out.println(animal.getAnimal_Feature());
 
 		req.getRequestDispatcher("/view/adoption/send/adoptionSend.jsp").forward(req, resp);
 
@@ -105,8 +105,6 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		//파일 저장경로
 		System.out.println(sFileInfo);
 		resp.getWriter().println(sFileInfo);
-		
-		resp.sendRedirect("/adoption/send/list");
 
 	}
 
