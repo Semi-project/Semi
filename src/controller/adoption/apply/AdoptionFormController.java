@@ -14,7 +14,7 @@ import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 
 /**
- * Servlet implementation class AdoptionForm
+ * Servlet implementation class AdoptionForm  
  */
 @WebServlet("/adoption/form")
 public class AdoptionFormController extends HttpServlet {
