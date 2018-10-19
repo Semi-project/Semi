@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<jsp:include page="/view/layout/header.jsp" />
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="/view/adoption/send/se2/js/HuskyEZCreator.js" charset="UTF-8"></script>
 
@@ -37,10 +33,6 @@ $(function(){
 
 </script>
 
-
-<body>
-
-
 <h3>네이버 스마트 에디터 2.0</h3>
 <hr>
 
@@ -52,5 +44,4 @@ $(function(){
 
 </form>
 
-</body>
-</html>
+<jsp:include page="/view/layout/footer.jsp" />

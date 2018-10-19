@@ -10,9 +10,12 @@ import dto.file.Animal_Filetb;
 
 public interface AnimalService {
 
-	//동물 정보 전체 조회
+	// 입양보내기 승인된 동물들
 	public List<Animal> selectAnimal();
 		
+	// 입양보내기 승인되지 않은 동물들
+	public List<Animal> selectAnimalnotAutho();
+	
 	//동물 정보 전체 조회
 	public Animal selectAnimalByanimal_Code(Animal animal);
 		
