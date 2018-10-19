@@ -24,7 +24,7 @@ public class MemberEmailCheck extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Member member = new Member();
 		member.setEmail(req.getParameter("useremail"));
-//		int cnt=memberService.checkUserEmail(member);
-//		resp.getWriter().println(cnt);
+		int cnt=memberService.checkUserEmail(member);
+		resp.getWriter().println(cnt);
 	}
 }

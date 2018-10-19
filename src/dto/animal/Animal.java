@@ -1,41 +1,33 @@
 package dto.animal;
 
 public class Animal {
-	
-	//동물코드
+
+	// 동물코드
 	private int animal_Code;
-	
-	//동물 이름
-	private String animal_Name;
-	
-	//동물나이
+
+	// 동물나이
 	private int animal_Age;
-	
-	//성별코드
+
+	// 성별코드
 	private String animal_Gender_Code;
-	
-	//체중
+
+	// 체중
 	private String animal_Gr;
-	
-	//중성화
+
+	// 중성화
 	private String animal_Neuters;
-	
-	//특징
+
+	// 특징
 	private String animal_Feature;
-	
-	//승인상태
+
+	// 승인상태
 	private int status;
-	
-	//품종코드
+
+	// 동물종류코드
 	private int species_Code;
 
-	@Override
-	public String toString() {
-		return "Animal [animal_Code=" + animal_Code + ", animal_Name=" + animal_Name + ", animal_Age=" + animal_Age
-				+ ", animal_Gender_Code=" + animal_Gender_Code + ", animal_Gr=" + animal_Gr + ", animal_Neuters="
-				+ animal_Neuters + ", animal_Feature=" + animal_Feature + ", status=" + status + ", species_Code="
-				+ species_Code + "]";
-	}
+	// 동물 이름
+	private String animal_Name;
 
 	public int getAnimal_Code() {
 		return animal_Code;
@@ -43,14 +35,6 @@ public class Animal {
 
 	public void setAnimal_Code(int animal_Code) {
 		this.animal_Code = animal_Code;
-	}
-
-	public String getAnimal_Name() {
-		return animal_Name;
-	}
-
-	public void setAnimal_Name(String animal_Name) {
-		this.animal_Name = animal_Name;
 	}
 
 	public int getAnimal_Age() {
@@ -109,5 +93,20 @@ public class Animal {
 		this.species_Code = species_Code;
 	}
 
-	
+	public String getAnimal_Name() {
+		return animal_Name;
+	}
+
+	public void setAnimal_Name(String animal_Name) {
+		this.animal_Name = animal_Name;
+	}
+
+	@Override
+	public String toString() {
+		return "Animal [animal_Code=" + animal_Code + ", animal_Age=" + animal_Age + ", animal_Gender_Code="
+				+ animal_Gender_Code + ", animal_Gr=" + animal_Gr + ", animal_Neuters=" + animal_Neuters
+				+ ", animal_Feature=" + animal_Feature + ", status=" + status + ", species_Code=" + species_Code
+				+ ", animal_Name=" + animal_Name + "]";
+	}
+
 }

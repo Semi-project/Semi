@@ -165,8 +165,7 @@ ul, li {
 								<li class="navi_set">
 									<div class="topnav" id="topnav_2">참여하기</div>
 									<ul class="subnav">
-										<li>입양안내</li>
-										<li>입양하기</li>
+										<li><a href="/adoption/list">입양하기</a></li>
 										<li>입양보내기</li>
 										<li>입양후기</li>
 									</ul>
