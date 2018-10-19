@@ -10,8 +10,6 @@ public interface MemberDao {
 
 	public List<Member> selectMemberAll();
 
-	public Member selectUseridByUserInfo(Member member);
-
 	// 회원가입
 	public int insertMember(Member member);
 
