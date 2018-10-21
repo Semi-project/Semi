@@ -43,6 +43,6 @@
 	<button>글쓰기</button>
 	</c:if>
 	
-	<input type="file" value="파일첨부">
+
 </body>
 </html>
