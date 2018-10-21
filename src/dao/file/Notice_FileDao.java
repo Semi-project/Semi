@@ -15,6 +15,8 @@ public interface Notice_FileDao {
 	// 삭제
 	public void deleteFiletbByfileno(Notice_Filetb notice_filetb);
 
+	public int selectFileno();
+
 	// 리스트
 	public List<Notice_Filetb> selectFiletbAll();
 }

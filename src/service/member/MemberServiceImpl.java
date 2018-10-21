@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public void logout(Member member) {
 		// TODO Auto-generated method stub
