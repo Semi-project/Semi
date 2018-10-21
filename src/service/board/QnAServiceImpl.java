@@ -46,7 +46,7 @@ public class QnAServiceImpl implements QnAService {
 	public void updateQnA(QnA qna) {
 		// TODO Auto-generated method stub
 
-
+	}
 	public void updateQnA(QnA qna, QnA_Filetb QnA_File) {
 		// TODO Auto-generated method stub
 		

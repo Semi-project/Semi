@@ -21,26 +21,26 @@
 <hr>
 
 <div>
-<table class="table table-bordered">
+<table class="table table-bordered" border="1">
 <tr>
-<td class="info">글번호</td><td>${boardService.boardno }</td>
-<td class="info">제목</td><td colspan="2">${boardService.title }</td>
+<td class="info">글번호</td><td>${freeboardService.boardno }</td>
+<td class="info">제목</td><td colspan="2">${freeboardService.title }</td>
 </tr>
 
 <tr>
-<td class="info">아이디</td><td>${boardService.userid }</td>
+<td class="info">아이디</td><td>${freeboardService.userid }</td>
 <td class="info">닉네임</td><td colspan="2">[추후 추가]</td>
 </tr>
 
-<tr><td class="info">본문</td><td colspan="4">${boardService.content }</td></tr>
+<tr><td class="info">본문</td><td colspan="4">${freeboardService.content }</td></tr>
 
 <tr>
-<td class="info">조회수</td><td>${boardService.hit }</td>
+<td class="info">조회수</td><td>${freeboardService.hit }</td>
 <td class="info">추천수</td><td>[추후 추가]</td>
 </tr>
 
 <tr>
-<td class="info">작성일</td><td colspan="4">${boardService.insert_Dat }</td>
+<td class="info">작성일</td><td colspan="4">${freeboardService.insert_Dat }</td>
 </tr>
 </table>
 </div>

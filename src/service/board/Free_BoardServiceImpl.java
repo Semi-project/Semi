@@ -94,11 +94,12 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 		Free_Board fb = new Free_Board();
 		
 		String boardno = req.getParameter("boardno");
+		
 		//null이나 ""이 아니면 int로 변환하여 DTO에 저장
-				if( boardno != null && !"".equals(boardno) ) {
-					fb.setBoardno(Integer.parseInt(boardno));
-				}
-	
+		if( boardno != null && !"".equals(boardno) ) {
+			fb.setBoardno(Integer.parseInt(boardno));
+		}
+
 		return fb;
 	}
 	@Override

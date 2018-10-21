@@ -14,6 +14,27 @@ public class Free_Board {
 	private String userid; //작성자
 	private int recommend; //추천수
 	
+	public Free_Board() {}
+	
+	
+	
+	
+	public Free_Board(int boardno, int cateno, String title, String content, Date insert_Dat, Date update_Dat, int hit,
+			String userid, int recommend) {
+		this.boardno = boardno;
+		this.cateno = cateno;
+		this.title = title;
+		this.content = content;
+		this.insert_Dat = insert_Dat;
+		this.update_Dat = update_Dat;
+		this.hit = hit;
+		this.userid = userid;
+		this.recommend = recommend;
+	}
+
+
+
+
 	public int getBoardno() {
 		return boardno;
 	}

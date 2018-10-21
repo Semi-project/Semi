@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dto.board.Free_Board;
@@ -69,23 +70,35 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 
 	@Override
 	public Free_Board viewFreeBoard(Free_Board freeBoard) {
+		//System.out.println(freeBoard.toString());
 		String sql="SELECT * FROM free_board WHERE boardno=?";
-		Free_Board fb= new Free_Board();
+		
+		Free_Board fb= null;
 		
 		try {
 			ps=conn.prepareStatement(sql);
-			ps.setInt(1, fb.getBoardno());
-			ps.executeQuery();
+			ps.setInt(1, freeBoard.getBoardno());
+			rs=ps.executeQuery();
 			
 			while(rs.next()) {
-				fb.setBoardno(rs.getInt("boardno"));
-				fb.setContent(rs.getString("content"));
-				fb.setHit(rs.getInt("hit"));
-				fb.setTitle(rs.getString("title"));
-				fb.setUserid(rs.getString("userid"));
-				fb.setInsert_Dat(rs.getDate("insert_Dat"));
+				
+				fb = new Free_Board(
+						rs.getInt("boardno"),
+						rs.getInt("cateno"), // 게시판코드
+						rs.getString("title"),  // 글제목
+						rs.getString("content"), // 글내용
+						rs.getDate("insert_Dat"), //작성일
+						rs.getDate("update_Dat"), // 수정일
+						rs.getInt("hit"), //조회수
+						rs.getString("userid"), //작성자
+						rs.getInt("recomend") 
+				);
+				
+		
+				
 			}
-			} catch (SQLException e) {
+			System.out.println("1"+fb);
+		} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				try {
@@ -97,6 +110,7 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 					e.printStackTrace();
 				}
 			}
+		System.out.println("최종"+fb);
 		return fb;
 	}
 

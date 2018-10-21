@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
+<table border="1">
 		<tr>
 			<th>게시글번호</th>
 			<th>제목</th>
@@ -37,5 +37,12 @@
 		</tr>
 		</c:forEach>
 	</table>
+	
+	
+	<c:if test="${login ne null }">
+	<button>글쓰기</button>
+	</c:if>
+	
+	<input type="file" value="파일첨부">
 </body>
 </html>

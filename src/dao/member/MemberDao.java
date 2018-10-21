@@ -35,9 +35,5 @@ public interface MemberDao {
 	// 유저 email check 
 	public int selectCntMemberByUserEmail(Member member);
 	
-	public Member selectUseridByUserInfo(Member member);
-	
-	
-	
 
 }
