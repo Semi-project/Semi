@@ -6,7 +6,7 @@
 <h3>Admin</h3>
 
 
-
-
-
+<div>
+	${list.boardno }
+</div>
 <jsp:include page="/view/layout/footer.jsp" />

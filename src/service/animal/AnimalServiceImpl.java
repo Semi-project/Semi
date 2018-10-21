@@ -1,6 +1,7 @@
 package service.animal;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,59 @@ public class AnimalServiceImpl implements AnimalService {
 	@Override
 	public void insertAnimal(Animal animal, Animal_Filetb animal_file) {
 		
+		String aa = "<img src=\"/test/upload/8694caea-c578-4475-8e72-e3071d9a32be.png&#10;\" "
+				+ "title=\"KakaoTalk_20180704_142633880.png\" sqeid=\"QE_154001706426841272\" "
+				+ "style=\"border-color: rgb(0, 0, 0);\">"
+				+ "<br style=\"clear:both;\">"
+				+ "<img src=\"/test/upload/0fa34ef2-9762-42e7-9801-60c09d02e621.png&#10;\" "
+				+ "title=\"KakaoTalk_20180704_142650792.png\">"
+				+ "<br style=\"clear:both;\">"
+				+ "<img src=\"/test/upload/3dce59c0-946d-48a3-a7c2-01095af20a7e.png&#10;\" "
+				+ "title=\"KakaoTalk_20180703_095638354.png\">"
+				+ "<br style=\"clear:both;\">"
+				+ "<img src=\"/test/upload/778df83d-ae6d-480f-b65d-d130bc1567eb.png&#10;\" "
+				+ "title=\"KakaoTalk_20180703_124235592.png\">"
+				+ "<br style=\"clear:both;\">"
+				+ "<img src=\"/test/upload/7392b60d-c086-4969-9d1b-4cb4641c4f28.png&#10;\" "
+				+ "title=\"KakaoTalk_20180704_142340732.png\">"
+				+ "<br style=\"clear:both;\">"
+				+ "<img src=\"/test/upload/c2df374d-ecaa-4a7f-9b62-20548ae71a2a.jpg&#10;\" "
+				+ "title=\"adopt.jpg\" sqeid=\"QE_154001656851262227\" "
+				+ "style=\"border-color: rgb(0, 0, 0);\">"
+				+ "<br style=\"clear:both;\"><p><br></p>";
+
+	      StringTokenizer str = new StringTokenizer(aa, " =><\"", false);
+	      int i = 0;
+	      while (str.hasMoreTokens()) {
+	         String data = str.nextToken();
+	         if (data.equals(" ")) {
+	         } else if (data.equals("=")) {
+	         } else if (data.equals(">")) {
+
+	         } else if (data.equals("<")) {
+
+	         } else if (data.equals("\"")) {
+
+	         } else {
+	            if (data.contains(".png") || data.contains(".jpg") || data.contains(".GIF") || data.contains(".BMP")) {
+
+//	                System.out.println(i+","+data);
+	               // System.out.println("---------");
+	               if (data.contains("&#10")) {
+	                  String data2 = data.substring(0, data.length() - 5);
+	                  if (data2.contains(".png") || data2.contains(".jpg") || data2.contains(".GIF")
+	                        || data2.contains(".BMP")) {
+	                     System.out.println(data2);
+	                  }
+	                  // JPG, GIF, PNG, BMP
+	               }else {
+	                  System.out.println(data);
+	               }
+	            }
+	         }
+	         i++;
+	      }
+	      
 		// 동물정보 입력
 		animalDao.insertAnimal(animal);
 		
