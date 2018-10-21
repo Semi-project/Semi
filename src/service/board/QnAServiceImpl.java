@@ -26,22 +26,25 @@ public class QnAServiceImpl implements QnAService {
 	private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
 	private QnA_FileDao qna_fileDao = new QnA_FileDaoImpl();
 	private QnADao qnaDao = new QnADaoImpl();
-	
+
 	@Override
 	public List<QnA> selectQnA() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void writeQnA(QnA qna, QnA_Filetb QnA_File) {
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	public void deleteQnA(QnA qna) {
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 
 	public void updateQnA(QnA qna) {
@@ -50,51 +53,55 @@ public class QnAServiceImpl implements QnAService {
 
 	public void updateQnA(QnA qna, QnA_Filetb QnA_File) {
 		// TODO Auto-generated method stub
-		
 
 	}
+
 	@Override
 	public String searchQnABytitle(QnA qna) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public String searchQnABycontent(QnA qna) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public String searchQnAByuserid(QnA qna) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public int selecntQnACntAll() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 	@Override
 	public List<QnA> selectQnAPagingList(Paging paging) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void updateRecommend(QnA qna) {
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	public QnA searchByComment_no(QnA qna) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public QnA getParam(HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-
 
 }

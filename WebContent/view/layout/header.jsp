@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/main.css">
 <!-- 자바 스크립트 -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -21,18 +23,9 @@
 
 <script>
 	$(document).ready(function() {
-		$("#btnwrite").click(function() {
-			$(location).attr("href", "/Board/board/write/")
-		});
-		$("#btnback").click(function() {
-			$(location).attr("href", "/Board/board/list")
-		});
 
-		$("#c4 li").click(function() {
-			$(location).attr("href", "/Board/main")
-		});
 		$(".main_logo").click(function() {
-			$(location).attr("href", "/Board/main")
+			$(location).attr("href", "/main")
 		});
 		$(".topnav").hover(function() { //마우스를 topnav에 오버시
 			$(this).parent().find(".subnav").slideDown('normal').show(); //subnav가 내려옴.
@@ -50,44 +43,48 @@
 /* Custom, iPhone Retina */
 /* 작은 기기들 (태블릿, 768px 이상) */
 @media ( min-width : @screen-sm-min) {
-	.main_logo {
-		
-	}
 }
 
 /* 중간 기기들 (데스크탑, 992px 이상) */
 @media ( min-width : @screen-md-min) {
-	...
 }
 
 /* 큰 기기들 (큰 데스크탑, 1200px 이상) */
 @media ( min-width : @screen-lg-min) {
-	...
 }
-/*테스트*/
-body, div, ul, li, table, tr, td, th {
-	margin: 0px;
-	padding: 0px;
+
+ul.top_menu a {
+	text-decoration: none;
+	color: #999;
+}
+
+ul.top_menu {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+ul.top_menu li {
+	display: inline;
+	padding-left: 20px;
 }
 
 .main_logo {
-	margin-left: -57px;
-}
-
-/*헤더 부분*/
-ul, li {
-	list-style: none;
+	float: left;
+	font-size: 100%;
+	padding: 26px 0 17px;
+	height: 62px;
 }
 
 /*네비게이션 전체 영역 제어*/
 .nav {
+	position: relative;
 	height: 35px;
-	list-style: none;
 	width: 100%;
-	margin-top: 30px;
-	background: #F3969A;
+	margin-top: 100px;
 	font-size: 12px;
 	color: #505050;
+	background: #F3969A;
 }
 
 /*주메뉴 영역 제어*/
@@ -109,6 +106,7 @@ ul, li {
 	float: left;
 	padding: 10px;
 	position: relative;
+	left: 250px;
 }
 
 /*서브메뉴 전체영역 제어*/
@@ -138,57 +136,84 @@ ul, li {
 }
 
 #main_nav {
-	z-index: 100;
+	/* 	z-index: 40; */
+	display: inline-block;
 }
 </style>
 </head>
 <body>
-	<header>
-		<div class="header">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-2">
-						<div class="main_logo">
-							<img src="/Board/image/logo.jpg">
-						</div>
+	<div class="col-lg-12">
+		<div class="col-lg-4">
+			<header>
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4">
+					<div class="main_logo">
+						<h1>
+							<a href=#>댕냥이</a>
+						</h1>
 					</div>
-					<div class="col-lg-10 text-center" id="main_nav">
-						<div class="nav">
-							<ul>
-								<li class="navi_set">
-									<div class="topnav" id="topnav_1">소개</div>
-									<ul class="subnav">
-										<li>오시는길</li>
-										<li>공지사항</li>
-									</ul>
-								</li>
-								<li class="navi_set">
-									<div class="topnav" id="topnav_2">참여하기</div>
-									<ul class="subnav">
-										<li><a href="/adoption/list">입양하기</a></li>
-										<li>입양보내기</li>
-										<li>입양후기</li>
-									</ul>
-								</li>
-								<li class="navi_set"><div class="topnav" id="topnav_3">후원하기</div>
 
-									<ul class="subnav">
-										<li>정기후원</li>
-									</ul></li>
-								<li class="navi_set"><div class="topnav" id="topnav_4">고객센터</div>
-									<ul class="subnav">
-										<li>제보게시판</li>
-										<li>자유게시판</li>
-									</ul></li>
-							</ul>
-
-						</div>
-					</div>
-					<div class="col-lg-4">dddd</div>
 				</div>
+
+			</header>
+		</div>
+		<div class="col-lg-4">
+			<div class="col-lg-12"></div>
+
+		</div>
+		<div class="col-lg-4">
+
+			<ul class="top_menu">
+				<!-- 비로그인상태 -->
+				<c:if test="${not login }">
+					<li><a href="/member/login">로그인</a></li>
+					<li><a href="/member/join">회원가입</a></li>
+				</c:if>
+				<c:if test="${login }">
+				<c:if test="${member.role_id ne 1}">
+				<li>관리자</li>
+				</c:if>	
+				<c:if test="${member.role_id ne 0}">
+				<li>일반회원</li>			
+				</c:if>
+					<li><strong>${nick } 님, 환영합니다</strong></li>
+					<li><a href="/member/logout">로그아웃</a></li>
+					<li><a>마이페이지</a></li>
+				</c:if>
+			</ul>
+		</div>
+		<div></div>
+		<div class="col-lg-12">
+			<div class="nav">
+				<ul>
+					<li class="navi_set">
+						<div class="topnav" id="topnav_1">소개</div>
+						<ul class="subnav">
+							<li>오시는길</li>
+							<li>공지사항</li>
+						</ul>
+					</li>
+					<li class="navi_set">
+						<div class="topnav" id="topnav_2">참여하기</div>
+						<ul class="subnav">
+							<li><a href="/adoption/list">입양하기</a></li>
+							<li>입양보내기</li>
+							<li>입양후기</li>
+						</ul>
+					</li>
+					<li class="navi_set"><div class="topnav" id="topnav_3">후원하기</div>
+
+						<ul class="subnav">
+							<li>정기후원</li>
+						</ul></li>
+					<li class="navi_set"><div class="topnav" id="topnav_4">고객센터</div>
+						<ul class="subnav">
+							<li>제보게시판</li>
+							<li>자유게시판</li>
+						</ul></li>
+				</ul>
+
 			</div>
 		</div>
-	</header>
-	<div></div>
-	<div></div>
-	<div></div>
+	</div>
+</body>

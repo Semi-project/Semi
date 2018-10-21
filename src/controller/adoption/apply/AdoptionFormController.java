@@ -20,12 +20,24 @@ import service.animal.AnimalServiceImpl;
 public class AdoptionFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdoptionService adoptionService = new AdoptionServiceImpl();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		if (req.getSession().getAttribute("login") == null) {
+			resp.sendRedirect("/main");
+			return;
+		}
 		req.getRequestDispatcher("/view/board/adoption/form.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// System.out.println("들어옴");
+		//요청 파라미터 한글 인코딩 설정 : UTF-8
+				req.setCharacterEncoding("UTF-8");
+
+				adoptionService.write(req ,resp);
+				
 	}
 }

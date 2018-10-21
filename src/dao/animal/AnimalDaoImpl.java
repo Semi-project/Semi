@@ -165,7 +165,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql = "INSERT INTO animal";
 		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try {
+		try { 
 			ps = conn.prepareStatement(sql);
 			
 			ps.setInt(1, selectSeqNextval());
