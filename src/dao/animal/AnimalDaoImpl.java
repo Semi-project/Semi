@@ -62,7 +62,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code = animal.species_code AND";
 		sql += " status=1";
-		sql += " ORDER BY animal_code";
+		sql += " ORDER BY animal_code DESC";
 
 		List<Animal> list = new ArrayList<>();
 
@@ -104,7 +104,9 @@ public class AnimalDaoImpl implements AnimalDao {
 	
 	@Override
 	public List<Animal> selectAnimalnotAutho() {
-		sql = "SELECT * FROM animal WHERE status=1 ORDER BY animal_code DESC";
+		
+		// 입양허가 안 된 동물목록 가져오기
+		sql = "SELECT * FROM animal WHERE status=0 ORDER BY animal_code DESC";
 
 		List<Animal> list = new ArrayList<>();
 
@@ -123,7 +125,8 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
 				animal.setAnimal_Feature( rs.getString("animal_feature"));
 				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));		
+				animal.setSpecies_Code( rs.getInt("species_code"));	
+				animal.setSpecies( rs.getString("species_name"));
 
 				list.add(animal);				
 			}
