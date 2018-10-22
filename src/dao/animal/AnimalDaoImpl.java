@@ -45,8 +45,24 @@ public class AnimalDaoImpl implements AnimalDao {
 	
 	@Override
 	public List<Animal> selectAnimal() {
-
-		sql = "SELECT * FROM animal WHERE status=0 ORDER BY animal_code DESC";
+		
+		// 입양보내기 승인된 동물들
+		// join으로 품종명 가져오기
+		sql = "select";
+		sql += " animal_name,";
+		sql += "animal_code,";
+		sql += "animal_age,";
+		sql += "animal_gender_code,";
+		sql += "animal_gr,";
+		sql += "animal_neuters,";
+		sql += "animal_feature,";
+		sql += "status,";
+		sql += "animal.species_code,";
+		sql += "species_name";
+		sql += " FROM animal, species";
+		sql += " WHERE species.species_code = animal.species_code AND";
+		sql += " status=1";
+		sql += " ORDER BY animal_code";
 
 		List<Animal> list = new ArrayList<>();
 
@@ -65,7 +81,9 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
 				animal.setAnimal_Feature( rs.getString("animal_feature"));
 				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));		
+				animal.setSpecies_Code( rs.getInt("species_code"));
+				animal.setSpecies( rs.getString("species_name"));
+						
 
 				list.add(animal);				
 			}

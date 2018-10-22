@@ -23,13 +23,16 @@ public class Animal {
 	//승인상태
 	private int status;
 
-	//동물종류코드
+	// 품종코드
 	private int species_Code;
+	
+	// 품종명
+	private String species;
 
 	//동물 이름
 	private String animal_Name;
 
-	private String species;
+	
 
 	public String getSpecies() {
 		return species;
