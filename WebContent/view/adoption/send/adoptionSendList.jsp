@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -12,9 +11,11 @@ $(document).ready(function() {
 		//클릭이벤트가 발생한 <tr>의 첫번째 <td>자식의 텍스트
 		var boardno = $(this).children("td").eq(0).text();
 		
-		$(location).attr("href","/board/view?boardno="+boardno);
+		$(location).attr("href","/adoption/send/view?animal_code="+animal_code);
 	});
 });
+</script>
+
 <style type="text/css">
 th, td:not(:nth-child(2)) {
 	text-align: center;
@@ -41,16 +42,17 @@ td {
 
 <tbody>
 <c:forEach items="${animalList }" var="animal">
+
 <tr>
-<td><a href="/send/view?animal_code=${animalList.animal_code }">${animal.animal_name }</a></td>
-<td>${animal.animal_gender }</td>
-<td>${animal.species }</td>
+<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
+<td>${animal.animal_Gender_Code }</td>
+<td>${animal.species_Name }</td>
 </tr>
+
 </c:forEach>
 </tbody>
 
 </table>
-
 </div>
 
 

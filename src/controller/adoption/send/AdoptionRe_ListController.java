@@ -25,11 +25,15 @@ public class AdoptionRe_ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		List<Animal> animalList = animalService.selectAnimal();
+		// 일단 허가된 동물 리스트 가져오기
+		List<Animal> animalList = animalService.selectAnimal();		
+		
+		// 허가 되지 않은 동물 리스트 가져오기
+//		List<Animal> animalList = animalService.selectAnimalnotAutho();
+		
+		System.out.println(animalList.size());
+		
 		req.setAttribute("animalList", animalList);
-		
-		System.out.println(req.getAttribute(animalList.toString()));
-		
 		req.getRequestDispatcher("/view/adoption/send/adoptionSendList.jsp").forward(req, resp);
 		
 	}

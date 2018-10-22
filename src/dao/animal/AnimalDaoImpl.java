@@ -63,6 +63,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			while(rs.next()) {
 				animal = new Animal();
 
+				animal.setAnimal_Name( rs.getString("animal_name"));
 				animal.setAnimal_Code( rs.getInt("animal_code"));
 				animal.setAnimal_Age( rs.getInt("animal_age"));
 				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
@@ -71,7 +72,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setAnimal_Feature( rs.getString("animal_feature"));
 				animal.setStatus( rs.getInt("status"));
 				animal.setSpecies_Code( rs.getInt("species_code"));
-				animal.setSpecies( rs.getString("species_name"));
+				animal.setSpecies_Name( rs.getString("species_name"));
 						
 
 				list.add(animal);				
@@ -96,7 +97,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		
 		// 입양허가 안 된 동물목록 가져오기
 		sql = "SELECT * FROM animal, species";
-		sql += "WHERE animal.species_code=species.species_code";
+		sql += " WHERE animal.species_code=species.species_code";
 		sql += " AND status=0";
 		sql += " ORDER BY animal_code DESC";
 
@@ -110,6 +111,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			while(rs.next()) {
 				animal = new Animal();
 
+				animal.setAnimal_Name( rs.getString("animal_name"));
 				animal.setAnimal_Code( rs.getInt("animal_code"));
 				animal.setAnimal_Age( rs.getInt("animal_age"));
 				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
@@ -118,7 +120,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setAnimal_Feature( rs.getString("animal_feature"));
 				animal.setStatus( rs.getInt("status"));
 				animal.setSpecies_Code( rs.getInt("species_code"));	
-				animal.setSpecies( rs.getString("species_name"));
+				animal.setSpecies_Name( rs.getString("species_name"));
 
 				list.add(animal);				
 			}
@@ -158,7 +160,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setAnimal_Feature( rs.getString("animal_feature"));
 				animal.setStatus( rs.getInt("status"));
 				animal.setSpecies_Code( rs.getInt("species_code"));		
-				animal.setSpecies( rs.getString("species_name"));
+				animal.setSpecies_Name( rs.getString("species_name"));
 			}
 
 		} catch (SQLException e) {
