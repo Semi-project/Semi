@@ -163,7 +163,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setInt(1, animal.getAnimal_Code());
 			
 			ps.executeUpdate();
-			
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
