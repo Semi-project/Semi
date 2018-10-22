@@ -239,9 +239,9 @@ public class QnAServiceImpl implements QnAService {
 	
 
 	@Override
-	public List getQnAPagingList(Paging paging) {
+	public List getQnAPagingList(Paging paging, String search, String searchVal) {
 
-		return qnaDao.selectQnAPagingList(paging);
+		return qnaDao.selectQnAPagingList(paging, search, searchVal);
 	}
 
 	@Override
@@ -280,19 +280,9 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	public String getSearch(HttpServletRequest req) {
+	public int getTotalCount(String searchVal, String search) {
 		
-		//요청 파라미터 받기
-		String search = req.getParameter("search");
-
-		
-		return search;	
-		}
-
-	@Override
-	public int getTotalCount(String search) {
-		
-		return qnaDao.selectQnACntAll(search);
+		return qnaDao.selectQnACntAll(searchVal,search);
 	}
 
 }

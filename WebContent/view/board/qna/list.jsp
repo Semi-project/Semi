@@ -48,7 +48,11 @@ $(document).ready(function() {
 	
 	
 	$("#btnSearch").click(function(){
-		$(location).attr("href","/qnaboard/paginglist?search="+$("#search").val());
+		
+		var searchVal = $("#searchVal").val();
+		var searchTxt = $("searchTxt").val();
+		
+		$(location).attr("href","/qnaboard/paginglist?searchVal="+searchVal+"searchTxt="+searchTxt);
 
 	});	
 
@@ -76,7 +80,7 @@ td {
 
 <h3>QnA 목록</h3>
 <hr>
-
+<form id="frm" name="frm" method="GET">
 <table class="table table-hover table-striped table-condensed">
 <thead>
 <tr>
@@ -104,14 +108,24 @@ td {
 
 
 
-<button id="btn" onclick='location.href="/qnaboard/write";'>글쓰기</button> 
+
 
 
 <div id="searchBox" class="text-center">
-	<input type="text" id="search" name="search"/>
+	<tr>
+		<td>
+			<select id="searchVal" name="searchVal">
+				<option value="title" selected="selected">제목</option>
+				<option value="content">내용</option>
+				<option value="userid">작성자</option>
+			</select>	
+		</td>
+	</tr>
+	<input type="text" id="searchTxt" name="searchTxt"/>
 	<button id="btnSearch">검색</button>
 </div>
-
+</form> 
+<button id="btn" onclick='location.href="/qnaboard/write";'>글쓰기</button> 
 
 <div class="text-center">
   <ul class="pagination pagination-sm">

@@ -21,7 +21,7 @@ $(document).ready(function() {
 	}
 	
 	$("#btnList").click(function() {
-		$(location).attr("href", "/qnaboard/list");
+		$(location).attr("href", "/qnaboard/paginglist");
 	});
 	$("#btnUpdate").click(function() {
 		$(location).attr("href", "/qnaboard/update?boardno=${qnaView.boardno }");

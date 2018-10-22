@@ -25,10 +25,10 @@ public interface QnADao {
 		public int deleteQnA(QnA qna) throws Exception;
 
 		// QnA ����Ʈ ����¡ ó��
-		public List<QnA> selectQnAPagingList(Paging paging);
+		public List<QnA> selectQnAPagingList(Paging paging , String search , String searchVal);
 
 		// QnA �� �ۼ� ���
-		public int selectQnACntAll(String search);
+		public int selectQnACntAll(String searchVal, String search);
 		
 		// QnA �����Խñ� ��ȯ
 		public int selectBoardno();

@@ -180,7 +180,7 @@ ul, li {
 									</ul></li>
 								<li class="navi_set"><div class="topnav" id="topnav_4">고객센터</div>
 									<ul class="subnav">
-										<li><a href="/qnaboard/list">QnA게시판</a></li>
+										<li><a href="/qnaboard/paginglist">QnA게시판</a></li>
 										<li><a href="/freeboard/list">자유게시판</a></li>
 									</ul></li>
 							</ul>

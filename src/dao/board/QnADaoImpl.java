@@ -227,19 +227,26 @@ public class QnADaoImpl implements QnADao{
 
 	// QnA ����¡ ó��
 	@Override
-	public List<QnA> selectQnAPagingList(Paging paging) {
+	public List<QnA> selectQnAPagingList(Paging paging ,String search, String searchVal) {
 		
 		//����¡ ����Ʈ ��ȸ ����
 		String sql = "";
-		sql += "SELECT * FROM (";
-		sql += " SELECT rownum rnum, B.* FROM (";
-		sql += " 	SELECT * FROM qna";
-		sql += " 	ORDER BY boardno DESC";
-		sql += " ) B";
-		sql += " ORDER BY rnum";
-		sql += ")";
-		sql += "WHERE rnum between ? AND ?";
-		
+		sql += "SELECT A.* FROM (";
+		sql += "SELECT ROWNUM RN , CATENO , TITLE , BOARDNO "
+				+ ", CONTENT , INSERT_DAT , USERID";
+		sql += " FROM QNA";
+		sql += " ORDER BY boardno DESC) A";
+		sql += " WHERE ROWNUM BETWEEN ? AND ?" ;
+		if( search!=null && !"".equals(search) &&  searchVal.equals("title")) {
+			sql += " AND title LIKE '%"+search+"%'";
+		}
+		else if(search!=null && !"".equals(search) && searchVal.equals("content")) {
+			sql += " AND content LIKE '%"+search+"%'";
+		}
+		else if(search!=null && !"".equals(search) && searchVal.equals("userid")) {
+			sql += " AND userid LIKE '%"+search+"%'";
+		}
+				
 		List<QnA> list = new ArrayList<>();
 		
 		try {
@@ -284,12 +291,18 @@ public class QnADaoImpl implements QnADao{
 	}
 	//
 	@Override
-	public int selectQnACntAll(String search) {
+	public int selectQnACntAll(String searchVal ,String search) {
 		
 		String sql = "";
 		sql += "SELECT COUNT(*) FROM QnA";
-		if( search!=null && !"".equals(search) ) {
+		if( search!=null && !"".equals(search) &&  searchVal.equals("title")) {
 			sql += " WHERE title LIKE '%"+search+"%'";
+		}
+		else if(search!=null && !"".equals(search) && searchVal.equals("content")) {
+			sql += " WHERE content LIKE '%"+search+"%'";
+		}
+		else if(search!=null && !"".equals(search) && searchVal.equals("userid")) {
+			sql += " WHERE userid LIKE '%"+search+"%'";
 		}
 		
 		int cnt = 0;

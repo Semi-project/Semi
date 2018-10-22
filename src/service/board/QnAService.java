@@ -26,12 +26,9 @@ public interface QnAService {
 	
 	// �����Խ��� ����
 	public void updateQnA(QnA qna) throws Exception;// , File file);
-	
-	public String getSearch(HttpServletRequest req);
-
 
 	// �Խ��� ����Ʈ ����¡ ó��
-	public List getQnAPagingList(Paging paging);
+	public List getQnAPagingList(Paging paging, String search, String searchVal);
 
 	// Param ��������
 	public QnA getParam(HttpServletRequest req, HttpServletResponse resp);
@@ -39,5 +36,5 @@ public interface QnAService {
 	public int getCurPage(HttpServletRequest req);
 	
 	// 전체 게시글 수 조회
-	public int getTotalCount(String search);
+	public int getTotalCount(String searchVal, String search);
 }
