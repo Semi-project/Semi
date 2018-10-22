@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.board.QnA;
 import service.board.QnAService;
 import service.board.QnAServiceImpl;
 
@@ -17,13 +18,22 @@ public class QnABoardViewController extends HttpServlet {
 
 	private QnAService qnaService = new QnAServiceImpl();
 	
-
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		req.getRequestDispatcher("/qnaboard/qnaview.jsp").forward(req, resp);
+		// 요청파라미터 -> MODEL
+		/*QnA qna = qnaService.getParam(req, resp);*/
+		
+		int boardNo = Integer.parseInt(req.getParameter("boardno"));
+		
+		QnA qnaView = qnaService.viewQnA(boardNo);
+		
+		String loginId = (String) req.getSession().getAttribute("userid");
+		req.setAttribute("loginId", loginId);
+		req.setAttribute("qnaView", qnaView);
+		System.out.println(qnaView);
+		
+		req.getRequestDispatcher("/view/board/qna/view.jsp").forward(req, resp);
 		
 	}
-
 }
