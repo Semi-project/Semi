@@ -39,7 +39,6 @@ public class AnimalServiceImpl implements AnimalService {
 		// 동물 정보 전체 조회
 		return animalDao.selectAnimalByanimal_Code(animal);
 		
-		
 	}
 
 	@Override
