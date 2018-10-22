@@ -24,19 +24,19 @@ public class AnimalServiceImpl implements AnimalService {
 
 	@Override
 	public List<Animal> selectAnimal() {
-		 
+		// 입양보내기 승인된 동물들
 		return animalDao.selectAnimal();
 	}
 
 	@Override
 	public List<Animal> selectAnimalnotAutho() {
-		
+		// 입양보내기 승인되지 않은 동물들
 		return animalDao.selectAnimalnotAutho();
 	}
 	
 	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
-		
+		// 동물 정보 전체 조회
 		return animalDao.selectAnimalByanimal_Code(animal);
 		
 		

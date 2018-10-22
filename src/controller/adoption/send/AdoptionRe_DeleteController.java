@@ -7,7 +7,7 @@ import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 
 
-@WebServlet("/AdoptionRe_DeleteController")
+@WebServlet("/adoption/send/delete")
 public class AdoptionRe_DeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
