@@ -130,7 +130,9 @@ public class AnimalServiceImpl implements AnimalService {
 
 		Animal animal = new Animal();
 		
-		animal.setAnimal_Feature(req.getParameter("feature"));
+		int code = Integer.parseInt(req.getParameter("animal_code"));
+		
+		animal.setAnimal_Code(code);
 		
 		return animal;
 	}

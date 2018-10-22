@@ -25,7 +25,7 @@ public class AdoptionRe_ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// 일단 허가된 동물 리스트 가져오기
+		// 허가된 동물 리스트 가져오기
 		List<Animal> animalList = animalService.selectAnimal();		
 		
 		// 허가 되지 않은 동물 리스트 가져오기
