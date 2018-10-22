@@ -234,28 +234,9 @@ public class QnAServiceImpl implements QnAService {
 
 	}
 
-	@Override
-	public QnA searchQnABytitle(QnA qna) {
+	
 
-		return qnaDao.selectQnABytitle(qna);
-	}
-
-	@Override
-	public QnA searchQnABycontent(QnA qna) {
-
-		return qnaDao.selectQnABycontent(qna);
-	}
-
-	@Override
-	public QnA searchQnAByuserid(QnA qna) {
-
-		return qnaDao.selectByuserid(qna);
-	}
-
-	@Override
-	public int selecntQnACntAll() {
-		return qnaDao.selectQnACntAll();
-	}
+	
 
 	@Override
 	public List getQnAPagingList(Paging paging) {
@@ -286,13 +267,32 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public int getCurPage(HttpServletRequest req) {
 
-		String curPage = req.getParameter("curPage");
+		//요청파라미터 받기
+				String curPage = req.getParameter("curPage");
+				
+				//null이나 ""이 아니면 int로 리턴
+				if( curPage != null && !"".equals(curPage) ) {
+					return Integer.parseInt( curPage );
+				}
 
-		if (curPage != null && !"".equals(curPage)) {
-			return Integer.parseInt(curPage);
+				//null이나 "" 면 0으로 반환
+				return 0;
+	}
+
+	@Override
+	public String getSearch(HttpServletRequest req) {
+		
+		//요청 파라미터 받기
+		String search = req.getParameter("search");
+
+		
+		return search;	
 		}
 
-		return 0;
+	@Override
+	public int getTotalCount(String search) {
+		
+		return qnaDao.selectQnACntAll(search);
 	}
 
 }

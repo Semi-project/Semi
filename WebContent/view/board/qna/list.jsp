@@ -1,10 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%-- <jsp:include page="/view/layout/header.jsp" /> --%>
+<jsp:include page="/view/layout/header.jsp" />
+
+<script>
+	function qnaBoardno(qna){
+		
+		location.href ="/qnaboard/paginglist?boardno="+boardno;
+	}
+	
+	function search(frm){
+		if(frm.keyWord.value==""){
+			alert("검색 단어를 입력하세요");
+			frm.keyWord.focus();
+			return;
+		}
+		frm.sumbit();
+	}
+
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -19,7 +37,7 @@ $(document).ready(function() {
 		else if(result == 'fali'){
 			alert(failMsg);
 		}
-
+	
 	
 	$("table").on("click", "tr", function() {
 		//클릭이벤트가 발생한 <tr>의 첫번째 <td>자식의 텍스트
@@ -28,8 +46,17 @@ $(document).ready(function() {
 		$(location).attr("href","/qnaboard/view?boardno="+boardno);
 	});
 	
+	
+	$("#btnSearch").click(function(){
+		$(location).attr("href","/qnaboard/paginglist?search="+$("#search").val());
+
+	});	
+
+	
 });
+
 </script>
+
 
 <style type="text/css">
 th, td:not(:nth-child(2)) {
@@ -41,6 +68,8 @@ td {
 }
 #btn{float:right;}
 </style>
+
+
 
 
 <div class="container">
@@ -59,7 +88,7 @@ td {
 </thead>
 
 <tbody>
-<c:forEach items="${qnaList}" var="qna">
+<c:forEach items="${qnaList }" var="qna">
 <tr>
 <td>${qna.boardno }</td>
 <td><a href="/qnaboard/view?boardno=${qna.boardno }">${qna.title }</a></td>
@@ -73,29 +102,23 @@ td {
 
 </table>
 
+
+
 <button id="btn" onclick='location.href="/qnaboard/write";'>글쓰기</button> 
-<div>
-	<FORM name='frm' method='GET' action="./list.jsp">
-		<ASIDE style="float:right">
-			<SELECT name="col">'
-				<OPTION vlaue='none'>전체 목록</OPTION>
-				<OPTION vlaue="name">이름</OPTION>
-				<OPTION vlaue="title">제목</OPTION>
-				<OPTION vlaue="content">내용</OPTION>
-			</SELECT>
-			<input type="text" name="word" vlaue='' placeholder="특수문자 사용금지">
-			<button type='submit'>검색</button>	
-		</ASIDE>
-    </FORM>
-    <div class="menu_line" style="clear:both;"></div>
+
+
+<div id="searchBox" class="text-center">
+	<input type="text" id="search" name="search"/>
+	<button id="btnSearch">검색</button>
 </div>
+
 
 <div class="text-center">
   <ul class="pagination pagination-sm">
   	<!-- 처음으로 가기 -->
   	<c:if test="${paging.curPage ne 1 }">
     <li>
-      <a href="/qnaboard/list" aria-label="First">
+      <a href="/qnaboard/paginglist?search=${paging.search }" aria-label="First">
         <span aria-hidden="true">&larr;처음</span>
       </a>
     </li>
@@ -115,7 +138,7 @@ td {
     
   	<c:if test="${paging.curPage ne 1 }">
     <li>
-      <a href="/qnaboard/list?curPage=${paging.curPage-1 }" aria-label="Previous">
+      <a href="/qnaboard/paginglist?curPage=${paging.curPage-1 }&search=${paging.search }" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -133,10 +156,10 @@ td {
 
 		<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 		<c:if test="${paging.curPage eq i}">          
-    	  <li class="active"><a href="/qnaboard/list?curPage=${i }">${i }</a></li>
+    	  <li class="active"><a href="/qnaboard/paginglist?curPage=${i }&search=${paging.search }">${i }</a></li>
     	</c:if>
 		<c:if test="${paging.curPage ne i}">          
-    	  <li><a href="/qnaboard/list?curPage=${i }">${i }</a></li>
+    	  <li><a href="/qnaboard/paginglist?curPage=${i }&search=${paging.search }">${i }</a></li>
     	</c:if>
     </c:forEach>
 
@@ -153,16 +176,16 @@ td {
 	
   	<c:if test="${paging.curPage ne paging.totalPage }">
     <li>
-      <a href="/qnaboard/list?curPage=${paging.curPage+1 }" aria-label="Next">
+      <a href="/qnaboard/paginglist?curPage=${paging.curPage+1 }&search=${paging.search }" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
     </c:if>
   </ul>
 </div>
-
 </div>
-<%-- <jsp:include page="/view/layout/footer.jsp" /> --%>
+
+ <jsp:include page="/view/layout/footer.jsp" /> 
 
 
 

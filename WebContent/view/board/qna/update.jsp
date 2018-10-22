@@ -29,8 +29,8 @@
 
 <label>제목 : <input type="text" name="title" value="${qnaView.title }" /></label><br>
 <label>작성자 : <input type="text" name="userid" value="${qnaView.userid }" readonly="readonly"/></label><br>
-<label>본문: <input type="text" name="content" value="${qnaView.content }"/></label><br>
-<%-- <textarea rows="10" id="content" name="content" style="width: 80%; height: 150px;">${qnaView.content}</textarea> --%>
+<label>본문: </label><br>
+ <textarea rows="10" id="content" name="content" >${qnaView.content}</textarea> 
 <button id="btnUpdate" onclick='location.href="/view/board/qna/view.jsp";'>수정하기</button>
 
 
@@ -43,7 +43,7 @@ var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
 	elPlaceHolder : "content", //<textarea>의 id 입력
-	sSkinURI : "/resources/smarteditor/SmartEditor2Skin.html",
+	sSkinURI : "/resource/smarteditor/SmartEditor2Skin.html",
 	fCreator:"createSEditor2",
  	htParams: {
  		bUseToolbar : true, // 툴바 사용여부

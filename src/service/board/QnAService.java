@@ -27,17 +27,8 @@ public interface QnAService {
 	// �����Խ��� ����
 	public void updateQnA(QnA qna) throws Exception;// , File file);
 	
-	//�Խ��� �������� ã��
-	public QnA  searchQnABytitle(QnA qna);
+	public String getSearch(HttpServletRequest req);
 
-	//�Խ��� �������� ã��
-	public QnA  searchQnABycontent(QnA qna);
-
-	// �Խ��� ���̵�� ã��
-	public QnA searchQnAByuserid(QnA qna);
-
-	// �Խ��� �� �ۼ� ���
-	public int selecntQnACntAll();
 
 	// �Խ��� ����Ʈ ����¡ ó��
 	public List getQnAPagingList(Paging paging);
@@ -46,4 +37,7 @@ public interface QnAService {
 	public QnA getParam(HttpServletRequest req, HttpServletResponse resp);
 	
 	public int getCurPage(HttpServletRequest req);
+	
+	// 전체 게시글 수 조회
+	public int getTotalCount(String search);
 }

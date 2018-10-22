@@ -284,9 +284,13 @@ public class QnADaoImpl implements QnADao{
 	}
 	//
 	@Override
-	public int selectQnACntAll() {
+	public int selectQnACntAll(String search) {
+		
 		String sql = "";
 		sql += "SELECT COUNT(*) FROM QnA";
+		if( search!=null && !"".equals(search) ) {
+			sql += " WHERE title LIKE '%"+search+"%'";
+		}
 		
 		int cnt = 0;
 		
@@ -313,7 +317,7 @@ public class QnADaoImpl implements QnADao{
 		return cnt;
 	}
 	
-	// �������� ��ã��
+	// 제목으로 찾기
 	
 	@Override
 	public QnA selectQnABytitle(QnA qna) {

@@ -28,7 +28,7 @@ public interface QnADao {
 		public List<QnA> selectQnAPagingList(Paging paging);
 
 		// QnA �� �ۼ� ���
-		public int selectQnACntAll();
+		public int selectQnACntAll(String search);
 		
 		// QnA �����Խñ� ��ȯ
 		public int selectBoardno();
