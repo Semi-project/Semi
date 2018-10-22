@@ -16,7 +16,7 @@ public class Animal {
 
 	//중성화
 	private String animal_Neuters;
-
+	
 	//특징
 	private String animal_Feature;
 

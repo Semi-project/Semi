@@ -14,6 +14,7 @@ import dao.file.Animal_FileDao;
 import dao.file.Animal_FileDaoImpl;
 import dto.animal.Animal;
 import dto.file.Animal_Filetb;
+import util.Paging;
 
 public class AnimalServiceImpl implements AnimalService {
 
@@ -21,18 +22,6 @@ public class AnimalServiceImpl implements AnimalService {
 	private AnimalDao animalDao = new AnimalDaoImpl();
 	private SpeciesDao speciesDao = new SpeciesDaoImpl();
 	private Animal_FileDao animal_fileDao = new Animal_FileDaoImpl();
-
-	@Override
-	public List<Animal> selectAnimal() {
-		// 입양보내기 승인된 동물들
-		return animalDao.selectAnimal();
-	}
-
-	@Override
-	public List<Animal> selectAnimalnotAutho() {
-		// 입양보내기 승인되지 않은 동물들
-		return animalDao.selectAnimalnotAutho();
-	}
 	
 	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
@@ -122,7 +111,6 @@ public class AnimalServiceImpl implements AnimalService {
 		// 해당 동물정보 삭제
 		animalDao.deleteAnimalByAnimal_Code(animal);
 		
-
 	}
 
 	@Override
@@ -136,6 +124,35 @@ public class AnimalServiceImpl implements AnimalService {
 		
 		return animal;
 	}
+
+	@Override
+	public int getTotalCount() {
+		return animalDao.selectCntAll();
+	}
+
+	@Override
+	public int getCurPage(HttpServletRequest req) {
+
+		String curPage = req.getParameter("curPage");
+		
+		if (curPage != null && !"".equals(curPage)) {
+			return Integer.parseInt(curPage);
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public List getPagingListAuth(Paging paging) {
+		return animalDao.selectPagingListAuth(paging);
+	}
+
+	@Override
+	public List getPagingListUnauth(Paging paging) {
+		return animalDao.selectPagingListUnauth(paging);
+	}
+	
+	
 
 	
 
