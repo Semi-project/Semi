@@ -13,6 +13,10 @@ $(document).ready(function() {
 		
 		$(location).attr("href","/adoption/send/view?animal_code="+animal_code);
 	});
+	
+	$("#btnWrite").click(function(){
+		$(location).attr("href", "/adoption/send/write");
+	});
 });
 </script>
 

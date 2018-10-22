@@ -17,7 +17,7 @@ $(function() {
       oAppRef : oEditors,
       elPlaceHolder : "ir1",
       //SmartEditor2Skin.html 파일이 존재하는 경로 
-      sSkinURI : "/smarteditor/SmartEditor2Skin.html",
+      sSkinURI : "/resource/smarteditor/SmartEditor2Skin.html",
       htParams : { // 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
          bUseToolbar : true,
          // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
@@ -44,13 +44,42 @@ $("#save").click(function(){
 
 
 
-<h3>네이버 스마트 에디터 2.0</h3>
+<h3>입양 보내실 동물</h3>
 <hr>
 
 <form id="frm" action="send.jsp" method="post">
       <table width="100%">
          <tr>
-            <td>제목</td>
+            <td>이름</td>
+            <td><input type="text" id="name" name="name" /></td>
+         </tr>
+         <tr>
+            <td>나이</td>
+            <td><input type="number" id="age" name="age" /></td>
+         </tr>
+         <tr>
+            <td>성별</td>
+            <td>
+            	<select>
+            		<option value="남">남</option>
+            		<option value="여">여</option>
+            	</select>
+			</td>
+         </tr>
+         <tr>
+            <td>이름</td>
+            <td><input type="text" id="title" name="title" /></td>
+         </tr>
+         <tr>
+            <td>이름</td>
+            <td><input type="text" id="title" name="title" /></td>
+         </tr>
+         <tr>
+            <td>이름</td>
+            <td><input type="text" id="title" name="title" /></td>
+         </tr>
+         <tr>
+            <td>이름</td>
             <td><input type="text" id="title" name="title" /></td>
          </tr>
          <tr>
