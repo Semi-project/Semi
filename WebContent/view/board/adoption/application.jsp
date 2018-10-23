@@ -3,7 +3,7 @@
 <jsp:include page="/view/layout/header.jsp" />
 <div class="wrapper">
 	<div class="row ">
-		<div class="col-lg-4">col-lg-4</div>
+		<div class="col-lg-4">col-lg-41111</div>
 		<div class="col-lg-4">
 			<div class="container ">
 				<form id="frm" action="" method="post">
