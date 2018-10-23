@@ -59,9 +59,40 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 	}
 
 	@Override
-	public void deleteFiletbByfileno(Notice_Board board) {
-		// TODO Auto-generated method stub
+	public int deleteFiletbByfileno(int fileno, Notice_Board board) {
+		String sql = "";
+		sql += "DELETE notice_filetb WHERE fileno=? AND boardno=?";
+		ps = null;
+		int cnt = -1;
+		try {
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, fileno);
+			ps.setInt(2, board.getBoardno());
 
+			cnt = ps.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB객체 닫기
+				if (ps != null)
+					ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cnt;
 	}
 
 	@Override
@@ -196,6 +227,43 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 		}
 
 		return boardFile;
+	}
+
+	@Override
+	public void deleteFiletbByboardno(Notice_Board board) {
+
+		String sql = "";
+		sql += "DELETE notice_filetb";
+		sql += " WHERE boardno=?";
+
+		ps = null;
+
+		try {
+			conn.setAutoCommit(false);
+			// DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board.getBoardno());
+			ps.executeUpdate();
+
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB객체 닫기
+				if (ps != null)
+					ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }

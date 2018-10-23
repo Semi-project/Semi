@@ -39,9 +39,8 @@ public class NoticeBoardWriteController extends HttpServlet {
 		// 응답 객체 MIME타입(Content-Type) 설정
 		resp.setContentType("text/html;charset=UTF-8");
 		/////////////////////////////////////////////////
-		notice_BoardService.write(req);
-		// System.out.println(req.getParameter("title"));
-		// System.out.println(req.getParameter("content"));
+		notice_BoardService.write(req,resp);
+		//resp.getWriter().println("1");
 		resp.sendRedirect("/notice/list");
 	}
 }

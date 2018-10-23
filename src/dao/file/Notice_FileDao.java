@@ -14,7 +14,8 @@ public interface Notice_FileDao {
 //	public void updateFiletbByfileno(Notice_filetb notice_filetb);
 
 	// 삭제
-	public void deleteFiletbByfileno(Notice_Board board);
+	public int deleteFiletbByfileno(int fileno,Notice_Board board);
+	public void deleteFiletbByboardno(Notice_Board board);
 
 	public int selectFileno();
 

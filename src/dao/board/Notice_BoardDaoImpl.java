@@ -67,6 +67,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
 	@Override
 	public void insertNoticeBoard(Notice_Board noticeBoard) {
+		System.out.println("isnertNoticeBoard Dao 입니다");
 		String sql = "";
 		sql += "INSERT INTO notice_board(BOARDNO,CATENO,TITLE,CONTENT,HIT,USERID,RECOMEND)";
 		sql += " VALUES(?, ?, ?, ?, 0,?,0)";
@@ -105,28 +106,35 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
 	@Override
 	public void updateNoticeBoard(Notice_Board noticeBoard) {
-		// 전체 조회 쿼리
+
+		// 다음 게시글 번호 조회 쿼리
 		String sql = "";
 		sql += "UPDATE notice_board";
-		sql += " SET hit = hit+1";
-		sql += " WHERE boardno=?";
-
+		sql += " SET title = ?,";
+		sql += " 	content = ?";
+		sql += " WHERE boardno = ?";
 		ps = null;
+
 		try {
 			conn.setAutoCommit(false);
+
+			// DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, noticeBoard.getBoardno());
+			ps.setString(1, noticeBoard.getTitle());
+			ps.setString(2, noticeBoard.getContent());
+			ps.setInt(3, noticeBoard.getBoardno());
+
 			ps.executeUpdate();
-			// 정상적으로 진행될 경우 commit
+
 			conn.commit();
+
 		} catch (SQLException e) {
-			// 예외발생 시 rollback
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			e.printStackTrace();
 		} finally {
 			try {
@@ -138,12 +146,6 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 				e.printStackTrace();
 			}
 		}
-
-	}
-
-	@Override
-	public void deleteNoticeBoard(Notice_Board noticeBoard) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -251,7 +253,78 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
 	@Override
 	public void updateHit(Notice_Board noticeBoard) {
-		// TODO Auto-generated method stub
+		// 전체 조회 쿼리
+		String sql = "";
+		sql += "UPDATE notice_board";
+		sql += " SET hit = hit+1";
+		sql += " WHERE boardno=?";
+
+		ps = null;
+		try {
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, noticeBoard.getBoardno());
+			ps.executeUpdate();
+			// 정상적으로 진행될 경우 commit
+			conn.commit();
+		} catch (SQLException e) {
+			// 예외발생 시 rollback
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB객체 닫기
+				if (ps != null)
+					ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	@Override
+	public void deleteNoticeBoard(Notice_Board noticeBoard) {
+		String sql = "DELETE notice_board WHERE boardno=?";
+
+		// DB 객체
+		ps = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			// DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, noticeBoard.getBoardno());
+
+			ps.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB객체 닫기
+				if (ps != null)
+					ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 

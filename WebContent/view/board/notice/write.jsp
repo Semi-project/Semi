@@ -8,22 +8,35 @@ div.title {
 </style>
 <script type="text/javascript"
 	src="/resource/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<!-- jQuery 2.2.4 -->
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<!-- jQuery Form Plugin -->
+<script src="http://malsup.github.com/min/jquery.form.min.js"></script>
+
 
 <script type="text/javascript">
-	$(document).ready(function() {
+   $(document).ready(function() {
+      //jquery.form.js 플러그인 사용
+      //   http://malsup.com/jquery/form/
 
-		$("#btnWrite").click(function() {
-			// 스마트에디터 내용으로 <textarea>적용
-			submitContents($("#btnWrite"));
-
-			// submit
-			$("form").submit();
-		});
-
-		$("#btnCancel").click(function() {
-			history.go(-1);
-		});
-	});
+      $("#fileForm").submit(function() {
+         submitContents();
+         
+         $("#fileForm").ajaxForm({
+            
+            dataType : "json",
+            success : function(res) {
+               console.log("성공");
+            },
+            error : function() {
+               console.log("실패");
+            }
+   
+         });
+      });
+   });
 </script>
 
 <style type="text/css">
@@ -38,7 +51,8 @@ div.title {
 	<hr>
 
 	<div>
-		<form action="/notice/write" method="post">
+		<form action="/notice/write" id="fileForm" method="post"
+			enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
 					<td class="info">아이디</td>
@@ -61,15 +75,19 @@ div.title {
 					<td colspan="2"><textarea id="content" name="content"></textarea></td>
 				</tr>
 			</table>
-
-			<label>첨부파일 : <input type="file" name="file" /></label>
-
+			<label>첨부1 : <input type="file" name="file1" /></label><br> <label>첨부2
+				: <input type="file" name="file2" />
+			</label><br> <label>첨부3 : <input type="file" name="file3" />
+			</label><br> <br>
+			<div class="text-center">
+				<button id="btnWrite" class="btn btn-info">작성</button>
+			</div>
 		</form>
+
 	</div>
 
 	<div class="text-center">
-		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
-		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
 </div>
 

@@ -24,10 +24,13 @@ public class NoticeBoardDeleteController extends HttpServlet {
 		notice_Board=notice_BoardService.getParam(req, resp);
 		// 로그인한 사람의 글이 아니면 중단하고 리스트로
 		if (!notice_BoardService.checkWriter(req, notice_Board)) {
+
+		//	System.out.println("2");	
 			resp.sendRedirect("/notice/list");
 			return;
 		}
-		notice_BoardService.delete(notice_Board);/// 구현하기
-		
+		//System.out.println("1");
+		notice_BoardService.delete(req,notice_Board);/// 구현하기
+		resp.sendRedirect("/notice/list");
 	}
 }

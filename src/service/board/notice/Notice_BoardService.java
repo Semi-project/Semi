@@ -31,7 +31,7 @@ public interface Notice_BoardService {
 
 	// 게시글 쓰기
 	// 게시글 내용과 첨부파일을 함께 업로드한다
-	public void write(HttpServletRequest req);
+	public void write(HttpServletRequest req ,HttpServletResponse resp);
 
 	// 첨부파일 얻기
 	public List<Notice_Filetb> viewFile(Notice_Board board);
@@ -39,10 +39,13 @@ public interface Notice_BoardService {
 	// 게시글 수정
 	// 게시글 내용과 첨부파일을 함께 적용한다
 	public void update(HttpServletRequest req);
-
+	
+	public int  updateFile(HttpServletRequest req);
 	// 게시글 삭제
-	public void delete(Notice_Board board);
+	public void delete(HttpServletRequest req,Notice_Board board);
 
+	public int deleteByfileno(int fileno, Notice_Board notice_Board);
+	
 	// 글 작성자인지 판단
 	public boolean checkWriter(HttpServletRequest req, Notice_Board board);
 

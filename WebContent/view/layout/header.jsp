@@ -70,10 +70,11 @@ ul.top_menu li {
 }
 
 .main_logo {
-	float: left;
+	maring: 0 auto;
 	font-size: 100%;
 	padding: 26px 0 17px;
-	height: 62px;
+	height: 64px;
+	font-size: 100%;
 }
 
 /*네비게이션 전체 영역 제어*/
@@ -170,12 +171,12 @@ ul.top_menu li {
 					<li><a href="/member/join">회원가입</a></li>
 				</c:if>
 				<c:if test="${login }">
-				<c:if test="${member.role_id ne 1}">
-				<li>관리자</li>
-				</c:if>	
-				<c:if test="${member.role_id ne 0}">
-				<li>일반회원</li>			
-				</c:if>
+					<c:if test="${role_id ne 1}">
+						<li>관리자</li>
+					</c:if>
+					<c:if test="${role_id ne 0}">
+						<li>일반회원</li>
+					</c:if>
 					<li><strong>${nick } 님, 환영합니다</strong></li>
 					<li><a href="/member/logout">로그아웃</a></li>
 					<li><a>마이페이지</a></li>
