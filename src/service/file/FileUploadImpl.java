@@ -34,7 +34,7 @@ public class FileUploadImpl implements FileUpload {
 		String path = defaultPath + "upload" + File.separator;
 		System.out.println("Path:" + path);
 		File file = new File(path);
-
+		
 		if (!file.exists()) {
 
 			file.mkdirs();
