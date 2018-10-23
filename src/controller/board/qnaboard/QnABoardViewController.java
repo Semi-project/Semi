@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.board.QnA;
+import dto.comment.QnA_Comments;
 import service.board.QnAService;
 import service.board.QnAServiceImpl;
 
@@ -31,7 +32,10 @@ public class QnABoardViewController extends HttpServlet {
 		String loginId = (String) req.getSession().getAttribute("userid");
 		req.setAttribute("loginId", loginId);
 		req.setAttribute("qnaView", qnaView);
-		System.out.println(qnaView);
+	/*	System.out.println(qnaView);*/
+		
+		QnA_Comments qnaComment = new QnA_Comments();
+		List<QnA_Comments> commentList = 
 		
 		req.getRequestDispatcher("/view/board/qna/view.jsp").forward(req, resp);
 		
