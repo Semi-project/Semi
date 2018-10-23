@@ -15,7 +15,7 @@ public class Notice_Filetb {
 	private String filepath;
 	
 	//파일크기
-	private int filesize;
+	private long filesize;
 	
 	//파일타입(확장자)
 	private String filetype;
@@ -62,12 +62,12 @@ public class Notice_Filetb {
 		this.filepath = filepath;
 	}
 
-	public int getFilesize() {
+	public long getFilesize() {
 		return filesize;
 	}
 
-	public void setFilesize(int filesize) {
-		this.filesize = filesize;
+	public void setFilesize(long l) {
+		this.filesize = l;
 	}
 
 	public String getFiletype() {

@@ -14,5 +14,6 @@ public interface Animal_FileDao {
 	
 	//리스트
 	public List<Animal_Filetb> selectFiletbAll();
+	public List<Animal_Filetb> selectFiletbByAnimalCode(Animal_Filetb animal_filetb);
 }
 

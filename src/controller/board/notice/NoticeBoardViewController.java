@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.comment.Notice_CommentDao;
-import dao.comment.Notice_CommentDaoImpl;
-import dao.file.Notice_FileDao;
-import dao.file.Notice_FileDaoImpl123;
+import dto.board.Notice_Board;
 import service.board.Notice_BoardService;
 import service.board.Notice_BoardServiceImpl;
 import service.comment.Notice_CommentService;
@@ -23,4 +20,19 @@ public class NoticeBoardViewController extends HttpServlet {
 
 	private Notice_BoardService notice_BoardService = new Notice_BoardServiceImpl();
 	private Notice_CommentService notice_CommentService = new Notice_CommentServiceImpl();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		Notice_Board notice_board = notice_BoardService.getParam(req, resp);
+		
+		Notice_Board notice_boardView = notice_BoardService.view(notice_board);
+		
+		req.setAttribute("notice_boardView", notice_boardView);
+
+		
+	
+		req.getRequestDispatcher("/view/board/notice_board/view.jsp")
+			.forward(req, resp);
+	}
 }

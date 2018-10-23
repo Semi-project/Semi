@@ -71,7 +71,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 	}
 
 	@Override
-	public List<Animal_Filetb> selectFiletbByBoardno(Animal_Filetb animal_filetb) {
+	public List<Animal_Filetb> selectFiletbByAnimalCode(Animal_Filetb animal_filetb) {
 		 
 		List<Animal_Filetb> list = new ArrayList<>();
 		
