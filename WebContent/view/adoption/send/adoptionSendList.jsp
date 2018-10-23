@@ -15,7 +15,7 @@ $(document).ready(function() {
 	});
 	
 	$("#btnWrite").click(function(){
-		$(location).attr("href", "/adoption/send/write");
+		$(location).attr("href", "/adoption/send/insert");
 	});
 });
 </script>

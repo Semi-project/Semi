@@ -13,6 +13,7 @@ import dao.animal.SpeciesDaoImpl;
 import dao.file.Animal_FileDao;
 import dao.file.Animal_FileDaoImpl;
 import dto.animal.Animal;
+import dto.animal.Species;
 import dto.file.Animal_Filetb;
 import util.Paging;
 
@@ -119,8 +120,17 @@ public class AnimalServiceImpl implements AnimalService {
 		Animal animal = new Animal();
 		
 		int code = Integer.parseInt(req.getParameter("animal_code"));
+		int age = Integer.parseInt(req.getParameter("age"));
+		int species = Integer.parseInt(req.getParameter("species"));
 		
-		animal.setAnimal_Code(code);
+		animal.setAnimal_Code( code);
+		animal.setAnimal_Name( req.getParameter("name"));
+		animal.setAnimal_Age( age);
+		animal.setAnimal_Gender_Code( req.getParameter("gender"));
+		animal.setAnimal_Gr( req.getParameter("weight"));
+		animal.setAnimal_Neuters( req.getParameter("neuter"));
+		animal.setSpecies_Code( species);
+		animal.setAnimal_Feature( req.getParameter("content"));
 		
 		return animal;
 	}
@@ -150,6 +160,14 @@ public class AnimalServiceImpl implements AnimalService {
 	@Override
 	public List getPagingListUnauth(Paging paging) {
 		return animalDao.selectPagingListUnauth(paging);
+	}
+
+	@Override
+	public List<Species> getSpecies() {
+		
+		SpeciesDao speciesDao = new SpeciesDaoImpl();
+		
+		return speciesDao.selectSpeciesAll();
 	}
 	
 	

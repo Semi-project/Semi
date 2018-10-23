@@ -27,9 +27,6 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, animal_filetb.getAnimal_Code());
 			ps.setString(2, animal_filetb.getFile_OriginName());
-			ps.setString(3, animal_filetb.getFilepath());
-			ps.setInt(4, animal_filetb.getFilesize());
-			ps.setString(5, animal_filetb.getFiletype());
 			ps.setString(6, animal_filetb.getFile_SaveName());
 			
 			ps.executeUpdate();
@@ -91,9 +88,6 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 				animal_filetb.setFileno( rs.getInt("fileno"));
 				animal_filetb.setAnimal_Code( rs.getInt("animal_code"));
 				animal_filetb.setFile_OriginName( rs.getString("file_originName"));
-				animal_filetb.setFilepath( rs.getString("filepath"));
-				animal_filetb.setFilesize( rs.getInt("filesize"));
-				animal_filetb.setFiletype( rs.getString("filetype"));
 				animal_filetb.setFile_SaveName( rs.getString("file_saveName"));
 				
 				list.add(animal_filetb);
