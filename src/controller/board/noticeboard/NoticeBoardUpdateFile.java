@@ -20,6 +20,7 @@ import service.board.notice.Notice_BoardServiceImpl;
 /**
  * Servlet implementation class NoticeBoardUpdateFile
  */
+//테스트 중입니다 오류나도 상관없습니다
 @WebServlet("/notice/file/update")
 public class NoticeBoardUpdateFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
