@@ -2,6 +2,7 @@ package dao.file;
 
 import java.util.List;
 
+import dto.board.Free_Board;
 import dto.file.Free_Filetb;
 
 public interface Free_FileDao {
@@ -17,4 +18,7 @@ public interface Free_FileDao {
 		
 	//리스트
 	public List<Free_Filetb> selectFiletbAll();
+	
+	//첨부파일 조회
+	public Free_Filetb selectFile(int freefileno);
 }
