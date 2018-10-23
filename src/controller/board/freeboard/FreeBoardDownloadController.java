@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
+//freeboard수정합니다
 import dao.board.Free_BoardDao;
 import dao.board.Free_BoardDaoImpl;
 import dao.file.Free_FileDao;
