@@ -39,13 +39,6 @@ public class AnimalDaoImpl implements AnimalDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		return animalSeqNext;

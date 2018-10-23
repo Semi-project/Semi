@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.animal.Animal;
-import dto.animal.Species;
 import dto.file.Animal_Filetb;
 import util.Paging;
 
@@ -26,9 +25,6 @@ public interface AnimalService {
 	
 	// 파라미터 가져오기
 	public Animal getParam(HttpServletRequest req, HttpServletResponse resp);
-	
-	// 품종 가져오기
-	public List<Species> getSpecies();
 	
 	// 페이징 필요 메소드
 	
