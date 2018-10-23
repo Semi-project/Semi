@@ -9,6 +9,7 @@ import java.util.List;
 
 import dto.animal.Animal;
 import util.DBConn;
+import util.Paging;
 
 public class AnimalDaoImpl implements AnimalDao {
 
@@ -38,95 +39,24 @@ public class AnimalDaoImpl implements AnimalDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return animalSeqNext;
 	}
 	
 	@Override
-	public List<Animal> selectAnimal() {
-
-		sql = "SELECT * FROM animal WHERE status=0 ORDER BY animal_code DESC";
-
-		List<Animal> list = new ArrayList<>();
-
-		try {
-			ps = conn.prepareStatement(sql);
-
-			rs = ps.executeQuery();
-
-			while(rs.next()) {
-				animal = new Animal();
-
-				animal.setAnimal_Code( rs.getInt("animal_code"));
-				animal.setAnimal_Age( rs.getInt("animal_age"));
-				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
-				animal.setAnimal_Gr( rs.getString("animal_gr"));
-				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
-				animal.setAnimal_Feature( rs.getString("animal_feature"));
-				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));		
-
-				list.add(animal);				
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return list;
-	}
-	
-	@Override
-	public List<Animal> selectAnimalnotAutho() {
-		sql = "SELECT * FROM animal WHERE status=1 ORDER BY animal_code DESC";
-
-		List<Animal> list = new ArrayList<>();
-
-		try {
-			ps = conn.prepareStatement(sql);
-
-			rs = ps.executeQuery();
-
-			while(rs.next()) {
-				animal = new Animal();
-
-				animal.setAnimal_Code( rs.getInt("animal_code"));
-				animal.setAnimal_Age( rs.getInt("animal_age"));
-				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
-				animal.setAnimal_Gr( rs.getString("animal_gr"));
-				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
-				animal.setAnimal_Feature( rs.getString("animal_feature"));
-				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));		
-
-				list.add(animal);				
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
-	
-	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
 
-		sql = "SELECT * FROM animal WHERE animal_code=?";
+		sql = "SELECT * FROM animal, species";
+		sql += " WHERE animal.species_code=species.species_code";
+		sql += " AND animal_code=?";
 
 		try {
 			ps = conn.prepareStatement(sql);
@@ -143,6 +73,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setAnimal_Feature( rs.getString("animal_feature"));
 				animal.setStatus( rs.getInt("status"));
 				animal.setSpecies_Code( rs.getInt("species_code"));		
+				animal.setSpecies_Name( rs.getString("species_name"));
 			}
 
 		} catch (SQLException e) {
@@ -165,7 +96,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql = "INSERT INTO animal";
 		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try { 
+		try {
 			ps = conn.prepareStatement(sql);
 			
 			ps.setInt(1, selectSeqNextval());
@@ -239,7 +170,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setInt(1, animal.getAnimal_Code());
 			
 			ps.executeUpdate();
-			
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -274,6 +205,141 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public List selectPagingListAuth(Paging paging) {
+
+		sql = "SELECT * FROM (";
+		sql += " SELECT rownum rnum, A.* FROM (";
+		sql += " SELECT animal_name, animal_code,";
+		sql += " animal_age, animal_gender_code,"; 
+		sql += " animal_gr, animal_neuters,"; 
+		sql += " animal_feature, status,";
+		sql += " animal.species_code, species_name";
+		sql += " FROM animal, species";
+		sql += " WHERE species.species_code=animal.species_code";
+		sql += " AND status=1";
+		sql += " ORDER BY animal_code DESC";
+		sql += " ) A";
+		sql += " ORDER BY rnum";
+		sql += " )";
+		sql += " WHERE rnum between ? AND ?";
+		
+		List list = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+						
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				animal = new Animal();
+				
+				animal.setAnimal_Name( rs.getString("animal_name"));
+				animal.setAnimal_Code( rs.getInt("animal_code"));
+				animal.setAnimal_Age( rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr( rs.getString("animal_gr"));
+				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
+				animal.setAnimal_Feature( rs.getString("animal_feature"));
+				animal.setStatus( rs.getInt("status"));
+				animal.setSpecies_Code( rs.getInt("species_code"));
+				animal.setSpecies_Name( rs.getString("species_name"));
+				
+				list.add(animal);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List selectPagingListUnauth(Paging paging) {
+		sql = "SELECT * FROM (";
+		sql += " SELECT rownum rnum, A.* FROM (";
+		sql += " animal_name, animal_code,";
+		sql += " animal_age, animal_gender_code,"; 
+		sql += " animal_gr, animal_neuters,"; 
+		sql += " animal_feature, status,";
+		sql += " animal.species_code, species_name";
+		sql += " FROM animal, species";
+		sql += " WHERE species.species_code = animal.species_code";
+		sql += " AND status=0";
+		sql += " ORDER BY animal_code DESC";
+		sql += " ) A";
+		sql += " ORDER BY rnum";
+		sql += " )";
+		sql += " WHERE rnum between ? AND ?";
+		
+		List list = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				animal = new Animal();
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public int selectCntAll() {
+
+		sql = "SELECT COUNT (*) FROM animal";
+		
+		int cnt = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			rs.next();
+			
+			cnt = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
 	}
 
 
