@@ -28,8 +28,8 @@ public class Paging {
 	// pageCount == 10
 	// listCount == 10
 	public Paging(int totalCount, int curPage) {
-		this.setTotalCount(totalCount);
-		this.setCurPage(curPage);
+		this.setTotalCount(totalCount); //총게시글 수 
+		this.setCurPage(curPage); // 현제 페이지
 
 		makePaging();
 	}
@@ -37,9 +37,9 @@ public class Paging {
 	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수를 입력하는 생성자
 	// pageCount == 10
 	public Paging(int totalCount, int curPage, int listCount) {
-		this.setTotalCount(totalCount);
-		this.setCurPage(curPage);
-		this.setListCount(listCount);
+		this.setTotalCount(totalCount); //총게시물수 
+		this.setCurPage(curPage); //현제 페이지
+		this.setListCount(listCount); //보여지는 게시글 수 
 
 		makePaging();
 	}

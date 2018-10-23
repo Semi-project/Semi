@@ -11,11 +11,26 @@ public class Notice_Board {
 	private Date insert_dat;
 	private Date update_dat;
 	private String content;
-
+	private int hit; 
+	private int recomend;
+	
 	@Override
 	public String toString() {
 		return "Notice_Board [cateno=" + cateno + ", userid=" + userid + ", boardno=" + boardno + ", title=" + title
-				+ ", insert_dat=" + insert_dat + ", update_dat=" + update_dat + ", content=" + content + "]";
+				+ ", insert_dat=" + insert_dat + ", update_dat=" + update_dat + ", content=" + content + ", hit=" + hit
+				+ ", recomend=" + recomend + "]";
+	}
+	public int getRecomend() {
+		return recomend;
+	}
+	public void setRecomend(int recomend) {
+		this.recomend = recomend;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	public int getCateno() {
 		return cateno;
@@ -59,6 +74,7 @@ public class Notice_Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 
 
 
