@@ -147,7 +147,6 @@ public class QnA_CommentDaoImpl implements QnA_CommentDao {
 			}
 		}
 		
-
 	}
 
 	@Override
