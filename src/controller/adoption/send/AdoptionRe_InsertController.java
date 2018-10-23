@@ -92,7 +92,7 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
 
 		while ((numRead = is.read(b, 0, b.length)) != -1) {
-
+			
 			os.write(b, 0, numRead);
 
 		}
