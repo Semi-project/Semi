@@ -2,25 +2,25 @@ package dto.animal;
 
 public class Animal {
 
-	//동물코드
+	// 동물코드
 	private int animal_Code;
 
-	//동물나이
+	// 동물나이
 	private int animal_Age;
 
-	//성별코드
+	// 성별코드
 	private String animal_Gender_Code;
 
-	//체중
+	// 체중
 	private String animal_Gr;
 
-	//중성화
+	// 중성화
 	private String animal_Neuters;
 	
-	//특징
+	// 특징
 	private String animal_Feature;
 
-	//승인상태
+	// 승인상태
 	private int status;
 
 	// 품종코드
@@ -29,7 +29,7 @@ public class Animal {
 	// 품종명
 	private String species_Name;
 
-	//동물 이름
+	// 동물 이름
 	private String animal_Name;
 
 	@Override
