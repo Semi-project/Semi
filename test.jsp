@@ -39,7 +39,7 @@
 			error : function() {
 				console.log("실패");
 			}
-
+//ddd
 		});
 	});
 </script>
