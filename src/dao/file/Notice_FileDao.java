@@ -2,6 +2,8 @@ package dao.file;
 
 import java.util.List;
 
+import dto.board.Free_Board;
+import dto.file.Free_Filetb;
 import dto.file.Notice_Filetb;
 
 public interface Notice_FileDao {
@@ -17,4 +19,7 @@ public interface Notice_FileDao {
 
 	// 리스트
 	public List<Notice_Filetb> selectFiletbAll();
+
+	
+	
 }

@@ -2,33 +2,45 @@ package dto.animal;
 
 public class Animal {
 
-   
    //동물코드
    private int animal_Code;
-   
+
    //동물나이
    private int animal_Age;
-   
+
    //성별코드
    private String animal_Gender_Code;
-   
+
    //체중
    private String animal_Gr;
-   
+
    //중성화
    private String animal_Neuters;
-   
+
    //특징
    private String animal_Feature;
-   
+
    //승인상태
    private int status;
-   
-   //동물종류코드
+
+   // 품종코드
    private int species_Code;
    
+   // 품종명
+   private String species;
+
    //동물 이름
    private String animal_Name;
+
+   
+
+   public String getSpecies() {
+      return species;
+   }
+
+   public void setSpecies(String species) {
+      this.species = species;
+   }
 
    public int getAnimal_Code() {
       return animal_Code;
@@ -107,7 +119,8 @@ public class Animal {
       return "Animal [animal_Code=" + animal_Code + ", animal_Age=" + animal_Age + ", animal_Gender_Code="
             + animal_Gender_Code + ", animal_Gr=" + animal_Gr + ", animal_Neuters=" + animal_Neuters
             + ", animal_Feature=" + animal_Feature + ", status=" + status + ", species_Code=" + species_Code
-            + ", animal_Name=" + animal_Name + "]";
+            + ", animal_Name=" + animal_Name + ", species=" + species + "]";
    }
-}
 
+
+}

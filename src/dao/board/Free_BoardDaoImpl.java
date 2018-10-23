@@ -64,9 +64,44 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 
 	@Override
 	public void insertFreeBoard(Free_Board freeBoard) {
-		// TODO Auto-generated method stub
+		String sql = "";
+		sql += "INSERT INTO free_board(BOARDNO,TITLE,userid,CONTENT,CATENO,RECOMEND,HIT) ";
+		sql += " VALUES (free_board_seq.nextval, ?, ?, ?,1000,1,0)";
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, freeBoard.getTitle());
+			ps.setString(2, freeBoard.getUserid());
+			ps.setString(3, freeBoard.getContent());
 
+			ps.executeUpdate();
+			
+			conn.commit();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
+
+	
 
 	@Override
 	public Free_Board viewFreeBoard(Free_Board freeBoard) {
@@ -203,5 +238,44 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int selectFreeboardno() {
+		//다음 게시글 번호 조회 쿼리
+				String sql = "";
+				sql += "SELECT free_board_seq.nextval";
+				sql += " FROM dual";
+
+				//게시글번호
+				int boardno = 0;
+				
+				try {
+					//DB작업
+					ps = conn.prepareStatement(sql);
+					rs = ps.executeQuery();
+					
+					//결과 담기
+					while(rs.next()) {
+						boardno = rs.getInt(1);
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						//DB객체 닫기
+						if(rs!=null)	rs.close();
+						if(ps!=null)	ps.close();
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				//게시글 번호 반환
+				return boardno;
+			}
+
+	
 
 }

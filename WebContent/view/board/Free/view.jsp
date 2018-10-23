@@ -46,9 +46,9 @@
 </div>
 
 <div class="text-center">	
-	<button id="btnList" class="btn btn-primary">목록</button>
-	<button id="btnUpdate" class="btn btn-info">수정</button>
-	<button id="btnDelete" class="btn btn-danger">삭제</button>
+	<button id="btnList" class="btn btn-primary"><a href="list">목록</a></button>
+	<button id="btnUpdate" class="btn btn-info"><a href="update">수정</a></button>
+	<button id="btnDelete" class="btn btn-danger"><a href=delete">삭제</a></button>
 </div>
 </div>
 

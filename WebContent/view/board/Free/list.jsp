@@ -40,7 +40,7 @@
 	
 	
 	<c:if test="${login ne null }">
-	<button>글쓰기</button>
+	<button><a href="/freeboard/write"/>글쓰기</button>
 	</c:if>
 	
 
