@@ -16,7 +16,7 @@ public class Animal {
 
 	// 중성화
 	private String animal_Neuters;
-
+	
 	// 특징
 	private String animal_Feature;
 
@@ -25,19 +25,19 @@ public class Animal {
 
 	// 품종코드
 	private int species_Code;
-
+	
 	// 품종명
-	private String species;
+	private String species_Name;
 
 	// 동물 이름
 	private String animal_Name;
 
-	public String getSpecies() {
-		return species;
-	}
-
-	public void setSpecies(String species) {
-		this.species = species;
+	@Override
+	public String toString() {
+		return "Animal [animal_Code=" + animal_Code + ", animal_Age=" + animal_Age + ", animal_Gender_Code="
+				+ animal_Gender_Code + ", animal_Gr=" + animal_Gr + ", animal_Neuters=" + animal_Neuters
+				+ ", animal_Feature=" + animal_Feature + ", status=" + status + ", species_Code=" + species_Code
+				+ ", species_Name=" + species_Name + ", animal_Name=" + animal_Name + "]";
 	}
 
 	public int getAnimal_Code() {
@@ -104,6 +104,14 @@ public class Animal {
 		this.species_Code = species_Code;
 	}
 
+	public String getSpecies_Name() {
+		return species_Name;
+	}
+
+	public void setSpecies_Name(String species_Name) {
+		this.species_Name = species_Name;
+	}
+
 	public String getAnimal_Name() {
 		return animal_Name;
 	}
@@ -112,12 +120,6 @@ public class Animal {
 		this.animal_Name = animal_Name;
 	}
 
-	@Override
-	public String toString() {
-		return "Animal [animal_Code=" + animal_Code + ", animal_Age=" + animal_Age + ", animal_Gender_Code="
-				+ animal_Gender_Code + ", animal_Gr=" + animal_Gr + ", animal_Neuters=" + animal_Neuters
-				+ ", animal_Feature=" + animal_Feature + ", status=" + status + ", species_Code=" + species_Code
-				+ ", animal_Name=" + animal_Name + ", species=" + species + "]";
-	}
-
+	
 }
+

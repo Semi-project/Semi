@@ -8,7 +8,7 @@ import service.animal.AnimalServiceImpl;
 
 // 입양보내기 수정
 
-@WebServlet("/AdoptionRe_UpdateConstroller")
+@WebServlet("/adoption/send/update")
 public class AdoptionRe_UpdateConstroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
