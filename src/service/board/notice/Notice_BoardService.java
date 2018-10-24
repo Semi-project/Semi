@@ -15,7 +15,7 @@ public interface Notice_BoardService {
 	public List<Notice_Board> selectNotice_Board();
 
 	// 공지사항 글 쓰기 및 파일 업로드
-	public void writeNotice_Board(HttpServletRequest req); // , File file);
+	public void writeNotice_Board(Notice_Board Notice_Board, Notice_Filetb noticeFile); // , File file);
 
 	// 공지사항 삭제
 	public void deleteNotice_Board(Notice_Board Notice_Board);
@@ -46,7 +46,5 @@ public interface Notice_BoardService {
 
 	// Param 가져오기
 	public Notice_Board getParam(HttpServletRequest req, HttpServletResponse resp);
-	
-	public Notice_Board view(Notice_Board notice_boardView);
 
 }

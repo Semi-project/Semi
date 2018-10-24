@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.member.Member;
 import service.member.MemberService;
 import service.member.MemberServiceImpl;
 
@@ -22,11 +23,29 @@ public class MyPageUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     
+    	Member member = memberService.getParam(req, resp);
+    	
+    	Member memberView = memberService.selectMemberByUserId(member);
+    	
+    	req.setAttribute("memberView", memberView );
+    	
+    	req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
     }
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
-    	super.doPost(req, resp);
-    }
+    
+    	req.setCharacterEncoding("UTF-8");
+    	
+    	try {
+			memberService.updateMember(req);
+			
+			resp.sendRedirect("/mypage/view");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+   
+			
+    } 	
+  
 }

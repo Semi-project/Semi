@@ -33,9 +33,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateMember(Member member) {
-		// TODO Auto-generated method stub
-
+	public void updateMember(HttpServletRequest req) throws Exception {
+			Member member = null;
+		if (member != null ) {
+			memberDao.updateMember(member);
+		}
 	}
 
 	@Override

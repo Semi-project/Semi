@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="/view/layout/header.jsp" />
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <script type="text/javascript"
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script type="text/javascript"
@@ -10,7 +13,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#save").click(function() {
-			oEditors.getById["feature"].exec("UPDATE_CONTENTS_FIELD", []);
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#form").submit();
 		});
 	});
@@ -31,7 +34,8 @@
 				}
 			},
 			fOnAppLoad : function() { //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용 
-				oEditors.getById["feature"].exec("PASTE_HTML", [ "" ]);
+				oEditors.getById["feature"].exec("PASTE_HTML",
+						[ "기존 DB에 저장된 내용을 에디터에 적용할 문구" ]);
 			},
 			fCreator : "createSEditor2"
 		});
@@ -39,56 +43,48 @@
 </script>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="row">
-			<div class="col-lg-4">여기는 왼쪽;</div>
-			<div class="col-lg-4">
-				<form id="form" action="/adoption/form" method="post">
-					<table width="100%">
-						<tr>
+	<form method="POST" id="form" name="form" action="">
+		<table style="width=100%" >
+			<tr>
 
-							<td><label for="name">동물이름 </label></td>
-							<td><input type="text" name="name" id="name" size="20px">
-							</td>
-						</tr>
-						<tr>
-							<td><label for="age">나이 숫자 </label></td>
-							<td><input type="text" id="age"></td>
-						</tr>
-						<tr>
-							<td><label for="gender">성별</label></td>
-							<td><input type="radio" name="gender" value="남">남 <input
-								type="radio" name="gender" value="여" checked>여</td>
-						</tr>
-						<tr>
-							<td><label for="gr">무게 </label></td>
-							<td><input type="text" id="gr"></td>
-						</tr>
-						<tr>
-							<td><label for="neuters">중성화 </label></td>
-							<td><input type="radio" name="neuters" value="됨" checked>중성화
-								안됨 <input type="radio" name="neuters" value="안됨">중성화 안됨</td>
-						</tr>
-						<tr>
+				<td><label for="name">동물이름 </label></td>
+				<td><input type="text" name="name" id="name" size="20px">
+				</td>
+			</tr>
+			<tr>
+				<td><label for="age">나이 숫자 </label></td>
+				<td><input type="text" id="age"></td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td><input type="radio" name="gender" value="남">남 <input
+					type="radio" name="gender" value="여" checked>여</td>
+			</tr>
+			<tr>
+				<td><label for="gr">무게 </label></td>
+				<td><input type="text" id="gr"></td>
+			</tr>
+			<tr>
+				<td><label for="neuters">뉴스메일 </label></td>
+				<td><input type="radio" name="neuters" value="됨" checked>중성화
+					안됨 <input type="radio" name="neuters" value="안됨">중성화 안됨</td>
+			</tr>
+			<tr>
 
-							<td><label for="species">품종 </label></td>
-							<td><input type="text" name="species" id="species"
-								size="20px"></td>
-						</tr>
-						<tr>
-							<td>내용</td>
-							<td><textarea rows="10" cols="50" id="feature"
-									name="feature" style="width: 766px; height: 412px;"></textarea></td>
-						<tr>
-						<tr>
-							<td colspan="2"><input type="button" id="save" value="저장" />
-								<input type="button" value="취소" /></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
-	</div>
+				<td><label for="species">품종 </label></td>
+				<td><input type="text" name="species" id="species" size="20px">
+				</td>
+			</tr>
+			<tr>
+				<td><label class="feature">특징</label></td>
+				<td><textarea style="width: 766px; height: 412px;" id="feature" name="feature" rows="50"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="button" id="save" value="저장" /> <input
+					type="button" value="취소" /></td>
+			</tr>
+		</table>
+	</form>
 
 </body>
 </html>
