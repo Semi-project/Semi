@@ -1,8 +1,6 @@
-/service/
-/free/
-/dao/
-/review/
-/dto/
-/qna/
-/file/
 /controller/
+/dao/
+/dto/
+/file/
+/service/
+/util/

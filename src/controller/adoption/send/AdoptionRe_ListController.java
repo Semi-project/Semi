@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import dto.animal.Animal;
 import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
-import util.Paging;
 
 // 입양 보내기 리스트
 
@@ -26,24 +25,9 @@ public class AdoptionRe_ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// 현재 페이지 번호 얻기
-		int curPage = animalService.getCurPage(req);
+		List<Animal> list = animalService.selectAnimal();
 		
-		// 페이징 객체
-		int totalCount = animalService.getTotalCount();
-		Paging paging = new Paging(totalCount, curPage);
-		
-		// 게시글목록  MODEL로 추가
-		// 허가된 동물 리스트 가져오기
-		List<Animal> animalList = animalService.getPagingListAuth(paging);
-		
-		// 허가 되지 않은 동물 리스트 가져오기
-//		List<Animal> animalList = animalService.getPagingListUnauth(paging);
-		
-		req.setAttribute("animalList", animalList);
-
-		// 페이징 객체 MODEL로 추가
-		req.setAttribute("paging", paging);
+		req.setAttribute("list", list);
 		
 		req.getRequestDispatcher("/view/adoption/send/adoptionSendList.jsp").forward(req, resp);
 		

@@ -10,7 +10,6 @@ import dao.adoption.AdoptionDaoImpl;
 import dao.animal.AnimalDao;
 import dao.animal.AnimalDaoImpl;
 import dto.adoption.Adoption;
-import dto.file.Animal_Filetb;
 import util.Paging;
 
 public class AdoptionServiceImpl implements AdoptionService {
@@ -29,7 +28,11 @@ public class AdoptionServiceImpl implements AdoptionService {
 	      return null;
 	   }
 
-	   
+	   @Override
+	   public void write(Adoption adoption) {
+	      // TODO Auto-generated method stub
+
+	   }
 
 	   @Override
 	   public void delete(Adoption adoption) {
@@ -42,42 +45,6 @@ public class AdoptionServiceImpl implements AdoptionService {
 	      // TODO Auto-generated method stub
 	      
 	   }
-
-	@Override
-	public int getCurPage(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getTotalCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Adoption> getList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getNick(Adoption adoption) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Animal_Filetb viewFile(Adoption adoption) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void write(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 }

@@ -51,9 +51,7 @@ public class MemberLoginController extends HttpServlet {
 				req.getSession().setAttribute("login", true);
 				req.getSession().setAttribute("userid", member.getUserid());
 				req.getSession().setAttribute("nick", member.getName());
-				req.getSession().setAttribute("role_id", member.getRole_id());
-				//System.out.println(member.getRole_id());
-				//System.out.println(member.getName());
+				System.out.println(member.getName());
 				cnt = 0;
 				resp.getWriter().println(cnt);
 

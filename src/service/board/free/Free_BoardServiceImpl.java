@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.board.BoardCateDao;
-import dao.board.BoardCateDaoImpl;
+import dao.board.cate.BoardCateDao;
+import dao.board.cate.BoardCateDaoImpl;
 import dao.board.free.Free_BoardDao;
 import dao.board.free.Free_BoardDaoImpl;
 import dao.board.recommend.RecommendDao;

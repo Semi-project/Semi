@@ -1,5 +1,6 @@
 package dao.board.qna;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import util.Paging;
@@ -8,39 +9,41 @@ import dto.board.QnA;
 
 public interface QnADao {
 
-		// QnA 목록보기
+		// QnA ��Ϻ���
 		public List<QnA> selectQnA();
 
-		//QnA 글쓰기
-		public void insertQnA(QnA qna);
+		//QnA �۾���
+		public void insertQnA(QnA qna) throws Exception;
 
-		// QnA 글읽기
-		public String viewQnA(QnA qna);
+		// QnA ���б�
+		public QnA selectQnAByBoardno(int boardNo);
 
-		// QnA 글 수정
-		public void updateQnA(QnA qna);
+		// QnA �� ����
+		public void updateQnA(QnA qna) throws Exception;
 
-		// QnA 글 삭제
-		public void deleteQnA(QnA qna);
+		// QnA �� ����
+		public int deleteQnA(QnA qna) throws Exception;
 
-		// QnA 글 찾기
-		public String findQnA(QnA qna);
+		// QnA ����Ʈ ����¡ ó��
+		public List<QnA> selectQnAPagingList(Paging paging , String search , String searchVal);
 
-		// QnA 리스트 페이징 처리
-		public List<QnA> selectQnAPagingList(Paging paging);
-
-		// QnA 총 글수 출력
-		public int selectQnACntAll();
-
-		//QnA 제목으로 찾기
-		public String selectQnAByTitle(QnA qna);
-
-		//QnA내용으로 찾기
-		public String selectQnAByContent(QnA qna);
-
-		// QnA 아이디로 찾기
-		public String selectByuserId(QnA qna);
+		// QnA �� �ۼ� ���
+		public int selectQnACntAll(String searchVal, String search);
 		
-		// 댓글번호로 조회
-		public QnA selectByComment_No(QnA qna);
+		// QnA �����Խñ� ��ȯ
+		public int selectBoardno();
+
+		//QnA �������� ã��
+		public QnA selectQnABytitle(QnA qna);
+
+		//QnA �������� ã��
+		public QnA selectQnABycontent(QnA qna);
+
+		// QnA ���̵�� ã��
+		public QnA selectByuserid(QnA qna);
+		
+		// ��۹�ȣ�� ��ȸ
+		public QnA selectByComment_no(QnA qna);
+		
+		
 }

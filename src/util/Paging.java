@@ -13,6 +13,8 @@ public class Paging {
 
 	private int startNo; // 게시물리스트 첫 번호
 	private int endNo; // 게시물리스트 마지막 번호
+	
+	private String search; //검색어
 
 	// 총 게시글 수만 입력하는 생성자
 	// curPage == 1
@@ -28,8 +30,8 @@ public class Paging {
 	// pageCount == 10
 	// listCount == 10
 	public Paging(int totalCount, int curPage) {
-		this.setTotalCount(totalCount); //총게시글 수 
-		this.setCurPage(curPage); // 현제 페이지
+		this.setTotalCount(totalCount);
+		this.setCurPage(curPage);
 
 		makePaging();
 	}
@@ -37,9 +39,9 @@ public class Paging {
 	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수를 입력하는 생성자
 	// pageCount == 10
 	public Paging(int totalCount, int curPage, int listCount) {
-		this.setTotalCount(totalCount); //총게시물수 
-		this.setCurPage(curPage); //현제 페이지
-		this.setListCount(listCount); //보여지는 게시글 수 
+		this.setTotalCount(totalCount);
+		this.setCurPage(curPage);
+		this.setListCount(listCount);
 
 		makePaging();
 	}
@@ -90,6 +92,13 @@ public class Paging {
 		startNo = (curPage - 1) * listCount + 1;
 		// 게시글 끝번호
 		endNo = curPage * listCount;
+	}
+
+	@Override
+	public String toString() {
+		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
+				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + "]";
 	}
 
 	public int getCurPage() {
@@ -164,11 +173,13 @@ public class Paging {
 		this.endNo = endNo;
 	}
 
-	@Override
-	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+	public String getSearch() {
+		return search;
 	}
 
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	
 }
