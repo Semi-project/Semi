@@ -190,27 +190,23 @@ ul.top_menu li {
 					<li class="navi_set">
 						<div class="topnav" id="topnav_1">소개</div>
 						<ul class="subnav">
-							<li>오시는길</li>
-							<li>공지사항</li>
+							<li><a href="/introduce/contact">오시는길</a></li>
+							<li><a href="/noticeboard/list">공지사항</a></li>
 						</ul>
 					</li>
 					<li class="navi_set">
 						<div class="topnav" id="topnav_2">참여하기</div>
 						<ul class="subnav">
-							<li><a href="/adoption/list">입양하기</a></li>
-							<li>입양보내기</li>
-							<li>입양후기</li>
+							<li><a href="/adoption/apply/list">입양하기</a></li>
+							<li><a href="/adoption/send/list"> 입양보내기</a></li>
+							<li><a href="/review/list">입양후기</a></li>
 						</ul>
 					</li>
-					<li class="navi_set"><div class="topnav" id="topnav_3">후원하기</div>
 
+					<li class="navi_set"><div class="topnav" id="topnav_4">정보마당</div>
 						<ul class="subnav">
-							<li>정기후원</li>
-						</ul></li>
-					<li class="navi_set"><div class="topnav" id="topnav_4">고객센터</div>
-						<ul class="subnav">
-							<li>제보게시판</li>
-							<li>자유게시판</li>
+							<li><a href="/qnaboard/list">Q & A</a></li>
+							<li><a href="/freeboard/list">자유게시판</a></li>
 						</ul></li>
 				</ul>
 
