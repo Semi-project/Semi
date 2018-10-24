@@ -13,8 +13,8 @@ import dto.board.QnA;
 import dto.comment.QnA_Comments;
 import service.board.qna.QnAService;
 import service.board.qna.QnAServiceImpl;
-import service.comment.QnA_CommentService;
-import service.comment.QnA_CommentServiceImpl;
+import service.comment.qna.QnA_CommentService;
+import service.comment.qna.QnA_CommentServiceImpl;
 
 @WebServlet("/qnaboard/view")
 public class QnABoardViewController extends HttpServlet {

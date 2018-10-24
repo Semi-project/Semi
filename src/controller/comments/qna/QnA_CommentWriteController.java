@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.comment.QnA_Comments;
-import service.comment.QnA_CommentService;
-import service.comment.QnA_CommentServiceImpl;
+import service.comment.qna.QnA_CommentService;
+import service.comment.qna.QnA_CommentServiceImpl;
 
 
 @WebServlet("/qnacomment/write")

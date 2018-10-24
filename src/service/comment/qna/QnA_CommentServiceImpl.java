@@ -1,4 +1,4 @@
-package service.comment;
+package service.comment.qna;
 
 import java.util.List;
 

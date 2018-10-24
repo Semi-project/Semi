@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServlet;
 
 import service.board.notice.Notice_BoardService;
 import service.board.notice.Notice_BoardServiceImpl;
-import service.comment.Notice_CommentService;
-import service.comment.Notice_CommentServiceImpl;
+import service.comment.notice.Notice_CommentService;
+import service.comment.notice.Notice_CommentServiceImpl;
 
 @WebServlet("/noticeboard/list")
 public class NoticeBoardListController extends HttpServlet {
