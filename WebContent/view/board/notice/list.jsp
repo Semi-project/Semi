@@ -40,7 +40,7 @@ div.list {
 					<c:forEach items="${boardList }" var="board">
 						<tr>
 							<td>${board.boardno }</td>
-							<td><a href="/notice/view?boardno=${board.boardno }">${board.title }</a></td>
+							<td><a href="/notice/view?boardno=${board.boardno }&curPage=${paging.curPage}">${board.title }</a></td>
 							<td>${board.userid }</td>
 							<td>${board.hit }</td>
 							<td><fmt:formatDate value="${board.insert_dat }"

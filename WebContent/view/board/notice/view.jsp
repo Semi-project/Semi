@@ -31,9 +31,10 @@
 													.attr("href",
 															"/notice/delete?boardno=${boardView.boardno }");
 										});
+						
+						
 					});
 </script>
-ccccccc : ${paging.curPage}
 <div class="container">
 
 	<h4>회원공간</h4>
@@ -46,16 +47,14 @@ ccccccc : ${paging.curPage}
 
 			<div class="col-lg-8">
 				<h3>${boardView.title }</h3>
-				<ul class="list-inline">
+				<ul class="list-inline ">
 					<li>글쓴이 : ${boardView.userid }</li>
 					<li>|</li>
 					<li>글번호 : ${boardView.boardno }</li>
 					<li>|</li>
-					<li>닉네임</li>
-					<li>|</li>
 					<li>조회수 : ${boardView.hit }</li>
 					<li>|</li>
-					<li>추천수 :</li>
+					<li>추천수 :${boardView.recomend }</li>
 					<li>|</li>
 					<li>작성일 :${boardView.insert_dat }</li>
 				</ul>
@@ -78,13 +77,22 @@ ccccccc : ${paging.curPage}
 						<input id="commet_id" name="comment_id" value="" type="hidden" />
 						<h3>댓글남기기- 로그인 필요</h3>
 						<div class="comment_text">
-							<textarea rows="3" cols="100" id="text" name="text" type="text"
-								style="resize: none;"></textarea>
+							<c:if test="${not login}">
+
+								<textarea rows="3" cols="100" id="text" name="text"
+									style="resize: none;" disabled="disabled"></textarea>
+							</c:if>
+							<c:if test="${login}">
+
+								<textarea rows="3" cols="100" id="text" name="text"
+									style="resize: none;"></textarea>
+							</c:if>
+
 							<small>1000 자 이내로 입력해주세요</small>
+
 						</div>
 						<div class="text-right">
 							<button id="isnert" class="btn btn-danger">댓글등록</button>
-
 						</div>
 						<div></div>
 					</form>
@@ -97,13 +105,23 @@ ccccccc : ${paging.curPage}
 
 						</div>
 						<div id="comment-wrapper">
-							<div id="comment">댓글입니다.</div>
+
+							<ul class="list-inline ">
+								<li>글쓴이 : ${boardView.userid }</li>
+								<li>|</li>
+								<li>댓글번호 : ${boardView.boardno }</li>
+								<li>|</li>
+								<li>작성일 :${boardView.insert_dat }</li>
+							</ul>
+							댓글내용 :${boardView.insert_dat }
 						</div>
+						<hr>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-2">....</div>
 		</div>
+		<div class="col-lg-2">....</div>
 	</div>
+</div>
 </div>
 <jsp:include page="/view/layout/footer.jsp" />

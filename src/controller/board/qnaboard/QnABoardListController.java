@@ -4,8 +4,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 import dto.file.QnA_Filetb;
-import service.board.QnAService;
-import service.board.QnAServiceImpl;
+import service.board.qna.QnAService;
+import service.board.qna.QnAServiceImpl;
 
 /**
  * Servlet implementation class FreeBoardList
