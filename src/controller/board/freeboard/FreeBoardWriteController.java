@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.board.Free_BoardService;
-import service.board.Free_BoardServiceImpl;
+import service.board.free.Free_BoardService;
+import service.board.free.Free_BoardServiceImpl;
 
 @WebServlet("/freeboard/write")
 public class FreeBoardWriteController extends HttpServlet {

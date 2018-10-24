@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import dto.board.Free_Board;
-import service.board.Free_BoardService;
-import service.board.Free_BoardServiceImpl;
+import service.board.free.Free_BoardService;
+import service.board.free.Free_BoardServiceImpl;
 
 @WebServlet("/freeboard/view")
 public class FreeBoardViewController extends HttpServlet {

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.board.QnA;
-import service.board.QnAService;
-import service.board.QnAServiceImpl;
+import service.board.qna.QnAService;
+import service.board.qna.QnAServiceImpl;
 
 @WebServlet("/qnaboard/write")
 public class QnABoardWriteController extends HttpServlet {
@@ -22,6 +22,11 @@ public class QnABoardWriteController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userid = (String) req.getSession().getAttribute("userid");
+		
+		if( req.getSession().getAttribute("login") == null ) {
+			resp.sendRedirect("/member/login");
+			return;
+		}
 		req.setAttribute("userid", userid);
 		req.getRequestDispatcher("/view/board/qna/write.jsp").forward(req, resp);
 	}

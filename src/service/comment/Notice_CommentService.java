@@ -3,8 +3,8 @@ package service.comment;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.comment.Notice_CommentDao;
-import dao.comment.Notice_CommentDaoImpl;
+import dao.comment.notice.Notice_CommentDao;
+import dao.comment.notice.Notice_CommentDaoImpl;
 import dto.comment.Notice_Comments;
 
 public interface Notice_CommentService {

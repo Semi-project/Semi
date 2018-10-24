@@ -1,6 +1,7 @@
 package controller.board.qnaboard;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import dto.board.QnA;
 import dto.comment.QnA_Comments;
-import service.board.QnAService;
-import service.board.QnAServiceImpl;
+import service.board.qna.QnAService;
+import service.board.qna.QnAServiceImpl;
+import service.comment.QnA_CommentService;
+import service.comment.QnA_CommentServiceImpl;
 
 @WebServlet("/qnaboard/view")
 public class QnABoardViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private QnAService qnaService = new QnAServiceImpl();
+	private QnA_CommentService qna_CommnetService = new QnA_CommentServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,8 +38,14 @@ public class QnABoardViewController extends HttpServlet {
 		req.setAttribute("qnaView", qnaView);
 	/*	System.out.println(qnaView);*/
 		
-		QnA_Comments qnaComment = new QnA_Comments();
-		List<QnA_Comments> commentList = 
+		
+		
+	//	QnA_Comments qnaComment = new QnA_Comments();
+		
+	//	qnaComment = qna_CommnetService.insertComment(qnaComment);
+		
+		List<QnA_Comments> qna_commentList = qna_CommnetService.getCommentList(boardNo);
+		req.setAttribute("qna_commentList", qna_commentList);
 		
 		req.getRequestDispatcher("/view/board/qna/view.jsp").forward(req, resp);
 		

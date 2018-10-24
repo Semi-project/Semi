@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.board.QnADao;
-import dao.board.QnADaoImpl;
+import dao.board.qna.QnADao;
+import dao.board.qna.QnADaoImpl;
 import dto.board.QnA;
-import service.board.QnAService;
-import service.board.QnAServiceImpl;
+import service.board.qna.QnAService;
+import service.board.qna.QnAServiceImpl;
 import util.Paging;
 
 @WebServlet("/qnaboard/paginglist")

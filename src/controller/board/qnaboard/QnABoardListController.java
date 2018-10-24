@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.board.QnA;
-import service.board.QnAService;
-import service.board.QnAServiceImpl;
+import service.board.qna.QnAService;
+import service.board.qna.QnAServiceImpl;
 
 @WebServlet("/qnaboard/list")
 public class QnABoardListController extends HttpServlet {

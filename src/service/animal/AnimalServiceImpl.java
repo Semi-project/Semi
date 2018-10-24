@@ -9,8 +9,8 @@ import dao.animal.AnimalDao;
 import dao.animal.AnimalDaoImpl;
 import dao.animal.SpeciesDao;
 import dao.animal.SpeciesDaoImpl;
-import dao.file.Animal_FileDao;
-import dao.file.Animal_FileDaoImpl;
+import dao.file.animal.Animal_FileDao;
+import dao.file.animal.Animal_FileDaoImpl;
 import dto.animal.Animal;
 import dto.file.Animal_Filetb;
 
