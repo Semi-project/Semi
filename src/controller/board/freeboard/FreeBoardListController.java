@@ -13,26 +13,18 @@ import dto.board.Free_Board;
 import service.board.free.Free_BoardService;
 import service.board.free.Free_BoardServiceImpl;
 
-
 @WebServlet("/freeboard/list")
 public class FreeBoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Free_BoardService freeboardService = new Free_BoardServiceImpl();
 
-	
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	List<Free_Board> boardlist=freeboardService.selectFreeboard();
 	req.setAttribute("boardlist", boardlist);
 	
-
 	req.getRequestDispatcher("/view/board/Free/list.jsp").forward(req, resp);
 	
-	
 	}
-	
-	
-	
 }
