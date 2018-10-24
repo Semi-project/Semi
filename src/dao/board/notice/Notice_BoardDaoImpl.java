@@ -1,7 +1,6 @@
 package dao.board.notice;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -220,5 +219,4 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
       // TODO Auto-generated method stub
       return null;
    }
-
 }

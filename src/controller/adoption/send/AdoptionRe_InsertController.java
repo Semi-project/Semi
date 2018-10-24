@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.animal.Animal;
+import dto.animal.Species;
 import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 
@@ -26,18 +27,16 @@ public class AdoptionRe_InsertController extends HttpServlet {
 
 	// service
 	private AnimalService animalService = new AnimalServiceImpl();
+	private Animal animal = new Animal();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		resp.setCharacterEncoding("UTF-8");
 
-		Animal animal = animalService.getParam(req, resp);
+		List<Species> speciesList = animalService.getSpecies();
 
-		PrintWriter out = resp.getWriter();
-
-		// naver smart Editor 2.0에서 GET으로 보낸 값 가져오는거 확인
-//		System.out.println(animal.getAnimal_Feature());
+		req.setAttribute("speciesList", speciesList);
 
 		req.getRequestDispatcher("/view/adoption/send/adoptionSend.jsp").forward(req, resp);
 
@@ -47,8 +46,17 @@ public class AdoptionRe_InsertController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String sFileInfo = "";
+		resp.setCharacterEncoding("UTF-8");
+		
+		animal = animalService.getParam(req, resp);
+		
+		System.out.println(animal.getAnimal_Name());
+		
 
+		// --------------------- 파일 업로드 부분 -----------------------------------
+
+		String sFileInfo = "";
+		
 		// 파일명 - 싱글파일업로드와 다르게 멀티파일업로드는 HEADER로 넘어옴
 
 		String name = req.getHeader("file-name");
@@ -84,7 +92,7 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
 
 		while ((numRead = is.read(b, 0, b.length)) != -1) {
-
+			
 			os.write(b, 0, numRead);
 
 		}
@@ -100,7 +108,7 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		String root = req.getContextPath();
 
 		sFileInfo += "&bNewLine=true&sFileName=" + name + "&sFileURL=" + root + "/upload/" + realname;
-		
+
 		//파일 저장경로
 		System.out.println(sFileInfo);
 		resp.getWriter().println(sFileInfo);

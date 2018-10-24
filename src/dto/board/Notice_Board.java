@@ -75,6 +75,4 @@ public class Notice_Board {
       this.content = content;
    }
 
-
-
 }

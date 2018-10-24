@@ -22,19 +22,17 @@ public class QnABoardUpdateController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		/*QnA qna = qnaService.getParam(req, resp);*/
-		
-		int boardNo = Integer.parseInt(req.getParameter("boardno"));
+		QnA qna = qnaService.getParam(req, resp);
 		
 //		if( !qnaService.che ) {
 //			resp.sendRedirect("/qnaboard/list");
 //			return;
 		
 		// 게시글 조회수행
-		QnA qnaView = qnaService.viewQnA(boardNo);
+//		QnA qnaView = qnaService.viewQnA(qna);
 	
 		// MODEL 전달
-		req.setAttribute("qnaView", qnaView);
+//		req.setAttribute("qnaView", qnaView);
 		
 		//글 작성자 닉네임 전달
 		
@@ -50,37 +48,10 @@ public class QnABoardUpdateController extends HttpServlet {
 	
 		req.setCharacterEncoding("UTF-8");
 		
-		QnA qna = qnaService.getParam(req, resp);
+		//qnaService.updateQnA(req);
 		
-		try {
-			qnaService.updateQnA(qna);
-			
-			int boardNo = Integer.parseInt(req.getParameter("boardno"));	
-			
-			QnA qnaView = qnaService.viewQnA(boardNo);
-			
-			req.setAttribute("qnaView", qnaView);
-			
-			if(qnaView != null) {
-				String result = "success";
-				req.setAttribute("result", result);
-			}
-			String successMsg = "";
-			successMsg = "수정에 성공했습니다.";
-			req.setAttribute("successMsg", successMsg);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			String result = "fail";
-			
-			String failMsg = "";
-			failMsg = "수정에 실패했습니다";
-			req.setAttribute("result", result);
-			req.setAttribute("failMsg", failMsg);
-			
-		}
-			
-			req.getRequestDispatcher("/view/board/qna/view.jsp").forward(req, resp);
+		resp.sendRedirect("/qnaboard/list");
+		
 	}
 	
 	

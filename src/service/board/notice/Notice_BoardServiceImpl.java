@@ -13,10 +13,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import dao.board.cate.BoardCateDao;
-import dao.board.cate.BoardCateDaoImpl;
 import dao.board.notice.Notice_BoardDao;
 import dao.board.notice.Notice_BoardDaoImpl;
+import dao.board.review.BoardCateDao;
+import dao.board.review.BoardCateDaoImpl;
 import dao.comment.notice.Notice_CommentDao;
 import dao.comment.notice.Notice_CommentDaoImpl;
 import dao.file.notice.Notice_FileDao;
@@ -137,18 +137,18 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
       } //if(!isMultipart) end
       
 
-      int boardno = boardDao.selectBoardno();
-      
-      if(board != null) {
-         board.setBoardno(boardno);
-         boardDao.insert(board);
-      }
-      
-      if(boardFile != null) {
-         boardFile.setBoardno(boardno);
-         boardFileDao.insertFile(boardFile);
-      }
-   }
+//      int boardno = boardDao.selectBoardno();
+//      
+//      if(board != null) {
+//         board.setBoardno(boardno);
+//         boardDao.insert(board);
+//      }
+//      
+//      if(boardFile != null) {
+//         boardFile.setBoardno(boardno);
+//         boardFileDao.insertFile(boardFile);
+//      }
+//   }
       
 
    @Override
@@ -222,4 +222,9 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
       return notice_boardDao.viewNoticeBoard(notice_boardView);
    }
 
+@Override
+public void writeNotice_Board(Notice_Board Notice_Board, Notice_Filetb noticeFile) {
+	// TODO Auto-generated method stub
+	
 }
+   }
