@@ -3,8 +3,8 @@ package controller.board.freeboard;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import service.board.Free_BoardService;
-import service.board.Free_BoardServiceImpl;
+import service.board.free.Free_BoardService;
+import service.board.free.Free_BoardServiceImpl;
 
 
 @WebServlet("/freeboard/delete")
