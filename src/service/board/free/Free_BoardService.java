@@ -19,7 +19,7 @@ public interface Free_BoardService {
 	public List<Free_Board> selectFreeboard();
 	
 	// 자유게시판 글 쓰기 및 파일 업로드
-	public void writeFreeboard(Free_Board freeBoard , Free_FileDao freeFileTb ); //, File file);
+	public void writeFreeboard(HttpServletRequest req); //, File file);
 	
 	// 자유게시판 삭제
 	public void deleteFreeboard(Free_Board freeBoard);
@@ -54,6 +54,9 @@ public interface Free_BoardService {
 	
 	//조회수올리기
 	public Free_Board view(Free_Board freeBoard);
+	
+	//첨부파일 얻기
+		public Free_Filetb viewFile(Free_Board freeboard);
 	
 
 }

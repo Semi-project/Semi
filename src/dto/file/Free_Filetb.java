@@ -15,7 +15,7 @@ public class Free_Filetb {
 	private String filepath;
 	
 	//파일크기
-	private int filesize;
+	private Long filesize;
 	
 	//파일타입(확장자)
 	private String filetype;
@@ -25,9 +25,11 @@ public class Free_Filetb {
 
 	@Override
 	public String toString() {
-		return "Filetb [fileno=" + fileno + ", boardno=" + boardno + ", file_OriginName=" + file_OriginName
+		return "Free_Filetb [fileno=" + fileno + ", boardno=" + boardno + ", file_OriginName=" + file_OriginName
 				+ ", filepath=" + filepath + ", filesize=" + filesize + ", filetype=" + filetype + ", file_SaveName="
 				+ file_SaveName + "]";
+		
+		
 	}
 
 	public int getFileno() {
@@ -62,11 +64,11 @@ public class Free_Filetb {
 		this.filepath = filepath;
 	}
 
-	public int getFilesize() {
+	public Long getFilesize() {
 		return filesize;
 	}
 
-	public void setFilesize(int filesize) {
+	public void setFilesize(Long filesize) {
 		this.filesize = filesize;
 	}
 
@@ -85,7 +87,5 @@ public class Free_Filetb {
 	public void setFile_SaveName(String file_SaveName) {
 		this.file_SaveName = file_SaveName;
 	}
-	
-	
-	
+
 }

@@ -18,7 +18,7 @@ public interface MemberService {
 	public Member selectMemberByUserId(Member member);
 
 	// 회원정보수정
-	public void updateMember(HttpServletRequest req) throws Exception;
+	public void updateMember(Member member);
 
 	// 비밀번호 변경
 	public void updateMemberPassword(Member member);

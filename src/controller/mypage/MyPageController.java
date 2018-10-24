@@ -14,7 +14,7 @@ import service.member.MemberServiceImpl;
 /**
  * Servlet implementation class MyPageController
  */
-@WebServlet("/mypage/view")
+@WebServlet("/mypage")
 public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +23,7 @@ public class MyPageController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
+		req.getRequestDispatcher("/mypage/view.jsp").forward(req, resp);
 		
 	
 	}
