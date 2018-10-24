@@ -10,8 +10,8 @@ import dao.animal.AnimalDao;
 import dao.animal.AnimalDaoImpl;
 import dao.animal.SpeciesDao;
 import dao.animal.SpeciesDaoImpl;
-import dao.file.Animal_FileDao;
-import dao.file.Animal_FileDaoImpl;
+import dao.file.animal.Animal_FileDao;
+import dao.file.animal.Animal_FileDaoImpl;
 import dto.animal.Animal;
 import dto.animal.Species;
 import dto.file.Animal_Filetb;
@@ -19,10 +19,23 @@ import util.Paging;
 
 public class AnimalServiceImpl implements AnimalService {
 
+	// dto
+	private Animal animal;
+	
 	// dao
 	private AnimalDao animalDao = new AnimalDaoImpl();
 	private SpeciesDao speciesDao = new SpeciesDaoImpl();
 	private Animal_FileDao animal_fileDao = new Animal_FileDaoImpl();
+
+	@Override
+	public Animal getParam(HttpServletRequest req, HttpServletResponse resp) {
+
+		animal = new Animal();
+		
+		animal.setAnimal_Code(Integer.parseInt(req.getParameter("animal_code")));
+		
+		return animal;
+	}
 	
 	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
@@ -115,15 +128,15 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public Animal getParam(HttpServletRequest req, HttpServletResponse resp) {
+	public Animal write(HttpServletRequest req, HttpServletResponse resp) {
 
-		Animal animal = new Animal();
+		animal = new Animal();
 		
-		int code = Integer.parseInt(req.getParameter("animal_code"));
 		int age = Integer.parseInt(req.getParameter("age"));
 		int species = Integer.parseInt(req.getParameter("species"));
 		
-		animal.setAnimal_Code( code);
+		// selectSeqNextval로 값 가져오기
+		animal.setAnimal_Code( animalDao.selectSeqNextval());
 		animal.setAnimal_Name( req.getParameter("name"));
 		animal.setAnimal_Age( age);
 		animal.setAnimal_Gender_Code( req.getParameter("gender"));
@@ -169,9 +182,5 @@ public class AnimalServiceImpl implements AnimalService {
 		
 		return speciesDao.selectSpeciesAll();
 	}
-	
-	
-
-	
 
 }

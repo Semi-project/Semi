@@ -103,7 +103,6 @@ div.title {
 			bUseToolbar : true, //툴바 사용여부
 			bUseVerticalResizer : false, //입력창 크기 조절 바
 			bUseModeChanger : true
-		//모드 탭
 		}
 	});
 

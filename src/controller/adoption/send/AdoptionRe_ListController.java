@@ -45,7 +45,7 @@ public class AdoptionRe_ListController extends HttpServlet {
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
 		
-		req.getRequestDispatcher("/view/adoption/send/adoptionSendList.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendList.jsp").forward(req, resp);
 		
 	}
 	

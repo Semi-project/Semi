@@ -7,7 +7,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <!-- 네이버 스마트에디터 2.0 -->
-<script type="text/javascript" src="/view/adoption/send/se2/js/HuskyEZCreator.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/resource/smarteditor/js/HuskyEZCreator.js" charset="UTF-8"></script>
 
 <script type="text/javascript">
 
@@ -23,13 +23,7 @@ $(function() {
          bUseToolbar : true,
          // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
          bUseVerticalResizer : true, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
-         bUseModeChanger : true,
-         fOnBeforeUnload : function() {
-         }
-      },
-      fOnAppLoad : function() { //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용 
-         oEditors.getById["ir1"].exec("PASTE_HTML",
-               [ "----" ]);
+         bUseModeChanger : true
       },
       fCreator : "createSEditor2"
    });
@@ -38,9 +32,13 @@ $(function() {
 // 저장버튼
 $("#save").click(function(){
 	oEditors.getById["inputText"].exec("UPDATE_CONTENTS_FIELD", []);
- 	$("#frm").submit();
+	try {
+		elClickedObj.form.submit();
+	} catch(e) {
+	}
 });
 
+$('#radioTest:checked').val();
 </script>
 
 
@@ -81,8 +79,15 @@ $("#save").click(function(){
 				</td>
          	</tr>
          	<tr>
-            	<td>품종</td>
+            	<td rowspan="2">품종</td>
             	<td>
+            		<input name="speciesSelect" type="radio" title="강아지"  value="1"/> 강아지
+					<input name="speciesSelect" type="radio" title="고양이"  value="2"/> 고양이
+					<input name="speciesSelect" type="radio" title="기타"  value="3"/> 기타
+				</td>
+			</tr>
+			<tr>
+				<td> 
             		<select id="species" name="species">
             			<c:forEach var="species" items="${speciesList }">
             				<option value="${species.species_Code }">${species.species_Name }</option>

@@ -38,20 +38,23 @@ public class AdoptionRe_InsertController extends HttpServlet {
 
 		req.setAttribute("speciesList", speciesList);
 
-		req.getRequestDispatcher("/view/adoption/send/adoptionSend.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/adoption/send/adoptionSend.jsp").forward(req, resp);
 
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		resp.setCharacterEncoding("UTF-8");
+		// 요청 파라미터 한글 인코딩 설정 : UTF-8
+		req.setCharacterEncoding("UTF-8");
+		// 응답 객체 MIME타입(Content-Type) 설정
+		resp.setContentType("text/html;charset=UTF-8");
 		
-		animal = animalService.getParam(req, resp);
+		animal = animalService.write(req, resp);
 		
 		System.out.println(animal.getAnimal_Name());
 		
+		resp.sendRedirect("/adoption/send/list");
 
 		// --------------------- 파일 업로드 부분 -----------------------------------
 
@@ -112,6 +115,8 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		//파일 저장경로
 		System.out.println(sFileInfo);
 		resp.getWriter().println(sFileInfo);
+		
+		resp.sendRedirect("/adoption/send/list");
 
 	}
 
