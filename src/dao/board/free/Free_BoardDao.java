@@ -46,4 +46,7 @@ public interface Free_BoardDao {
 	//댓글번호로 조회하기
 	public Free_Board selectByComment_No (Free_Board freeBoard);
 
+	// 번호 조회 
+	public int selectFreeboardno();
+	
 }

@@ -5,10 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.board.BoardCateDao;
-import dao.board.BoardCateDaoImpl;
+
 import dao.board.qna.QnADao;
 import dao.board.qna.QnADaoImpl;
+import dao.board.review.BoardCateDao;
+import dao.board.review.BoardCateDaoImpl;
 import dao.comment.qna.QnA_CommentDao;
 import dao.comment.qna.QnA_CommentDaoImpl;
 import dao.file.qna.QnA_FileDao;

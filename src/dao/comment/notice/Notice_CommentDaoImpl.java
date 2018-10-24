@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import dto.board.Notice_Board;
 import dto.comment.Notice_Comments;
 import util.DBConn;
+import util.Paging;
 
 public class Notice_CommentDaoImpl implements Notice_CommentDao {
 
@@ -21,48 +21,7 @@ public class Notice_CommentDaoImpl implements Notice_CommentDao {
 	@Override
 	public List<Notice_Comments> select(Notice_Board board) {
 
-		String sql = "SELECT * FROM (" + "SELECT rownum rnum, B.* FROM (" + "	SELECT" + "		comment_no,"
-				+ "		boardno," + "		userid," + "		content," + "		insert_dat"
-				+ "	FROM notice_comments" + "	WHERE boardno = ?" + "	ORDER BY insert_dat" + "	) B"
-				+ ") ORDER BY rnum DESC";
-		List<Notice_Comments> commentList = new ArrayList<Notice_Comments>();
-		try {
-			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, board.getBoardno());
-
-			// ResultSet 반환
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				Notice_Comments comment = new Notice_Comments();
-
-				comment.setRnum(rs.getInt("rnum"));
-				comment.setBoardno(rs.getInt("boardno"));
-				comment.setCommentNo(rs.getInt("comment_no"));
-				comment.setUserid(rs.getString("userid"));
-				comment.setContent(rs.getString("content"));
-				comment.setInsertDat(rs.getDate("insert_dat"));
-
-				commentList.add(comment);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-
-		return commentList;
-
+		return null;
 	}
 
 	@Override
@@ -125,27 +84,8 @@ public class Notice_CommentDaoImpl implements Notice_CommentDao {
 
 	@Override
 	public int countComment(Notice_Comments comment) {
-		String sql = "SELECT COUNT(*) FROM notice_comments WHERE comment_no=?";
-		int cnt = 0;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, comment.getCommentNo());
-			rs = ps.executeQuery();
-			rs.next();
-			cnt = rs.getInt(1);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return cnt;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

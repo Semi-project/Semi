@@ -18,22 +18,6 @@ public class Notice_Comments {
 	// 게시글코드
 	private int boardno;
 
-	private int rnum;
-
-	@Override
-	public String toString() {
-		return "Notice_Comments [commentNo=" + commentNo + ", userid=" + userid + ", content=" + content
-				+ ", insertDat=" + insertDat + ", boardno=" + boardno + ", rnum=" + rnum + "]";
-	}
-
-	public int getRnum() {
-		return rnum;
-	}
-
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
-	}
-
 	public int getCommentNo() {
 		return commentNo;
 	}
@@ -72,6 +56,12 @@ public class Notice_Comments {
 
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
+	}
+
+	@Override
+	public String toString() {
+		return "Notice_Comments [commentNo=" + commentNo + ", userid=" + userid + ", content=" + content
+				+ ", insertDat=" + insertDat + ", boardno=" + boardno + "]";
 	}
 
 }

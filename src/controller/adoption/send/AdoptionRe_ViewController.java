@@ -30,7 +30,7 @@ public class AdoptionRe_ViewController extends HttpServlet {
 		
 		req.setAttribute("animal", animal);
 		
-		req.getRequestDispatcher("/view/adoption/send/adoptionSendView.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendView.jsp").forward(req, resp);
 		
 
 	}

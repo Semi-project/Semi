@@ -13,7 +13,7 @@ import service.board.review.Review_BoardServiceImpl;
 import service.comment.review.Review_CommentService;
 import service.comment.review.Review_CommentServiceImpl;
 
-@WebServlet("/review/write")
+@WebServlet("/reviewer/write")
 public class ReviewBoardWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

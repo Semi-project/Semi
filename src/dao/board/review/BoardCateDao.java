@@ -1,4 +1,4 @@
-package dao.board;
+package dao.board.review;
 
 import dto.board.Free_Board;
 import dto.board.Board_Cate;

@@ -7,7 +7,7 @@ import dto.file.Notice_Filetb;
 
 public interface Notice_FileDao {
 
-	// 삽입
+	// 삽입z
 	public void insertFiletb(Notice_Filetb notice_filetb);
 
 	// 업데이트
@@ -15,6 +15,7 @@ public interface Notice_FileDao {
 
 	// 삭제
 	public int deleteFiletbByfileno(int fileno,Notice_Board board);
+  
 	public void deleteFiletbByboardno(Notice_Board board);
 
 	public int selectFileno();

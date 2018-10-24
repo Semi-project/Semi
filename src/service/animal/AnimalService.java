@@ -12,6 +12,9 @@ import util.Paging;
 
 public interface AnimalService {
 	
+	// view에 쓸 getParam
+	public Animal getParam(HttpServletRequest req, HttpServletResponse resp);
+	
 	// 동물 정보 전체 조회
 	public Animal selectAnimalByanimal_Code(Animal animal);
 		
@@ -24,8 +27,8 @@ public interface AnimalService {
 	// 동물 정보 삭제
 	public void deleteAnimalByAnimal_Code(Animal animal, Animal_Filetb animal_filetb);
 	
-	// 파라미터 가져오기
-	public Animal getParam(HttpServletRequest req, HttpServletResponse resp);
+	// Write에 쓸 파라미터 가져오기
+	public Animal write(HttpServletRequest req, HttpServletResponse resp);
 	
 	// 품종 가져오기
 	public List<Species> getSpecies();
