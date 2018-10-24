@@ -32,7 +32,28 @@
 															"/review/delete?boardno=${boardView.boardno }");
 										});
 						
-						
+						$("#insert").click(function(){
+
+							$form = $("<form>").attr({
+								action: "/review/comment/insert",
+								method: "post"
+							}).append(
+								$("<input>").attr({
+									type:"hidden",
+									name:"boardno",
+									value:"${boardView.boardno }"
+								})
+							).append(
+								$("<textarea>")
+									.attr("name", "content")
+									.css("display", "none")
+									.text($("#commentcontent").val())
+							);
+							$(document.body).append($form);
+							$form.submit();
+
+						});
+
 					});
 </script>
 <div class="container">
@@ -73,8 +94,7 @@
 
 				<hr>
 				<div class="comment">
-					<form action="#" method="post" id="comment-form">
-						<input id="commet_id" name="comment_id" value="" type="hidden" />
+<!-- 						<input id="commet_id" name="comment_id" value="" type="hidden" /> -->
 						<h3>댓글남기기- 로그인 필요</h3>
 						<div class="comment_text">
 							<c:if test="${not login}">
@@ -84,7 +104,7 @@
 							</c:if>
 							<c:if test="${login}">
 
-								<textarea rows="3" cols="100" id="text" name="text"
+								<textarea rows="3" cols="100" id="commentcontent" name="content"
 									style="resize: none;"></textarea>
 							</c:if>
 
@@ -92,10 +112,9 @@
 
 						</div>
 						<div class="text-right">
-							<button id="isnert" class="btn btn-danger">댓글등록</button>
+							<button id="insert" class="btn btn-danger">댓글등록</button>
 						</div>
 						<div></div>
-					</form>
 					<!-- 댓글리스트 -->
 					<div class="g-py-30 g-mb-10">
 						<div class="g-brd-y g-brd-gray-light-v4 g-py-30 mb-5">
@@ -105,15 +124,22 @@
 
 						</div>
 						<div id="comment-wrapper">
-
-							<ul class="list-inline ">
-								<li>글쓴이 : ${boardView.userid }</li>
-								<li>|</li>
-								<li>댓글번호 : ${boardView.boardno }</li>
-								<li>|</li>
-								<li>작성일 :${boardView.insert_dat }</li>
-							</ul>
-							댓글내용 :${boardView.insert_dat }
+							<c:forEach items="${commentList }" var="comment">
+								<ul class="list-inline " data-commentno="${comment.commentNo }">
+									<li>번호 : ${comment.rnum }</li>
+									<li>|</li>
+									<li>글쓴이 : ${comment.userid }</li>
+									<li>|</li>
+									<li>작성일 :<fmt:formatDate value="${comment.insertDat }"
+											pattern="yy-MM-dd hh:mm:ss" /></li>
+								</ul>
+							${comment.content }
+							<hr>
+							<c:if test="${sessionScope.writer eq comment.userid }">
+									<button class="btn btn-default btn-xs"
+										onclick="deleteComment(${comment.commentno });">삭제</button>
+								</c:if>
+							</c:forEach>
 						</div>
 						<hr>
 					</div>

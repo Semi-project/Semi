@@ -3,6 +3,8 @@ package dto.comment;
 import java.util.Date;
 
 public class QnA_Comments {
+	private int rnum;
+
 	// 댓글번호
 	private int commentNo;
 
@@ -56,6 +58,14 @@ public class QnA_Comments {
 
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	@Override

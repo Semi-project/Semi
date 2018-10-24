@@ -5,11 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import dao.board.cate.BoardCateDao;
+import dao.board.cate.BoardCateDaoImpl;
 import dao.board.qna.QnADao;
 import dao.board.qna.QnADaoImpl;
-import dao.board.review.BoardCateDao;
-import dao.board.review.BoardCateDaoImpl;
 import dao.comment.qna.QnA_CommentDao;
 import dao.comment.qna.QnA_CommentDaoImpl;
 import dao.file.qna.QnA_FileDao;
@@ -22,87 +21,268 @@ import util.Paging;
 
 public class QnAServiceImpl implements QnAService {
 
-	private MemberDao memberDao = new MemberDaoImpl();
-	private BoardCateDao boardCateDao = new BoardCateDaoImpl();
-	private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
-	private QnA_FileDao qna_fileDao = new QnA_FileDaoImpl();
-	private QnADao qnaDao = new QnADaoImpl();
+   private MemberDao memberDao = new MemberDaoImpl();
+   private BoardCateDao boardCateDao = new BoardCateDaoImpl();
+   private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
+   private QnA_FileDao qna_fileDao = new QnA_FileDaoImpl();
+   private QnADao qnaDao = new QnADaoImpl();
 
-	@Override
-	public List<QnA> selectQnA() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+   @Override
+   public List<QnA> selectQnA() {
 
-	@Override
-	public void writeQnA(QnA qna, QnA_Filetb QnA_File) {
-		// TODO Auto-generated method stub
+      return qnaDao.selectQnA();
+   }
 
-	}
+   @Override
+   public void writeQnA(HttpServletRequest req) throws Exception {
+      QnA_Filetb qna_Filetb = null;
 
-	@Override
-	public void deleteQnA(QnA qna) {
-		// TODO Auto-generated method stub
+      int boardno = qnaDao.selectBoardno();
+      
+      QnA qna = new QnA();
+      qna.setCateno(1002);
+      qna.setUserid(req.getParameter("userid"));
+      qna.setBoardno(boardno);
+      qna.setTitle(req.getParameter("title"));
+      qna.setContent(req.getParameter("content"));
 
-	}
+      if (qna != null) {
+         qna.setBoardno(boardno);
+         qnaDao.insertQnA(qna);
+      }
 
-	@Override
+/*         DiskFileItemFactory factory = new DiskFileItemFactory();
 
-	public void updateQnA(QnA qna) {
-		// TODO Auto-generated method stub
-	}
+         // �޸�ó�� ������
+         factory.setSizeThreshold(1 * 1024 * 1024); // 1MB
 
-	public void updateQnA(QnA qna, QnA_Filetb QnA_File) {
-		// TODO Auto-generated method stub
+         // �ӽ� �����
+         File repository = new File(req.getServletContext().getRealPath("tmp"));
+         factory.setRepository(repository);
 
-	}
+         // ���ε� ��ü ����
+         ServletFileUpload upload = new ServletFileUpload(factory);
+         // �뷮 ���� ���� : 10MB
+         upload.setFileSizeMax(10 * 1024 * 1024);
 
-	@Override
-	public String searchQnABytitle(QnA qna) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+         // form-data ����
+         List<FileItem> items = null;
 
-	@Override
-	public String searchQnABycontent(QnA qna) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+         try {
+            items = upload.parseRequest(req);
+         } catch (FileUploadException e) {
+            e.printStackTrace();
+         }
+         Iterator<FileItem> iter = items.iterator();
 
-	@Override
-	public String searchQnAByuserid(QnA qna) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+         while (iter.hasNext()) {
+            FileItem item = iter.next();
 
-	@Override
-	public int selecntQnACntAll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+            if (item.getSize() <= 0)
+               continue;
 
-	@Override
-	public List<QnA> selectQnAPagingList(Paging paging) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            if (item.isFormField()) {
+               if ("title".equals(item.getFieldName())) {
+                  qna.setTitle(item.getString());
+               }
+               if ("content".equals(item.getFieldName())) {
+                  qna.setContent(item.getString());
+               }
+               qna.setUserid((String) req.getSession().getAttribute("userid"));
+            } else {
+               UUID uuid = UUID.randomUUID();
 
-	@Override
-	public void updateRecommend(QnA qna) {
-		// TODO Auto-generated method stub
+               String u = uuid.toString().split("-")[4];
 
-	}
+               String save = item.getName() + "_" + u;
+               File up = new File(req.getServletContext().getRealPath("upload"), save);
 
-	@Override
-	public QnA searchByComment_no(QnA qna) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+               qna_Filetb = new QnA_Filetb();
+               qna_Filetb.setFile_OriginName(item.getName());
+               qna_Filetb.setFile_SaveName(save);
+               qna_Filetb.setFilesize(item.getSize());
 
-	@Override
-	public QnA getParam(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+               try {
+                  item.write(up);
+
+                  item.delete();
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+
+
+      int boardno = qnaDao.selectBoardno();
+
+      if (qna != null) {
+         qna.setBoardno(boardno);
+         qnaDao.insertQnA(qna);
+      }
+      if (qna_Filetb != null) {
+         qna_Filetb.setBoardno(boardno);
+         qna_fileDao.insertFiletb(qna_Filetb);
+      }
+
+     }
+   }*/
+}
+
+   @Override
+   public int deleteQnA(QnA qna) throws Exception{
+      int result = 0; 
+      result = qnaDao.deleteQnA(qna);
+      return result;
+
+   }
+
+   @Override
+   public void updateQnA(QnA qna) throws Exception{
+   
+      //QnA_Filetb qna_Filetb = new QnA_Filetb();
+      
+      if (qna != null) {
+         qnaDao.updateQnA(qna);
+
+      }
+
+//      boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+//
+//      if (!isMultipart) {
+//
+//         qna = new QnA();
+//
+//         qna.setTitle(req.getParameter("title"));
+//         qna.setUserid((String) req.getSession().getAttribute("userid"));
+//         qna.setContent(req.getParameter("content"));
+//
+//      } else {
+//
+//         qna = new QnA();
+//
+//         DiskFileItemFactory factory = new DiskFileItemFactory();
+//
+//         factory.setSizeThreshold(1 * 1024 * 1024);
+//
+//         // �ӽ� �����
+//         File repository = new File(req.getServletContext().getRealPath("tmp"));
+//         factory.setRepository(repository);
+//
+//         // ���ε� ��ü ����
+//         ServletFileUpload upload = new ServletFileUpload(factory);
+//
+//         // �뷮 ���� ���� : 10MB
+//         upload.setFileSizeMax(10 * 1024 * 1024);
+//
+//         // form-data ����
+//         List<FileItem> items = null;
+//
+//         try {
+//            items = upload.parseRequest(req);
+//         } catch (FileUploadException e) {
+//            e.printStackTrace();
+//         }
+//         Iterator<FileItem> iter = items.iterator();
+//
+//         while (iter.hasNext()) {
+//            FileItem item = iter.next();
+//
+//            if (item.getSize() <= 0)
+//               continue;
+//
+//            if (item.isFormField()) {
+//               if ("boardno".equals(item.getFieldName())) {
+//                  qna.setBoardno(Integer.parseInt(item.getString()));
+//               }
+//               if ("title".equals(item.getFieldName())) {
+//                  qna.setTitle(item.getString());
+//               }
+//               if ("content".equals(item.getFieldName())) {
+//                  qna.setContent(item.getString());
+//
+//               }
+//               qna.setUserid((String) req.getSession().getAttribute("userid"));
+//
+//            } else {
+//               UUID uuid = UUID.randomUUID();
+//
+//               String u = uuid.toString().split("-")[4];
+//
+//               String save = item.getName() + "_" + u;
+//               File up = new File(req.getServletContext().getRealPath("upload"), save);
+//
+//               qna_Filetb = new QnA_Filetb();
+//               qna_Filetb.setFile_OriginName(item.getName());
+//               qna_Filetb.setFile_SaveName(save);
+//               /*qna_Filetb.setFilesize(item.getSize());*/
+//
+//               try {
+//                  item.write(up);
+//
+//                  item.delete();
+//               } catch (Exception e) {
+//                  e.printStackTrace();
+//               }
+//
+//            }
+//
+//         }
+//      }
+
+//      if (qna_Filetb != null) {
+//         qna_Filetb.setBoardno(qna.getBoardno());
+//         qna_fileDao.insertFiletb(qna_Filetb);
+//      }
+
+   }
+
+   
+
+   
+
+   @Override
+   public List getQnAPagingList(Paging paging, String search, String searchVal) {
+
+      return qnaDao.selectQnAPagingList(paging, search, searchVal);
+   }
+
+   @Override
+   public QnA getParam(HttpServletRequest req, HttpServletResponse resp) {
+      // ��û�Ķ���� ������ ������ DTO��ü
+      QnA qna = new QnA();
+      qna.setCateno(1002);
+      qna.setUserid(req.getParameter("userid"));
+      qna.setBoardno(Integer.parseInt(req.getParameter("boardno")));
+      qna.setTitle(req.getParameter("title"));
+      qna.setContent(req.getParameter("content"));
+
+      // ��û�Ķ���Ͱ� ��ü�� ��ȯ�� DTO ��
+      return qna;
+
+   }
+
+   @Override
+   public QnA viewQnA(int boardNo) {
+      return qnaDao.selectQnAByBoardno(boardNo);
+   }
+
+   @Override
+   public int getCurPage(HttpServletRequest req) {
+
+      //요청파라미터 받기
+            String curPage = req.getParameter("curPage");
+            
+            //null이나 ""이 아니면 int로 리턴
+            if( curPage != null && !"".equals(curPage) ) {
+               return Integer.parseInt( curPage );
+            }
+
+            //null이나 "" 면 0으로 반환
+            return 0;
+   }
+
+   @Override
+   public int getTotalCount(String searchVal, String search) {
+      
+      return qnaDao.selectQnACntAll(searchVal,search);
+   }
 
 }

@@ -258,7 +258,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 		if (!isMultipart) {
 			// 파일 첨부가 없을 경우
 			board = new Review_Board();
-			
+
 			board.setTitle(req.getParameter("title"));
 			board.setUserid((String) req.getSession().getAttribute("userid"));
 			board.setContent(req.getParameter("content"));
@@ -416,7 +416,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 
 	}
 
-	/*현재 안쓰이는 메소드 */
+	/* 현재 안쓰이는 메소드 */
 	@Override
 	public int updateFile(HttpServletRequest req) {
 		int boardno = Integer.parseInt(req.getParameter("boardno"));
@@ -457,7 +457,10 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 
 		board = review_BoardDao.selectReviewBoardByBoardNo(board);
 
-		if (!loginId.equals(board.getUserid())) {
+		if (loginId == null) {
+			return false;
+		}
+		if ((!loginId.equals(board.getUserid()))) {
 			return false;
 		}
 
