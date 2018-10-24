@@ -15,42 +15,42 @@ import service.comment.qna.QnA_CommentServiceImpl;
 
 @WebServlet("/qnacomment/write")
 public class QnA_CommentWriteController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	private QnA_CommentService qna_CommentService = new QnA_CommentServiceImpl();
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req , resp);	
-	
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		req.setCharacterEncoding("UTF-8");
-		
-		QnA_Comments qna_Comment = new QnA_Comments();
-		
-		String boardno = (String) req.getParameter("boardno");
-		String content = (String ) req.getParameter("content");
-		
-		qna_Comment.setBoardno(Integer.parseInt(boardno));
-		qna_Comment.setUserid((String)req.getSession().getAttribute("userid"));
-		qna_Comment.setContent(content);
-		
-		try {
-			qna_CommentService.insertComment(qna_Comment);
-		
-			resp.sendRedirect("/qnaboard/view?boardno="+qna_Comment.getBoardno());
-			
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-	
-	}
-	
+   private QnA_CommentService qna_CommentService = new QnA_CommentServiceImpl();
+   
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      doPost(req , resp);   
+   
+   }
+   
+   @Override
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      
+      req.setCharacterEncoding("UTF-8");
+      
+      QnA_Comments qna_Comment = new QnA_Comments();
+      
+      String boardno = (String) req.getParameter("boardno");
+      String content = (String ) req.getParameter("content");
+      
+      qna_Comment.setBoardno(Integer.parseInt(boardno));
+      qna_Comment.setUserid((String)req.getSession().getAttribute("userid"));
+      qna_Comment.setContent(content);
+      
+      try {
+         qna_CommentService.insertComment(qna_Comment);
+      
+         resp.sendRedirect("/qnaboard/view?boardno="+qna_Comment.getBoardno());
+         
+      
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      
+      
+   
+   }
+   
 }

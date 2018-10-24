@@ -179,7 +179,7 @@ ul.top_menu li {
 					</c:if>
 					<li><strong>${nick } 님, 환영합니다</strong></li>
 					<li><a href="/member/logout">로그아웃</a></li>
-					<li><a>마이페이지</a></li>
+					<li><a href="/mypage">마이페이지</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -191,7 +191,7 @@ ul.top_menu li {
 						<div class="topnav" id="topnav_1">소개</div>
 						<ul class="subnav">
 							<li><a href="/introduce/contact">오시는길</a></li>
-							<li><a href="/noticeboard/list">공지사항</a></li>
+							<li><a href="/notice/list">공지사항</a></li>
 						</ul>
 					</li>
 					<li class="navi_set">
@@ -205,7 +205,7 @@ ul.top_menu li {
 
 					<li class="navi_set"><div class="topnav" id="topnav_4">정보마당</div>
 						<ul class="subnav">
-							<li><a href="/qnaboard/list">Q & A</a></li>
+							<li><a href="/qnaboard/paginglist">QnA게시판</a></li>
 							<li><a href="/freeboard/list">자유게시판</a></li>
 						</ul></li>
 				</ul>
