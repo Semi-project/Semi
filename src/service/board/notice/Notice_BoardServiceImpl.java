@@ -16,10 +16,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import dao.board.Notice_BoardDao;
-import dao.board.Notice_BoardDaoImpl;
-import dao.file.Notice_FileDao;
-import dao.file.Notice_FileDaoImpl;
+import dao.board.notice.Notice_BoardDao;
+import dao.board.notice.Notice_BoardDaoImpl;
+import dao.file.notice.Notice_FileDao;
+import dao.file.notice.Notice_FileDaoImpl;
 import dto.board.Notice_Board;
 import dto.file.Notice_Filetb;
 import util.Paging;

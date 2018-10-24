@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<jsp:include page="/view/layout/header.jsp" />
+
 <link rel="stylesheet" href="/css/reset.css">
 
 
@@ -222,7 +219,7 @@
 										//console.log("성공");
 										console.log(d);
 										//console.log(d.two);
-										mail=d;
+										mail = d;
 										if (d == 0) {
 											alert("사용 할 수 있는 이메일 입니다.");
 
@@ -240,236 +237,287 @@
 
 							}
 						});
-						$("#join").click(
-								
-								function() {
-									var username=$("#name").val();
-									var userid=$("#userid").val();
-									var userbirth=$("#birth").val();
-									var userpw=$("#userpw").val();
-									var gender=$("input[name='gender']:checked").val(); // 성별 입력
-									var address=$("#home").val();
-									address+=$("#homeAddress").val();// 주소  
-									var phone=$("#phone1").val();
-									phone+=$("#phone2").val();//전화번호
-									phone+=$("#phone3").val();
-									var smartPhone=$("#smartPhone").val();
-									smartPhone+=$("#smartPhone1").val();// 휴대폰
-									smartPhone+=$("#smartPhone2").val();
-									var email = "";
-									email += $("#email").val();
-									email += $("#email2").val();
-									var subscriptionNews=$("input[name='news']:checked").val(); //수신동의 체크 이메일 
-									var subscriptionSms=$("input[name='sms']:checked").val(); // 수신동의 체크 sms 
-									//console.log(checkid);
-									console.log(userbirth);
+						$("#join")
+								.click(
 
-									if (!regname.test($("#name").val())) {
-										alert("이름을  확인해주세요");
-										$("#name").focus();
-										return false;
-									}
-									if ($("#birth").val() == "") {
-										alert("생년월일을 입력해주세요");
-										$("#birth").focus();
-										return false;
-									}
-									if ($("#userid").val() == "") {
-										alert("아이디를 입력해주세요");
-										$("#userid").focus();
-										return false;
-									}
-									if ($("#userpw").val() == "") {
-										alert("비밀번호를 입력해주세요");
-										$("#userpw").focus();
-										return false;
-									}
-									if ($("#postcode").val() == "") {
-										alert("우편번호를 입력해주세요");
-										$("#postcode").focus();
-										return false;
-									}
-									if ($("#phone1").val() == ""
-											|| $("#phone2").val() == ""
-											|| $("#phone3").val() == "") {
-										alert("전화번호를 입력해주세요");
-										$("#phone2").focus();
-										return false;
-									}
+										function() {
+											var username = $("#name").val();
+											var userid = $("#userid").val();
+											var userbirth = $("#birth").val();
+											var userpw = $("#userpw").val();
+											var gender = $(
+													"input[name='gender']:checked")
+													.val(); // 성별 입력
+											var address = $("#home").val();
+											address += $("#homeAddress").val();// 주소  
+											var phone = $("#phone1").val();
+											phone += $("#phone2").val();//전화번호
+											phone += $("#phone3").val();
+											var smartPhone = $("#smartPhone")
+													.val();
+											smartPhone += $("#smartPhone1")
+													.val();// 휴대폰
+											smartPhone += $("#smartPhone2")
+													.val();
+											var email = "";
+											email += $("#email").val();
+											email += $("#email2").val();
+											var subscriptionNews = $(
+													"input[name='news']:checked")
+													.val(); //수신동의 체크 이메일 
+											var subscriptionSms = $(
+													"input[name='sms']:checked")
+													.val(); // 수신동의 체크 sms 
+											//console.log(checkid);
+											console.log(userbirth);
 
-									if ($("#smartPhone1").val() == ""
-											|| $("#smartPhone2").val() == "") {
-										alert("휴대전화 번호를 입력해주세요");
-										$("#smartPhone1").focus();
-										return false;
-									}
-									if ($("#email").val() == ""
-											|| $("#email2").val() == "") {
-										alert("이메일을 입력해주세요");
-										$("#email").focus();
-										return false;
-									}
-									if(checkid==-1){
-										alert("아이디 중복검사를 해주세요");
-										$("#check").focus();
-										return false;
-									}
-									if(mail==-1){
-										alert("이메일 중복검사를 해주세요");
-										$("#check2").focus();
-										return false;
-									}
-									
-									$.ajax({
-										type : "post",
-										url : "/member/join",
-										data : {
-											userid : userid,
-											userbirth:userbirth,
-											userpw:userpw,
-											username:username,
-											gender:gender,
-											address:address,
-											phone:phone,
-											smartPhone:smartPhone,
-											email : email,
-											subscriptionNews:subscriptionNews,
-											subscriptionSms:subscriptionSms
-											
-
-										},
-										dataType : "json",
-										success : function(d) {
-											console.log(d);
-											if(d.subscriptionCnt==1 && d.memberCnt==1){
-												//window.location.href = "/main";
-											
-												alert("회원가입 성공");
-												location.href = "/main";
-											}else{
-												alert("회원가입 실패");
+											if (!regname.test($("#name").val())) {
+												alert("이름을  확인해주세요");
+												$("#name").focus();
+												return false;
 											}
-										},
-										error : function() {
+											if ($("#birth").val() == "") {
+												alert("생년월일을 입력해주세요");
+												$("#birth").focus();
+												return false;
+											}
+											if ($("#userid").val() == "") {
+												alert("아이디를 입력해주세요");
+												$("#userid").focus();
+												return false;
+											}
+											if ($("#userpw").val() == "") {
+												alert("비밀번호를 입력해주세요");
+												$("#userpw").focus();
+												return false;
+											}
+											if ($("#postcode").val() == "") {
+												alert("우편번호를 입력해주세요");
+												$("#postcode").focus();
+												return false;
+											}
+											if ($("#phone1").val() == ""
+													|| $("#phone2").val() == ""
+													|| $("#phone3").val() == "") {
+												alert("전화번호를 입력해주세요");
+												$("#phone2").focus();
+												return false;
+											}
 
-											console.log("실패");
-										}
+											if ($("#smartPhone1").val() == ""
+													|| $("#smartPhone2").val() == "") {
+												alert("휴대전화 번호를 입력해주세요");
+												$("#smartPhone1").focus();
+												return false;
+											}
+											if ($("#email").val() == ""
+													|| $("#email2").val() == "") {
+												alert("이메일을 입력해주세요");
+												$("#email").focus();
+												return false;
+											}
+											if (checkid == -1) {
+												alert("아이디 중복검사를 해주세요");
+												$("#check").focus();
+												return false;
+											}
+											if (mail == -1) {
+												alert("이메일 중복검사를 해주세요");
+												$("#check2").focus();
+												return false;
+											}
 
-									}); //endof ajax
+											$
+													.ajax({
+														type : "post",
+														url : "/member/join",
+														data : {
+															userid : userid,
+															userbirth : userbirth,
+															userpw : userpw,
+															username : username,
+															gender : gender,
+															address : address,
+															phone : phone,
+															smartPhone : smartPhone,
+															email : email,
+															subscriptionNews : subscriptionNews,
+															subscriptionSms : subscriptionSms
 
-								});
+														},
+														dataType : "json",
+														success : function(d) {
+															console.log(d);
+															if (d.subscriptionCnt == 1
+																	&& d.memberCnt == 1) {
+																//window.location.href = "/main";
+
+																alert("회원가입 성공");
+																location.href = "/main";
+															} else {
+																alert("회원가입 실패");
+															}
+														},
+														error : function() {
+
+															console.log("실패");
+														}
+
+													}); //endof ajax
+
+										});
 
 					});
 </script>
+<style>
+div#top{
+	margin-top: 30px;
+}
+th {
+	background: #ffeff4;
+	fonti-size: 12px;
+	text-align: left;
+	border-top: 1px solid #ccc;
+	padding: 5px 10px;
+}
+
+td {
+	font-size: 12px;
+	border-top: 1px solid #ccc;
+	padding: 5px 10px;
+	color: #0000ff;
+}
+
+table {
+	border-bottom: 1px solid #ccc;
+}
+
+input {
+	vertical-align: middle;
+	background: #f2f2f2;
+	margin-right: 3px;
+}
+
+select {
+	width: 70px;
+}
+</style>
 </head>
 <body>
+	<div class="col-lg-2"></div>
+	<div class="col-lg-8" id ="top">
+		<form method="POST" name="inputForm" action="/member/join">
+			<table style=""width: 80%; margin: 0 auto;">
+				<tr>
 
-	<form method="POST" name="inputForm" action="/member/join">
-		<table>
-			<tr>
+					<th><label for="name">이름 </label></th>
+					<td><input type="text" name="name" id="name" size="20px">
+					</td>
+				</tr>
+				<tr>
+					<th><label for="birth">생년월일 </label></th>
+					<td><input type="text" id="birth"></td>
 
-				<td><label for="name">이름 </label></td>
-				<td><input type="text" name="name" id="name" size="20px">
-				</td>
-			</tr>
-			<tr>
-				<td><label for="birth">생년월일 </label></td>
-				<td><input type="text" id="birth"></td>
+				</tr>
 
-			</tr>
+				<tr>
+					<th><label for="userid">아이디</label></th>
+					<td><input type="text" name="userid" id="userid" size="20px">
+						<input type="button" id="check" value="중복확인"></td>
+				</tr>
+				<tr>
+					<th><label for="userpw">비밀번호 </label></th>
 
-			<tr>
-				<td><label for="userid">아이디</label></td>
-				<td><input type="text" name="userid" id="userid" size="20px">
-					<input type="button" id="check" value="중복확인"></td>
-			</tr>
-			<tr>
-				<td><label for="userpw">비밀번호 </label></td>
-				<td><input type="password" name="userpw" id="userpw"
-					size="20px"> *영문 대소문자/숫자/특수문자를 혼용하여 2종류10~16자 또는 3종 8~16자</td>
-			</tr>
-			<tr>
-				<td><label for="userpwCheck">비밀번호 확인 </label></td>
-				<td><input type="password" name="userpwCheck" id="userpwCheck"
-					size="20px"></td>
-			</tr>
-			<tr>
-				<td>성별</td>
-				<td><input type="radio" name="gender" value="남" >남 <input
-					type="radio" name="gender" value="여" checked>여</td>
-			</tr>
-			<tr>
-				<td><label for="postcode">우편번호 </label></td>
-				<td><input type="text" name="postcode" id="postcode" size="5">
-					<input type="button" id="btn" value="우편번호검색"></td>
-			</tr>
-			<tr>
-				<td><label for="home">집주소 </label></td>
-				<td><input type="text" name="home" id="home" size="60">
-					<span id="guide" style="color: #999"></span></td>
+					<td><input type="password" name="userpw" id="userpw"
+						size="20px"> *영문 대소문자/숫자/특수문자를 혼용하여 2종류10~16자 또는 3종 8~16자</td>
+				</tr>
+				<tr>
+					<th><label for="userpwCheck">비밀번호 확인 </label></th>
+					<td><input type="password" name="userpwCheck" id="userpwCheck"
+						size="20px"></td>
+				</tr>
+				<tr>
+					<th>성별</th>
+					<td><input type="radio" name="gender" value="남">남 <input
+						type="radio" name="gender" value="여" checked>여</td>
+				</tr>
+				<tr>
+					<th><label for="postcode">우편번호 </label></th>
+					<td><input type="text" name="postcode" id="postcode" size="5">
+						<input type="button" id="btn" value="우편번호검색"></td>
+				</tr>
+				<tr>
+					<th><label for="home">집주소 </label></th>
 
-			</tr>
-			<tr>
-				<td><label for="homeAddress">상세주소 </label></td>
-				<td><input type="text" name="homeAddress" id="homeAddress"
-					size="60"></td>
-			</tr>
-			<tr>
-				<td><label for="phone1">연락처 </label></td>
-				<td><select id="phone1">
-						<option value=""></option>
-						<option value="02">02</option>
-						<option value="031">031</option>
-						<option value="032">032</option>
-						<option value="033">033</option>
-						<option value="041">041</option>
-						<option value="042">042</option>
-						<option value="043">043</option>
-						<option value="051">051</option>
-						<option value="052">052</option>
-						<option value="053">053</option>
-						<option value="054">054</option>
-						<option value="055">055</option>
-						<option value="061">061</option>
-						<option value="062">062</option>
-						<option value="063">063</option>
-						<option value="064">064</option>
-						<option value="070">070</option>
-				</select> - <input type="text" name="phone2" id="phone2" size="5">- <input
-					type="text" name="phone3" id="phone3" size="6"></td>
-			</tr>
+					<td><input type="text" name="home" id="home" size="60">
+						<span id="guide" style="color: #999"></span></td>
 
-			<tr>
-				<td>휴대폰</td>
-				<td><select id="smartPhone" name="smartPhone">
-						<option value="010">010</option>
-						<option value="011">011</option>
-						<option value="019">019</option>
-				</select> -<input type="text" name="smartPhone1" id="smartPhone1" size="5">
-					-<input type="text" name="smartPhone2" id="smartPhone2" size="5"></td>
-			</tr>
-			<tr>
-				<td><label for="email">이메일</label></td>
-				<td><input type="text" name="email" id="email" size="10">@
-					<select id="email2">
-						<option value=""></option>
-						<option value="@gmail.com">gmail.com</option>
-						<option value="@naver.com">naver.com</option>
-						<option value="@hanmail.com">hanmail.com</option>
-				</select> <input type="button" id="check2" value="중복확인"></td>
-			</tr>
-			<tr>
-				<td><label for="news">뉴스메일 </label></td>
-				<td><input type="radio" name="news" value="1" checked>받습니다. <input
-					type="radio" name="news" value="0">받지 않습니다.</td>
-			</tr>
-			<tr>
-				<td><label for="sms">SMS안내(이벤트)</label></td>
-				<td><input type="radio" name="sms" value="1" checked>받습니다. <input
-					type="radio" name="sms" value="0">받지 않습니다.</td>
-			</tr>
-		</table>
-		<input type="button" id="join" value="회원가입">
-	</form>
-</body>
-</html>
+				</tr>
+				<tr>
+					<th><label for="homeAddress">상세주소 </label></th>
+					<td><input type="text" name="homeAddress" id="homeAddress"
+						size="60"></td>
+				</tr>
+				<tr>
+					<th><label for="phone1">연락처 </label></th>
+
+					<td><select id="phone1">
+							<option value=""></option>
+							<option value="02">02</option>
+							<option value="031">031</option>
+							<option value="032">032</option>
+							<option value="033">033</option>
+							<option value="041">041</option>
+							<option value="042">042</option>
+							<option value="043">043</option>
+							<option value="051">051</option>
+							<option value="052">052</option>
+							<option value="053">053</option>
+							<option value="054">054</option>
+							<option value="055">055</option>
+							<option value="061">061</option>
+							<option value="062">062</option>
+							<option value="063">063</option>
+							<option value="064">064</option>
+							<option value="070">070</option>
+					</select> - <input type="text" name="phone2" id="phone2" size="5">-
+						<input type="text" name="phone3" id="phone3" size="6"></td>
+				</tr>
+
+				<tr>
+					<th>휴대폰</th>
+					<td><select id="smartPhone" name="smartPhone">
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="019">019</option>
+					</select> -<input type="text" name="smartPhone1" id="smartPhone1" size="5">
+						-<input type="text" name="smartPhone2" id="smartPhone2" size="5"></td>
+				</tr>
+				<tr>
+					<th><label for="email">이메일</label></th>
+					<td><input type="text" name="email" id="email" size="10">@
+						<select id="email2">
+							<option value=""></option>
+							<option value="@gmail.com">gmail.com</option>
+							<option value="@naver.com">naver.com</option>
+							<option value="@hanmail.com">hanmail.com</option>
+					</select> <input type="button" id="check2" value="중복확인"></td>
+				</tr>
+				<tr>
+					<th><label for="news">뉴스메일 </label></th>
+
+					<td><input type="radio" name="news" value="1" checked>받습니다.
+						<input type="radio" name="news" value="0">받지 않습니다.</td>
+				</tr>
+				<tr>
+					<th><label for="sms">SMS안내(이벤트)</label></th>
+					<td><input type="radio" name="sms" value="1" checked>받습니다.
+						<input type="radio" name="sms" value="0">받지 않습니다.</td>
+				</tr>
+			</table>
+			<input type="button" id="join" value="회원가입">
+		</form>
+	</div>
+	<div class="col-lg-2"></div>
+
+	<jsp:include page="/view/layout/footer.jsp" />

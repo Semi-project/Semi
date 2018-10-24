@@ -217,4 +217,3 @@ ul.top_menu li {
 			</div>
 		</div>
 	</div>
-</body>

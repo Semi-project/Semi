@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.board.Notice_BoardDao;
-import dao.board.Notice_BoardDaoImpl;
-import dao.file.Notice_FileDao;
-import dao.file.Notice_FileDaoImpl;
+import dao.board.notice.Notice_BoardDao;
+import dao.board.notice.Notice_BoardDaoImpl;
+import dao.file.notice.Notice_FileDao;
+import dao.file.notice.Notice_FileDaoImpl;
 import dto.file.Notice_Filetb;
 
 /**
