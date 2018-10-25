@@ -52,7 +52,7 @@ public class MemberJoinController extends HttpServlet {
 		Subscription subscription = subscriptionService.getParam(req);
 		int subscriptionCnt = subscriptionService.insertSubscription(subscription);
 		int memberCnt = memberService.join(param);
-		 System.out.println(subscriptionCnt+","+memberCnt);
+		System.out.println(subscriptionCnt + "," + memberCnt);
 		// memberService.join(param);
 		Gson gson = new Gson();
 		Map map = new HashMap<>();

@@ -370,9 +370,10 @@
 					});
 </script>
 <style>
-div#top{
+div#top {
 	margin-top: 30px;
 }
+
 th {
 	background: #ffeff4;
 	fonti-size: 12px;
@@ -401,11 +402,15 @@ input {
 select {
 	width: 70px;
 }
+
+#join{margin-top:30px;}
+#join a{width:15%;margin:0 auto;display:block;padding:0.7em 1.5em 0.8em 1.5em;font-size:16px;color:#fff;border:1px solid #ffeff4;border-radius:2em;background:#ffeff4; text-align:center;letter-spacing:-0.5px; font-weight:bold;}
+#join a:hover{background:#fff;color:black;}
 </style>
 </head>
 <body>
 	<div class="col-lg-2"></div>
-	<div class="col-lg-8" id ="top">
+	<div class="col-lg-8" id="top">
 		<form method="POST" name="inputForm" action="/member/join">
 			<table style=""width: 80%; margin: 0 auto;">
 				<tr>
@@ -515,9 +520,12 @@ select {
 						<input type="radio" name="sms" value="0">받지 않습니다.</td>
 				</tr>
 			</table>
-			<input type="button" id="join" value="회원가입">
+			<div id="join">
+				<a>회원가입</a>
+				<!-- 			<input type="button" id="join" value="회원가입"> -->
+			</div>
 		</form>
 	</div>
 	<div class="col-lg-2"></div>
 
-	<jsp:include page="/view/layout/footer.jsp" />
+	

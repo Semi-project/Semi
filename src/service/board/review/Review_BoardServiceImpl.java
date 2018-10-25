@@ -83,6 +83,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 	@Override
 	public void write(HttpServletRequest req, HttpServletResponse resp) {
 		// 파일 업로드 처리
+		
 		Review_Board board = new Review_Board();
 		board.setCateno(1001);
 		board.setBoardno(review_BoardDao.selectReview_Boardno());
