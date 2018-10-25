@@ -16,7 +16,7 @@ import service.comment.review.Review_CommentServiceImpl;
  * Servlet implementation class CommentDeleteController
  */
 @WebServlet("/review/comment/delete")
-public class CommentDeleteController extends HttpServlet {
+public class ReviewCommentDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Review_CommentService commentService = new Review_CommentServiceImpl();
 

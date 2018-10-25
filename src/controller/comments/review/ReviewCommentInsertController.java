@@ -34,7 +34,7 @@ public class ReviewCommentInsertController extends HttpServlet {
 		String boardno = (String) req.getParameter("boardno");
 		String content = (String) req.getParameter("content");
 
-		System.out.println(boardno + " " + content);
+		//System.out.println(boardno + " " + content);
 		comment.setBoardno(Integer.parseInt(boardno));
 		comment.setUserid((String) req.getSession().getAttribute("userid"));
 		comment.setContent(content);

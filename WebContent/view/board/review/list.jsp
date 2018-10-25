@@ -50,6 +50,11 @@ div.list {
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
 				</c:forEach>
+<%-- 				<c:forEach items="${fileList }" var="f"> --%>
+<!-- 					<tr> -->
+<%-- 						<td><div style="width:200px; height: 200px;"><img src="${f.file_SaveName }"/></div></td> --%>
+<!-- 						</tr> -->
+<%-- 				</c:forEach> --%>
 			</tbody>
 
 		</table>

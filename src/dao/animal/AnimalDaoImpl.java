@@ -34,8 +34,9 @@ public class AnimalDaoImpl implements AnimalDao {
 			
 			rs = ps.executeQuery();
 					
-			while(rs.next())
-				animalSeqNext = rs.getInt(1);
+			rs.next();
+			
+			animalSeqNext = rs.getInt(1);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,6 +49,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			}
 		}
 		
+		System.out.println(animalSeqNext);
 		return animalSeqNext;
 	}
 	
@@ -66,6 +68,7 @@ public class AnimalDaoImpl implements AnimalDao {
 
 			while(rs.next()) {
 
+				animal.setAnimal_Name( rs.getString("animal_name"));
 				animal.setAnimal_Age( rs.getInt("animal_age"));
 				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
 				animal.setAnimal_Gr( rs.getString("animal_gr"));
@@ -208,7 +211,7 @@ public class AnimalDaoImpl implements AnimalDao {
 	}
 
 	@Override
-	public List selectPagingListAuth(Paging paging) {
+	public List selectPagingListAdmin(Paging paging) {
 
 		sql = "SELECT * FROM (";
 		sql += " SELECT rownum rnum, A.* FROM (";
@@ -219,7 +222,6 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " animal.species_code, species_name";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code=animal.species_code";
-		sql += " AND status=1";
 		sql += " ORDER BY animal_code DESC";
 		sql += " ) A";
 		sql += " ORDER BY rnum";
@@ -328,6 +330,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			rs.next();
 			
 			cnt = rs.getInt(1);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

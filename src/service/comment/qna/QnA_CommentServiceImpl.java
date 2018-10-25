@@ -14,38 +14,41 @@ import dto.comment.QnA_Comments;
 
 public class QnA_CommentServiceImpl implements QnA_CommentService {
 
-   private QnADao qnaDao = new QnADaoImpl();
-   private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
+	private QnADao qnaDao = new QnADaoImpl();
+	private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
+	private QnA qna = new QnA();
+		
+	@Override
+	public void insertComment(QnA_Comments qna_Comment) throws Exception {
+		
 
-   @Override
-   public void insertComment(QnA_Comments qna_Comment) throws Exception {
-      
-      qna_CommentDao.insert(qna_Comment);
-   
-   }
+		
+		qna_CommentDao.insert(qna_Comment);
+	
+	}
 
-   @Override
-   public List getCommentList(int boardno) {
-      
-      
-      return qna_CommentDao.selectQnA_Comments(boardno);
-   }
+	@Override
+	public List getCommentList(QnA qna) {
+		
+		
+		return qna_CommentDao.selectQnA_Comments(qna);
+	}
 
-   @Override
-   public boolean deleteComment(QnA_Comments qna_Comment) throws Exception {
-      
-      qna_CommentDao.deleteQnA_Comment(qna_Comment);
-      
-      if(qna_CommentDao.selectQnA_CommentCntAll(qna_Comment)<0) {
-         return false;
-      }else {
-         
-         return true;
-      }
-      
-      
-   }
+	@Override
+	public boolean deleteComment(QnA_Comments qna_Comment) throws Exception {
+		
+		qna_CommentDao.deleteQnA_Comment(qna_Comment);
+		
+		if(qna_CommentDao.selectQnA_CommentCntAll(qna_Comment)<0) {
+			return false;
+		}else {
+			
+			return true;
+		}
+		
+		
+	}
 
-   
+	
 
 }

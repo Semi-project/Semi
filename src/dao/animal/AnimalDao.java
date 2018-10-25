@@ -26,7 +26,7 @@ public interface AnimalDao {
 	public void updateStatus(Animal animal);
 	
 	// 입양보내기 승인된 동물들
-	public List selectPagingListAuth(Paging paging);
+	public List selectPagingListAdmin(Paging paging);
 	
 	// 입양보내기 승인되지 않은 동물들
 	public List selectPagingListUnauth(Paging paging);

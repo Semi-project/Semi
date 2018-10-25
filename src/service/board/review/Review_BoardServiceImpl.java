@@ -2,6 +2,7 @@ package service.board.review;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -187,11 +188,11 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 								} else {
 //											System.out.println(data);
 									file.setFile_OriginName(data);
-									System.out.println("1: " + file);
+									// System.out.println("1: " + file);
 									if (file.getFile_SaveName() != null) {
 										file.setBoardno(board.getBoardno());
 										file.setFileno(review_BoardFileDao.selectFileno());
-										System.out.println("2 :" + file);
+										// System.out.println("2 :" + file);
 										review_BoardFileDao.insertFiletb(file);
 									}
 								}
@@ -319,11 +320,11 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 					else if ("content".equals(item.getFieldName())) {
 						String content = item.getString();
 						board.setContent(content);
-						review_BoardDao.insertReviewBoard(board);
+						review_BoardDao.updateReviewBoard(board);
 						Review_Filetb file = new Review_Filetb();
 
 						StringTokenizer str = new StringTokenizer(content, " =><\"", false);
-//						int i = 0;
+////						int i = 0;
 						while (str.hasMoreTokens()) {
 							String data = str.nextToken();
 							if (data.equals(" ")) {
@@ -441,9 +442,8 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 			// System.out.println("삭제됨");
 			// System.out.println(list.get(i).getFile_SaveName());
 		}
-		review_BoardDao.deleteReviewBoard(board);
 		review_BoardFileDao.deleteFiletbByboardno(board);
-
+		review_BoardDao.deleteReviewBoard(board);
 	}
 
 	@Override
@@ -471,6 +471,25 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 	public String getNick(Review_Board review_Board) {
 		// TODO Auto-generated method stub
 		return review_BoardDao.selectNickByBoardno(review_Board);
+	}
+
+	@Override
+	public List<Review_Filetb> thumbnail(HttpServletRequest req) {
+		List<Review_Filetb> list = new ArrayList<Review_Filetb>();
+		list = review_BoardFileDao.selectByBoardnolimit();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getFile_SaveName().contains("jpg") || list.get(i).getFile_SaveName().contains("JPG")
+					|| list.get(i).getFile_SaveName().contains("GIF") || list.get(i).getFile_SaveName().contains("gif")
+					|| list.get(i).getFile_SaveName().contains("png") || list.get(i).getFile_SaveName().contains("PNG")
+					|| list.get(i).getFile_SaveName().contains("bmp")
+					|| list.get(i).getFile_SaveName().contains("BMP")) {
+
+			} else {
+				list.get(i).setFile_SaveName(req.getServletContext().getRealPath("img") + "\thum.png");
+			}
+		}
+
+		return list;
 	}
 
 }

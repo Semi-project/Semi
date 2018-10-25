@@ -70,6 +70,7 @@ public class Review_BoardDaoImpl implements Review_BoardDao {
 		String sql = "";
 		sql += "INSERT INTO review_board(BOARDNO,CATENO,TITLE,CONTENT,HIT,USERID,RECOMEND)";
 		sql += " VALUES(?, ?, ?, ?, 0,?,0)";
+		//System.out.println("찍히나요");
 		ps = null;
 		try {
 			conn.setAutoCommit(false);
@@ -79,7 +80,7 @@ public class Review_BoardDaoImpl implements Review_BoardDao {
 			ps.setString(3, reviewBoard.getTitle());
 			ps.setString(4, reviewBoard.getContent());
 			ps.setString(5, reviewBoard.getUserid());
-			ps.executeUpdate();
+			ps.executeQuery();
 
 			conn.commit();
 		} catch (SQLException e) {

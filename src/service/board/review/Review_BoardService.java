@@ -35,7 +35,8 @@ public interface Review_BoardService {
 
 		// 첨부파일 얻기
 		public List<Review_Filetb> viewFile(Review_Board board);
-
+		// 게시판 썸네일 
+		public List<Review_Filetb> thumbnail(HttpServletRequest req);
 		// 게시글 수정
 		// 게시글 내용과 첨부파일을 함께 적용한다
 		public void update(HttpServletRequest req);

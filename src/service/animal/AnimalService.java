@@ -27,8 +27,8 @@ public interface AnimalService {
 	// 동물 정보 삭제
 	public void deleteAnimalByAnimal_Code(Animal animal, Animal_Filetb animal_filetb);
 	
-	// Write에 쓸 파라미터 가져오기
-	public Animal write(HttpServletRequest req, HttpServletResponse resp);
+	// 입양보내기 입력
+	public void write(HttpServletRequest req, HttpServletResponse resp);
 	
 	// 품종 가져오기
 	public List<Species> getSpecies();
@@ -42,7 +42,7 @@ public interface AnimalService {
 	public int getCurPage(HttpServletRequest req);
 	
 	// 허가된 동물 페이징 조회
-	public List getPagingListAuth(Paging paging);
+	public List getPagingListAdmin(Paging paging);
 	
 	// 허가되지 않은 동물 페이징 조회
 	public List getPagingListUnauth(Paging paging);

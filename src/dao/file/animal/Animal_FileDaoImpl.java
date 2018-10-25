@@ -114,8 +114,32 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 	}
 
 	@Override
-	public List<Animal_Filetb> selectFiletbAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public int selectFileno() {
+		
+		int animalCode = 0;
+		
+		sql = "SELECT animal_filetb_seq FROM dual";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			rs.next();
+			
+			animalCode = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return animalCode;
 	}
 }

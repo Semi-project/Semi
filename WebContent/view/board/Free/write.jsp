@@ -4,16 +4,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:include page="/view/layout/header.jsp" />
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript" src="/resource/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+
+<jsp:include page="/view/layout/header.jsp" />
+
 
 <script type="text/javascript">
 $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		// 스마트에디터 내용으로 <textarea>적용
-		submitContents($(this));
+		submitContents($("#btnWrite"));
 		
 		// submit
 		$("form").submit();
@@ -37,10 +40,10 @@ $(document).ready(function() {
 <hr>
 
 <div>
-<form action="write" method="post">
+<form action="/freeboard/write" method="post" enctype="multipart/form-data">
 <table class="table table-bordered">
 <tr><td class="info">아이디</td><td>${userid }</td></tr>
-<tr><td class="info">닉네임</td><td>${userid }</td></tr>
+<tr><td class="info">닉네임</td><td>${name }</td></tr>
 <tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
 <tr><td class="info" colspan="2">본문</td></tr>
 <tr><td colspan="2"><textarea id="content" name="content"></textarea></td></tr>
@@ -81,3 +84,19 @@ function submitContents(elClickedObj) {
 }
 </script>
 <jsp:include page="/view/layout/footer.jsp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
