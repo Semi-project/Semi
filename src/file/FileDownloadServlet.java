@@ -12,20 +12,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.board.notice.Notice_BoardDao;
-import dao.board.notice.Notice_BoardDaoImpl;
-import dao.file.notice.Notice_FileDao;
+import dao.board.review.Review_BoardDao;
+import dao.board.review.Review_BoardDaoImpl;
 import dao.file.notice.Notice_FileDaoImpl;
-import dto.file.Notice_Filetb;
+import dao.file.review.Review_FileDao;
+import dao.file.review.Review_FileDaoImpl;
+import dto.file.Review_Filetb;
 
 /**
  * Servlet implementation class FileDownloadServlet
  */
-@WebServlet("/file/download")
+@WebServlet("/review/file/download")
 public class FileDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Notice_BoardDao boardDao = new Notice_BoardDaoImpl();
-	private Notice_FileDao boardFileDao = new Notice_FileDaoImpl();
+	private Review_BoardDao boardDao = new Review_BoardDaoImpl();
+	private Review_FileDao boardFileDao = new Review_FileDaoImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,12 +37,13 @@ public class FileDownloadServlet extends HttpServlet {
 			fileno = Integer.parseInt(param);
 		}
 		// System.out.println( fileno );
-		Notice_Filetb downFile = boardFileDao.selectByFileno(fileno);
+		Review_Filetb downFile = boardFileDao.selectByFileno(fileno);
 		// 다운로드 파일 찾기
 		String path = getServletContext().getRealPath(""); //이미 저장할때 /upload까지 포함함 
 		//그래서 upload(저장 폴더) 필요 없음 
+		//System.out.println(path);
 		File file = new File(path, downFile.getFile_SaveName());
-
+		
 			System.out.println(file);
 
 		// 파일이 존재할 때만 동작

@@ -35,7 +35,7 @@ public class AdoptionRe_ListController extends HttpServlet {
 		
 		// 게시글목록  MODEL로 추가
 		// 허가된 동물 리스트 가져오기
-		List<Animal> animalList = animalService.getPagingListAuth(paging);
+		List<Animal> animalList = animalService.getPagingListAdmin(paging);
 		
 		// 허가 되지 않은 동물 리스트 가져오기
 //		List<Animal> animalList = animalService.getPagingListUnauth(paging);
@@ -47,6 +47,12 @@ public class AdoptionRe_ListController extends HttpServlet {
 		
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendList.jsp").forward(req, resp);
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		super.doPost(req, resp);
 	}
 	
 }

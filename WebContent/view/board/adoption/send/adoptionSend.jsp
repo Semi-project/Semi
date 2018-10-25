@@ -3,52 +3,48 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- header jsp 적용 -->
-<jsp:include page="/view/layout/header.jsp" />
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery.min.js"></script>
+	<jsp:include page="/view/layout/header.jsp" />
+<!-- jquery 2.2.4 -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- jQuery Form Plugin -->
+	<script type="text/javascript" src="http://malsup.github.com/min/jquery.form.min.js"></script>
+
 <!-- 네이버 스마트에디터 2.0 -->
-<script type="text/javascript" src="/view/adoption/send/se2/js/HuskyEZCreator.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/view/adoption/send/se2/js/HuskyEZCreator.js" charset="UTF-8"></script>
 
 <script type="text/javascript">
+   $(document).ready(function() {
+      //jquery.form.js 플러그인 사용
+      //   http://malsup.com/jquery/form/
 
-// 스마트에디터
-var oEditors = [];
-$(function() {
-   nhn.husky.EZCreator.createInIFrame({
-      oAppRef : oEditors,
-      elPlaceHolder : "inputText",
-      //SmartEditor2Skin.html 파일이 존재하는 경로 
-      sSkinURI : "/resource/smarteditor/SmartEditor2Skin.html",
-      htParams : { // 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
-         bUseToolbar : true,
-         // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
-         bUseVerticalResizer : true, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
-         bUseModeChanger : true,
-         fOnBeforeUnload : function() {
-         }
-      },
-      fOnAppLoad : function() { //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용 
-         oEditors.getById["ir1"].exec("PASTE_HTML",
-               [ "----" ]);
-      },
-      fCreator : "createSEditor2"
+      $("#frm").submit(function() {
+         submitContents();
+         console.log("ㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+         $("#frm").ajaxForm({
+            
+            dataType : "json",
+            success : function(res) {
+               console.log("성공");
+            },
+            error : function() {
+               console.log("실패");
+            }
+   
+         });
+      });
    });
-});
-	
-// 저장버튼
-$("#save").click(function(){
-	oEditors.getById["inputText"].exec("UPDATE_CONTENTS_FIELD", []);
- 	$("#frm").submit();
-});
-
+   
+   $("#btnCancel").click(function() {
+		history.go(-1);
+	});
 </script>
-
 
 <div>
 <h3>입양 보내실 동물</h3>
 <hr>
 <div>
-	<form id="frm" action="/adoption/send/insert" method="post">
+	<form id="frm" action="/adoption/send/insert" method="post"
+			enctype="multipart/form-data">
 		<table width="100%" class="tableSet">
 			<tr>
 				<td>이름</td>
@@ -81,7 +77,14 @@ $("#save").click(function(){
 				</td>
          	</tr>
          	<tr>
-            	<td>품종</td>
+            	<td rowspan="2">품종</td>
+            	<td>
+            		<input type="radio" name="animal" value="dog">멍멍이
+					<input type="radio" name="animal" value="cat" checked="checked">냥냥이
+					<input type="radio" name="animal" value="guitaR">기타
+            	</td>
+            </tr>
+            <tr>
             	<td>
             		<select id="species" name="species">
             			<c:forEach var="species" items="${speciesList }">
@@ -97,12 +100,46 @@ $("#save").click(function(){
          	</tr>
          	<tr>
             	<td colspan="2">
-            		<input type="button" id="save" value="저장" /> 
-            		<input type="button" value="취소" />
+            		<input type="button" id="btnSave" value="저장" /> 
+            		
                </td>
 			</tr>
 		</table>
 	</form>
 </div>
+
+<div>
+	<input type="button" id="btnCancel" value="취소" />
 </div>
+
+</div>
+
+<script type="text/javascript">
+
+// 스마트에디터
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+      	oAppRef : oEditors,
+      	elPlaceHolder : "inputText",
+      	//SmartEditor2Skin.html 파일이 존재하는 경로 
+      	sSkinURI : "/resource/smarteditor/SmartEditor2Skin.html",
+	    fCreator : "createSEditor2",
+      	htParams : { // 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
+         	bUseToolbar : true,
+         	bUseVerticalResizer : false,	// 입력창 크기 조절바 
+         	bUseModeChanger : true,		// 모드 탭
+      }      
+   });
+	
+	//<form>의 submit에 맞춰 스마트에디터 내용 적용
+	function submitContents(elClickedObj){
+		oEditors.getById["inputText"].exec("UPDATE_CONTENTS_FIELD", []);
+ 		try {
+ 			elClickedObj.form.submit();
+ 		} catch (e) {
+	 	}
+	}
+
+</script>
+
 <jsp:include page="/view/layout/footer.jsp" />

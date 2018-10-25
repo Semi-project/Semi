@@ -1,23 +1,21 @@
 package dto.file;
 
+import java.util.Date;
+
 public class QnA_Filetb {
 
 	// 파일번호
 	private int fileno;
-
-	// 게시글코드
 	private int boardno;
-
-	// 파일원본이름
-	private String file_OriginName;
-
-	// 파일저장이름
-	private String file_SaveName;
+	private String originName;
+	private String storedName;
+	private long filesize;
+	private Date insert_dat;
 
 	@Override
 	public String toString() {
-		return "QnA_Filetb [fileno=" + fileno + ", boardno=" + boardno + ", file_OriginName=" + file_OriginName
-				+ ", file_SaveName=" + file_SaveName + "]";
+		return "QnA_Filetb [fileno=" + fileno + ", boardno=" + boardno + ", originName=" + originName + ", storedName="
+				+ storedName + ", filesize=" + filesize + ", insert_dat=" + insert_dat + "]";
 	}
 
 	public int getFileno() {
@@ -36,20 +34,36 @@ public class QnA_Filetb {
 		this.boardno = boardno;
 	}
 
-	public String getFile_OriginName() {
-		return file_OriginName;
+	public String getOriginName() {
+		return originName;
 	}
 
-	public void setFile_OriginName(String file_OriginName) {
-		this.file_OriginName = file_OriginName;
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 
-	public String getFile_SaveName() {
-		return file_SaveName;
+	public String getStoredName() {
+		return storedName;
 	}
 
-	public void setFile_SaveName(String file_SaveName) {
-		this.file_SaveName = file_SaveName;
+	public void setStoredName(String storedName) {
+		this.storedName = storedName;
+	}
+
+	public long getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(long filesize) {
+		this.filesize = filesize;
+	}
+
+	public Date getInsert_dat() {
+		return insert_dat;
+	}
+
+	public void setInsert_dat(Date insert_dat) {
+		this.insert_dat = insert_dat;
 	}
 
 }

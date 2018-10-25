@@ -11,19 +11,19 @@ import dto.file.QnA_Filetb;
 import util.Paging;
 
 public interface QnAService {
-
+	
 	// �����Խ��� ��ü ��ȸ
 	public List<QnA> selectQnA();
-
+	
 	// QnA �� ����ȸ
 	public QnA viewQnA(int boardNo);
-
+	
 	// �����Խ��� �� ���� �� ���� ���ε�
 	public void writeQnA(HttpServletRequest req) throws Exception;
-
+	
 	// �����Խ��� ����
 	public int deleteQnA(QnA qna) throws Exception;
-
+	
 	// �����Խ��� ����
 	public void updateQnA(QnA qna) throws Exception;// , File file);
 
@@ -32,9 +32,9 @@ public interface QnAService {
 
 	// Param ��������
 	public QnA getParam(HttpServletRequest req, HttpServletResponse resp);
-
+	
 	public int getCurPage(HttpServletRequest req);
-
+	
 	// 전체 게시글 수 조회
 	public int getTotalCount(String searchVal, String search);
 }

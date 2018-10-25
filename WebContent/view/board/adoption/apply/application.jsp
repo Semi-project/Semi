@@ -130,5 +130,4 @@
 		<div class="col-lg-4">col-lg-4</div>
 	</div>
 </div>
-</body>
-</html>
+<jsp:include page="/view/layout/footer.jsp" />

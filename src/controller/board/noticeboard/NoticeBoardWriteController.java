@@ -13,7 +13,7 @@ import service.board.notice.Notice_BoardServiceImpl;
 import service.comment.notice.Notice_CommentService;
 import service.comment.notice.Notice_CommentServiceImpl;
 
-@WebServlet("/notice/write")
+@WebServlet("/noticeboard/write")
 public class NoticeBoardWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,23 +22,22 @@ public class NoticeBoardWriteController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if (req.getSession().getAttribute("login") == null || req.getSession().getAttribute("role_id")=="1") {
-			resp.sendRedirect("/main"); //2018- 10- 23 일 정리 
+
+		if(req.getSession().getAttribute("login")==null) {
+			resp.sendRedirect("/main");
 			return;
 		}
-		//System.out.println();
-		req.getRequestDispatcher("/view/board/notice/write.jsp").forward(req, resp);
+	
+		req.getRequestDispatcher("/view/board/notice/write.jsp")
+			.forward(req, resp);
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 요청 파라미터 한글 인코딩 설정 : UTF-8
+
 		req.setCharacterEncoding("UTF-8");
-		// 응답 객체 MIME타입(Content-Type) 설정
-		resp.setContentType("text/html;charset=UTF-8");
-		/////////////////////////////////////////////////
-		notice_BoardService.write(req, resp);
-		// resp.getWriter().println("1");
-		resp.sendRedirect("/notice/list");
+		notice_BoardService.writeNotice_Board(req);
+	
+	
 	}
 }

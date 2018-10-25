@@ -14,33 +14,35 @@ import service.comment.qna.QnA_CommentServiceImpl;
 
 @WebServlet("/qnacomment/delete")
 public class QnA_CommentDeleteController extends HttpServlet {
-   private static final long serialVersionUID = 1L;
-   
-   private QnA_CommentService qna_CommentService = new QnA_CommentServiceImpl();
-   
-   @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doPost(req , resp);
-   
-   }
-   @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
+	
+	private QnA_CommentService qna_CommentService = new QnA_CommentServiceImpl();
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req , resp);
+	
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-      QnA_Comments qna_Comment = new QnA_Comments();
-      
-      String commentNo = (String) req.getParameter("commentno");
-      
-      qna_Comment.setCommentNo(Integer.parseInt(commentNo));
-      
-      try {
-         boolean success = qna_CommentService.deleteComment(qna_Comment);
-      
-         resp.getWriter().append("{\"success\":"+success+"}");
-      
-      
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      
-   }
+		
+		
+		QnA_Comments qna_Comment = qna_CommentService.deleteComment(qna_Comment);
+		
+		String comment_No = (String) req.getParameter("comment_no");
+		
+		qna_Comment.setComment_No(Integer.parseInt(comment_No));
+		
+		try {
+			boolean success = qna_CommentService.deleteComment(qna_Comment);
+		
+			resp.getWriter().append("{\"success\":"+success+"}");
+		
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
