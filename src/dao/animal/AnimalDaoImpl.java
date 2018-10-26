@@ -49,7 +49,6 @@ public class AnimalDaoImpl implements AnimalDao {
 			}
 		}
 		
-		System.out.println(animalSeqNext);
 		return animalSeqNext;
 	}
 	
@@ -97,20 +96,23 @@ public class AnimalDaoImpl implements AnimalDao {
 	public void insertAnimal(Animal animal) {
 		
 		sql = "INSERT INTO animal";
+		sql += " (animal_name, animal_code, animal_age, animal_gender_code,";
+		sql += " animal_gr, animal_neuters, animal_feature, ";
+		sql += " status, species_code)";
 		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, selectSeqNextval());
-			ps.setString(2, animal.getAnimal_Name());
+			ps.setString(1, animal.getAnimal_Name());
+			ps.setInt(2, animal.getAnimal_Code());
 			ps.setInt(3, animal.getAnimal_Age());
 			ps.setString(4, animal.getAnimal_Gender_Code());
 			ps.setString(5, animal.getAnimal_Gr());
 			ps.setString(6, animal.getAnimal_Neuters());
 			ps.setString(7, animal.getAnimal_Feature());
 			ps.setInt(8, 0);
-			ps.setInt(9, animal.getSpecies_Code());
+			ps.setInt(9, 2002);
 			
 			ps.executeUpdate();
 			

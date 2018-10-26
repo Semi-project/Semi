@@ -85,10 +85,15 @@
 	color: #666
 }
 /* //갤러리 */
-
 </style>
 
-
+<script>
+	$(document).ready(function() {
+		$("#btnWrite").click(function() {
+			location.href = "/review/write";
+		});
+	});
+</script>
 <div class="col-lg-2"></div>
 <!-- 갤러리시작 -->
 <div class="col-lg-8">

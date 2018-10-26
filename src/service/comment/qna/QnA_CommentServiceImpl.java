@@ -1,9 +1,7 @@
 package service.comment.qna;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 import dao.board.qna.QnADao;
 import dao.board.qna.QnADaoImpl;
@@ -35,20 +33,16 @@ public class QnA_CommentServiceImpl implements QnA_CommentService {
 	}
 
 	@Override
-	public boolean deleteComment(QnA_Comments qna_Comment) throws Exception {
+	public String deleteComment(QnA_Comments qna_Comment) throws Exception {
 		
-		qna_CommentDao.deleteQnA_Comment(qna_Comment);
+		String result = "";
+		result =qna_CommentDao.deleteQnA_Comment(qna_Comment);
 		
-		if(qna_CommentDao.selectQnA_CommentCntAll(qna_Comment)<0) {
-			return false;
-		}else {
-			
-			return true;
-		}
-		
-		
+		return result;
 	}
 
 	
+	
+
 
 }

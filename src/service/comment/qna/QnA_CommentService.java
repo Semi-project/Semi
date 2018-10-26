@@ -1,6 +1,7 @@
 package service.comment.qna;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.board.QnA;
 import dto.comment.QnA_Comments;
@@ -14,5 +15,5 @@ public interface QnA_CommentService {
 	public List getCommentList(QnA qna) ;
 
 	//댓글 삭제
-	public boolean deleteComment(QnA_Comments qna_Comment) throws Exception;
+	public String deleteComment(QnA_Comments qna_Comment) throws Exception;
 }

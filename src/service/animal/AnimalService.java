@@ -31,7 +31,7 @@ public interface AnimalService {
 	public void write(HttpServletRequest req, HttpServletResponse resp);
 	
 	// 품종 가져오기
-	public List<Species> getSpecies();
+	public List getSpecies();
 	
 	// 페이징 필요 메소드
 	

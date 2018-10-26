@@ -179,7 +179,7 @@ ul.top_menu li {
 					</c:if>
 					<li><strong>${nick } 님, 환영합니다</strong></li>
 					<li><a href="/member/logout">로그아웃</a></li>
-					<li><a href="/mypage">마이페이지</a></li>
+					<li><a href="/mypage/view">마이페이지</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -191,13 +191,13 @@ ul.top_menu li {
 						<div class="topnav" id="topnav_1">소개</div>
 						<ul class="subnav">
 							<li><a href="/introduce/contact">오시는길</a></li>
-							<li><a href="/notice/list">공지사항</a></li>
+							<li><a href="/noticeboard/list">공지사항</a></li>
 						</ul>
 					</li>
 					<li class="navi_set">
 						<div class="topnav" id="topnav_2">참여하기</div>
 						<ul class="subnav">
-							<li><a href="/adoption/apply/list">입양하기</a></li>
+							<li><a href="/adoption/application/list">입양하기</a></li>
 							<li><a href="/adoption/send/list"> 입양보내기</a></li>
 							<li><a href="/review/list">입양후기</a></li>
 						</ul>

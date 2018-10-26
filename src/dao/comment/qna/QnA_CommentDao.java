@@ -1,6 +1,7 @@
 package dao.comment.qna;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.board.QnA;
 import dto.comment.QnA_Comments;
@@ -17,7 +18,7 @@ public interface QnA_CommentDao {
 	public int selectQnA_CommentCntAll(QnA_Comments qna_Comment);
 
 	// 댓글 삭제 (userid 와 comment_no로 대조해서 삭제)
-	public void deleteQnA_Comment(QnA_Comments qna_Comment)throws Exception ;
+	public String deleteQnA_Comment(QnA_Comments qna_Comment)throws Exception ;
 
 	// 댓글 수정(userid 와 comment_no로 대조해서 수정)
 	public void updateQnA_CommentByUserId(QnA_Comments qna_Comment);

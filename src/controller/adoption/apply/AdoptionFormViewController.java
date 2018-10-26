@@ -16,7 +16,7 @@ import service.animal.AnimalServiceImpl;
 /**
  * Servlet implementation class AdoptionFormView
  */
-@WebServlet("/adoption/formview")
+@WebServlet("/adoption/application/view")
 public class AdoptionFormViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdoptionService adoptionService = new AdoptionServiceImpl();

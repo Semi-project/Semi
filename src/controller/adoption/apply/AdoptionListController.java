@@ -15,7 +15,7 @@ import service.member.MemberServiceImpl;
 /**
  * Servlet implementation class AdoptionListController
  */
-@WebServlet("/adoption/apply/list")
+@WebServlet("/adoption/application/list")
 public class AdoptionListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberService = new MemberServiceImpl();
