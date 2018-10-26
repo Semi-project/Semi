@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import dto.board.QnA;
 import dto.comment.QnA_Comments;
@@ -151,8 +152,17 @@ public class QnA_CommentDaoImpl implements QnA_CommentDao {
 		return cnt;
 	}
 
+	
 	@Override
-	public void deleteQnA_Comment(QnA_Comments qna_Comment) throws Exception {
+	public void updateQnA_CommentByUserId(QnA_Comments qna_Comment) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	@Override
+	public String deleteQnA_Comment(QnA_Comments qna_Comment) throws Exception {
+		String result = "";
 		
 		String sql ="DELETE qna_comments"
 				+ "	WHERE comment_no = ?";
@@ -165,9 +175,11 @@ public class QnA_CommentDaoImpl implements QnA_CommentDao {
 			ps.executeQuery();
 			
 			conn.commit();
-		
+			result = "success";
 		} catch (SQLException e) {
 			e.printStackTrace();
+			conn.rollback();
+			result = "fail";
 		}finally {
 			try {
 				if(ps != null) ps.close();
@@ -176,15 +188,6 @@ public class QnA_CommentDaoImpl implements QnA_CommentDao {
 				e.printStackTrace();
 			}
 		}
-		
+		return result;
 	}
-
-	@Override
-	public void updateQnA_CommentByUserId(QnA_Comments qna_Comment) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
 }

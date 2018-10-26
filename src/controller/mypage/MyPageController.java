@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.member.Member;
 import service.member.MemberService;
 import service.member.MemberServiceImpl;
 
@@ -23,9 +24,14 @@ public class MyPageController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		Member member = new Member();
+		member.setUserid((String)req.getSession().getAttribute("userid"));
+		//System.out.println(member);
+		Member memberView=memberService.selectMemberByUserId(member);
+		req.setAttribute("memberView", memberView);
 		req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
 		
-	
+		
 	}
 
 }

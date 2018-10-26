@@ -27,10 +27,18 @@ public class AdoptionRe_InsertController extends HttpServlet {
 
 		resp.setCharacterEncoding("UTF-8");
 
-		List<Species> speciesList = animalService.getSpecies();
-
+		List speciesList = animalService.getSpecies();
+		
 		req.setAttribute("speciesList", speciesList);
-
+		
+		List tmp = (List) req.getAttribute("speciesList");
+		
+		List tmp2 = (List) tmp.get(1);
+		
+		// 리스트 뽑힘
+//		System.out.println(tmp);
+//		System.out.println(tmp2);
+		
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSend.jsp").forward(req, resp);
 
 	}
@@ -41,10 +49,6 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		// 응답 객체 MIME타입(Content-Type) 설정
 		resp.setContentType("text/html;charset=UTF-8");
-		
-		// null 떠야함
-		System.out.println(req.getAttribute("gender Attribute : "));
-		System.out.println(req.getParameter("gender Parameter : "));
 		
 		animalService.write(req, resp);
 		

@@ -268,7 +268,7 @@ public class Review_FileDaoImpl implements Review_FileDao {
 		String sql = "";
 		sql += "SELECT fileno, boardno,FILE_ORIGINNAME,FILE_SAVENAME FROM(";
 		sql += " SELECT fileno, boardno, FILE_ORIGINNAME,FILE_SAVENAME, ROW_NUMBER() OVER(PARTITION BY boardno ORDER BY fileno ASC) as rn";
-		sql += " FROM review_filetb) WHERE rn=1";
+		sql += " FROM review_filetb) WHERE rn=1 ORDER BY boardno desc";
 
 		ps = null;
 		rs = null;

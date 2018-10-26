@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dto.board.QnA;
 import dto.comment.QnA_Comments;
+import dto.file.QnA_Filetb;
 import service.board.qna.QnAService;
 import service.board.qna.QnAServiceImpl;
 import service.comment.qna.QnA_CommentService;
@@ -37,6 +38,9 @@ public class QnABoardViewController extends HttpServlet {
 		req.setAttribute("loginId", loginId);
 		req.setAttribute("qnaView", qnaView);
 	/*	System.out.println(qnaView);*/
+		
+		QnA_Filetb qna_file = new QnA_Filetb();
+		req.setAttribute("qna_file", qna_file);
 		
 		
 		

@@ -21,14 +21,15 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 
 	@Override
 	public void insertFiletb(Animal_Filetb animal_filetb) {
-		sql = "INSERT INTO animal_filetb";
-		sql += " VALUES (animal_fileno_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		sql = "INSERT INTO animal_filetb(FILENO,ANIMAL_CODE,FILE_ORIGINNAME,FILE_SAVENAME )";
+		sql += " VALUES (?, ?, ?, ?)";
 
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, animal_filetb.getAnimal_Code());
-			ps.setString(2, animal_filetb.getFile_OriginName());
-			ps.setString(6, animal_filetb.getFile_SaveName());
+			ps.setInt(1, animal_filetb.getFileno());
+			ps.setInt(2, animal_filetb.getAnimal_Code());
+			ps.setString(3, animal_filetb.getFile_OriginName());
+			ps.setString(4, animal_filetb.getFile_SaveName());
 
 			ps.executeUpdate();
 
@@ -115,31 +116,33 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 
 	@Override
 	public int selectFileno() {
-		
+
 		int animalCode = 0;
-		
-		sql = "SELECT animal_filetb_seq FROM dual";
-		
+
+		sql = "SELECT animal_filetb_seq.nextval FROM dual";
+
 		try {
 			ps = conn.prepareStatement(sql);
-			
+
 			rs = ps.executeQuery();
-			
+
 			rs.next();
-			
+
 			animalCode = rs.getInt(1);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return animalCode;
 	}
 }

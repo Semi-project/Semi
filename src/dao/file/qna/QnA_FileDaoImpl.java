@@ -145,7 +145,7 @@ public class QnA_FileDaoImpl implements QnA_FileDao {
 	}
 
 	@Override
-	public void delete(QnA qna) throws Exception {
+	public int delete(QnA qna) throws Exception {
 		
 		String sql = "";
 		sql += "DELETE qna_filetb";
@@ -173,6 +173,7 @@ public class QnA_FileDaoImpl implements QnA_FileDao {
 				e.printStackTrace();
 			}
 		}
+		return 1;
 		
 	}
 

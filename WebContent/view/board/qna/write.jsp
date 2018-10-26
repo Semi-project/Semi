@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% response.setHeader("Cache-Controll", "no-cache"); %>
+<% response.setHeader("Cache-Controll", "no-cache"); %> 
+
+<%-- <jsp:include page="/view/layout/header.jsp" /> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +36,7 @@
 </label><br><br>
 
 <button id="btnWrite">작성</button>
-<button id="fileBtn" onclick='location.href="/view/board/qna/list.jsp";'>업로드</button>
-
+<label>첨부파일 : <input type="file" name="file" /></label>
 </form>
 
 
@@ -81,7 +82,7 @@ $(document).ready(function(){
 });
 </script>
 
-
-
 </body>
 </html>
+
+<%-- <jsp:include page="/view/layout/footer.jsp" /> --%>

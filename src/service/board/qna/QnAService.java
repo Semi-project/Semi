@@ -25,7 +25,7 @@ public interface QnAService {
 	public int deleteQnA(QnA qna) throws Exception;
 	
 	// �����Խ��� ����
-	public void updateQnA(QnA qna) throws Exception;// , File file);
+	public void updateQnA(HttpServletRequest req , QnA qna) throws Exception;// , File file);
 
 	// �Խ��� ����Ʈ ����¡ ó��
 	public List getQnAPagingList(Paging paging, String search, String searchVal);

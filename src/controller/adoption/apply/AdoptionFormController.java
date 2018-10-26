@@ -16,7 +16,7 @@ import service.animal.AnimalServiceImpl;
 /**
  * Servlet implementation class AdoptionForm
  */
-@WebServlet("/adoption/form")
+@WebServlet("/adoption/application/insert")
 public class AdoptionFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdoptionService adoptionService = new AdoptionServiceImpl();
@@ -28,7 +28,7 @@ public class AdoptionFormController extends HttpServlet {
 			resp.sendRedirect("/main");
 			return;
 		}
-		req.getRequestDispatcher("/view/board/adoption/form.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/adoption/apply/application.jsp").forward(req, resp);
 	}
 
 	@Override

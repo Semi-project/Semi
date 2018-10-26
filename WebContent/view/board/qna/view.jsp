@@ -65,29 +65,28 @@ $(document).ready(function() {
 	
 });
 
-function deleteComment( comment_No ) {
+function deleteComment(comment_No) {
 // 	console.log(comment_No);
+
 	$.ajax({
 		type: "post"
 		, url: "/qnacomment/delete"
 		, dataType: "json"
-		, data: {
-			comment_No: comment_No
-			
-		}
+		, data: {comment_No: comment_No}
+		,success: function(data){
 		
-	,	success: function(data){
-		if(data.success){
-		
-			$("[data-commentNo='"+comment_No+"']").remove();
-		}else{
-			alert("댓글 삭제 실패")
+			if(data.result == 'success'){
+				alert("댓글 삭제 성공!!! 시발거 ");
+				location.href = "/qnaboard/view?boardno="+${qnaView.boardno };
+			}else{
+				alert("댓글 삭제 실패!! 시발");
+				return false;
+			} 
 		}
-	}
-	, error: function(){
-		console.log("error");
-	}
-});
+		, error: function(){
+			console.log("error");
+		}
+	})
 }
 
 </script>
@@ -119,6 +118,7 @@ function deleteComment( comment_No ) {
 </tr>
 </table>
 </div>
+<a href="/qnaboard/file/download?fileno=${qna_file.fileno }">${qna_file.originName }</a>
  </form>
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>

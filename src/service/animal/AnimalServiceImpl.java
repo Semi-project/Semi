@@ -142,28 +142,15 @@ public class AnimalServiceImpl implements AnimalService {
 
 		animal = new Animal();
 
-		int age = Integer.parseInt(req.getParameter("age"));
-		int species = Integer.parseInt(req.getParameter("species"));
-
-		// selectSeqNextval로 값 가져오기
-		// name과 feature는 나중에 처리
-		animal.setAnimal_Code( animalDao.selectSeqNextval());
-		animal.setAnimal_Age( age);
-		animal.setAnimal_Gender_Code( req.getParameter("gender"));
-		animal.setAnimal_Gr( req.getParameter("weight"));
-		animal.setAnimal_Neuters( req.getParameter("neuter"));
-		animal.setStatus(0);
-		animal.setSpecies_Code( species);
-
-		System.out.println("값을 받아올 수 있다?");
-		
-		try {
-			// 한글처리
-			req.setCharacterEncoding("UTF-8");
-			resp.setContentType("text/html);charset=UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		// =================== 여기부터 처리 =========================
+		//
+		//		try {
+		//			// 한글처리
+		//			req.setCharacterEncoding("UTF-8");
+		//			resp.setContentType("text/html);charset=UTF-8");
+		//		} catch (UnsupportedEncodingException e) {
+		//			e.printStackTrace();
+		//		}
 
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 
@@ -208,66 +195,97 @@ public class AnimalServiceImpl implements AnimalService {
 			if(item.getSize() <=0)
 				continue;
 			if(item.isFormField()) {
-				if("name".equals(item.getFieldName())) {
-					String data = item.getString();
-					// 데이터 처리
-					// 동물 이름 넣기
-					animal.setAnimal_Name(data);
-					
-				} else if ("content".equals(item.getFieldName())) {
-					String content = item.getString();
-					animal.setAnimal_Feature(content);
-					animalDao.insertAnimal(animal);
-					Animal_Filetb file = new Animal_Filetb();
+				String content = null;
+				try {
+					if("name".equals(item.getFieldName())) {
+						// 데이터 처리
+						// 동물 이름 넣기
+						animal.setAnimal_Name(item.getString("UTF-8"));
 
-					StringTokenizer str = new StringTokenizer(content, " =><\"", false);
+					} else if ("age".equals(item.getFieldName())) {
+						// 나이
+						animal.setAnimal_Age(Integer.parseInt(item.getString("UTF-8")));
 
-					while(str.hasMoreTokens()) {
-						String data = str.nextToken();
-						if(data.equals(" ")) {
-						} else if (data.equals("=")) {
-						} else if (data.equals(">")) {
+					} else if ("gender".equals(item.getFieldName())) {
+						// 성별
+						animal.setAnimal_Gender_Code(item.getString("UTF-8"));
 
-						} else if (data.equals("<")) {
+					} else if ("weight".equals(item.getFieldName())) {
+						// 체중
+						animal.setAnimal_Gr(item.getString("UTF-8"));
 
-						} else if (data.equals("\"")) {
+					} else if ("nueter".equals(item.getFieldName())) {
+						// 중성화
+						animal.setAnimal_Neuters(item.getString("UTF-8"));
 
-						} else {
-							if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-									|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-									|| data.contains(".BMP") || data.contains(".bmp")) {
+						// } else if ("species".equals(item.getFieldName())) {
+						// 중성화
+						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
 
-								//										 System.out.println(i+","+data);
-								// System.out.println("---------");
-								if (data.contains("&#10")) {
-									String data2 = data.substring(0, data.length() - 5);
-									if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-											|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-											|| data.contains(".BMP") || data.contains(".bmp")) {
-										//												System.out.println(data2);
-										file.setFile_SaveName(data2);
-									}
-									// JPG, GIF, PNG, BMP
-								} else {
-									file.setFile_OriginName(data);
-									System.out.println("1: " + file);
-									if (file.getFile_SaveName() != null) {
-										file.setAnimal_Code(animal.getAnimal_Code());
-										file.setFileno(animal_fileDao.selectFileno());
-										System.out.println("2:" + file);
-										animal_fileDao.insertFiletb(file);
+					}else if ("content".equals(item.getFieldName())) {
+						// 특징
+						content = item.getString("UTF-8");
+						animal.setAnimal_Feature(content);
 
-									}
+						animal.setAnimal_Code(animalDao.selectSeqNextval());
+						animal.setStatus(0);
+
+						// System.out.println("값을 받아올 수 있다?");
+					}
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				//////////////////////////////////////////////
+				animalDao.insertAnimal(animal);
+				Animal_Filetb file = new Animal_Filetb();
+
+				StringTokenizer str = new StringTokenizer(content, " =><\"", false);
+
+				while(str.hasMoreTokens()) {
+					String data = str.nextToken();
+					if(data.equals(" ")) {
+					} else if (data.equals("=")) {
+					} else if (data.equals(">")) {
+
+					} else if (data.equals("<")) {
+
+					} else if (data.equals("\"")) {
+
+					} else {
+						if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
+								|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
+								|| data.contains(".BMP") || data.contains(".bmp")) {
+
+							// System.out.println(i+","+data);
+							// System.out.println("---------");
+							if (data.contains("&#10")) {
+								String data2 = data.substring(0, data.length() - 5);
+								if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
+										|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
+										|| data.contains(".BMP") || data.contains(".bmp")) {
+									// System.out.println(data2);
+									file.setFile_SaveName(data2);
+								}
+								// JPG, GIF, PNG, BMP
+							} else {
+								file.setFile_OriginName(data);
+								System.out.println("1: " + file);
+								if (file.getFile_SaveName() != null) {
+									file.setAnimal_Code(animalDao.selectSeqNextval());
+									file.setFileno(animal_fileDao.selectFileno());
+									System.out.println("2:" + file);
+									animal_fileDao.insertFiletb(file);
+
 								}
 							}
 						}
 					}
-
 				}
+
 			} else {
 				// 파일일 경우
 				Animal_Filetb file = new Animal_Filetb();
-				
+
 				// --- UUID 생성 ---
 				UUID uuid = UUID.randomUUID();
 				// System.out.println(uuid);
@@ -275,25 +293,25 @@ public class AnimalServiceImpl implements AnimalService {
 				String u = uuid.toString().split("-")[4];
 				// System.out.println(u);
 				// -----------------
-				
+
 				// 로컬 저장소 파일
 				File up = new File(context.getRealPath("upload"), item.getName() + "_" + u);
-				
+
 				file.setAnimal_Code(animal.getAnimal_Code());
 				file.setFile_SaveName(up.getName());
 				file.setFile_OriginName(item.getName());
 				file.setFileno(animal_fileDao.selectFileno());
-				
+
 				animal_fileDao.insertFiletb(file);
-				
+
 				try {
 					// 실제 업로드
 					item.write(up);
-					
+
 					// 임시 파일 삭제
 					item.delete();
-					
-					
+
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -330,7 +348,7 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public List<Species> getSpecies() {
+	public List getSpecies() {
 
 		SpeciesDao speciesDao = new SpeciesDaoImpl();
 

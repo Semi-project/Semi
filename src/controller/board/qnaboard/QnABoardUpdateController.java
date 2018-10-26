@@ -53,7 +53,7 @@ public class QnABoardUpdateController extends HttpServlet {
 		QnA qna = qnaService.getParam(req, resp);
 		
 		try {
-			qnaService.updateQnA(qna);
+			qnaService.updateQnA(req , qna);
 			
 			int boardNo = Integer.parseInt(req.getParameter("boardno"));	
 			

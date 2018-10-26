@@ -1,9 +1,17 @@
 package service.board.qna;
 
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import dao.board.cate.BoardCateDao;
 import dao.board.cate.BoardCateDaoImpl;
@@ -35,23 +43,27 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public void writeQnA(HttpServletRequest req) throws Exception {
-		QnA_Filetb qna_Filetb = null;
-
-		int boardno = qnaDao.selectBoardno();
 		
-		QnA qna = new QnA();
+		QnA_Filetb qna_Filetb = null;
+		QnA qna = null;
+	
+		
+		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+		
+		if(!isMultipart) {
+		
+	 qna = new QnA();
+		
 		qna.setCateno(1002);
-		qna.setUserid(req.getParameter("userid"));
-		qna.setBoardno(boardno);
+		qna.setUserid((String)req.getSession().getAttribute("userid"));
 		qna.setTitle(req.getParameter("title"));
 		qna.setContent(req.getParameter("content"));
 
-		if (qna != null) {
-			qna.setBoardno(boardno);
-			qnaDao.insertQnA(qna);
-		}
-
-/*			DiskFileItemFactory factory = new DiskFileItemFactory();
+		} else {
+			
+		 qna = new QnA();
+			
+			DiskFileItemFactory factory = new DiskFileItemFactory();
 
 			// �޸�ó�� ������
 			factory.setSizeThreshold(1 * 1024 * 1024); // 1MB
@@ -98,8 +110,8 @@ public class QnAServiceImpl implements QnAService {
 					File up = new File(req.getServletContext().getRealPath("upload"), save);
 
 					qna_Filetb = new QnA_Filetb();
-					qna_Filetb.setFile_OriginName(item.getName());
-					qna_Filetb.setFile_SaveName(save);
+					qna_Filetb.setOriginName(item.getName());
+					qna_Filetb.setStoredName(save);
 					qna_Filetb.setFilesize(item.getSize());
 
 					try {
@@ -108,53 +120,60 @@ public class QnAServiceImpl implements QnAService {
 						item.delete();
 					} catch (Exception e) {
 						e.printStackTrace();
+		
+
+					
 					}
 
+		
+		 }	
 
-		int boardno = qnaDao.selectBoardno();
+	}
+}
+		int boardno = qnaDao.selectBoardno();			
 
 		if (qna != null) {
 			qna.setBoardno(boardno);
 			qnaDao.insertQnA(qna);
-		}
+	 }
 		if (qna_Filetb != null) {
 			qna_Filetb.setBoardno(boardno);
-			qna_fileDao.insertFiletb(qna_Filetb);
-		}
-
-	  }
-	}*/
+			qna_fileDao.insertFile(qna_Filetb);
+   }
 }
 
 	@Override
 	public int deleteQnA(QnA qna) throws Exception{
 		int result = 0; 
+		result = qna_fileDao.delete(qna);
 		result = qnaDao.deleteQnA(qna);
 		return result;
 
 	}
 
 	@Override
-	public void updateQnA(QnA qna) throws Exception{
+	public void updateQnA(HttpServletRequest req , QnA qna) throws Exception{
 	
-		//QnA_Filetb qna_Filetb = new QnA_Filetb();
+		
+		QnA_Filetb qna_Filetb = null;
 		
 		if (qna != null) {
 			qnaDao.updateQnA(qna);
 
 		}
+	
 
-//		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-//
-//		if (!isMultipart) {
-//
-//			qna = new QnA();
-//
-//			qna.setTitle(req.getParameter("title"));
-//			qna.setUserid((String) req.getSession().getAttribute("userid"));
-//			qna.setContent(req.getParameter("content"));
-//
-//		} else {
+		//boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+
+		//if (!isMultipart) {
+
+			qna = new QnA();
+
+			qna.setTitle(req.getParameter("title"));
+			qna.setUserid((String) req.getSession().getAttribute("userid"));
+			qna.setContent(req.getParameter("content"));
+
+		//} else {
 //
 //			qna = new QnA();
 //
@@ -210,8 +229,8 @@ public class QnAServiceImpl implements QnAService {
 //					File up = new File(req.getServletContext().getRealPath("upload"), save);
 //
 //					qna_Filetb = new QnA_Filetb();
-//					qna_Filetb.setFile_OriginName(item.getName());
-//					qna_Filetb.setFile_SaveName(save);
+//					qna_Filetb.setOriginName(item.getName());
+//					qna_Filetb.setStoredName(save);
 //					/*qna_Filetb.setFilesize(item.getSize());*/
 //
 //					try {
@@ -226,11 +245,13 @@ public class QnAServiceImpl implements QnAService {
 //
 //			}
 //		}
+//
+
 
 //		if (qna_Filetb != null) {
 //			qna_Filetb.setBoardno(qna.getBoardno());
-//			qna_fileDao.insertFiletb(qna_Filetb);
-//		}
+//			qna_fileDao.insertFile(qna_Filetb);
+//	}
 
 	}
 

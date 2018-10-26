@@ -75,7 +75,7 @@ public class AdoptionServiceImpl implements AdoptionService {
 
 	@Override
 	public void write(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+		System.out.println(req.getParameter("q1"));
 		
 	}
 

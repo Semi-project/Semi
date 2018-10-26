@@ -15,7 +15,7 @@ public interface QnA_FileDao {
 		public QnA_Filetb selectByFileno(int fileno);
 		
 		//첨부파일 삭제
-		public void delete(QnA qna) throws Exception;
+		public int delete(QnA qna) throws Exception;
 
 		//삭제리스트의 첨부파일 삭제
 		public void deletedeleteBoardListFile(String names);

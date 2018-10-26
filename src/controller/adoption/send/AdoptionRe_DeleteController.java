@@ -35,15 +35,6 @@ public class AdoptionRe_DeleteController extends HttpServlet {
 
 		animalService.deleteAnimalByAnimal_Code(animal, animal_filetb);
 
-//		삭제 확인 alert 띄우기
-		
-//		PrintWriter out = resp.getWriter();
-//
-//		out.println("<script type=\"text/javascript\">");
-//		out.println("alert('해당 동물이 목록에서 삭제되었습니다.');");
-//		out.println("location='/view/adoption/send/adoptionSendView.jsp';");
-//		out.println("</script>");
-
 		resp.sendRedirect("/adoption/send/list");
 
 	}
