@@ -18,6 +18,27 @@ $(document).ready(function() {
 		$(location).attr("href", "/adoption/send/insert");
 	});
 });
+
+// checkbox 전체 선택
+function checkAll() {
+	// checkbox들
+	var $checkboxes=$("input:checkbox[name='checkRow']");
+
+	// checkAll 체크상태 (true:전체선택, false:전체해제)
+	var check_status = $("#checkAll").is(":checked");
+	
+	if( check_status ) {
+		// 전체 체크박스를 checked로 바꾸기
+		$checkboxes.each(function() {
+			this.checked = true;	
+		});
+	} else {
+		// 전체 체크박스를 checked 해제하기
+		$checkboxes.each(function() {
+			this.checked = false;	
+		});
+	}
+}
 </script>
 
 <style type="text/css">
@@ -38,6 +59,9 @@ td {
 <table class="table table-hover table-striped table-condensed">
 <thead>
 <tr>
+<th>
+	<input type="checkbox" id="checkAll" onclick="checkAll();" />
+</th>
 <th style="width: 45%">동물 이름</th>
 <th style="width: 20%">성별</th>
 <th style="width: 10%">품종</th>
@@ -48,6 +72,7 @@ td {
 <c:forEach items="${animalList }" var="animal">
 
 <tr>
+<td><input type="checkbox" name="checkRow" value="${animal.animal_Code }" /></td>
 <td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
 <td>${animal.animal_Gender_Code }</td>
 <td>${animal.species_Name }</td>

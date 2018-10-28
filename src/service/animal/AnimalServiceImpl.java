@@ -142,15 +142,12 @@ public class AnimalServiceImpl implements AnimalService {
 
 		animal = new Animal();
 
-		// =================== 여기부터 처리 =========================
-		//
-		//		try {
-		//			// 한글처리
-		//			req.setCharacterEncoding("UTF-8");
-		//			resp.setContentType("text/html);charset=UTF-8");
-		//		} catch (UnsupportedEncodingException e) {
-		//			e.printStackTrace();
-		//		}
+		try {
+			req.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/html;charset=UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 
@@ -195,90 +192,90 @@ public class AnimalServiceImpl implements AnimalService {
 			if(item.getSize() <=0)
 				continue;
 			if(item.isFormField()) {
-				String content = null;
-				try {
-					if("name".equals(item.getFieldName())) {
-						// 데이터 처리
-						// 동물 이름 넣기
-						animal.setAnimal_Name(item.getString("UTF-8"));
 
-					} else if ("age".equals(item.getFieldName())) {
-						// 나이
-						animal.setAnimal_Age(Integer.parseInt(item.getString("UTF-8")));
+				if("name".equals(item.getFieldName())) {
+					// 데이터 처리
+					// 동물 이름 넣기
+					animal.setAnimal_Name(item.getString());
 
-					} else if ("gender".equals(item.getFieldName())) {
-						// 성별
-						animal.setAnimal_Gender_Code(item.getString("UTF-8"));
+				} else if ("age".equals(item.getFieldName())) {
+					// 나이
+					animal.setAnimal_Age(Integer.parseInt(item.getString()));
 
-					} else if ("weight".equals(item.getFieldName())) {
-						// 체중
-						animal.setAnimal_Gr(item.getString("UTF-8"));
+				} else if ("gender".equals(item.getFieldName())) {
+					// 성별
+					animal.setAnimal_Gender_Code(item.getString());
 
-					} else if ("nueter".equals(item.getFieldName())) {
-						// 중성화
-						animal.setAnimal_Neuters(item.getString("UTF-8"));
+				} else if ("weight".equals(item.getFieldName())) {
+					// 체중
+					animal.setAnimal_Gr(item.getString());
 
-						// } else if ("species".equals(item.getFieldName())) {
-						// 중성화
-						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
+				} else if ("nueter".equals(item.getFieldName())) {
+					// 중성화
+					animal.setAnimal_Neuters(item.getString());
 
-					}else if ("content".equals(item.getFieldName())) {
-						// 특징
-						content = item.getString("UTF-8");
-						animal.setAnimal_Feature(content);
+					// } else if ("species".equals(item.getFieldName())) {
+					// 중성화
+					// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
 
-						animal.setAnimal_Code(animalDao.selectSeqNextval());
-						animal.setStatus(0);
+				}else if ("content".equals(item.getFieldName())) {
+					// 특징
+					String content = item.getString();
+					animal.setAnimal_Feature(content);
 
-						// System.out.println("값을 받아올 수 있다?");
-					}
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-				//////////////////////////////////////////////
-				animalDao.insertAnimal(animal);
-				Animal_Filetb file = new Animal_Filetb();
+					animal.setAnimal_Code(animalDao.selectSeqNextval());
+					animal.setStatus(0);
 
-				StringTokenizer str = new StringTokenizer(content, " =><\"", false);
+					// System.out.println("값을 받아올 수 있다?");
 
-				while(str.hasMoreTokens()) {
-					String data = str.nextToken();
-					if(data.equals(" ")) {
-					} else if (data.equals("=")) {
-					} else if (data.equals(">")) {
 
-					} else if (data.equals("<")) {
+					//////////////////////////////////////////////
+					animalDao.insertAnimal(animal);
+					Animal_Filetb file = new Animal_Filetb();
 
-					} else if (data.equals("\"")) {
+					StringTokenizer str = new StringTokenizer(content, " =><\"", false);
 
-					} else {
-						if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-								|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-								|| data.contains(".BMP") || data.contains(".bmp")) {
+					while(str.hasMoreTokens()) {
+//						int i = 0;
+						String data = str.nextToken();
+						if(data.equals(" ")) {
+						} else if (data.equals("=")) {
+						} else if (data.equals(">")) {
 
-							// System.out.println(i+","+data);
-							// System.out.println("---------");
-							if (data.contains("&#10")) {
-								String data2 = data.substring(0, data.length() - 5);
-								if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-										|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-										|| data.contains(".BMP") || data.contains(".bmp")) {
-									// System.out.println(data2);
-									file.setFile_SaveName(data2);
-								}
-								// JPG, GIF, PNG, BMP
-							} else {
-								file.setFile_OriginName(data);
-								System.out.println("1: " + file);
-								if (file.getFile_SaveName() != null) {
-									file.setAnimal_Code(animalDao.selectSeqNextval());
-									file.setFileno(animal_fileDao.selectFileno());
-									System.out.println("2:" + file);
-									animal_fileDao.insertFiletb(file);
+						} else if (data.equals("<")) {
 
+						} else if (data.equals("\"")) {
+
+						} else {
+							if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
+									|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
+									|| data.contains(".BMP") || data.contains(".bmp")) {
+
+								// System.out.println(i+","+data);
+								// System.out.println("---------");
+								if (data.contains("&#10")) {
+									String data2 = data.substring(0, data.length() - 5);
+									if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
+											|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
+											|| data.contains(".BMP") || data.contains(".bmp")) {
+										// System.out.println(data2);
+										file.setFile_SaveName(data2);
+									}
+									// JPG, GIF, PNG, BMP
+								} else {
+									file.setFile_OriginName(data);
+//									System.out.println("1: " + file);
+									if (file.getFile_SaveName() != null) {
+//										file.setAnimal_Code(animalDao.selectSeqNextval());
+										file.setFileno(animal_fileDao.selectFileno());
+//										System.out.println("2:" + file);
+										animal_fileDao.insertFiletb(file);
+
+									}
 								}
 							}
 						}
+//								i++;
 					}
 				}
 
