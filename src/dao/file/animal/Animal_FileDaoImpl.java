@@ -21,7 +21,7 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 
 	@Override
 	public void insertFiletb(Animal_Filetb animal_filetb) {
-		sql = "INSERT INTO animal_filetb(FILENO,ANIMAL_CODE,FILE_ORIGINNAME,FILE_SAVENAME )";
+		sql = "INSERT INTO animal_filetb(FILENO, ANIMAL_CODE, FILE_ORIGINNAME, FILE_SAVENAME )";
 		sql += " VALUES (?, ?, ?, ?)";
 
 		try {
@@ -31,6 +31,8 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 			ps.setString(3, animal_filetb.getFile_OriginName());
 			ps.setString(4, animal_filetb.getFile_SaveName());
 
+			
+			
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
@@ -144,5 +146,27 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		}
 
 		return animalCode;
+	}
+
+	@Override
+	public void deleteAnimalListFile(String codes) {
+
+		sql = "DELETE FROM animal_filetb WHERE animal_code IN ("+ codes + ")";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

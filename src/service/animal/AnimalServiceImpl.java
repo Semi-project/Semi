@@ -23,7 +23,6 @@ import dao.animal.SpeciesDaoImpl;
 import dao.file.animal.Animal_FileDao;
 import dao.file.animal.Animal_FileDaoImpl;
 import dto.animal.Animal;
-import dto.animal.Species;
 import dto.file.Animal_Filetb;
 import util.Paging;
 
@@ -34,7 +33,6 @@ public class AnimalServiceImpl implements AnimalService {
 
 	// dao
 	private AnimalDao animalDao = new AnimalDaoImpl();
-	private SpeciesDao speciesDao = new SpeciesDaoImpl();
 	private Animal_FileDao animal_fileDao = new Animal_FileDaoImpl();
 
 	@Override
@@ -173,6 +171,9 @@ public class AnimalServiceImpl implements AnimalService {
 		int maxFile = 10 * 1024 * 1024; // 10MB
 		upload.setFileSizeMax(maxFile);
 
+		// 한글 처리
+		upload.setHeaderEncoding("utf-8");
+
 		List<FileItem> items = null;
 		try {
 			items = upload.parseRequest(req);
@@ -192,94 +193,104 @@ public class AnimalServiceImpl implements AnimalService {
 			if(item.getSize() <=0)
 				continue;
 			if(item.isFormField()) {
+				try {
+					if("name".equals(item.getFieldName())) {
+						// 데이터 처리
+						// 동물 이름 넣기
+						animal.setAnimal_Name(item.getString("utf-8"));
 
-				if("name".equals(item.getFieldName())) {
-					// 데이터 처리
-					// 동물 이름 넣기
-					animal.setAnimal_Name(item.getString());
+					} else if ("age".equals(item.getFieldName())) {
+						// 나이
+						animal.setAnimal_Age(Integer.parseInt(item.getString("utf-8")));
 
-				} else if ("age".equals(item.getFieldName())) {
-					// 나이
-					animal.setAnimal_Age(Integer.parseInt(item.getString()));
+					} else if ("gender".equals(item.getFieldName())) {
+						// 성별
+						animal.setAnimal_Gender_Code(item.getString("utf-8"));
 
-				} else if ("gender".equals(item.getFieldName())) {
-					// 성별
-					animal.setAnimal_Gender_Code(item.getString());
+					} else if ("weight".equals(item.getFieldName())) {
+						// 체중
+						animal.setAnimal_Gr(item.getString("utf-8"));
 
-				} else if ("weight".equals(item.getFieldName())) {
-					// 체중
-					animal.setAnimal_Gr(item.getString());
+					} else if ("nueter".equals(item.getFieldName())) {
+						// 중성화
+						animal.setAnimal_Neuters(item.getString("utf-8"));
 
-				} else if ("nueter".equals(item.getFieldName())) {
-					// 중성화
-					animal.setAnimal_Neuters(item.getString());
+						// } else if ("species".equals(item.getFieldName())) {
+						// 중성화
+						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
 
-					// } else if ("species".equals(item.getFieldName())) {
-					// 중성화
-					// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
+					}else if ("content".equals(item.getFieldName())) {
+						// 특징
+						String content = item.getString("utf-8");
+						animal.setAnimal_Feature(content);					
 
-				}else if ("content".equals(item.getFieldName())) {
-					// 특징
-					String content = item.getString();
-					animal.setAnimal_Feature(content);
+						// 동물 코드 가져오기
+						int animalCode = animalDao.selectSeqNextval();
+						animal.setAnimal_Code(animalCode);
+						animal.setStatus(0);
 
-					animal.setAnimal_Code(animalDao.selectSeqNextval());
-					animal.setStatus(0);
-
-					// System.out.println("값을 받아올 수 있다?");
+						// System.out.println("값을 받아올 수 있다?");
 
 
-					//////////////////////////////////////////////
-					animalDao.insertAnimal(animal);
-					Animal_Filetb file = new Animal_Filetb();
+						//////////////////////////////////////////////
+						animalDao.insertAnimal(animal);
+						Animal_Filetb file = new Animal_Filetb();
 
-					StringTokenizer str = new StringTokenizer(content, " =><\"", false);
+						// 위에서 생성한 동물코드 입력
+						file.setAnimal_Code(animalCode);
 
-					while(str.hasMoreTokens()) {
-//						int i = 0;
-						String data = str.nextToken();
-						if(data.equals(" ")) {
-						} else if (data.equals("=")) {
-						} else if (data.equals(">")) {
+						StringTokenizer str = new StringTokenizer(content, " =><\"", false);
 
-						} else if (data.equals("<")) {
+						while(str.hasMoreTokens()) {
+							//						int i = 0;
+							String data = str.nextToken();
+							if(data.equals(" ")) {
+							} else if (data.equals("=")) {
+							} else if (data.equals(">")) {
 
-						} else if (data.equals("\"")) {
+							} else if (data.equals("<")) {
 
-						} else {
-							if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-									|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-									|| data.contains(".BMP") || data.contains(".bmp")) {
+							} else if (data.equals("\"")) {
 
-								// System.out.println(i+","+data);
-								// System.out.println("---------");
-								if (data.contains("&#10")) {
-									String data2 = data.substring(0, data.length() - 5);
-									if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-											|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-											|| data.contains(".BMP") || data.contains(".bmp")) {
-										// System.out.println(data2);
-										file.setFile_SaveName(data2);
-									}
-									// JPG, GIF, PNG, BMP
-								} else {
-									file.setFile_OriginName(data);
-//									System.out.println("1: " + file);
-									if (file.getFile_SaveName() != null) {
-//										file.setAnimal_Code(animalDao.selectSeqNextval());
-										file.setFileno(animal_fileDao.selectFileno());
-//										System.out.println("2:" + file);
-										animal_fileDao.insertFiletb(file);
+							} else {
+								if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
+										|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
+										|| data.contains(".BMP") || data.contains(".bmp")) {
 
+									// System.out.println(i+","+data);
+									// System.out.println("---------");
+									if (data.contains("&#10")) {
+										String data2 = data.substring(0, data.length() - 5);
+										if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
+												|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
+												|| data.contains(".BMP") || data.contains(".bmp")) {
+											// System.out.println(data2);
+											file.setFile_SaveName(data2);
+										}
+										// JPG, GIF, PNG, BMP
+									} else {
+										file.setFile_OriginName(data);
+										//									System.out.println("1: " + file);
+										if (file.getFile_SaveName() != null) {
+											//										file.setAnimal_Code(animalDao.selectSeqNextval());
+											file.setFileno(animal_fileDao.selectFileno());
+											//										System.out.println("2:" + file);
+											animal_fileDao.insertFiletb(file);
+
+										}
 									}
 								}
-							}
+								// i++;
+							} // end of while
 						}
-//								i++;
 					}
+				} catch(UnsupportedEncodingException e) {
+					e.printStackTrace();
 				}
 
-			} else {
+			}// end of if(item.isFormField())
+
+			else {
 				// 파일일 경우
 				Animal_Filetb file = new Animal_Filetb();
 
@@ -340,8 +351,8 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public List getPagingListUnauth(Paging paging) {
-		return animalDao.selectPagingListUnauth(paging);
+	public List selectPagingListUser(Paging paging) {
+		return animalDao.selectPagingListUser(paging);
 	}
 
 	@Override
@@ -350,6 +361,26 @@ public class AnimalServiceImpl implements AnimalService {
 		SpeciesDao speciesDao = new SpeciesDaoImpl();
 
 		return speciesDao.selectSpeciesAll();
+	}
+
+	@Override
+	public void animalListDelete(String codes) {
+
+		animal_fileDao.deleteAnimalListFile(codes);
+		animalDao.deleteAnimalList(codes);
+
+	}
+
+	@Override
+	public void animalListAccept(String codes) {
+
+		animalDao.acceptAnimalList(codes);
+
+	}
+
+	@Override
+	public int getCountAcpt() {
+		return animalDao.selectCntAcpt();
 	}
 
 }

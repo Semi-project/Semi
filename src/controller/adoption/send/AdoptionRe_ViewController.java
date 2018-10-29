@@ -32,7 +32,6 @@ public class AdoptionRe_ViewController extends HttpServlet {
 		
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendView.jsp").forward(req, resp);
 		
-
 	}
 
 }

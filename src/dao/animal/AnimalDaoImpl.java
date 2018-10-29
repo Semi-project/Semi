@@ -272,7 +272,7 @@ public class AnimalDaoImpl implements AnimalDao {
 	}
 
 	@Override
-	public List selectPagingListUnauth(Paging paging) {
+	public List selectPagingListUser(Paging paging) {
 		sql = "SELECT * FROM (";
 		sql += " SELECT rownum rnum, A.* FROM (";
 		sql += " animal_name, animal_code,";
@@ -282,7 +282,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " animal.species_code, species_name";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code = animal.species_code";
-		sql += " AND status=0";
+		sql += " AND status=1";
 		sql += " ORDER BY animal_code DESC";
 		sql += " ) A";
 		sql += " ORDER BY rnum";
@@ -302,6 +302,18 @@ public class AnimalDaoImpl implements AnimalDao {
 			while(rs.next()) {
 				animal = new Animal();
 				
+				animal.setAnimal_Name( rs.getString("animal_name"));
+				animal.setAnimal_Code( rs.getInt("animal_code"));
+				animal.setAnimal_Age( rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr( rs.getString("animal_gr"));
+				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
+				animal.setAnimal_Feature( rs.getString("animal_feature"));
+				animal.setStatus( rs.getInt("status"));
+				animal.setSpecies_Code( rs.getInt("species_code"));
+				animal.setSpecies_Name( rs.getString("species_name"));
+				
+				list.add(animal);
 			}
 			
 		} catch (SQLException e) {
@@ -366,6 +378,79 @@ public class AnimalDaoImpl implements AnimalDao {
 	      }
 	      return code;
 		
+	}
+
+	@Override
+	public void deleteAnimalList(String codes) {
+
+		sql = "DELETE FROM animal WHERE animal_code IN ( " + codes + ")";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public void acceptAnimalList(String codes) {
+
+		sql = "UPDATE animal SET status=1 WHERE animal_code IN ( " + codes + ")";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	@Override
+	public int selectCntAcpt() {
+
+		sql = "SELECT COUNT (*) FROM animal WHERE status=1";
+		
+		int cnt = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			rs.next();
+			
+			cnt = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
 	}
 
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="/view/layout/header.jsp" />
 <style>
@@ -25,86 +25,100 @@ $(document).ready(function() {
 		submitContents();
 	});
 
-	$("input[name=animal]").click(function() {
-		var selected = $('input[name="animal"]:checked').val();
-
-		console.log(species);
-		// 			============== 아직 미완성 ======================
-		// select option에 append
-		// 			var tmp = (List) HttpServletRequest.getAttribute("speciesList");
-		// 			var dogList = (List) tmp.get(0);
-		// 			var catList = (List) tmp.get(1);
-		// 			var etcList = (List) tmp.get(2);
-		// 			var Lists;
-		// 			console.log(species);
-		// 		if(selected==dog){
-		// 			document.getElementById('select1').style.visibility = 'visible';
-		// 			document.getElementById('select2').style.visibility = 'hidden';
-		// 			document.getElementById('select3').style.visibility = 'hidden';
-		// 		} else if(selected==cat){
-		// 			$("#select1").style.visibility = 'hidden';
-		// 			$("#select2").style.visibility = 'visible';
-		// 			$("#select3").style.visibility = 'hidden';
-		// 		} else if(selected==guitaR){
-		// 			$("#select1").style.visibility = 'hidden';
-		// 			$("#select2").style.visibility = 'hidden';
-		// 			$("#select3").style.visibility = 'visible';
-		// 		}
-
-	});
-
 });
+
+function selectSpecies(){
+	
+	var $selected = $("input:radio[name='animal']:checked").val();
+	
+	$('#animalFm').on('change', function(){
+		
+	
+	
+	
+	
+		// 			============== 아직 미완성 ======================
+		// 
+// 		select option에 append
+		var tmp = (List)HttpServletRequest.getAttribute("speciesList");
+		var dogList = (List)tmp.get(0);
+		var catList = (List)tmp.get(1);
+		var etcList = (List)tmp.get(2);
+		var Lists;
+		console.log(species);
+		if (selected == "dog") {
+			console.log(selected);
+// 			document.getElementById('select1').style.visibility = 'visible';
+// 			document.getElementById('select2').style.visibility = 'hidden';
+// 			document.getElementById('select3').style.visibility = 'hidden';
+		} else if (selected == "cat") {
+			console.log(selected);
+// 			$("#select1").style.visibility = 'hidden';
+// 			$("#select2").style.visibility = 'visible';
+// 			$("#select3").style.visibility = 'hidden';
+		} else if (selected == "guitaR") {
+			console.log(selected);
+// 			$("#select1").style.visibility = 'hidden';
+// 			$("#select2").style.visibility = 'hidden';
+// 			$("#select3").style.visibility = 'visible';
+		}
+	});
+}
 </script>
 
 <div>
-<h3>입양 보내실 동물</h3>
-<hr>
-<div>
-	<form id="frm" action="/adoption/send/insert" method="post"
+	<h3>입양 보내실 동물</h3>
+	<hr>
+	<div>
+		<form id="frm" action="/adoption/send/insert" method="post"
 			enctype="multipart/form-data">
-		<table class="table table-bordered">
-			<tr>
-				<td>이름</td>
-				<td><input type="text" id="name" name="name" /></td>
-			</tr>
-			<tr>
-           		<td>나이</td>
-            	<td><input type="number" id="age" name="age" min="0" /></td>
-         	</tr>
-         	<tr>
-            	<td>성별</td>
-            	<td>
-            		<input type="radio" ID="male" name="gender" value="male" checked /><label for="male">남</label>
-            		<input type="radio" ID="female" name="gender" value="female" /><label for="female">여</label>
-				</td>
-         	</tr>
-         	<tr>
-            	<td>몸무게</td>
-            	<td><input type="number" id="weight" name="weight" min="0" /></td>
-         	</tr>
-         	<tr>
-            	<td>중성화 여부</td>
-            	<td>
-            		<input type="radio" ID="neuter1" name="neuter" value="Y" checked /><label for="neuter1">Yes</label>
-            		<input type="radio" ID="neuter2" name="neuter" value="N" /><label for="neuter2">No</label>
-				</td>
-         	</tr>
-         	<tr>
-            	<td rowspan="2">품종</td>
-            	<td>
-            		<input type="radio" ID="animal1" name="animal" value="dog" checked /><label for="animal1">멍멍이</label> 
-					<input type="radio" ID="animal2" name="animal" value="cat" /><label for="animal2">냥냥이</label>
-					<input type="radio" ID="animal3" name="animal" value="etc" /><label for="animel3">기타</label>
+			<table class="table table-bordered">
+				<tr>
+					<td>이름</td>
+					<td><input type="text" id="name" name="name" /></td>
+				</tr>
+				<tr>
+					<td>나이</td>
+					<td><input type="number" id="age" name="age" min="0" /></td>
+				</tr>
+				<tr>
+					<td>성별</td>
+					<td><input type="radio" ID="male" name="gender" value="남"
+						checked /><label for="male">남</label> <input type="radio"
+						ID="female" name="gender" value="여" /><label for="female">여</label>
+					</td>
+				</tr>
+				<tr>
+					<td>몸무게</td>
+					<td><input type="number" id="weight" name="weight" min="0" /></td>
+				</tr>
+				<tr>
+					<td>중성화 여부</td>
+					<td><input type="radio" ID="neuter1" name="neuter" value="Y"
+						checked /><label for="neuter1">Yes</label> <input type="radio"
+						ID="neuter2" name="neuter" value="N" /><label for="neuter2">No</label>
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="2">품종</td>
+					<td>
+						<form id="animalFm">
+							<input type="radio" ID="animal1" name="animal" value="dog"
+								checked /><label for="animal1">멍멍이</label> <input type="radio"
+								ID="animal2" name="animal" value="cat" /><label for="animal2">냥냥이</label>
+							<input type="radio" ID="animal3" name="animal" value="etc" /><label
+								for="animel3">기타</label>
+						</form>
+					</td>
+				</tr>
+				<tr>
+             	<td id="select1">
+					<select id="species" name="species">
+            			<c:forEach var="species" items="${speciesList[0] }">
+							<option value="${species.species_Code }">${species.species_Name }</option>
+						</c:forEach>
+            		</select>
             	</td>
-            </tr>
-            <tr>
-<!--             	<td id="select1"> -->
-<!--             		<select id="species" name="species"> -->
-<%--             			<c:forEach var="species" items="${speciesList[0] }"> --%>
-<%-- 							<option value="${species.species_Code }">${species.species_Name }</option> --%>
-<%-- 						</c:forEach> -->
-<!--             		</select> -->
-<!--             	</td> -->
 <!--             	<td id="select2"> -->
 <!--             		<select id="species" name="species"> -->
 <%--             			<c:forEach var="species" items="${speciesList[1] }"> --%>
@@ -119,19 +133,19 @@ $(document).ready(function() {
 <%-- 						</c:forEach> --%>
 <!--             		</select> -->
 <!--             	</td> -->
-         	</tr>
-         	<tr>
-            	<td>내용</td>
-            	<td><textarea rows="10" cols="30" id="inputText" name="content"
-                  style="width: 766px; height: 412px; rowspan=2"></textarea></td>
-         	</tr>
-		</table>
-		<div style="center">
-			<button id="btnSave" class="btn btn-info">저장</button>
-			<button id="btnCancel" class="btn btn-danger">취소</button>
-		</div>
-	</form>
-</div>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td><textarea rows="10" cols="30" id="inputText"
+							name="content" style="width: 766px; height: 412px;"></textarea></td>
+				</tr>
+			</table>
+			<div style="">
+				<button id="btnSave" class="btn btn-info">저장</button>
+				<button id="btnCancel" class="btn btn-danger">취소</button>
+			</div>
+		</form>
+	</div>
 
 
 </div>
