@@ -199,7 +199,11 @@ ul.top_menu li {
                   <div class="topnav" id="topnav_2">참여하기</div>
                   <ul class="subnav">
                      <li><a href="/adoption/application/insert">입양하기</a></li>
-                     <li><a href="/adoption/send/list"> 입양보내기</a></li>
+                     	<c:choose>
+                     		<c:when test="${role_id eq 0}"><li><a href="/adoption/send/list"> 입양보내기</a></li></c:when>
+                     		<c:when test="${role_id eq 1}"><li><a href="/adoption/send/mlist"> 입양보내기</a></li></c:when>
+                     		<c:otherwise><li><a href="/adoption/send/mlist"> 입양보내기</a></li></c:otherwise>
+                     	</c:choose>
                      <li><a href="/review/list">입양후기</a></li>
                   </ul>
                </li>

@@ -80,7 +80,7 @@ td {
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/adoption/send/list" aria-label="First">
+			<a href="/adoption/send/mlist" aria-label="First">
 				<span aria-hidden="true">&larr;처음</span>
 			</a>
 		</li>
@@ -96,7 +96,7 @@ td {
 		
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/adoption/send/list?curPage=${paging.curPage-1 }" aria-label="Previous">
+			<a href="/adoption/send/mlist?curPage=${paging.curPage-1 }" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
 			</a>
 		<li>
@@ -110,10 +110,10 @@ td {
 			
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i }">
-				<li class="active"><a href="/adoption/send/list?curPage=${i }">${i }</a></li>
+				<li class="active"><a href="/adoption/send/mlist?curPage=${i }">${i }</a></li>
 			</c:if>
 			<c:if test="${paging.curPage ne i }">
-				<li><a href="/adoption/send/list?curPage=${i }">${i }</a></li>
+				<li><a href="/adoption/send/mlist?curPage=${i }">${i }</a></li>
 			</c:if>
 		</c:forEach>
 		
@@ -126,7 +126,7 @@ td {
 		
 		<c:if test="${paging.curPage ne pagin.totalPage }">
 			<li>
-				<a href="/adoption/send/list?curPage=${paging.curPage+1 }" aria-label="Next">
+				<a href="/adoption/send/mlist?curPage=${paging.curPage+1 }" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>

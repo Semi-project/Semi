@@ -15,17 +15,19 @@ import service.animal.AnimalServiceImpl;
 import util.Paging;
 
 // 입양 보내기 리스트
+// 관리자
 
 @WebServlet("/adoption/send/list")
 public class AdoptionRe_ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// service
 	private AnimalService animalService = new AnimalServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		System.out.println("AdoptionRe_ListController - role_id : " + req.getSession().getAttribute("role_id"));
+		
 		// 동물 리스트
 		int curPage = animalService.getCurPage(req);
 		int totalCount = animalService.getTotalCount();
@@ -34,9 +36,6 @@ public class AdoptionRe_ListController extends HttpServlet {
 		// 게시글목록  MODEL로 추가
 		// 관리자
 		List<Animal> animalList = animalService.getPagingListAdmin(paging);
-
-		// 허가 되지 않은 동물 리스트 가져오기
-		// List<Animal> animalList = animalService.getPagingListUnauth(paging);
 
 		req.setAttribute("animalList", animalList);
 

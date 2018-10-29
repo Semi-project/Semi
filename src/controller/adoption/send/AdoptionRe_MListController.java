@@ -14,9 +14,9 @@ import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 import util.Paging;
 
-/**
- * Servlet implementation class AdoptionRe_MemberLController
- */
+// 입양 보내기 리스트
+// 일반 유저
+
 @WebServlet("/adoption/send/mlist")
 public class AdoptionRe_MListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,12 +36,13 @@ public class AdoptionRe_MListController extends HttpServlet {
 		List<Animal> animalList = animalService.selectPagingListUser(paging);
 
 		req.setAttribute("animalList", animalList);
+		
+		System.out.println(animalList);
 
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
 
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendMList.jsp").forward(req, resp);
-
 
 	}
 

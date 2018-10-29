@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<jsp:include page="/view/layout/header.jsp" />
+
+<script type="text/javascript">
+
+$("#menu2").click(function(){
+	alert("뜨냐!?");
+// 	$(location).attr("href", "/adoption/send/list");
+});
+
+</script>
 <style>
 #menu_box>div {
    float: left;
