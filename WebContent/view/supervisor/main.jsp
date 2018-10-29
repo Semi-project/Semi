@@ -1,18 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+   pageEncoding="UTF-8"%>
 
-<jsp:include page="/view/layout/header.jsp" />
-
-<script type="text/javascript">
-
-$("#menu2").click(function(){
-	alert("뜨냐!?");
-// 	$(location).attr("href", "/adoption/send/list");
-});
-
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
 #menu_box>div {
    float: left;
@@ -36,6 +30,15 @@ $("#menu2").click(function(){
    height: 0;
 }
 </style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#menu2').click(function() { 
+		$(location).attr("href", "/adoption/send/list");
+	});
+});
+
+</script>
 </head>
 <body>
    <div id="menu_box">

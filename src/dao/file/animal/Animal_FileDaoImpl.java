@@ -25,17 +25,24 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		sql += " VALUES (?, ?, ?, ?)";
 
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, animal_filetb.getFileno());
 			ps.setInt(2, animal_filetb.getAnimal_Code());
 			ps.setString(3, animal_filetb.getFile_OriginName());
 			ps.setString(4, animal_filetb.getFile_SaveName());
 
-			
-			
 			ps.executeUpdate();
 
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -55,12 +62,21 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		sql += " WHERE animal_code=?";
 
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, animal_filetb.getAnimal_Code());
 
 			ps.executeUpdate();
 
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -152,13 +168,22 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 	public void deleteAnimalListFile(String codes) {
 
 		sql = "DELETE FROM animal_filetb WHERE animal_code IN ("+ codes + ")";
-		
+
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.executeUpdate();
-			
+
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -167,6 +192,6 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 }

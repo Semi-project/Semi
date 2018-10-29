@@ -33,21 +33,26 @@ function selectSpecies(){
 	
 	$('#animalFm').on('change', function(){
 		
-	
-	
-	
-	
 		// 			============== 아직 미완성 ======================
 		// 
 // 		select option에 append
 		var tmp = (List)HttpServletRequest.getAttribute("speciesList");
+		
 		var dogList = (List)tmp.get(0);
 		var catList = (List)tmp.get(1);
 		var etcList = (List)tmp.get(2);
 		var Lists;
-		console.log(species);
+
 		if (selected == "dog") {
 			console.log(selected);
+			
+			$("#species").empty();
+			 
+			for(var i = 0; i < dogList.size(); i++){                
+				var option = $("<option value='${species.species_Code }'>'${species.species_Name }'</option>");
+				$("#species").append(option);
+			}
+			
 // 			document.getElementById('select1').style.visibility = 'visible';
 // 			document.getElementById('select2').style.visibility = 'hidden';
 // 			document.getElementById('select3').style.visibility = 'hidden';
@@ -114,9 +119,9 @@ function selectSpecies(){
 				<tr>
              	<td id="select1">
 					<select id="species" name="species">
-            			<c:forEach var="species" items="${speciesList[0] }">
-							<option value="${species.species_Code }">${species.species_Name }</option>
-						</c:forEach>
+<%--             			<c:forEach var="species" items="${speciesList[0] }"> --%>
+<%-- 							<option value="${species.species_Code }">${species.species_Name }</option> --%>
+<%-- 						</c:forEach> --%>
             		</select>
             	</td>
 <!--             	<td id="select2"> -->

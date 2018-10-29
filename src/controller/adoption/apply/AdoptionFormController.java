@@ -34,10 +34,12 @@ public class AdoptionFormController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// System.out.println("들어옴");
-		//요청 파라미터 한글 인코딩 설정 : UTF-8
-				req.setCharacterEncoding("UTF-8");
+		// 요청 파라미터 한글 인코딩 설정 : UTF-8
+		req.setCharacterEncoding("UTF-8");
 
-				adoptionService.write(req ,resp);
-				
+		adoptionService.write(req, resp);
+
+		resp.sendRedirect("/main");
+
 	}
 }
