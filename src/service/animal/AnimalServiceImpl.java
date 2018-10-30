@@ -193,6 +193,7 @@ public class AnimalServiceImpl implements AnimalService {
 			if(item.getSize() <=0)
 				continue;
 			if(item.isFormField()) {
+
 				try {
 					if("name".equals(item.getFieldName())) {
 						// 데이터 처리
@@ -278,11 +279,13 @@ public class AnimalServiceImpl implements AnimalService {
 											animal_fileDao.insertFiletb(file);
 
 										}
+
 									}
 								}
 								// i++;
 							} // end of while
 						}
+//								i++;
 					}
 				} catch(UnsupportedEncodingException e) {
 					e.printStackTrace();

@@ -45,4 +45,5 @@ public interface AnimalDao {
 	
 	// 리스트에서 수락
 	public void acceptAnimalList(String codes);
+
 }

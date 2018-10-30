@@ -84,6 +84,7 @@ $(document).ready(function() {
 			});
 		}
 	}
+
 </script>
 
 <style type="text/css">
@@ -109,6 +110,7 @@ td {
 </style>
 
 <div class="container">
+
 
    <h3>게시글 목록</h3>
    <hr>
@@ -154,12 +156,11 @@ td {
 				<td>${animal.animal_Gender_Code }</td>
 				<td>${animal.species_Name }</td>
 			</tr>
+
 		</c:forEach>
 	</tbody>
 
    </table>
-
-
 
    <div class="text-center">
       <ul class="pagination pagination-sm">
