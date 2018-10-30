@@ -64,14 +64,14 @@ public class MemberLoginController extends HttpServlet {
 				// System.out.println(message);
 			}
 
-			//			req.setAttribute("message", message);
+//			req.setAttribute("message", message);
 
-			//			String page = "/view/member/login_result.jsp";
+//			String page = "/view/member/login_result.jsp";
 
-			//			RequestDispatcher rd = req.getRequestDispatcher(page);
-			//			rd.forward(req, resp);
+//			RequestDispatcher rd = req.getRequestDispatcher(page);
+//			rd.forward(req, resp);
 
-			// resp.getWriter().println(page);
+// resp.getWriter().println(page);
 		}
 
 	}

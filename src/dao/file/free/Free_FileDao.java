@@ -16,4 +16,8 @@ public interface Free_FileDao {
 	//파일번호로 첨부파일 정보 조회
 	public Free_Filetb selectByfileno(int freefileno);
 	
+	//파일삭제
+	
+	public void delete(Free_Board freeboard);
+	
 }

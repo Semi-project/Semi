@@ -38,7 +38,7 @@ public interface AnimalDao {
 	public List selectPagingListUser(Paging paging);
 	
 	// 주희센세 코드
-	public int aniaml_code(Animal animal);
+	public int animal_code(Animal animal);
 	
 	// 리스트에서 삭제
 	public void deleteAnimalList(String codes);

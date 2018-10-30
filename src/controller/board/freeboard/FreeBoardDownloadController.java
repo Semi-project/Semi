@@ -35,7 +35,7 @@ String param = req.getParameter("fileno");
 		if( param!=null && !"".equals(param) ) {
 			freeboardfileno = Integer.parseInt(param);
 		}
-		System.out.println(freeboardfileno);
+//		System.out.println(freeboardfileno);
 		
 		// 다운로드 대상 파일 정보 찾기;
 		Free_Filetb freeboardfile = freefileDao.selectByfileno(freeboardfileno);
@@ -47,7 +47,7 @@ String param = req.getParameter("fileno");
 		File file = new File(
 		path,freeboardfile.getFile_SaveName());
 		
-		System.out.println(file);
+//		System.out.println(file);
 		
 		// 파일이 존재할 때만 동작
 		if( file.exists() && file.isFile() ) {

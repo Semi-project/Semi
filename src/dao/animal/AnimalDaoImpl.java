@@ -396,7 +396,7 @@ public class AnimalDaoImpl implements AnimalDao {
 	}
 
 	@Override
-	public int aniaml_code(Animal animal) {
+	public int animal_code(Animal animal) {
 
 		int code = -1;
 		String sql = "";

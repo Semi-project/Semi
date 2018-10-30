@@ -93,7 +93,7 @@ public class AdoptionServiceImpl implements AdoptionService {
 		int adoption_code = adoptionDao.selectSeqNextval();
 		Animal animal = new Animal();
 		animal.setAnimal_Name(animal_name);
-		int animal_code = animalDao.aniaml_code(animal);
+		int animal_code = animalDao.animal_code(animal);
 		Adoption adoption = new Adoption();
 		adoption.setAdoptionCalltime(adoption_CallTime);
 		adoption.setAdoptionCode(adoption_code);
