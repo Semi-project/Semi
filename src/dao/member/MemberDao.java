@@ -35,7 +35,10 @@ public interface MemberDao {
 	
 	public Member selectUseridByUserInfo(Member member);
 	
-	
-	
+	//id 찾기 
+	public int selectCntMemberByUserEmailAndName(Member member);
+	public List<Member> selectMemberByUserEmailAndName(Member member);
 
+	public int selectCntMemberPwByuserInfo(Member member);
+	public Member selectMemberPwByuserInfo(Member member);
 }

@@ -99,56 +99,62 @@
 							</ul></td>
 					</tr>
 					<tr>
-						<th><label>1. 입양을 원하시는 이유를 적어주세요.</label><br></th>
+						<th><label>1. 입양을 원하시는 아이의 이름을 적어주세요.</label><br></th>
 						<td><label> <textarea style="resize: none;" id="q1" name="q1" cols=100
 									rows=2></textarea>
 						</label></td>
 					</tr>
 					<tr>
-						<th><label>2. 입양해서 기르신 반려동물이 있나요?<br> 있다면
-								소개해주세요.
-						</label><br></th>
+						<th><label>2. 입양을 원하시는 이유를 적어주세요.</label><br></th>
 						<td><label> <textarea style="resize: none;" id="q2" name="q2" cols=100
 									rows=2></textarea>
 						</label></td>
 					</tr>
 					<tr>
-						<th><label>3. 키우고 계신 반려동물이 있나요?<br> 있다면 소개해주세요.
-						</label></th>
-						<td><label> <textarea  style="resize: none;" id="q3" name="q3" cols=100
+						<th><label>3. 입양해서 기르신 반려동물이 있나요?<br> 있다면
+								소개해주세요.
+						</label><br></th>
+						<td><label> <textarea style="resize: none;" id="q3" name="q3" cols=100
 									rows=2></textarea>
 						</label></td>
 					</tr>
 					<tr>
-						<th><label class="control-label">4. 현재 주거 형태가 어떻게
+						<th><label>4. 키우고 계신 반려동물이 있나요?<br> 있다면 소개해주세요.
+						</label></th>
+						<td><label> <textarea  style="resize: none;" id="q4" name="q4" cols=100
+									rows=2></textarea>
+						</label></td>
+					</tr>
+					<tr>
+						<th><label class="control-label">5. 현재 주거 형태가 어떻게
 								되나요?</label></th>
-						<td><label><textarea style="resize: none;" id="q4" name="q4" cols=100
+						<td><label><textarea style="resize: none;" id="q5" name="q5" cols=100
 									rows=2></textarea></label></td>
 					</tr>
 					<tr>
-						<th><label>5. 입양 후 모니터링을 위한 전화연락이나 방문이 가능한 시간대를
+						<th><label>6. 입양 후 모니터링을 위한 전화연락이나 방문이 가능한 시간대를
 								선택해주세요</label></th>
 						<td style="padding-left: 30px;">
 							<div class="inline-group">
-								<label class="radio"><input name="q5" type="radio"
+								<label class="radio"><input name="q6" type="radio"
 									value="9시~10시"><i class="rounded-x"></i>9시~10시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="10시~11시"><i class="rounded-x"></i>10시~11시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="11시~12시"><i class="rounded-x"></i>11시~12시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="12시~13시"><i class="rounded-x"></i>12시~13시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="13시~14시"><i class="rounded-x"></i>13시~14시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="14시~15시"><i class="rounded-x"></i>14시~15시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="15시~16시"><i class="rounded-x"></i>15시~16시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="16시~17시"><i class="rounded-x"></i>16시~17시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="17시~18시"><i class="rounded-x"></i>17시~18시</label> <label
-									class="radio"><input name="q5" type="radio"
+									class="radio"><input name="q6" type="radio"
 									value="전부가능"><i class="rounded-x"></i>전부가능</label>
 							</div>
 						</td>

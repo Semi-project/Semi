@@ -19,6 +19,14 @@
 
 <script>
 	$(document).ready(function() {
+		$("#findid").click(function(){
+			console.log("눌렸다");
+			 window.open('/member/findid','popup', 'width=300, height=200, left=0, top=0, toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no, scrollbars=no, copyhistory=no');
+
+		});
+		$("#findpw").click(function(){
+			 window.open('/member/findpw','popup', 'width=300, height=200, left=0, top=0, toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no, scrollbars=no, copyhistory=no');
+		});
 		////////////////////////////////////////////
 		$("#userpw").keyup(function() {
 			if ($(this).val().length > 13) {
@@ -154,6 +162,12 @@
 			</label>
 			<button class="btn btn-lg btn-custom  btn-block" type="button"
 				id="loginBtn">Login</button>
+			<div id="findid">
+				<label>아이디찾기</label>
+			</div>
+			<div id="findpw">
+				<label>비밀번호찾기</label>
+			</div>
 		</form>
 	</div>
 

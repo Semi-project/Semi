@@ -17,15 +17,14 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 	private ResultSet rs = null;
 	// DB연결 객체
 	private Connection conn = DBConn.getConnection();
-
+//------------------------------------------------------------------------
 	@Override
 	public void insertFiletb(Notice_Filetb notice_filetb) {
 
 		String sql = "";
 		sql += "INSERT INTO notice_filetb(fileno,boardno,file_originname,file_savename)";
-		sql += " VALUES (?, ?, ?, ?)";
+		sql += " VALUES (notice_filetb_seq.nextval, ?, ?, ?)";
 
-		ps = null;
 
 		try {
 			conn.setAutoCommit(false);
@@ -38,26 +37,18 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 			ps.executeUpdate();
 
 			conn.commit();
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
+		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				// DB객체 닫기
-				if (ps != null)
-					ps.close();
-
+				if (ps != null)	ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
+//-----------------------------------------------------------------------
 	@Override
 	public int deleteFiletbByfileno(int fileno, Notice_Board board) {
 		String sql = "";

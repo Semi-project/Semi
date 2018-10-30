@@ -29,15 +29,15 @@ public class Free_FileDaoImpl implements Free_FileDao {
 		System.out.println("1"+freefileno);
 		
 		Free_Filetb freeboardfile = new Free_Filetb();
-		System.out.println("2"+freeboardfile);
+//		System.out.println("2"+freeboardfile);
 		
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, freefileno);
-			System.out.println("3"+freefileno);
+//			System.out.println("3"+freefileno);
 			rs = ps.executeQuery();
-			System.out.println("4");
+//			System.out.println("4");
 			while(rs.next()) {
 			
 				freeboardfile.setFileno( rs.getInt("fileno") );
@@ -45,7 +45,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				freeboardfile.setFile_OriginName( rs.getString("file_OriginName") );
 				freeboardfile.setFile_SaveName( rs.getString("file_SaveName") );
 				freeboardfile.setFilesize(rs.getLong("filesize"));
-				 System.out.println("5"+freeboardfile);
+//				 System.out.println("5"+freeboardfile);
 			}
 			
 		} catch (SQLException e) {
@@ -61,7 +61,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 			}
 		}
 		
-		System.out.println("6"+freeboardfile);
+//		System.out.println("6"+freeboardfile);
 		return freeboardfile;
 	}
 
@@ -117,7 +117,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 		try {
 			ps= conn.prepareStatement(sql);
 			ps.setInt(1, freeboard.getBoardno());
-			System.out.println("f1"+free_file);
+//			System.out.println("f1"+free_file);
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
@@ -128,7 +128,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				free_file.setFile_SaveName(rs.getString("file_savename"));
 				free_file.setFilesize(rs.getLong("filesize"));
 				
-				System.out.println("f2"+free_file);
+//				System.out.println("f2"+free_file);
 			}
 		
 		
@@ -145,8 +145,53 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("f3"+free_file);
+//		System.out.println("f3"+free_file);
 		return free_file;
 	}
+
+
+
+
+	@Override
+	public void delete(Free_Board freeboard) {
 	
+			//다음 게시글 번호 조회 쿼리
+			String sql ="DELETE free_filetb WHERE boardno=?";
+			
+			//DB 객체
+			PreparedStatement ps = null; 
+			
+			try {
+				conn.setAutoCommit(false);
+				//DB작업
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, freeboard.getBoardno());
+				ps.executeUpdate();
+				
+				conn.commit();
+
+			} catch (SQLException e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+				e.printStackTrace();
+			} finally {
+				try {
+					//DB객체 닫기
+					if(ps!=null)	ps.close();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	
+
+		
 	}
+	
+	

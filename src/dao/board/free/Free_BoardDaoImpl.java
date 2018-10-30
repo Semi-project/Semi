@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import dto.board.Free_Board;
+import dto.board.Free_Board_param;
 import util.DBConn;
 import util.Paging;
 
@@ -19,11 +20,19 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 	private ResultSet rs=null;
 
 	@Override
-	public List<Free_Board> selectFreeBoard() {
-
-		String sql="SELECT * FROM free_board ORDER BY boardno DESC";
-
-
+	public List<Free_Board> selectFreeBoard(Free_Board_param fbp) {
+		
+		
+		//String sql="SELECT * FROM free_board ORDER BY boardno DESC";
+		String sql="";
+		sql = "SELECT boardno, cateno,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,RECOMEND,INSERT_DAT" + 
+				"   FROM" + 
+				"   (SELECT ROW_NUMBER() OVER(ORDER BY boardno desc)AS RNUM," + 
+				"      boardno, cateno,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,RECOMEND,INSERT_DAT" + 
+				"      FROM free_board" + 
+				"      " + 
+				"   ) A" + 
+				"   WHERE rnum BETWEEN "+(1+(fbp.getPageNum()*10))+" AND "+(10+(fbp.getPageNum()*10));
 		List <Free_Board>list= new ArrayList<Free_Board>();
 
 		try {
@@ -132,7 +141,7 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 		
 				
 			}
-			System.out.println("1"+fb);
+			
 		} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -145,19 +154,72 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 					e.printStackTrace();
 				}
 			}
-		System.out.println("최종"+fb);
+//		System.out.println("최종"+fb);
 		return fb;
 	}
 
 	@Override
 	public void updateFreeBoard(Free_Board freeBoard) {
-		// TODO Auto-generated method stub
+	System.out.println("업데이트"+freeBoard);
 
+	String sql="Update free_board SET title =?,content =? WHERE boardno=?";
+
+	try {
+		conn.setAutoCommit(false);
+		ps=conn.prepareStatement(sql);
+		ps.setString(1, freeBoard.getTitle());
+		ps.setString(2, freeBoard.getContent());
+		ps.setInt(3, freeBoard.getBoardno());
+		
+		ps.executeUpdate();
+		conn.commit();
+	} catch (SQLException e) {
+		try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		e.printStackTrace();
+	} finally {
+		try {
+			//DB객체 닫기
+			if(ps!=null)	ps.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
+	}
 	@Override
 	public void deleteFreeBoard(Free_Board freeBoard) {
-		// TODO Auto-generated method stub
+		String sql="Delete free_board where boardno=?";
+		String name=null;
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, freeBoard.getBoardno());
+			ps.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		};
 
 	}
 
@@ -181,8 +243,27 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 
 	@Override
 	public int selecntFreeBoardCntAll() {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql="select count(*) from free_board";
+		int cnt=0;
+		try {
+			ps=conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			rs.next();
+			
+			cnt=rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
 	}
 
 	@Override
@@ -275,5 +356,36 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 				//게시글 번호 반환
 				return boardno;
 			}
+
+	@Override
+	public String selectUseridByBoardno(Free_Board freeboard) {
+		System.out.println("유저아이디 프리보드"+freeboard);
+		String sql="select Userid from free_board where boardno=?";
+		String userid=null;
+		try {
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, freeboard.getBoardno());
+			rs=ps.executeQuery();
+			while(rs.next()) {
+			userid=rs.getString(1);
+			
+			System.out.println("유저아이디"+userid);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				//DB객체 닫기
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return userid;
+	}
+	
 
 }

@@ -3,7 +3,8 @@ package service.member;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,10 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectMemberByUserId(Member member) {
 		return memberDao.selectMemberByUserId(member);
 	}
-
 	@Override
-	public void updateMember(Member member) {
-		// TODO Auto-generated method stub
+	public void updateMember(HttpServletRequest req, Member member) throws Exception {
+		memberDao.updateMember(member);
 
 	}
 
@@ -51,15 +51,29 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member searchUserId(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Member> searchUserId(Member member) {
+		int cnt = memberDao.selectCntMemberByUserEmailAndName(member);
+		List<Member> m = new ArrayList<Member>();
+		if (cnt > 0) {
+			m = memberDao.selectMemberByUserEmailAndName(member);
+		} else {
+
+			return m;
+		}
+		return m;
 	}
 
 	@Override
 	public Member searchUserPw(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		int cnt = memberDao.selectCntMemberPwByuserInfo(member);
+		Member m = new Member();
+		if (cnt == 1) {
+			m = memberDao.selectMemberPwByuserInfo(member);
+			return m;
+		} else {
+			return null;
+		}
+
 	}
 
 	@Override
@@ -112,5 +126,6 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberDao.selectCntMemberByUser(member);
 	}
+
 
 }

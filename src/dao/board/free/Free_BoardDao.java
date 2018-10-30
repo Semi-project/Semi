@@ -2,13 +2,15 @@ package dao.board.free;
 
 import java.util.List;
 
-import util.Paging;
 import dto.board.Free_Board;
+import dto.board.Free_Board_param;
+import dto.file.Free_Filetb;
+import util.Paging;
 
 public interface Free_BoardDao {
 
 	// 게시판 목록보기
-	public List<Free_Board> selectFreeBoard();
+	public List<Free_Board> selectFreeBoard(Free_Board_param fbp);
 
 	//게시판 글쓰기
 	public void insertFreeBoard(Free_Board freeBoard);
@@ -48,5 +50,9 @@ public interface Free_BoardDao {
 
 	// 번호 조회 
 	public int selectFreeboardno();
+	
+	//글 작성자 닉네임 조회
+	public String selectUseridByBoardno(Free_Board freeboard);
+	
 	
 }
