@@ -21,10 +21,12 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 
 	@Override
 	public void insertFiletb(Animal_Filetb animal_filetb) {
-		sql = "INSERT INTO animal_filetb(FILENO,ANIMAL_CODE,FILE_ORIGINNAME,FILE_SAVENAME )";
+		sql = "INSERT INTO animal_filetb(FILENO, ANIMAL_CODE, FILE_ORIGINNAME, FILE_SAVENAME )";
 		sql += " VALUES (?, ?, ?, ?)";
 
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, animal_filetb.getFileno());
 			ps.setInt(2, animal_filetb.getAnimal_Code());
@@ -33,7 +35,14 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 
 			ps.executeUpdate();
 
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -53,12 +62,21 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		sql += " WHERE animal_code=?";
 
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, animal_filetb.getAnimal_Code());
 
 			ps.executeUpdate();
 
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -144,5 +162,36 @@ public class Animal_FileDaoImpl implements Animal_FileDao {
 		}
 
 		return animalCode;
+	}
+
+	@Override
+	public void deleteAnimalListFile(String codes) {
+
+		sql = "DELETE FROM animal_filetb WHERE animal_code IN ("+ codes + ")";
+
+		try {
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement(sql);
+
+			ps.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

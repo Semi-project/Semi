@@ -26,12 +26,20 @@ public class MyPageController extends HttpServlet {
 		
 		Member member = new Member();
 		member.setUserid((String)req.getSession().getAttribute("userid"));
-		//System.out.println(member);
-		Member memberView=memberService.selectMemberByUserId(member);
+		
+		Member memberView  = memberService.selectMemberByUserId(member);
+		
 		req.setAttribute("memberView", memberView);
+		
 		req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
 		
-		
+	
 	}
+	@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
+		
+		}
 
 }

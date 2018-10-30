@@ -1,29 +1,23 @@
-package controller.member;
+package controller.charity;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.member.MemberDao;
-import dao.member.MemberDaoImpl;
-
 /**
- * Servlet implementation class MemberFindPw
+ * Servlet implementation class CharityForSite
  */
-@WebServlet("/member/findpw")
-public class MemberFindPw extends HttpServlet {
+@WebServlet("/Charity/forsite")
+public class CharityForSite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberDao memberDao = new MemberDaoImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/view/member/findpw.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/charity/charityforsite.jsp").forward(req, resp);
+
 	}
-
-
 
 }

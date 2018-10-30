@@ -15,6 +15,10 @@ public interface Animal_FileDao {
 	// 해당 동물 사진 가져오기
 	public List<Animal_Filetb> selectFiletbByAnimalCode(Animal_Filetb animal_filetb);
 	
+	// file sequence 미리 가져오기
 	public int selectFileno();
+	
+	// 리스트에서 삭제
+	public void deleteAnimalListFile(String codes);
 }
 

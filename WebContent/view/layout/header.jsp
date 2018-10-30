@@ -60,7 +60,7 @@ ul.top_menu a {
 
 ul.top_menu {
 	position: absolute;
-	right: 20px;
+	right: 10px;
 	top: 20px;
 }
 
@@ -137,7 +137,7 @@ ul.top_menu li {
 }
 
 #main_nav {
-	/* 	z-index: 40; */
+	/*    z-index: 40; */
 	display: inline-block;
 }
 </style>
@@ -173,6 +173,7 @@ ul.top_menu li {
 				<c:if test="${login }">
 					<c:if test="${role_id ne 1}">
 						<li>관리자</li>
+						<li><a href="/supervisor/main">관리자페이지</a></li>
 					</c:if>
 					<c:if test="${role_id ne 0}">
 						<li>일반회원</li>
@@ -197,8 +198,18 @@ ul.top_menu li {
 					<li class="navi_set">
 						<div class="topnav" id="topnav_2">참여하기</div>
 						<ul class="subnav">
-							<li><a href="/adoption/application/list">입양하기</a></li>
-							<li><a href="/adoption/send/list"> 입양보내기</a></li>
+							<li><a href="/adoption/application/insert">입양하기</a></li>
+							<c:choose>
+								<c:when test="${role_id eq 0}">
+									<li><a href="/adoption/send/list"> 입양보내기</a></li>
+								</c:when>
+								<c:when test="${role_id eq 1}">
+									<li><a href="/adoption/send/mlist"> 입양보내기</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="/adoption/send/mlist"> 입양보내기</a></li>
+								</c:otherwise>
+							</c:choose>
 							<li><a href="/review/list">입양후기</a></li>
 						</ul>
 					</li>

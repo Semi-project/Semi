@@ -25,11 +25,24 @@ public interface AnimalDao {
 	// 입양 보내기 승인
 	public void updateStatus(Animal animal);
 	
-	// 입양보내기 승인된 동물들
+	// 모든 동물 수 조회
+	public int selectCntAll();
+	
+	// 관리자용 동물 리스트
 	public List selectPagingListAdmin(Paging paging);
 	
-	// 입양보내기 승인되지 않은 동물들
-	public List selectPagingListUnauth(Paging paging);
+	// 입양 보내기 수락된 동물 수 조회
+	public int selectCntAcpt();
 	
-	public int selectCntAll();
+	// 회원용 동물 리스트
+	public List selectPagingListUser(Paging paging);
+	
+	// 주희센세 코드
+	public int aniaml_code(Animal animal);
+	
+	// 리스트에서 삭제
+	public void deleteAnimalList(String codes);
+	
+	// 리스트에서 수락
+	public void acceptAnimalList(String codes);
 }

@@ -1,4 +1,4 @@
-package controller.member;
+package controller.mypage;
 
 import java.io.IOException;
 
@@ -8,22 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.member.MemberDao;
-import dao.member.MemberDaoImpl;
+import service.member.MemberService;
+import service.member.MemberServiceImpl;
 
 /**
- * Servlet implementation class MemberFindPw
+ * Servlet implementation class MyPageDeleteController
  */
-@WebServlet("/member/findpw")
-public class MemberFindPw extends HttpServlet {
+@WebServlet("/mypage/delete")
+public class MyPageDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberDao memberDao = new MemberDaoImpl();
+	
+	private MemberService memberService = new MemberServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/view/member/findpw.jsp").forward(req, resp);
+		
 	}
-
-
-
 }

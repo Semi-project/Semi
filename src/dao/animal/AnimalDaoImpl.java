@@ -26,18 +26,18 @@ public class AnimalDaoImpl implements AnimalDao {
 	public int selectSeqNextval() {
 
 		sql = "SELECT animal_seq.nextval FROM dual";
-		
+
 		int animalSeqNext = 0;
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
-			
+
 			rs = ps.executeQuery();
-					
+
 			rs.next();
-			
+
 			animalSeqNext = rs.getInt(1);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -48,10 +48,10 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return animalSeqNext;
 	}
-	
+
 	@Override
 	public Animal selectAnimalByanimal_Code(Animal animal) {
 
@@ -94,7 +94,7 @@ public class AnimalDaoImpl implements AnimalDao {
 
 	@Override
 	public void insertAnimal(Animal animal) {
-		
+
 		sql = "INSERT INTO animal";
 		sql += " (animal_name, animal_code, animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters, animal_feature, ";
@@ -102,8 +102,10 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setString(1, animal.getAnimal_Name());
 			ps.setInt(2, animal.getAnimal_Code());
 			ps.setInt(3, animal.getAnimal_Age());
@@ -113,10 +115,17 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setString(7, animal.getAnimal_Feature());
 			ps.setInt(8, 0);
 			ps.setInt(9, 2002);
-			
+
 			ps.executeUpdate();
-			
+
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -125,7 +134,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -139,10 +148,12 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += ", animal_neuters=?";
 		sql += ", animal_feature=?";
 		sql += ", species_code=?";
-		
+
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setString(1, animal.getAnimal_Name());
 			ps.setInt(2, animal.getAnimal_Age());
 			ps.setString(3, animal.getAnimal_Gender_Code());
@@ -150,10 +161,17 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setString(5, animal.getAnimal_Neuters());
 			ps.setString(6, animal.getAnimal_Feature());
 			ps.setInt(7, animal.getSpecies_Code());
-			
+
 			ps.executeUpdate();
-			
+
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -162,21 +180,30 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void deleteAnimalByAnimal_Code(Animal animal) {
-			
+
 		sql = "DELETE FROM animal WHERE animal_code=?";
-		
+
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, animal.getAnimal_Code());
-			
+
 			ps.executeUpdate();
-						
+
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -189,19 +216,28 @@ public class AnimalDaoImpl implements AnimalDao {
 
 	@Override
 	public void updateStatus(Animal animal) {
-		 
+
 		sql = "UPDATE animal";
 		sql += " SET status=1";
 		sql += " WHERE animal_code=?";
-		
+
 		try {
+			conn.setAutoCommit(false);
+
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, animal.getAnimal_Code());
-			
+
 			ps.executeUpdate();
-			
+
+			conn.commit();
+
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -229,20 +265,20 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " ORDER BY rnum";
 		sql += " )";
 		sql += " WHERE rnum between ? AND ?";
-		
+
 		List list = new ArrayList<>();
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, paging.getStartNo());
 			ps.setInt(2, paging.getEndNo());
-						
+
 			rs = ps.executeQuery();
-			
+
 			while(rs.next()) {
 				animal = new Animal();
-				
+
 				animal.setAnimal_Name( rs.getString("animal_name"));
 				animal.setAnimal_Code( rs.getInt("animal_code"));
 				animal.setAnimal_Age( rs.getInt("animal_age"));
@@ -253,10 +289,10 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus( rs.getInt("status"));
 				animal.setSpecies_Code( rs.getInt("species_code"));
 				animal.setSpecies_Name( rs.getString("species_name"));
-				
+
 				list.add(animal);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -267,43 +303,55 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return list;
 	}
 
 	@Override
-	public List selectPagingListUnauth(Paging paging) {
+	public List selectPagingListUser(Paging paging) {
 		sql = "SELECT * FROM (";
 		sql += " SELECT rownum rnum, A.* FROM (";
-		sql += " animal_name, animal_code,";
+		sql += " SELECT animal_name, animal_code,";
 		sql += " animal_age, animal_gender_code,"; 
 		sql += " animal_gr, animal_neuters,"; 
 		sql += " animal_feature, status,";
 		sql += " animal.species_code, species_name";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code = animal.species_code";
-		sql += " AND status=0";
+		sql += " AND status=1";
 		sql += " ORDER BY animal_code DESC";
 		sql += " ) A";
 		sql += " ORDER BY rnum";
 		sql += " )";
 		sql += " WHERE rnum between ? AND ?";
-		
+
 		List list = new ArrayList<>();
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, paging.getStartNo());
 			ps.setInt(2, paging.getEndNo());
-			
+
 			rs = ps.executeQuery();
-			
+
 			while(rs.next()) {
 				animal = new Animal();
-				
+
+				animal.setAnimal_Name( rs.getString("animal_name"));
+				animal.setAnimal_Code( rs.getInt("animal_code"));
+				animal.setAnimal_Age( rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr( rs.getString("animal_gr"));
+				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
+				animal.setAnimal_Feature( rs.getString("animal_feature"));
+				animal.setStatus( rs.getInt("status"));
+				animal.setSpecies_Code( rs.getInt("species_code"));
+				animal.setSpecies_Name( rs.getString("species_name"));
+
+				list.add(animal);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -314,25 +362,25 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return list;
 	}
-	
+
 	@Override
 	public int selectCntAll() {
 
 		sql = "SELECT COUNT (*) FROM animal";
-		
+
 		int cnt = 0;
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
-			
+
 			rs = ps.executeQuery();
 			rs.next();
-			
+
 			cnt = rs.getInt(1);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -343,7 +391,119 @@ public class AnimalDaoImpl implements AnimalDao {
 				e.printStackTrace();
 			}
 		}
-		
+
+		return cnt;
+	}
+
+	@Override
+	public int aniaml_code(Animal animal) {
+
+		int code = -1;
+		String sql = "";
+		sql += "SELECT a.animal_code " + "FROM animal a , adoption adop " + "WHERE a.animal_name=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, animal.getAnimal_Name());
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				code = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return code;
+
+	}
+
+	@Override
+	public void deleteAnimalList(String codes) {
+
+		sql = "DELETE FROM animal WHERE animal_code IN ( " + codes + ")";
+
+		try {
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement(sql);
+
+			ps.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	@Override
+	public void acceptAnimalList(String codes) {
+
+		sql = "UPDATE animal SET status=1 WHERE animal_code IN ( " + codes + ")";
+
+		try {
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement(sql);
+
+			ps.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	@Override
+	public int selectCntAcpt() {
+
+		sql = "SELECT COUNT (*) FROM animal WHERE status=1";
+
+		int cnt = 0;
+
+		try {
+			ps = conn.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+			rs.next();
+
+			cnt = rs.getInt(1);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 		return cnt;
 	}
 

@@ -4,15 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.member.Member;
 import util.DBConn;
 
 public class MemberDaoImpl implements MemberDao {
-	private Member member = new Member();
-	private SubscriptionDao subScription = new SubscriptionDaoImpl();
-	private RoleDao roleDao = new RoleDaoImpl();
+
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 	private Connection conn = DBConn.getConnection();
@@ -214,6 +213,146 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectUseridByUserInfo(Member member) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int selectCntMemberByUserEmailAndName(Member member) {
+		int cnt = -1;
+		String sql = "";
+		sql += "SELECT COUNT(*) FROM member where email=? AND name=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getEmail());
+			ps.setString(2, member.getName());
+
+			rs = ps.executeQuery();
+			rs.next();
+			cnt = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return cnt;
+	}
+
+	@Override
+	public List<Member> selectMemberByUserEmailAndName(Member member) {
+		String sql = "";
+		sql += "SELECT * FROM member where email=? AND name=?";
+		List<Member> list = new ArrayList<Member>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getEmail());
+			ps.setString(2, member.getName());
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Member m = new Member();
+				m.setUserid(rs.getString("userid"));
+				m.setUserpw(rs.getString("userpw"));
+				m.setName(rs.getString("name"));
+				m.setGender(rs.getString("gender"));
+				m.setUserbirth(rs.getDate("userbirth"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setEmail(rs.getString("email"));
+				m.setSubscription_no(rs.getInt("subscription_no"));
+				m.setRole_id(rs.getInt("role_id"));
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public int selectCntMemberPwByuserInfo(Member member) {
+		String sql = "SELECT count(*) FROM member WHERE name=? AND userid=? AND email=?";
+		int cnt = -1;
+		try {
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, member.getName());
+			ps.setString(2, member.getUserid());
+			ps.setString(3, member.getEmail());
+			rs = ps.executeQuery();
+			rs.next();
+			cnt = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return cnt;
+	}
+
+	@Override
+	public Member selectMemberPwByuserInfo(Member member) {
+		Member m = new Member();
+		String sql = "SELECT * FROM member WHERE name=? AND userid=? AND email=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getName());
+			ps.setString(2, member.getUserid());
+			ps.setString(3, member.getEmail());
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				m.setUserid(rs.getString("userid"));
+				m.setUserpw(rs.getString("userpw"));
+				m.setName(rs.getString("name"));
+				m.setGender(rs.getString("gender"));
+				m.setUserbirth(rs.getDate("userbirth"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setEmail(rs.getString("email"));
+				m.setSubscription_no(rs.getInt("subscription_no"));
+				m.setRole_id(rs.getInt("role_id"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return m;
 	}
 
 }

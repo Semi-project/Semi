@@ -3,6 +3,7 @@ package dto.adoption;
 public class Adoption {
 	// 동물코드
 	private int animalCode;
+	private String animalName;
 
 	// 입양결정사유
 	private String adoptionReason;
@@ -27,6 +28,14 @@ public class Adoption {
 
 	// 승인상태
 	private int status;
+
+	public String getAnimalName() {
+		return animalName;
+	}
+
+	public void setAnimalName(String animalName) {
+		this.animalName = animalName;
+	}
 
 	public int getAnimalCode() {
 		return animalCode;
@@ -102,10 +111,10 @@ public class Adoption {
 
 	@Override
 	public String toString() {
-		return "Adoption [animalCode=" + animalCode + ", adoptionReason=" + adoptionReason + ", adoptionExp="
-				+ adoptionExp + ", adoptionCuranimal=" + adoptionCuranimal + ", adoptionHousing=" + adoptionHousing
-				+ ", adoptionCalltime=" + adoptionCalltime + ", userid=" + userid + ", adoptionCode=" + adoptionCode
-				+ ", status=" + status + "]";
+		return "Adoption [animalCode=" + animalCode + ", animalName=" + animalName + ", adoptionReason="
+				+ adoptionReason + ", adoptionExp=" + adoptionExp + ", adoptionCuranimal=" + adoptionCuranimal
+				+ ", adoptionHousing=" + adoptionHousing + ", adoptionCalltime=" + adoptionCalltime + ", userid="
+				+ userid + ", adoptionCode=" + adoptionCode + ", status=" + status + "]";
 	}
 
 }

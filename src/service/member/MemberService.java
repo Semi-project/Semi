@@ -1,5 +1,7 @@
 package service.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +29,7 @@ public interface MemberService {
 	public void deleteMemberByUserId(Member member);
 
 	// 아이디 찾기
-	public Member searchUserId(Member member);
+	public List<Member> searchUserId(Member member);
 
 	// 비밀번호 찾기
 	public Member searchUserPw(Member member);

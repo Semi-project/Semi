@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.adoption.Adoption;
 import service.adoption.AdoptionService;
 import service.adoption.AdoptionServiceImpl;
-import service.animal.AnimalService;
-import service.animal.AnimalServiceImpl;
 
 /**
  * Servlet implementation class AdoptionFormView
@@ -24,7 +23,11 @@ public class AdoptionFormViewController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.getRequestDispatcher("/view/board/adoption/view.jsp").forward(req, resp);
+		Adoption adoption = adoptionService.getParam(req, resp);
+		Adoption adoptionView= adoptionService.view(adoption);
+		req.setAttribute("adoptionView",adoptionView);
+		
+		req.getRequestDispatcher("/view/board/adoption/apply/view.jsp").forward(req, resp);
 	}
 
 	@Override
