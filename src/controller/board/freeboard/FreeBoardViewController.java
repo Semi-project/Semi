@@ -23,7 +23,7 @@ public class FreeBoardViewController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Free_Board fb= freeboardService.getParam(req, resp);
-//		System.out.println(fb.toString());
+		//System.out.println(req.getAttribute("boardno"));
 
 		Free_Board free_board = freeboardService.view(fb);
 		Free_Filetb freefiletb = freeboardService.viewFile(fb);

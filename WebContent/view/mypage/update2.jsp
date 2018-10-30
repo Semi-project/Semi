@@ -2,7 +2,33 @@
    pageEncoding="UTF-8"%>
 <jsp:include page="/view/layout/header.jsp" />
 
+<script>
 
+
+var result = '${result}';
+var successMsg = '${successMsg}';
+var failMsg = '${failMsg}';
+
+if(result == 'successMsg'){
+	alert(successMsg);
+}else if (result == 'failMsg') {
+	alert(failMsg);
+};
+
+
+$("#btnUpdate").click(function() {
+	// 스마트에디터 내용으로 <textarea>적용
+	submitContents($(this));
+	
+	// submit
+	$("form").submit();
+});
+
+$("#btnCancel").click(function() {
+	history.go(-1);
+});
+
+</script>
 
 <style>
 #top {
@@ -132,7 +158,7 @@ ul.side-navi-sub li:hover {
                </ul>
             </li>
             <li class="group">
-               <div class="title"><a href="/qnaboard/list">1:1 문의</a></div>
+               <div class="title">1:1 문의</div>
             </li>
 
          </ul>
@@ -142,7 +168,7 @@ ul.side-navi-sub li:hover {
    </div>
    <div class="col-lg-8">
       <div id="top" class="">
-         <form method="POST" name="mypage" id="mypage" action="/mypage/view">
+         <form method="POST" name="mypage" id="mypage" action="/mypage/update">
 
             <table style="width: 80%; margin: 0 auto;">
                <tr>
@@ -172,17 +198,17 @@ ul.side-navi-sub li:hover {
 
                <tr>
                   <td id="title">이메일</td>
-                  <td>${memberView.email }
+                  <td><input type="text" name="email" value="${memberView.email }"/>
                   </td>
                </tr>
 
                <tr>
                   <td id="title">휴대전화</td>
-                  <td>${memberView.phone }</td>
+                  <td><input type="text" name="phone" value="${memberView.phone }"/></td>
                </tr>
                <tr>
                   <td id="title">주소</td>
-                  <td>${memberView.address }</td>
+                  <td><input type="text" name="address" value="${memberView.address }"/></td>
                </tr>
 
 
@@ -194,4 +220,12 @@ ul.side-navi-sub li:hover {
    </div>
    <div class="col-lg-2"></div>
 </div>
+
+<div class="text-center">	
+	<button id="btnUpdate" class="btn btn-info" onclick='location.href="/view/mypage/view.jsp";'>수정</button>
+	<button id="btnCancel" class="btn btn-danger">취소</button>
+</div>
+
+
+
 <jsp:include page="/view/layout/footer.jsp" />

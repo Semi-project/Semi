@@ -193,7 +193,48 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public void updateMember(Member member) {
-		// TODO Auto-generated method stub
+		String sql = "";
+		sql += "UPDATE member";
+		sql += " SET phone = ? ,";
+		sql += "	email = ? ,	";
+		sql += "    address = ?";
+		sql += " WHERE userid = ? ";
+
+		try {
+
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, member.getPhone());
+			ps.setString(2, member.getEmail());
+			ps.setString(3, member.getAddress());
+			ps.setString(4, member.getUserid());
+
+			ps.executeQuery();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+				if (ps != null)
+					ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 
 	}
 

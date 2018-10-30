@@ -20,7 +20,7 @@ public interface MemberService {
 	public Member selectMemberByUserId(Member member);
 
 	// 회원정보수정
-	public void updateMember(Member member);
+	public void updateMember(HttpServletRequest req, Member member)  throws Exception;
 
 	// 비밀번호 변경
 	public void updateMemberPassword(Member member);

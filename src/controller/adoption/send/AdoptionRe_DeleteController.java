@@ -26,16 +26,20 @@ public class AdoptionRe_DeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
-		boolean sent = false;
-		
+
 		Animal animal = animalService.getParam(req, resp);
-		
+
 		animal_filetb.setAnimal_Code(animal.getAnimal_Code());
 
 		animalService.deleteAnimalByAnimal_Code(animal, animal_filetb);
 
 		resp.sendRedirect("/adoption/send/list");
 
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		super.doPost(req, resp);
 	}
 }

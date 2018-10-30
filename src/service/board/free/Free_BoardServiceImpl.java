@@ -25,6 +25,7 @@ import dao.file.free.Free_FileDaoImpl;
 import dao.member.MemberDao;
 import dao.member.MemberDaoImpl;
 import dto.board.Free_Board;
+import dto.board.Free_Board_param;
 import dto.comment.Free_Comments;
 import dto.file.Free_Filetb;
 import util.Paging;
@@ -38,9 +39,9 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	private Free_FileDao free_fileDao = new Free_FileDaoImpl();
 
 	@Override
-	public List<Free_Board> selectFreeboard() {
+	public List<Free_Board> selectFreeboard(Free_Board_param fbp) {
 
-		return freeboardDao.selectFreeBoard();
+		return freeboardDao.selectFreeBoard(fbp);
 	}
 	@Override
 	public void writeFreeboard(HttpServletRequest req) {
@@ -69,7 +70,7 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 			freeboard.setTitle(req.getParameter("title"));
 			freeboard.setUserid((String)req.getSession().getAttribute("userid"));
 			freeboard.setContent(req.getParameter("content"));
-			System.out.println("1");
+			//			System.out.println("1");
 		}else {
 			//파일 업로드를 사용하고 있을 경우 
 			freeboard = new Free_Board();
@@ -166,13 +167,129 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	}
 	@Override
 	public void deleteFreeboard(Free_Board freeBoard) {
-		// TODO Auto-generated method stub
+		free_fileDao.delete(freeBoard);
+		freeboardDao.deleteFreeBoard(freeBoard);
 
 	}
 	@Override
-	public Free_Board updateFreeboard(Free_Board freeBoard) {
+	public void updateFreeboard(HttpServletRequest req) {
+		System.out.println("서비스업데이트"+req);
+		Free_Board freeboard = null;
+		Free_Filetb freefiletb = null;
 
-		return null;
+		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+
+		if(!isMultipart) {
+			//파일 첨부가 없을 경우
+			freeboard = new Free_Board();
+
+			freeboard.setTitle(req.getParameter("title"));
+			freeboard.setUserid((String) req.getSession().getAttribute("userid"));
+			freeboard.setContent(req.getParameter("content"));
+
+		} else {
+			//파일업로드를 사용하고 있을 경우
+			freeboard = new Free_Board();
+
+			//디스크팩토리
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+
+			//메모리처리 사이즈
+			factory.setSizeThreshold(1 * 1024 * 1024); //1MB
+
+			//임시 저장소
+			File repository=new File(req.getServletContext().getRealPath("tmp"));
+			factory.setRepository(repository);
+
+			//업로드 객체 생성
+			ServletFileUpload upload = new ServletFileUpload(factory);
+
+			//용량 제한 설정 : 10MB
+			upload.setFileSizeMax(10 * 1024 * 1024);
+
+			//form-data 추출 
+			List<FileItem> items = null;
+			try {
+				items = upload.parseRequest(req);
+
+			} catch (FileUploadException e) {
+				e.printStackTrace();
+			}
+
+			//파싱된 데이터 처리 반복자
+			Iterator<FileItem> iter = items.iterator();
+
+			//요청정보 처리
+			while( iter.hasNext() ) {
+				FileItem item = iter.next();
+
+				// 빈 파일 처리
+				if( item.getSize() <= 0 )	continue;
+
+				// 빈 파일이 아닐 경우
+				if(item.isFormField()) {
+					try {
+						if( "boardno".equals( item.getFieldName() ) ) {
+							freeboard.setBoardno( Integer.parseInt(item.getString()) );
+						}
+
+						if("title".equals(item.getFieldName())) {
+							freeboard.setTitle(item.getString("UTF-8"));
+						}
+						if("content".equals(item.getFieldName())) {
+							freeboard.setContent(item.getString("UTF-8"));
+						}
+					} catch (UnsupportedEncodingException e) {
+
+						e.printStackTrace();
+					}
+
+					freeboard.setUserid((String) req.getSession().getAttribute("userid"));
+
+				} else {
+					UUID uuid = UUID.randomUUID();
+					//					System.out.println(uuid);
+
+					String u = uuid.toString().split("-")[4];
+					//					System.out.println(u);
+					// -----------------
+
+					//로컬 저장소 파일
+					String stored = item.getName() + "_" + u;
+					File up = new File(
+							req.getServletContext().getRealPath("upload")
+							, stored);
+
+					freefiletb = new Free_Filetb();
+					freefiletb.setFile_OriginName(item.getName());
+					freefiletb.setFile_SaveName(stored);
+					freefiletb.setFilesize(item.getSize());
+
+					try {
+						// 실제 업로드
+						item.write(up);
+
+						// 임시 파일 삭제
+						item.delete();
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					} // try end
+				} //if end
+			} //while end
+		} //if(!isMultipart) end
+
+
+
+		if(freeboard!=null) {
+
+			freeboardDao.updateFreeBoard(freeboard);
+		}
+		if(freefiletb !=null) {
+			freefiletb.setBoardno(freeboard.getBoardno());
+			free_fileDao.insertFile(freefiletb);
+		}
+
 
 	}
 	@Override
@@ -192,13 +309,9 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	}
 	@Override
 	public int selecntFreeBoardCntAll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public List<Free_Board> selectFreeBoardPagingList(Paging paging) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return freeboardDao.selecntFreeBoardCntAll();
+	
 	}
 	@Override
 	public void updateRecommend(Free_Board freeBoard) {
@@ -221,6 +334,7 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 
 		String boardno = req.getParameter("boardno");
 
+
 		//null이나 ""이 아니면 int로 변환하여 DTO에 저장
 		if( boardno != null && !"".equals(boardno) ) {
 			fb.setBoardno(Integer.parseInt(boardno));
@@ -237,9 +351,50 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	}
 	@Override
 	public Free_Filetb viewFile(Free_Board freeboard) {
-		
+
 		return  free_fileDao.selectFile(freeboard);
 	}
+
+
+
+
+	@Override
+	public Free_Board_param getParampage(HttpServletRequest req, HttpServletResponse resp) {
+
+		Free_Board_param fbp= new Free_Board_param();
+
+		String pageNum = req.getParameter("pageNum");
+		//System.out.println(pageNum);
+		//null이나 ""이 아니면 int로 변환하여 DTO에 저장
+		if( pageNum != null && !"".equals(pageNum) ) {
+			fbp.setPageNum(Integer.parseInt(pageNum));
+		}
+
+		return fbp;
+	}
+
+
+
+
+	@Override
+	public String getUserid(Free_Board freeboard) {
+
+		return freeboardDao.selectUseridByBoardno(freeboard);
+	}
+	@Override
+	public int getCurPage(HttpServletRequest req) {
+		//요청파라미터 받기
+		String curPage = req.getParameter("curPage");
+
+		//null이나 ""이 아니면 int로 리턴
+		if( curPage != null && !"".equals(curPage) ) {
+			return Integer.parseInt( curPage );
+		}
+
+		//null이나 "" 면 0으로 반환
+		return 0;
+	}
+
 
 
 }

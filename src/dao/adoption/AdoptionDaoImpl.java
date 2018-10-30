@@ -77,7 +77,7 @@ public class AdoptionDaoImpl implements AdoptionDao {
 				Adoption b = new Adoption();
 
 				// ResultSet의 결과 행 하나씩 DTO에 저장
-				b.setAdoptionCalltime(rs.getString("adotpion_calltime"));
+				b.setAdoptionCalltime(rs.getString("adoption_calltime"));
 				b.setAdoptionHousing(rs.getString("adoption_housing"));
 				b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
 				b.setAdoptionExp(rs.getString("adoption_exp"));

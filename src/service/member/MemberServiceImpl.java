@@ -32,10 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectMemberByUserId(Member member) {
 		return memberDao.selectMemberByUserId(member);
 	}
-
 	@Override
-	public void updateMember(Member member) {
-		// TODO Auto-generated method stub
+	public void updateMember(HttpServletRequest req, Member member) throws Exception {
+		memberDao.updateMember(member);
 
 	}
 
@@ -127,5 +126,6 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberDao.selectCntMemberByUser(member);
 	}
+
 
 }

@@ -1,48 +1,46 @@
 package service.comment.qna;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import dao.board.qna.QnADao;
 import dao.board.qna.QnADaoImpl;
 import dao.comment.qna.QnA_CommentDao;
 import dao.comment.qna.QnA_CommentDaoImpl;
-import dto.board.QnA;
 import dto.comment.QnA_Comments;
 
 public class QnA_CommentServiceImpl implements QnA_CommentService {
 
-	private QnADao qnaDao = new QnADaoImpl();
 	private QnA_CommentDao qna_CommentDao = new QnA_CommentDaoImpl();
-	private QnA qna = new QnA();
-		
-	@Override
-	public void insertComment(QnA_Comments qna_Comment) throws Exception {
-		
 
-		
-		qna_CommentDao.insert(qna_Comment);
-	
+	@Override
+	public QnA_Comments view(QnA_Comments qna_Comments) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List getCommentList(QnA qna) {
-		
-		
-		return qna_CommentDao.selectQnA_Comments(qna);
+	public QnA_Comments getParam(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public String deleteComment(QnA_Comments qna_Comment) throws Exception {
-		
-		String result = "";
-		result =qna_CommentDao.deleteQnA_Comment(qna_Comment);
-		
-		return result;
+	public void writeQnA_Comments(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+
 	}
 
-	
-	
+	@Override
+	public void updateQnA_Comments(HttpServletRequest req) {
+		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean checkWriter(HttpServletRequest req, QnA_Comments qna_Comments) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

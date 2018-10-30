@@ -396,11 +396,14 @@ public class AnimalDaoImpl implements AnimalDao {
 	}
 
 	@Override
-	public int aniaml_code(Animal animal) {
+	public int animal_code(Animal animal) {
 
 		int code = -1;
 		String sql = "";
-		sql += "SELECT a.animal_code " + "FROM animal a , adoption adop " + "WHERE a.animal_name=?";
+		sql += " SELECT a.animal_code";
+		sql += " FROM animal a , adoption adop";
+		sql += " WHERE a.animal_code=adop.animal_code AND";
+		sql += " a.animal_name=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, animal.getAnimal_Name());

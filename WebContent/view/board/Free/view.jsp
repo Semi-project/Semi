@@ -4,16 +4,7 @@
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-</head>
-<body>
-
+<jsp:include page="/view/layout/header.jsp" />
 
 <div class="container">
 
@@ -29,7 +20,7 @@
 
 <tr>
 <td class="info">아이디</td><td>${freeboardService.userid }</td>
-<td class="info">닉네임</td><td colspan="2">[추후 추가]</td>
+<td class="info"><a href="/freeboardfile/download?fileno=${fileno.fileno }"/>첨부파일</td><td colspan="4">
 </tr>
 
 <tr><td class="info">본문</td><td colspan="4">${freeboardService.content }</td></tr>
@@ -41,7 +32,7 @@
 
 <tr>
 <td class="info">작성일</td><td colspan="4">${freeboardService.insert_Dat }</td>
-<td class="info"><a href="/freeboardfile/download?fileno=${fileno.fileno }"/>첨부파일</td><td colspan="4">
+
 </tr>
 
 </table>
@@ -49,10 +40,9 @@
 
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary"><a href="list">목록</a></button>
-	<button id="btnUpdate" class="btn btn-info"><a href="update">수정</a></button>
-	<button id="btnDelete" class="btn btn-danger"><a href=delete">삭제</a></button>
+	<button onclick='location.href="/freeboard/update?boardno=${freeboardService.boardno }";'>수정</a></button>
+	<button onclick='location.href="/freeboard/delete?boardno=${freeboardService.boardno }";'>삭제</button>
 </div>
 </div>
 
-</body>
-</html>
+<jsp:include page="/view/layout/footer.jsp" />

@@ -25,13 +25,25 @@ public class AdoptionRe_InsertController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		// 로그인 확인
+		if (req.getSession().getAttribute("login") == null) {
+			System.out.println(req.getSession().getAttribute("login"));
+			resp.sendRedirect("/main"); // 2018- 10- 23 일 정리 - 주희센세
+			return;
+		}
+
+		// 품종 리스트 넘기기
 		resp.setCharacterEncoding("UTF-8");
 
-		List speciesList = animalService.getSpecies();
-		
-		req.setAttribute("speciesList", speciesList);
-		
-		
+		List speciesList = animalService.getSpecies();		
+		req.setAttribute("speciesList", speciesList);		
+		List tmp = (List) req.getAttribute("speciesList");		
+		List tmp2 = (List) tmp.get(1);
+
+		// 리스트 뽑힘
+		System.out.println(tmp);
+		System.out.println(tmp2);
+
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSend.jsp").forward(req, resp);
 
 	}
@@ -42,9 +54,9 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		// 응답 객체 MIME타입(Content-Type) 설정
 		resp.setContentType("text/html;charset=UTF-8");
-		
+
 		animalService.write(req, resp);
-		
+
 		resp.sendRedirect("/adoption/send/list");
 
 	}
