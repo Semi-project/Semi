@@ -36,11 +36,11 @@ function selectSpecies(){
 		// 			============== 아직 미완성 ======================
 		// 
 // 		select option에 append
-		var tmp = (List)HttpServletRequest.getAttribute("speciesList");
+		var tmp = Request.getAttribute("speciesList");
 		
-		var dogList = (List)tmp.get(0);
-		var catList = (List)tmp.get(1);
-		var etcList = (List)tmp.get(2);
+		var dogList = tmp.get(0);
+		var catList = tmp.get(1);
+		var etcList = tmp.get(2);
 		var Lists;
 
 		if (selected == "dog") {

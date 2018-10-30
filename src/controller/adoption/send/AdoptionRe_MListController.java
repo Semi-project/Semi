@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.adoption.Adoption;
 import dto.animal.Animal;
+import service.adoption.AdoptionService;
+import service.adoption.AdoptionServiceImpl;
 import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 import util.Paging;
@@ -22,7 +25,8 @@ public class AdoptionRe_MListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private AnimalService animalService = new AnimalServiceImpl(); 
-	
+	private AdoptionService adoptionService = new AdoptionServiceImpl();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -34,10 +38,10 @@ public class AdoptionRe_MListController extends HttpServlet {
 		// 게시글목록  MODEL로 추가
 		// 일반유저
 		List<Animal> animalList = animalService.selectPagingListUser(paging);
-
 		req.setAttribute("animalList", animalList);
-		
-		System.out.println(animalList);
+
+		List<Adoption> list = adoptionService.getPagingList(paging);
+		req.setAttribute("boardList", list);
 
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);

@@ -25,7 +25,6 @@ public class AdoptionRe_ListController extends HttpServlet {
 
    // service
    private AnimalService animalService = new AnimalServiceImpl();
-
    private AdoptionService adoptionService = new AdoptionServiceImpl();
 
    @Override
@@ -37,15 +36,19 @@ public class AdoptionRe_ListController extends HttpServlet {
       // 페이징 객체
       int totalCount = animalService.getTotalCount();
       Paging paging = new Paging(totalCount, curPage);
-
+      
       // 게시글목록 MODEL로 추가
       // 관리자 전체 동물
       List<Animal> animalList = animalService.getPagingListAdmin(paging);
       req.setAttribute("animalList", animalList);
       
-      List<Adoption> list = adoptionService.getPagingList(paging);
+      List<Adoption> list = adoptionService.getList();
       req.setAttribute("boardList", list);
 
+      System.out.println("AdoptionRe_ListController");
+      System.out.println("animalList : " + animalList.size());
+      System.out.println("adoptionList : " + list.size());
+      
       // 페이징 객체 MODEL로 추가
       req.setAttribute("paging", paging);
 

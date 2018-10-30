@@ -62,7 +62,24 @@ td {
 <c:forEach items="${animalList }" var="animal">
 
 <tr>
-<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
+	<c:forEach items="${boardList }" var="board">
+		<c:choose>
+			<c:when test="${animal.animal_Code eq board.animalCode }">
+				<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td>
+			</c:when>
+			<c:when test="${animal.animal_Code ne board.animalCode }">
+				<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
+			</c:when>
+		</c:choose>
+		
+		
+<%-- 		<c:if test="${animal.animal_Code eq board.animalCode }"> --%>
+<%-- 			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td> --%>
+<%-- 		</c:if> --%>
+<%-- 		<c:if test="${animal.animal_Code ne board.animalCode }"> --%>
+<%-- 			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td> --%>
+<%-- 		</c:if> --%>
+	</c:forEach>
 <td>${animal.animal_Gender_Code }</td>
 <td>${animal.species_Name }</td>
 </tr>
