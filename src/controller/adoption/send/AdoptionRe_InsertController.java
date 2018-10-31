@@ -36,13 +36,7 @@ public class AdoptionRe_InsertController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 
 		List speciesList = animalService.getSpecies();		
-		req.setAttribute("speciesList", speciesList);		
-		List tmp = (List) req.getAttribute("speciesList");		
-		List tmp2 = (List) tmp.get(1);
-
-		// 리스트 뽑힘
-		System.out.println(tmp);
-		System.out.println(tmp2);
+		req.setAttribute("speciesList", speciesList);
 
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSend.jsp").forward(req, resp);
 

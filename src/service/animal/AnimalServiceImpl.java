@@ -215,10 +215,18 @@ public class AnimalServiceImpl implements AnimalService {
 						// 중성화
 						animal.setAnimal_Neuters(item.getString("utf-8"));
 
-						// } else if ("species".equals(item.getFieldName())) {
-						// 중성화
-						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
+					} else if ("species1".equals(item.getFieldName())) {
+						// 품종
+						animal.setSpecies_Code(Integer.parseInt(item.getString("utf-8")));
 
+					}else if ("species2".equals(item.getString())) {
+						// 고양이
+						animal.setSpecies_Code(Integer.parseInt(item.getString("utf-8")));
+						
+					}else if ("species3".equals(item.getString())) {
+						// 기타
+						animal.setSpecies_Code(Integer.parseInt(item.getString("utf-8")));
+						
 					}else if ("content".equals(item.getFieldName())) {
 						// 특징
 						String content = item.getString("utf-8");
@@ -382,5 +390,10 @@ public class AnimalServiceImpl implements AnimalService {
 	public int getCountAcpt() {
 		return animalDao.selectCntAcpt();
 	}
+	
+	@Override
+	public List<Animal> selectAllAnimal() {
 
+		return animalDao.selectAllAnimal();
+	}
 }

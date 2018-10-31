@@ -45,4 +45,7 @@ public interface AnimalDao {
 	
 	// 리스트에서 수락
 	public void acceptAnimalList(String codes);
+	
+	// 전체 동물 조회
+	public List<Animal> selectAllAnimal();
 }

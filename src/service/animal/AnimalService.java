@@ -57,4 +57,7 @@ public interface AnimalService {
 	// 리스트에서 수락
 	public void animalListAccept(String codes);
 	
+	
+	public List<Animal> selectAllAnimal() ;
+	
 }

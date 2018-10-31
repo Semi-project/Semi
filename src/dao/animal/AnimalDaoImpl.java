@@ -114,7 +114,7 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setString(6, animal.getAnimal_Neuters());
 			ps.setString(7, animal.getAnimal_Feature());
 			ps.setInt(8, 0);
-			ps.setInt(9, 2002);
+			ps.setInt(9, animal.getSpecies_Code());
 
 			ps.executeUpdate();
 
@@ -400,10 +400,9 @@ public class AnimalDaoImpl implements AnimalDao {
 
 		int code = -1;
 		String sql = "";
-		sql += " SELECT a.animal_code";
-		sql += " FROM animal a , adoption adop";
-		sql += " WHERE a.animal_code=adop.animal_code AND";
-		sql += " a.animal_name=?";
+		sql += " SELECT animal_code";
+		sql += " FROM animal";
+		sql += " WHERE animal_name=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, animal.getAnimal_Name());
@@ -510,5 +509,44 @@ public class AnimalDaoImpl implements AnimalDao {
 		return cnt;
 	}
 
+	@Override
+	public List<Animal> selectAllAnimal() {
+
+		String sql = "SELECT *FROM animal WHERE status=1 order by animal_code desc";
+		List<Animal> list = new ArrayList<Animal>();
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				animal = new Animal();
+
+				animal.setAnimal_Name(rs.getString("animal_name"));
+				animal.setAnimal_Code(rs.getInt("animal_code"));
+				animal.setAnimal_Age(rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code(rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr(rs.getString("animal_gr"));
+				animal.setAnimal_Neuters(rs.getString("animal_neuters"));
+				animal.setAnimal_Feature(rs.getString("animal_feature"));
+				animal.setStatus(rs.getInt("status"));
+				animal.setSpecies_Code(rs.getInt("species_code"));
+
+				list.add(animal);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 
 }
