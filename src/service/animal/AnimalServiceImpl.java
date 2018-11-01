@@ -215,9 +215,9 @@ public class AnimalServiceImpl implements AnimalService {
 						// 중성화
 						animal.setAnimal_Neuters(item.getString("utf-8"));
 
-						// } else if ("species".equals(item.getFieldName())) {
+					 } else if ("species".equals(item.getFieldName())) {
 						// 중성화
-						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
+						animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
 
 					}else if ("content".equals(item.getFieldName())) {
 						// 특징

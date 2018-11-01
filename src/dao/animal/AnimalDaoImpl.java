@@ -567,4 +567,25 @@ public class AnimalDaoImpl implements AnimalDao {
 		return cnt;
 	}
 
+	@Override
+	public int aniaml_code(Animal animal) {
+
+		int code = -1;
+	      String sql = "";
+	      sql += "SELECT animal_code FROM animal WHERE animal_name=?";
+	      try {
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, animal.getAnimal_Name());
+
+	         rs = ps.executeQuery();
+	         while (rs.next()) {
+	            code = rs.getInt(1);
+	         }
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return code;
+		
+	}
+
 }
