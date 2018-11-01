@@ -42,8 +42,10 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -65,25 +67,27 @@ public class AnimalDaoImpl implements AnimalDao {
 
 			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 
-				animal.setAnimal_Name( rs.getString("animal_name"));
-				animal.setAnimal_Age( rs.getInt("animal_age"));
-				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
-				animal.setAnimal_Gr( rs.getString("animal_gr"));
-				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
-				animal.setAnimal_Feature( rs.getString("animal_feature"));
-				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));		
-				animal.setSpecies_Name( rs.getString("species_name"));
+				animal.setAnimal_Name(rs.getString("animal_name"));
+				animal.setAnimal_Age(rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code(rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr(rs.getString("animal_gr"));
+				animal.setAnimal_Neuters(rs.getString("animal_neuters"));
+				animal.setAnimal_Feature(rs.getString("animal_feature"));
+				animal.setStatus(rs.getInt("status"));
+				animal.setSpecies_Code(rs.getInt("species_code"));
+				animal.setSpecies_Name(rs.getString("species_name"));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -129,7 +133,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(ps!=null)	ps.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -175,7 +180,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(ps!=null)	ps.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -207,7 +213,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(ps!=null)	ps.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -241,7 +248,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(ps!=null)	ps.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -254,8 +262,8 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql = "SELECT * FROM (";
 		sql += " SELECT rownum rnum, A.* FROM (";
 		sql += " SELECT animal_name, animal_code,";
-		sql += " animal_age, animal_gender_code,"; 
-		sql += " animal_gr, animal_neuters,"; 
+		sql += " animal_age, animal_gender_code,";
+		sql += " animal_gr, animal_neuters,";
 		sql += " animal_feature, status,";
 		sql += " animal.species_code, species_name";
 		sql += " FROM animal, species";
@@ -276,19 +284,19 @@ public class AnimalDaoImpl implements AnimalDao {
 
 			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 				animal = new Animal();
 
-				animal.setAnimal_Name( rs.getString("animal_name"));
-				animal.setAnimal_Code( rs.getInt("animal_code"));
-				animal.setAnimal_Age( rs.getInt("animal_age"));
-				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
-				animal.setAnimal_Gr( rs.getString("animal_gr"));
-				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
-				animal.setAnimal_Feature( rs.getString("animal_feature"));
-				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));
-				animal.setSpecies_Name( rs.getString("species_name"));
+				animal.setAnimal_Name(rs.getString("animal_name"));
+				animal.setAnimal_Code(rs.getInt("animal_code"));
+				animal.setAnimal_Age(rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code(rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr(rs.getString("animal_gr"));
+				animal.setAnimal_Neuters(rs.getString("animal_neuters"));
+				animal.setAnimal_Feature(rs.getString("animal_feature"));
+				animal.setStatus(rs.getInt("status"));
+				animal.setSpecies_Code(rs.getInt("species_code"));
+				animal.setSpecies_Name(rs.getString("species_name"));
 
 				list.add(animal);
 			}
@@ -297,8 +305,10 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -312,8 +322,8 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql = "SELECT * FROM (";
 		sql += " SELECT rownum rnum, A.* FROM (";
 		sql += " SELECT animal_name, animal_code,";
-		sql += " animal_age, animal_gender_code,"; 
-		sql += " animal_gr, animal_neuters,"; 
+		sql += " animal_age, animal_gender_code,";
+		sql += " animal_gr, animal_neuters,";
 		sql += " animal_feature, status,";
 		sql += " animal.species_code, species_name";
 		sql += " FROM animal, species";
@@ -335,19 +345,19 @@ public class AnimalDaoImpl implements AnimalDao {
 
 			rs = ps.executeQuery();
 
-			while(rs.next()) {
+			while (rs.next()) {
 				animal = new Animal();
 
-				animal.setAnimal_Name( rs.getString("animal_name"));
-				animal.setAnimal_Code( rs.getInt("animal_code"));
-				animal.setAnimal_Age( rs.getInt("animal_age"));
-				animal.setAnimal_Gender_Code( rs.getString("animal_gender_code"));
-				animal.setAnimal_Gr( rs.getString("animal_gr"));
-				animal.setAnimal_Neuters( rs.getString("animal_neuters"));
-				animal.setAnimal_Feature( rs.getString("animal_feature"));
-				animal.setStatus( rs.getInt("status"));
-				animal.setSpecies_Code( rs.getInt("species_code"));
-				animal.setSpecies_Name( rs.getString("species_name"));
+				animal.setAnimal_Name(rs.getString("animal_name"));
+				animal.setAnimal_Code(rs.getInt("animal_code"));
+				animal.setAnimal_Age(rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code(rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr(rs.getString("animal_gr"));
+				animal.setAnimal_Neuters(rs.getString("animal_neuters"));
+				animal.setAnimal_Feature(rs.getString("animal_feature"));
+				animal.setStatus(rs.getInt("status"));
+				animal.setSpecies_Code(rs.getInt("species_code"));
+				animal.setSpecies_Name(rs.getString("species_name"));
 
 				list.add(animal);
 			}
@@ -356,14 +366,56 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
 		return list;
+	}
+
+	@Override
+	public List<Animal> selectAllAnimal() {
+		String sql = "SELECT *FROM animal WHERE status=1 order by animal_code desc";
+		List<Animal> list = new ArrayList<Animal>();
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				animal = new Animal();
+
+				animal.setAnimal_Name(rs.getString("animal_name"));
+				animal.setAnimal_Code(rs.getInt("animal_code"));
+				animal.setAnimal_Age(rs.getInt("animal_age"));
+				animal.setAnimal_Gender_Code(rs.getString("animal_gender_code"));
+				animal.setAnimal_Gr(rs.getString("animal_gr"));
+				animal.setAnimal_Neuters(rs.getString("animal_neuters"));
+				animal.setAnimal_Feature(rs.getString("animal_feature"));
+				animal.setStatus(rs.getInt("status"));
+				animal.setSpecies_Code(rs.getInt("species_code"));
+
+				list.add(animal);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+
 	}
 
 	@Override
@@ -385,8 +437,10 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -400,10 +454,9 @@ public class AnimalDaoImpl implements AnimalDao {
 
 		int code = -1;
 		String sql = "";
-		sql += " SELECT a.animal_code";
-		sql += " FROM animal a , adoption adop";
-		sql += " WHERE a.animal_code=adop.animal_code AND";
-		sql += " a.animal_name=?";
+		sql += " SELECT animal_code";
+		sql += " FROM animal";
+		sql += " WHERE animal_name=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, animal.getAnimal_Name());
@@ -442,7 +495,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(ps!=null)	ps.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -473,7 +527,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(ps!=null)	ps.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -500,8 +555,10 @@ public class AnimalDaoImpl implements AnimalDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -515,7 +572,7 @@ public class AnimalDaoImpl implements AnimalDao {
 
 		int code = -1;
 	      String sql = "";
-	      sql += "SELECT a.animal_code " + "FROM animal a , adoption adop " + "WHERE a.animal_name=?";
+	      sql += "SELECT animal_code FROM animal WHERE animal_name=?";
 	      try {
 	         ps = conn.prepareStatement(sql);
 	         ps.setString(1, animal.getAnimal_Name());
@@ -530,6 +587,5 @@ public class AnimalDaoImpl implements AnimalDao {
 	      return code;
 		
 	}
-
 
 }

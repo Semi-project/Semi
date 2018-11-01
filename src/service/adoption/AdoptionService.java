@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.adoption.Adoption;
+import dto.animal.Animal;
 import dto.file.Animal_Filetb;
 import util.Paging;
 
@@ -20,8 +21,6 @@ public interface AdoptionService {
 	public String getSearch(HttpServletRequest req);
 
 	public int getTotalCount(String search) ;
-	// 전체 게시글 수 조회
-	public int getTotalCount();
 
 	// 게시글 전체 조회
 	public List<Adoption> getList();
@@ -34,14 +33,8 @@ public interface AdoptionService {
 	
 	public Adoption view(Adoption adoptionView);
 	
-	// 글 작성자 닉네임 얻기
-	public String getNick(Adoption adoption);
-
-	// 첨부파일 얻기
-	public Animal_Filetb viewFile(Adoption adoption);
-
+	
 	// 게시글 수정
-	public void update(HttpServletRequest req);
 	public void updateList(String names);
 	// 삭제
 	public void delete(Adoption adoption);
@@ -49,4 +42,6 @@ public interface AdoptionService {
 	public void write(HttpServletRequest req, HttpServletResponse resp);
 
 	public int getStatus(Adoption adoption);
+	// 동물코드로 입양 신청서 찾기
+	public Adoption getByanimalCode(Animal animal);
 }

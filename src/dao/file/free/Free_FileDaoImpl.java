@@ -82,6 +82,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				ps.setString(3, freefiletb.getFile_SaveName());
 				ps.setLong(4, freefiletb.getFilesize());
 			
+			
 				ps.executeUpdate();
 				conn.commit();
 				

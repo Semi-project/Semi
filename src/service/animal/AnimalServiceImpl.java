@@ -193,7 +193,6 @@ public class AnimalServiceImpl implements AnimalService {
 			if(item.getSize() <=0)
 				continue;
 			if(item.isFormField()) {
-
 				try {
 					if("name".equals(item.getFieldName())) {
 						// 데이터 처리
@@ -216,9 +215,9 @@ public class AnimalServiceImpl implements AnimalService {
 						// 중성화
 						animal.setAnimal_Neuters(item.getString("utf-8"));
 
-						// } else if ("species".equals(item.getFieldName())) {
+					 } else if ("species".equals(item.getFieldName())) {
 						// 중성화
-						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
+						animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
 
 					}else if ("content".equals(item.getFieldName())) {
 						// 특징
@@ -279,13 +278,11 @@ public class AnimalServiceImpl implements AnimalService {
 											animal_fileDao.insertFiletb(file);
 
 										}
-
 									}
 								}
 								// i++;
 							} // end of while
 						}
-//								i++;
 					}
 				} catch(UnsupportedEncodingException e) {
 					e.printStackTrace();
@@ -384,6 +381,12 @@ public class AnimalServiceImpl implements AnimalService {
 	@Override
 	public int getCountAcpt() {
 		return animalDao.selectCntAcpt();
+	}
+
+	@Override
+	public List<Animal> selectAllAnimal() {
+		
+		return animalDao.selectAllAnimal();
 	}
 
 }

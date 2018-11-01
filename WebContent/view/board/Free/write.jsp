@@ -16,10 +16,23 @@ $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		// 스마트에디터 내용으로 <textarea>적용
-		submitContents($("#btnWrite"));
+		var confirm = ("입력할꺼임?");
+		
+		
+		if($('[name="title"]').val()==""){
+			alert("제목을 채우세요.");
+		}
+		
+	
+		else{
+			alert("작성하였습니다.");
+			submitContents($("#btnWrite"));
+			$("form").submit();
+		}
+		//submitContents($("#btnWrite"));
 		
 		// submit
-		$("form").submit();
+		//$("form").submit();
 	});
 	
 	$("#btnCancel").click(function() {
@@ -45,6 +58,34 @@ $(document).ready(function() {
 <tr><td class="info">아이디</td><td>${userid }</td></tr>
 <tr><td class="info">닉네임</td><td>${name }</td></tr>
 <tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
+<tr>
+	<td>
+		<!-- 비밀글을 하기위해 : dto int secret -->
+		<input type="checkbox" id="secretChk" >
+			<input type="hidden" name="secret" id="secretId" value="0">
+			<!--  
+				1)실재 jsp에 노출되지 않음
+				2) hidden을 쓰는이유 : controller 에서 변수를 넘겨받기 위해 사용
+				3) jsp 에서 노출되지 않는데 변수를 넘거받을필요가있음
+				
+			-->
+		<script>
+		//secret number(1) not null table변수로 새로추가
+		// 
+		$('#secretChk').click(function() {
+			if($("#secretChk").prop("checked")){
+				alert("체크됨");
+			
+				
+			}
+			else{
+				alert("해제됨");
+			
+			}
+		});
+		</script>
+	</td>
+</tr>
 <tr><td class="info" colspan="2">본문</td></tr>
 <tr><td colspan="2"><textarea id="content" name="content"></textarea></td></tr>
 </table>
@@ -55,7 +96,8 @@ $(document).ready(function() {
 </div>
 
 <div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
+	<!-- <button type="button" id="btnWrite" class="btn btn-info">작성</button> -->
+	<input type="button" id="btnWrite" class="btn btn-info" value="작성">
 	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 </div>
 </div>

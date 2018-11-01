@@ -18,6 +18,7 @@ public interface AnimalService {
 	// 동물 정보 전체 조회
 	public Animal selectAnimalByanimal_Code(Animal animal);
 		
+	public List<Animal> selectAllAnimal();
 	// 동물 정보 삽입
 	public void insertAnimal(Animal animal, Animal_Filetb animal_file);
 		
@@ -56,5 +57,4 @@ public interface AnimalService {
 	
 	// 리스트에서 수락
 	public void animalListAccept(String codes);
-	
 }

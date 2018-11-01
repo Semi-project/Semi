@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/view/layout/header.jsp" />
 <style>
 div.title {
@@ -11,70 +11,57 @@ div.title {
 <script type="text/javascript"
 	src="/resource/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 
-
-
 <script type="text/javascript">
 $(document).ready(function() {
 
 	$("#btnCancel").click(function() {
-		
 		history.go(-1);
 	});
 
+	function checkAll(){
+		
+	}
+	
 	$("#btnSave").click(function() {
 		submitContents();
 	});
 
-});
-
-function selectSpecies(){
-	
-	var $selected = $("input:radio[name='animal']:checked").val();
-	
-	$('#animalFm').on('change', function(){
+	$("input:radio[name='animal']").click(function(){
+		var selected = $('input[name="animal"]:checked').val();
+				
+		var show1 = document.getElementById("select1");
+		var show2 = document.getElementById("select2");
+		var show3 = document.getElementById("select3");
 		
-		// 			============== 아직 미완성 ======================
-		// 
-// 		select option에 append
-		var tmp = Request.getAttribute("speciesList");
-		
-		var dogList = tmp.get(0);
-		var catList = tmp.get(1);
-		var etcList = tmp.get(2);
-		var Lists;
-
 		if (selected == "dog") {
-			console.log(selected);
 			
-			$("#species").empty();
-			 
-			for(var i = 0; i < dogList.size(); i++){                
-				var option = $("<option value='${species.species_Code }'>'${species.species_Name }'</option>");
-				$("#species").append(option);
-			}
+			show1.style.display = "block";
+			show2.style.display = "none";
+			show3.style.display = "none";
 			
-// 			document.getElementById('select1').style.visibility = 'visible';
-// 			document.getElementById('select2').style.visibility = 'hidden';
-// 			document.getElementById('select3').style.visibility = 'hidden';
 		} else if (selected == "cat") {
-			console.log(selected);
-// 			$("#select1").style.visibility = 'hidden';
-// 			$("#select2").style.visibility = 'visible';
-// 			$("#select3").style.visibility = 'hidden';
-		} else if (selected == "guitaR") {
-			console.log(selected);
-// 			$("#select1").style.visibility = 'hidden';
-// 			$("#select2").style.visibility = 'hidden';
-// 			$("#select3").style.visibility = 'visible';
+			
+			show1.style.display = "none";
+			show2.style.display = "block";
+			show3.style.display = "none";
+			
+		} else if (selected == "etc") {
+
+			show1.style.display = "none";
+			show2.style.display = "none";
+			show3.style.display = "block";
+
 		}
+	
 	});
-}
+	
+});
 </script>
 
 <div>
 	<h3>입양 보내실 동물</h3>
 	<hr>
-	<div>
+	<div style="width:70%">
 		<form id="frm" action="/adoption/send/insert" method="post"
 			enctype="multipart/form-data">
 			<table class="table table-bordered">
@@ -99,45 +86,41 @@ function selectSpecies(){
 				</tr>
 				<tr>
 					<td>중성화 여부</td>
-					<td><input type="radio" ID="neuter1" name="neuter" value="Y"
-						checked /><label for="neuter1">Yes</label> <input type="radio"
-						ID="neuter2" name="neuter" value="N" /><label for="neuter2">No</label>
+					<td>
+						<input type="radio" ID="neuter1" name="neuter" value="Y" checked /><label for="neuter1">Yes</label>
+						<input type="radio" ID="neuter2" name="neuter" value="N" /><label for="neuter2">No</label>
 					</td>
 				</tr>
 				<tr>
 					<td rowspan="2">품종</td>
 					<td>
-						<form id="animalFm">
-							<input type="radio" ID="animal1" name="animal" value="dog"
-								checked /><label for="animal1">멍멍이</label> <input type="radio"
-								ID="animal2" name="animal" value="cat" /><label for="animal2">냥냥이</label>
-							<input type="radio" ID="animal3" name="animal" value="etc" /><label
-								for="animel3">기타</label>
-						</form>
+						<input type="radio" ID="animal1" name="animal" value="dog" checked /><label for="animal1">멍멍이</label>
+						<input type="radio" ID="animal2" name="animal" value="cat" /><label for="animal2">냥냥이</label>
+						<input type="radio" ID="animal3" name="animal" value="etc" /><label for="animel3">기타</label>
 					</td>
 				</tr>
 				<tr>
              	<td id="select1">
-					<select id="species" name="species">
-<%--             			<c:forEach var="species" items="${speciesList[0] }"> --%>
-<%-- 							<option value="${species.species_Code }">${species.species_Name }</option> --%>
-<%-- 						</c:forEach> --%>
+					<select id="species" name="species1">
+            			<c:forEach var="species" items="${speciesList[0] }">
+							<option value="${species.species_Code }">${species.species_Name }</option>
+						</c:forEach>
             		</select>
             	</td>
-<!--             	<td id="select2"> -->
-<!--             		<select id="species" name="species"> -->
-<%--             			<c:forEach var="species" items="${speciesList[1] }"> --%>
-<%-- 							<option value="${species.species_Code }">${species.species_Name }</option> --%>
-<%-- 						</c:forEach> --%>
-<!--             		</select> -->
-<!--             	</td> -->
-<!--             	<td id="select3"> -->
-<!--             		<select id="species" name="species"> -->
-<%--             			<c:forEach var="species" items="${speciesList[2] }"> --%>
-<%-- 							<option value="${species.species_Code }">${species.species_Name }</option> --%>
-<%-- 						</c:forEach> --%>
-<!--             		</select> -->
-<!--             	</td> -->
+            	<td id="select2" style="display:none;">
+            		<select id="species" name="species2">
+            			<c:forEach var="species" items="${speciesList[1] }">
+							<option value="${species.species_Code }">${species.species_Name }</option>
+						</c:forEach>
+            		</select>
+            	</td>
+            	<td id="select3" style="display:none;">
+            		<select id="species" name="species3">
+            			<c:forEach var="species" items="${speciesList[2] }">
+							<option value="${species.species_Code }">${species.species_Name }</option>
+						</c:forEach>
+            		</select>
+            	</td>
 				</tr>
 				<tr>
 					<td>내용</td>

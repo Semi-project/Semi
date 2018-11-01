@@ -2,6 +2,22 @@
    pageEncoding="UTF-8"%>
 <jsp:include page="/view/layout/header.jsp" />
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	var result = '${result}';
+	var successMsg = '${successMsg}';
+	var failMsg = '${failMsg}';
+	
+	if(result == 'success'){
+		alert(successMsg);
+	}
+	else if(result == 'fali'){
+		alert(failMsg);
+	}
+});
+</script>
+
 
 
 <style>
@@ -127,7 +143,7 @@ ul.side-navi-sub li:hover {
                <div class="title">회원정보</div>
                <ul class="side-navi-sub">
                   <li><a href="/mypage/update">개인정보수정</a></li>
-                  <li><a href="#">입양신청내역</a>
+                  <li><a href="/mypage/adoption">입양신청내역</a>
                   <li><a href="/mypage/delete">회원탈퇴하기</a>
                </ul>
             </li>
@@ -178,7 +194,8 @@ ul.side-navi-sub li:hover {
 
                <tr>
                   <td id="title">휴대전화</td>
-                  <td>${memberView.phone }</td>
+                  <%-- <td>${memberView.phone }</td> --%>
+                  <td>${memberView.phone} </td>     
                </tr>
                <tr>
                   <td id="title">주소</td>

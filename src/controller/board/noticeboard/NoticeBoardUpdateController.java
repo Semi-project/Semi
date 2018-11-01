@@ -14,36 +14,38 @@ import dto.file.Notice_Filetb;
 import service.board.notice.Notice_BoardService;
 import service.board.notice.Notice_BoardServiceImpl;
 
-/**
- * Servlet implementation class NoticeBoardUpdateController
- */
 @WebServlet("/noticeboard/update")
 public class NoticeBoardUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private Notice_BoardService notice_BoardService = new Notice_BoardServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Notice_Board board = notice_BoardService.getParam(req, resp);
-		if (!notice_BoardService.checkWriter(req, board)) {
-			resp.sendRedirect("/notice/list");
+	
+		Notice_Board notice_board = notice_BoardService.getParam(req, resp);
+		if (!notice_BoardService.checkWriter(req, notice_board)) {
+			resp.sendRedirect("/noticeboard/list");
 			return;
 		}
 
 		// 게시글 조회수행
-		Notice_Board boardView = notice_BoardService.view(board);
+		Notice_Board notice_boardView = notice_BoardService.view(notice_board);
+		
 		// MODEL 전달
-		req.setAttribute("boardView", boardView);
-
-		// 글 작성자 닉네임 전달
-		req.setAttribute("writernick", notice_BoardService.getNick(board));
+		req.setAttribute("notice_boardView", notice_boardView);
 
 		// 첨부파일 전달
-		List<Notice_Filetb> boardFile = notice_BoardService.viewFile(board);
-		req.setAttribute("boardFile", boardFile);
+		Notice_Filetb notice_boardFile = notice_BoardService.viewFile(notice_boardView);
+		req.setAttribute("boardFile", notice_boardFile);
+
+		// 글 작성자 닉네임 전달
+		req.setAttribute("writernick", notice_BoardService.getNick(notice_board));
+
 
 		// VIEW지정
-		req.getRequestDispatcher("/view/board/notice/update.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/notice/update.jsp")
+			.forward(req, resp);
 
 	}
 
@@ -54,7 +56,7 @@ public class NoticeBoardUpdateController extends HttpServlet {
 
 		notice_BoardService.update(req);
 
-		resp.sendRedirect("/notice/list");
+		resp.sendRedirect("/noticeboard/list");
 
 	}
 

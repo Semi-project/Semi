@@ -40,9 +40,9 @@ public class AdoptionRe_MListController extends HttpServlet {
 		List<Animal> animalList = animalService.selectPagingListUser(paging);
 		req.setAttribute("animalList", animalList);
 
-		List<Adoption> list = adoptionService.getPagingList(paging);
-		req.setAttribute("boardList", list);
-
+		List<Adoption> list = adoptionService.getList();
+		req.setAttribute("adoptList", list);
+		
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
 

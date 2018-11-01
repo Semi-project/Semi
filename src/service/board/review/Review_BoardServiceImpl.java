@@ -147,13 +147,25 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 				continue;
 			if (item.isFormField()) {
 				if ("title".equals(item.getFieldName())) {
-					String data = item.getString();
+					String data=null;
+					try {
+						data = item.getString("UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					// 데이터 처리
 					// System.out.println("타이틀 넣음");
 					board.setTitle(data);
 
 				} else if ("content".equals(item.getFieldName())) {
-					String content = item.getString();
+					String content = null;
+					try {
+						content = item.getString("UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					board.setContent(content);
 					review_BoardDao.insertReviewBoard(board);
 					Review_Filetb file = new Review_Filetb();
@@ -311,11 +323,24 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 				if (item.isFormField()) {
 
 					if ("boardno".equals(item.getFieldName())) {
-						board.setBoardno(Integer.parseInt(item.getString()));
+						try {
+							board.setBoardno(Integer.parseInt(item.getString("UTF-8")));
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 
 					if ("title".equals(item.getFieldName())) {
-						board.setTitle(item.getString());
+						try {
+							board.setTitle(item.getString("UTF-8"));
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					///
 					else if ("content".equals(item.getFieldName())) {
@@ -432,7 +457,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 	@Override
 	public void delete(HttpServletRequest req, Review_Board board) {
 		String path = req.getServletContext().getRealPath("/");
-
+		//System.out.println(board);
 		List<Review_Filetb> list = review_BoardFileDao.selectFiletb(board);
 		// System.out.println(list);
 		for (int i = 0; i < list.size(); i++) {

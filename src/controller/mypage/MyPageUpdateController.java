@@ -1,6 +1,7 @@
 package controller.mypage;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.member.Member;
-import service.board.qna.QnAService;
 import service.member.MemberService;
 import service.member.MemberServiceImpl;
 
@@ -40,35 +40,48 @@ public class MyPageUpdateController extends HttpServlet {
     	req.setCharacterEncoding("UTF-8");
     	
     	Member member= memberService.getParam(req, resp);
-    	
+    	String result ="";
     	try {
-			memberService.updateMember(req , member);
+    		int resultCnt = 0;
+    		
+    		resultCnt = memberService.updateMember(member);
 			
-			
-			Member memberView = memberService.selectMemberByUserId(member);
-			
-			req.setAttribute("memberView", memberView );
-			
-			if(memberView != null) {
-				String result = "success";
+    		if(resultCnt > 0) {
+    			
+    			Member memberView = memberService.selectMemberByUserId(member);
+    			
+    			req.setAttribute("memberView", memberView );
+    			
+    			result = "success";
 				req.setAttribute("result", result);
-			}
-			String successMsg ="";
-			successMsg ="수정에 성공했습니다";
-			req.setAttribute("successMsg", successMsg);
-			
-    	
+				
+				String successMsg ="";
+				successMsg ="수정에 성공했습니다";
+//				req.setAttribute("successMsg", successMsg);
+				
+				PrintWriter out = resp.getWriter(); 
+				out.println("<script>alert('성공'); </script>"); 
+				
+    		}
+    		
+		
+
     	} catch (Exception e) {
 			e.printStackTrace();
 			
-			String result ="fail";
+			result ="fail";
 			
 			String failMsg="";
 			failMsg = "수정에 실패했습니다";
 			req.setAttribute("result", result);
 			req.setAttribute("failMas", failMsg);
+			
 		}
     	
-    	req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
+    	
+    	
+    	resp.sendRedirect("/mypage/view");
+    	///req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
     }
+    
 }
