@@ -30,10 +30,6 @@ public class AdoptionRe_ViewController extends HttpServlet {
 
 		Animal animal = animalService.getParam(req, resp);
 		animal = animalService.selectAnimalByanimal_Code(animal);
-		System.out.println(animal.getAnimal_Code());
-		Adoption adoption = adoptionService.getByanimalCode(animal);
-		System.out.println(adoption.getAnimalCode());
-		req.setAttribute("adoption", adoption);
 		req.setAttribute("animal", animal);
 		
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendView.jsp").forward(req, resp);

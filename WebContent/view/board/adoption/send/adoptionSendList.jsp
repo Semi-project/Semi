@@ -99,17 +99,6 @@ td {
    border-right: 1px solid white;
 }
 
-#btnDeleteBox {
-   float: left;
-}
-
-#btnOkBox {
-   display: inline-block;
-}
-
-#btnWriteBox {
-   float: right;
-}
 </style>
 
 <div class="container">
@@ -236,16 +225,10 @@ td {
          </c:if>
 
       </ul>
-      <div style="width: 50%">
-         <div id="btnDeleteBox">
-            <button id="btnDelete">거절</button>
-         </div>
-         <div id="btnOkBox">
-            <button id="btnOk">수락</button>
-         </div>
-         <div id="btnWriteBox">
-            <button id="btnWrite">글쓰기</button>
-         </div>
+      <div style="text-align: center">
+         <button id="btnDelete">거절</button>
+         <button id="btnOk">수락</button>
+         <button id="btnWrite">글쓰기</button>
       </div>
    </div>
 

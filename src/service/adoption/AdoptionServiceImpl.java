@@ -161,6 +161,8 @@ public class AdoptionServiceImpl implements AdoptionService {
 		
 		adoption.setAnimalCode(animal.getAnimal_Code());
 		
+		adoption = adoptionDao.getByanimalCode(adoption);
+		
 		return adoption;
 	}
 
