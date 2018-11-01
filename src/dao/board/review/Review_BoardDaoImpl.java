@@ -21,7 +21,7 @@ public class Review_BoardDaoImpl implements Review_BoardDao {
 	public List<Review_Board> selectReviewBoardAll() {
 		String sql = "";
 		sql += "SELECT * FROM review_board";
-		sql += " ORDER BY boardno DESC";
+		sql += " order by boardno desc, insert_dat desc";
 		ps = null;
 		rs = null;
 		List<Review_Board> list = new ArrayList<Review_Board>();

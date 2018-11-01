@@ -24,6 +24,7 @@ public class ReviewBoardViewController extends HttpServlet {
 	private Review_CommentService commentService = new Review_CommentServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 		Review_Board review_Board = new Review_Board();
 		review_Board = review_BoardService.getParam(req, resp);
 		Review_Board boardView = review_BoardService.view(review_Board);

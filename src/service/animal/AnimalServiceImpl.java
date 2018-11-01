@@ -383,4 +383,10 @@ public class AnimalServiceImpl implements AnimalService {
 		return animalDao.selectCntAcpt();
 	}
 
+	@Override
+	public List<Animal> selectAllAnimal() {
+		
+		return animalDao.selectAllAnimal();
+	}
+
 }

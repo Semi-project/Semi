@@ -20,6 +20,7 @@ import dao.board.notice.Notice_BoardDaoImpl;
 import dao.file.notice.Notice_FileDao;
 import dao.file.notice.Notice_FileDaoImpl;
 import dto.board.Notice_Board;
+import dto.file.Free_Filetb;
 import dto.file.Notice_Filetb;
 import util.Paging;
 
@@ -83,7 +84,7 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 	}
 //글쓰기---------------------------------------------------------------------------------
 	@Override
-	public void write(HttpServletRequest req, HttpServletResponse resp) {// a
+	public void write(HttpServletRequest req) {// a
 		Notice_Board noticeboard=null;
 		Notice_Filetb noticefiletb=null;
 
@@ -107,7 +108,7 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 			//메모리처리 사이즈 
 			factory.setSizeThreshold(1 * 1024 * 1024); //10mb
 
-			File repository=new File(req.getServletContext().getRealPath("tmp"));
+			File repository=new File(req.getServletContext().getRealPath("tmp0"));
 			factory.setRepository(repository);
 
 			//업로드 객체 생성
@@ -193,28 +194,28 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 	}
 //-------------------------------------------------------------------------
 	@Override
-	public List<Notice_Filetb> viewFile(Notice_Board board) {
-
-		return notice_BoardFileDao.selectFiletb(board);
+	public Notice_Filetb viewFile(Notice_Board noticeboard) {
+		
+		return notice_BoardFileDao.selectFiletb(noticeboard);
 	}
-
+//글 수정----------------------------------------------------------------------
 	@Override
 	public void update(HttpServletRequest req) {
-		Notice_Board board = null;
-		Notice_Filetb boardFile = null;
+		Notice_Board notice_board = null;
+		Notice_Filetb notice_Filetb = null;
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 
 		if (!isMultipart) {
 			// 파일 첨부가 없을 경우
-			board = new Notice_Board();
+			notice_board = new Notice_Board();
 
-			board.setTitle(req.getParameter("title"));
-			board.setUserid((String) req.getSession().getAttribute("userid"));
-			board.setContent(req.getParameter("content"));
+			notice_board.setTitle(req.getParameter("title"));
+			notice_board.setUserid((String) req.getSession().getAttribute("userid"));
+			notice_board.setContent(req.getParameter("content"));
 
 		} else {
 			// 파일업로드를 사용하고 있을 경우
-			board = new Notice_Board();
+			notice_board = new Notice_Board();
 
 			// 디스크팩토리
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -253,86 +254,43 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 					continue;
 
 				// 빈 파일이 아닐 경우
-				if (item.isFormField()) {
-					
-					if ("boardno".equals(item.getFieldName())) {
-						board.setBoardno(Integer.parseInt(item.getString()));
-					}
-
-					if ("title".equals(item.getFieldName())) {
-						board.setTitle(item.getString());
-					}
-					///
-					else if ("content".equals(item.getFieldName())) {
-						String content = item.getString();
-						board.setContent(content);
-						notice_BoardDao.insertNoticeBoard(board);
-						Notice_Filetb file = new Notice_Filetb();
-
-						StringTokenizer str = new StringTokenizer(content, " =><\"", false);
-//						int i = 0;
-						while (str.hasMoreTokens()) {
-							String data = str.nextToken();
-							if (data.equals(" ")) {
-							} else if (data.equals("=")) {
-							} else if (data.equals(">")) {
-
-							} else if (data.equals("<")) {
-
-							} else if (data.equals("\"")) {
-
-							} else {
-								if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-										|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-										|| data.contains(".BMP") || data.contains(".bmp")) {
-
-//									 System.out.println(i+","+data);
-									// System.out.println("---------");
-									if (data.contains("&#10")) {
-										String data2 = data.substring(0, data.length() - 5);
-										if (data.contains(".png") || data.contains(".PNG") || data.contains(".jpg")
-												|| data.contains(".JPG") || data.contains(".GIF") || data.contains(".gif")
-												|| data.contains(".BMP") || data.contains(".bmp")) {
-//											System.out.println(data2);
-											file.setFile_SaveName(data2);
-										}
-										// JPG, GIF, PNG, BMP
-									} else {
-//										System.out.println(data);
-										file.setFile_OriginName(data);
-										//System.out.println("1: " + file);
-										if (file.getFile_SaveName() != null) {
-											file.setBoardno(board.getBoardno());
-											file.setFileno(notice_BoardFileDao.selectFileno());
-											System.out.println("2 :" + file);
-											notice_BoardFileDao.insertFiletb(file);
-										}
-									}
-
-								}
-
-							}
-//							i++;
-
+				if(item.isFormField()) {
+					try {
+						if( "boardno".equals( item.getFieldName() ) ) {
+							notice_board.setBoardno( Integer.parseInt(item.getString()) );
 						}
+
+						if("title".equals(item.getFieldName())) {
+							notice_board.setTitle(item.getString("UTF-8"));
+						}
+						if("content".equals(item.getFieldName())) {
+							notice_board.setContent(item.getString("UTF-8"));
+						}
+					} catch (UnsupportedEncodingException e) {
+
+						e.printStackTrace();
 					}
-//////
+
+					notice_board.setUserid((String) req.getSession().getAttribute("userid"));
+
 				} else {
 					UUID uuid = UUID.randomUUID();
-//					System.out.println(uuid);
+					//					System.out.println(uuid);
 
 					String u = uuid.toString().split("-")[4];
-//					System.out.println(u);
+					//					System.out.println(u);
 					// -----------------
 
-					// 로컬 저장소 파일
+					//로컬 저장소 파일
 					String stored = item.getName() + "_" + u;
-					File up = new File(req.getServletContext().getRealPath("upload"), stored);
+					File up = new File(
+							req.getServletContext().getRealPath("upload")
+							, stored);
 
-					boardFile = new Notice_Filetb();
-					boardFile.setFile_OriginName(item.getName());
-					boardFile.setFile_SaveName(stored);
-					boardFile.setFileno(notice_BoardFileDao.selectFileno());
+					notice_Filetb = new Notice_Filetb();
+					notice_Filetb.setFile_OriginName(item.getName());
+					notice_Filetb.setFile_SaveName(stored);
+					notice_Filetb.setFilesize(item.getSize());
 
 					try {
 						// 실제 업로드
@@ -344,43 +302,31 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 					} catch (Exception e) {
 						e.printStackTrace();
 					} // try end
-				} // if end
-			} // while end
-		} // if(!isMultipart) end
+				} //if end
+			} //while end
+		} //if(!isMultipart) end
 
-//		System.out.println(board);
-//		System.out.println(boardFile);
 
-		if (board != null) {
-			notice_BoardDao.updateNoticeBoard(board);
+
+		if(notice_board!=null) {
+
+			notice_BoardDao.updateNoticeBoard(notice_board);
+		}
+		if(notice_Filetb !=null) {
+			notice_Filetb.setBoardno(notice_board.getBoardno());
+			notice_BoardDao.insertFile(notice_Filetb);
 		}
 
-		if (boardFile != null) {
-			boardFile.setBoardno(board.getBoardno());
-			notice_BoardFileDao.insertFiletb(boardFile);
-		}
 
 	}
-
+//글삭제-------------------------------------------------------------------------------
 	@Override
-	public void delete(HttpServletRequest req, Notice_Board board) {
+	public void delete(Notice_Board notice_board) {
 
-		String path = req.getServletContext().getRealPath("/");
-
-		List<Notice_Filetb> list = notice_BoardFileDao.selectFiletb(board);
-		// System.out.println(list);
-		for (int i = 0; i < list.size(); i++) {
-			File file = new File(path + list.get(i).getFile_SaveName());
-			file.delete();
-
-			// System.out.println("4");
-			// System.out.println("삭제됨");
-			// System.out.println(list.get(i).getFile_SaveName());
-		}
-		notice_BoardDao.deleteNoticeBoard(board);
-		notice_BoardFileDao.deleteFiletbByboardno(board);
+		notice_BoardDao.deleteNoticeBoard(notice_board);
+		notice_BoardFileDao.deleteFiletbByboardno(notice_board);
 	}
-
+//-------------------------------------------------------------------------------
 	@Override
 	public boolean checkWriter(HttpServletRequest req, Notice_Board board) {
 
@@ -417,5 +363,9 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 
 		return 0;
 	}
+
+	
+		
+	
 
 }

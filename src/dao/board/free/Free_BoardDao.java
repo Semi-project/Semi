@@ -31,7 +31,7 @@ public interface Free_BoardDao {
 	public String selectFreeBoardByContent(Free_Board freeBoard);
 
 	// 게시판 아이디로 찾기
-	public String selectFreeBoardByuserId(Free_Board freeBoard);
+	public String selectFreeBoardByuserId(Free_Board freeboard);
 
 	// 게시판 총 글수 출력
 	public int selecntFreeBoardCntAll();

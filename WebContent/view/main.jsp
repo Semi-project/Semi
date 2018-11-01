@@ -145,15 +145,15 @@
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
 							<img src="/img/main/137.png" alt="...">
-							<div class="carousel-caption">...</div>
+							<div class="carousel-caption"></div>
 						</div>
 						<div class="item">
 							<img src="/img/main/143.png" alt="...">
-							<div class="carousel-caption">...</div>
+							<div class="carousel-caption"></div>
 						</div>
 						<div class="item">
 							<img src="/img/main/145.png" alt="...">
-							<div class="carousel-caption">...</div>
+							<div class="carousel-caption"></div>
 						</div>
 					</div>
 
@@ -183,7 +183,7 @@
 					<ul class="tabList-v1" data-tab="tabs">
 						<li class="tabItem is-selected"><a href="#tab01-1">공지사항</a></li>
 						<li class="tabItem"><a href="#tab01-2">입양 동물</a></li>
-						<li class="tabItem"><a href="#tab01-3">입양게시판</a></li>
+						<li class="tabItem"><a href="#tab01-3">입양후기</a></li>
 
 					</ul>
 					<div class="tabPanel">
@@ -201,27 +201,15 @@
 						</ul>
 						<h4 class="a11y">합격자 발표에 대한 내용입니다.</h4>
 						<ul id="tab01-2" class="panel">
-							<li><a href="#none">2017년 1차 글로벌새마을청년봉사단(제3기) 국내교육을
-									시행합니다.</a></li>
-							<li><a href="#none">2017년 2차 월드프렌즈 코디네이터 모집,선발을 실시합니다.</a></li>
-							<li><a href="#none">(수정)2017년 3차 월드프렌즈 코이카봉사단(115기) 모집을
-									합니다.</a></li>
-							<li><a href="#none">(수정)114기 월드프렌즈 코이카봉사단 모집(~12.26)을
-									실시합니다.</a></li>
-							<li><a href="#none">제 2기 KOICA-UNV 대학봉사단 활동국가 미리보기 강연을
-									실시합니다.</a></li>
+							<c:forEach items="${animalList }" var="animal" begin="0" end="3">
+								<li><a href="#none">${animal.animal_Name }/${animal.animal_Age }살/${animal.animal_Gender_Code }</a></li>
+							</c:forEach>
 						</ul>
-						<h4 class="a11y">국내교육에 대한 내용입니다.</h4>
+						<h4 class="a11y">입양후기</h4>
 						<ul id="tab01-3" class="panel">
-							<li><a href="#none">2017년 2차 월드프렌즈 코디네이터 모집,선발을 실시합니다.</a></li>
-							<li><a href="#none">2017년 1차 글로벌새마을청년봉사단(제3기) 국내교육을
-									시행합니다.</a></li>
-							<li><a href="#none">(수정)2017년 3차 월드프렌즈 코이카봉사단(115기) 모집을
-									합니다.</a></li>
-							<li><a href="#none">제 2기 KOICA-UNV 대학봉사단 활동국가 미리보기 강연을
-									실시합니다.</a></li>
-							<li><a href="#none">(수정)114기 월드프렌즈 코이카봉사단 모집(~12.26)을
-									실시합니다.</a></li>
+							<c:forEach items="${list }" var="board" begin="0" end="3">
+								<li><a href="/review/view?boardno=${board.boardno }">${board.title }</a></li>
+							</c:forEach>
 						</ul>
 
 					</div>

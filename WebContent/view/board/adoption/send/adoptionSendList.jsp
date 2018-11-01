@@ -2,6 +2,10 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.io.PrintWriter" %>
 
 <jsp:include page="/view/layout/header.jsp" />
 
@@ -95,17 +99,6 @@ td {
    border-right: 1px solid white;
 }
 
-#btnDeleteBox {
-   float: left;
-}
-
-#btnOkBox {
-   display: inline-block;
-}
-
-#btnWriteBox {
-   float: right;
-}
 </style>
 
 <div class="container">
@@ -129,28 +122,51 @@ td {
         	<tr>
 				<c:choose>
 					<%-- checkbox 대기상태 = enabled, 수락됨 = disabled --%>
+					
                     <c:when test="${animal.status eq 0 }">
+                    
+                    <%-- ////// 수락되지 않은 동물 ////// --%>
+                    
 						<td><input type="checkbox" name="checkRow" value="${animal.animal_Code }" /></td>
 						<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
 					</c:when>
 					<c:when test="${animal.status eq 1 }">
-						<td><input type="checkbox" name="checkRow" value="${animal.animal_Code }" disabled /></td>
+						
+						<%-- 수락된 동물들 --%>
+						<%-- break 만들기 --%>
 						<c:set var="doneLoop" value="false" />
-        				
-        				<c:forEach items="${boardList }" var="board">
-        				${animal.animal_Code eq board.animalCode}${not doneLoop }
-        					<c:if test="${(animal.animal_Code eq board.animalCode) and not doneLoop }">
+						<c:set var="AllSet" value="false" />
+						
+						<c:if test="${not doneLoop }">
+							<c:forEach items="${adoptList }" var="adopt">
+								<c:if test="${adopt.status eq 1 }">
+									<c:if test="${animal.animal_Code eq adopt.animalCode}">
+										<%-- break; --%>
+										<c:set var="doneLoop" value="true" />
+										<c:set var="AllSet" value="true" />
+									</c:if>
+									</c:if>
+										<c:if test="${adopt.status ne 1 }">
+										<c:if test="${animal.animal_Code ne adopt.animalCode}">
+										<%-- break; --%>
+										<c:set var="doneLoop" value="true" />
+									</c:if>
+								</c:if>
+							</c:forEach>
+						</c:if>
+							
+							<c:if test="${AllSet eq true }">
+								<td><input type="checkbox" name="checkRow" value="${animal.animal_Code }" disabled/></td>
 								<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td>
-								<c:set var="doneLoop" value="true" />
 							</c:if>
-							<c:if test="${(animal.animal_Code ne board.animalCode) or not doneLoop }">
+							<c:if test="${AllSet ne true }">
+								<td><input type="checkbox" name="checkRow" value="${animal.animal_Code }" disabled /></td>
 								<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
-								<c:set var="doneLoop" value="true" />
 							</c:if>
-						</c:forEach>
+								
 					</c:when>
 				</c:choose>
-			      
+								
 				<td>${animal.animal_Gender_Code }</td>
 				<td>${animal.species_Name }</td>
 			</tr>
@@ -209,16 +225,10 @@ td {
          </c:if>
 
       </ul>
-      <div style="width: 50%">
-         <div id="btnDeleteBox">
-            <button id="btnDelete">거절</button>
-         </div>
-         <div id="btnOkBox">
-            <button id="btnOk">수락</button>
-         </div>
-         <div id="btnWriteBox">
-            <button id="btnWrite">글쓰기</button>
-         </div>
+      <div style="text-align: center">
+         <button id="btnDelete">거절</button>
+         <button id="btnOk">수락</button>
+         <button id="btnWrite">글쓰기</button>
       </div>
    </div>
 

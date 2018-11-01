@@ -3,195 +3,198 @@ package dto.board;
 import java.util.Date;
 
 public class Free_Board_param {
-
+	private int boardno; //게시글 코드
+	private int cateno; // 게시판코드
+	private String title; // 글제목
+	private String content; // 글내용
+	private Date insert_Dat; //작성일
+	private Date update_Dat; // 수정일
+	private int hit ; //조회수
+	private String userid; //작성자
+	private int recommend; //추천수
+	
+	//lock number(2) not null
+	//private int lock; -> freeboard dto에다가
+	//jsp 에서 리스트 출력할때 
+	
 	//검색
+	
+	private String namesearch;
+	private String contentsearch;
+	private Date datesearch;
 	
 	//정렬
 	
+	
 	//페이징
-	private int pageNum;
-	private int curPage; //현재 페이지 
+	 
+	private int recordCountPerPage = 10;
+	private int pageNumber = 0;
+	private int start = 1;
+	private int end = 10;
 	
-	
-	
-	private int totalCount;	//총 게시글 수 (DB 조회 결과로 얻어옴)
-	private int listCount;	//한 페이지당 출력될 게시글 수 (직접 설정함)
-	private int totalPage;// 총페이지수 
-	
-	
+	public Free_Board_param() {}
 
-	private int startPage;	//화면에 보이는 시작 페이지 (계산으로 알아냄)
-	private int endPage;	//화면에 보이는 끝 페이지 (계산으로 알아냄)
-	
-	private int startNo;	//게시물리스트 첫 번호
-	private int endNo;	//게시물리스트 마지막 번호
-
-public Free_Board_param(){};
-
-// 총 게시글 수만 입력하는 생성자
-//	curPage == 1
-//	pageCount == 10
-//	listCount == 10
-public Free_Board_param(int totalCount) {
-	this.setTotalPage(totalCount);
-	
-	makePaging();
-}
-
-// 총 게시글 수와 현재 페이지를 입력하는 생성자
-//	pageCount == 10
-//	listCount == 10
-public Free_Board_param(int totalCount, int curPage) {
-	this.setTotalPage(totalCount);
-	this.setCurPage(curPage);
-	
-	makePaging();
-}
-
-// 총 게시글 수와 현재 페이지, 보여지는 게시글 수를 입력하는 생성자
-//	pageCount == 10
-public Free_Board_param(int totalCount, int curPage, int listCount) {
-	this.setTotalPage(totalCount);
-	this.setCurPage(curPage);
-	this.setListCount(listCount);
-	
-	makePaging();
-}
-
-// 총 게시글 수와 현재 페이지, 보여지는 게시글 수, 페이지 수를 입력하는 생성자
-public Free_Board_param(int totalCount, int curPage, int listCount, int pageNum) {
-	this.setTotalPage(totalCount);
-	this.setCurPage(curPage);
-	this.setListCount(listCount);
-	this.setPageNum(pageNum);
-	
-	makePaging();
-}
-	
-	// 페이징 정보 생성
-	private void makePaging() {
-		if(totalCount == 0)	return; //게시글이 없는 경우
-		
-		// 기본값 설정
-		if(curPage == 0)	setCurPage(1);	//기본값으로 첫 페이지(1) 세팅
-		if(pageNum == 0)	setPageNum(10); //한 화면에 보이는 페이지수 기본값(10) 세팅
-		if(listCount == 0)	setListCount(10); //한 화면에 보이는 게시글수 기본값(10) 세팅
-	
-		// 총 페이지수 계산
-		totalPage = totalCount / listCount;
-		if( totalCount % listCount > 0 )	totalPage++;
-		
-		// 현재 페이지가 총 페이지보다 크게 입력되면
-		// 강제로 마지막페이지 고정
-		if (totalPage < curPage)	curPage = totalPage;
-		
-		
-		// 화면에 보일 시작 페이지 & 끝 페이지 설정 
-		startPage = ((curPage-1)/pageNum)*pageNum+1;
-		endPage = startPage+pageNum-1;
-		
-		// 계산된 마지막 페이지가 totalPage보다 커질 경우
-		// 강제로 최종 페이지까지만 보이도록 설정
-		if(endPage > totalPage)	endPage = totalPage;
-		
-		
-		// 게시글 시작번호
-		startNo = (curPage-1)*listCount+1;
-		// 게시글 끝번호
-		endNo = curPage*listCount;
+	public Free_Board_param(int boardno, int cateno, String title, String content, Date insert_Dat, Date update_Dat,
+			int hit, String userid, int recommend, String namesearch, String contentsearch, Date datesearch,
+			int recordCountPerPage, int pageNumber, int start, int end) {
+		super();
+		this.boardno = boardno;
+		this.cateno = cateno;
+		this.title = title;
+		this.content = content;
+		this.insert_Dat = insert_Dat;
+		this.update_Dat = update_Dat;
+		this.hit = hit;
+		this.userid = userid;
+		this.recommend = recommend;
+		this.namesearch = namesearch;
+		this.contentsearch = contentsearch;
+		this.datesearch = datesearch;
+		this.recordCountPerPage = recordCountPerPage;
+		this.pageNumber = pageNumber;
+		this.start = start;
+		this.end = end;
 	}
 
-	public Free_Board_param(int pageNum, int curPage, int totalCount, int listCount, int totalPage, int startPage,
-			int endPage, int startNo, int endNo) {
-		super();
-		this.pageNum = pageNum;
-		this.curPage = curPage;
-		this.totalCount = totalCount;
-		this.listCount = listCount;
-		this.totalPage = totalPage;
-		this.startPage = startPage;
-		this.endPage = endPage;
-		this.startNo = startNo;
-		this.endNo = endNo;
+	public int getBoardno() {
+		return boardno;
+	}
+
+	public void setBoardno(int boardno) {
+		this.boardno = boardno;
+	}
+
+	public int getCateno() {
+		return cateno;
+	}
+
+	public void setCateno(int cateno) {
+		this.cateno = cateno;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getInsert_Dat() {
+		return insert_Dat;
+	}
+
+	public void setInsert_Dat(Date insert_Dat) {
+		this.insert_Dat = insert_Dat;
+	}
+
+	public Date getUpdate_Dat() {
+		return update_Dat;
+	}
+
+	public void setUpdate_Dat(Date update_Dat) {
+		this.update_Dat = update_Dat;
+	}
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
+
+	public String getNamesearch() {
+		return namesearch;
+	}
+
+	public void setNamesearch(String namesearch) {
+		this.namesearch = namesearch;
+	}
+
+	public String getContentsearch() {
+		return contentsearch;
+	}
+
+	public void setContentsearch(String contentsearch) {
+		this.contentsearch = contentsearch;
+	}
+
+	public Date getDatesearch() {
+		return datesearch;
+	}
+
+	public void setDatesearch(Date datesearch) {
+		this.datesearch = datesearch;
+	}
+
+	public int getRecordCountPerPage() {
+		return recordCountPerPage;
+	}
+
+	public void setRecordCountPerPage(int recordCountPerPage) {
+		this.recordCountPerPage = recordCountPerPage;
+	}
+
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
 	}
 
 	@Override
 	public String toString() {
-		return "Free_Board_param [pageNum=" + pageNum + ", curPage=" + curPage + ", totalCount=" + totalCount
-				+ ", listCount=" + listCount + ", totalPage=" + totalPage + ", startPage=" + startPage + ", endPage="
-				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + "]";
+		return "Free_Board_param [boardno=" + boardno + ", cateno=" + cateno + ", title=" + title + ", content="
+				+ content + ", insert_Dat=" + insert_Dat + ", update_Dat=" + update_Dat + ", hit=" + hit + ", userid="
+				+ userid + ", recommend=" + recommend + ", namesearch=" + namesearch + ", contentsearch="
+				+ contentsearch + ", datesearch=" + datesearch + ", recordCountPerPage=" + recordCountPerPage
+				+ ", pageNumber=" + pageNumber + ", start=" + start + ", end=" + end + "]";
 	}
+	
+	
 
-	public int getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public int getCurPage() {
-		return curPage;
-	}
-
-	public void setCurPage(int curPage) {
-		this.curPage = curPage;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getListCount() {
-		return listCount;
-	}
-
-	public void setListCount(int listCount) {
-		this.listCount = listCount;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-	public int getEndPage() {
-		return endPage;
-	}
-
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
-	public int getStartNo() {
-		return startNo;
-	}
-
-	public void setStartNo(int startNo) {
-		this.startNo = startNo;
-	}
-
-	public int getEndNo() {
-		return endNo;
-	}
-
-	public void setEndNo(int endNo) {
-		this.endNo = endNo;
-	}
 	
 }

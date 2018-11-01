@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- 자바 스크립트 -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 <style>
 #menu_box>div {
 	float: left;
@@ -28,16 +31,23 @@
 	height: 0;
 }
 </style>
+<script>
+$(document).ready(function() {
+	$("#back").click(function(){
+		history.go(-1);
+	});
+});
+</script>
 </head>
 <body>
 	<div id="menu_box">
-		<div id="menu1"><a href="/adoption/application/list">입양 신청 리스트</a></div>
+		<div id="menu1">
+			<a href="/adoption/application/list">입양 신청 리스트</a>
+		</div>
 		<div id="menu2">입양 보내기 리스트</div>
-		<div id="menu3">text_box3</div>
+
 		<br>
-		<div id="menu4">text_box4</div>
-		<div id="menu5">text_box5</div>
-		<div id="menu6">text_box6</div>
+		<button id="back">돌아가기</button>
 
 
 	</div>

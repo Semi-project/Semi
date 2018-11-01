@@ -3,6 +3,7 @@ package dao.board.notice;
 import java.util.List;
 
 import dto.board.Notice_Board;
+import dto.file.Notice_Filetb;
 import util.Paging;
 
 public interface Notice_BoardDao {
@@ -50,6 +51,8 @@ public interface Notice_BoardDao {
 		public Notice_Board selectByComment_No (Notice_Board noticeBoard);
 
 		public String selectNickByBoardno(Notice_Board notice_Board);
+
+		public void insertFile(Notice_Filetb notice_Filetb);
 
 
 }

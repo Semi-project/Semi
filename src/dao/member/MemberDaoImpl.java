@@ -9,6 +9,7 @@ import java.util.List;
 
 import dto.member.Member;
 import util.DBConn;
+import util.Paging;
 
 public class MemberDaoImpl implements MemberDao {
 
@@ -144,12 +145,6 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> selectMemberAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int insertMember(Member member) {
 		int cnt = -1;
 		String sql = "";
@@ -192,7 +187,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void updateMember(Member member) {
+	public int updateMember(Member member) {
 		String sql = "";
 		sql += "UPDATE member";
 		sql += " SET phone = ? ,";
@@ -235,6 +230,7 @@ public class MemberDaoImpl implements MemberDao {
 			}
 
 		}
+		return 1;
 
 	}
 
@@ -245,8 +241,37 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void deleteMemberByUserId(Member member) {
-		// TODO Auto-generated method stub
+	public void deleteMemberByUserId(Member member) throws SQLException {
+
+		String sql = "";
+		sql += "DELETE member";
+		sql += " WHERE userid= ?";
+		sql += " AND userpw = ?";
+
+		try {
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, member.getUserid());
+			ps.setString(2, member.getUserpw());
+
+			ps.executeQuery();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			conn.rollback();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
@@ -283,6 +308,50 @@ public class MemberDaoImpl implements MemberDao {
 		}
 
 		return cnt;
+	}
+
+	@Override
+	public List<Member> selectMemberAll(Paging paging) {
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += " SELECT rownum rnum, B.* FROM (";
+		sql += " 	SELECT ";
+		sql += " 	* FROM Member ";
+		if (paging.getSearch() != null && !"".equals(paging.getSearch())) {
+			sql += " WHERE userid LIKE '%" + paging.getSearch() + "%'";
+		}
+		sql += " 	ORDER BY userid";
+		sql += " ) B";
+		sql += " ORDER BY rnum";
+		sql += ")";
+		sql += "WHERE rnum between ? AND ?";
+		List<Member> list = new ArrayList<Member>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Member m = new Member();
+				m.setUserid(rs.getString("userid"));
+				m.setUserpw(rs.getString("userpw"));
+				m.setName(rs.getString("name"));
+				m.setGender(rs.getString("gender"));
+				m.setUserbirth(rs.getDate("userbirth"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setEmail(rs.getString("email"));
+				m.setSubscription_no(rs.getInt("subscription_no"));
+				m.setRole_id(rs.getInt("role_id"));
+				list.add(m);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 
 	@Override
@@ -394,6 +463,43 @@ public class MemberDaoImpl implements MemberDao {
 			}
 		}
 		return m;
+	}
+
+	@Override
+	public int selectCntAll(String search) {
+		String sql = "";
+		sql += "SELECT COUNT(*) FROM member";
+		if (search != null && !"".equals(search)) {
+			sql += " WHERE userid LIKE '%" + search + "%'";
+		}
+
+		// DB 객체
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		int cnt = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			rs.next();
+
+			cnt = rs.getInt(1);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return cnt;
 	}
 
 }

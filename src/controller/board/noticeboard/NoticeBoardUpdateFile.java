@@ -23,7 +23,8 @@ import service.board.notice.Notice_BoardServiceImpl;
 @WebServlet("/noticeboard/file/update")
 public class NoticeBoardUpdateFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Notice_BoardService boardService = new Notice_BoardServiceImpl();
+	
+	private Notice_BoardService boardService = new Notice_BoardServiceImpl();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
