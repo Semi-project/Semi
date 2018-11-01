@@ -589,4 +589,46 @@ public class AdoptionDaoImpl implements AdoptionDao {
 		return cnt;
 	}
 
+	@Override
+	public Adoption getByanimalCode(Adoption adoption) {
+
+		String sql = "SELECT * FROM adoption WHERE animal_code=?";
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, adoption.getAnimalCode());
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+				adoption.setAdoptionCalltime(rs.getString("adoption_calltime"));
+				adoption.setAdoptionHousing(rs.getString("adoption_housing"));
+				adoption.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+				adoption.setAdoptionExp(rs.getString("adoption_exp"));
+				adoption.setAdoptionReason(rs.getString("adoption_reason"));
+				adoption.setAnimalName(rs.getString("animal_name"));
+				adoption.setUserid(rs.getString("userid"));
+				adoption.setStatus(rs.getInt("status"));
+				adoption.setAdoptionCode(rs.getInt("adoption_code"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(ps!=null)	ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return adoption;
+	}
+
 }

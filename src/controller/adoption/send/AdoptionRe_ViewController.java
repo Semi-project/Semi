@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.adoption.Adoption;
 import dto.animal.Animal;
+import service.adoption.AdoptionService;
+import service.adoption.AdoptionServiceImpl;
 import service.animal.AnimalService;
 import service.animal.AnimalServiceImpl;
 
@@ -20,14 +23,17 @@ public class AdoptionRe_ViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private AnimalService animalService = new AnimalServiceImpl();
+	private AdoptionService adoptionService = new AdoptionServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Animal animal = animalService.getParam(req, resp);
-		
 		animal = animalService.selectAnimalByanimal_Code(animal);
-		
+		System.out.println(animal.getAnimal_Code());
+		Adoption adoption = adoptionService.getByanimalCode(animal);
+		System.out.println(adoption.getAnimalCode());
+		req.setAttribute("adoption", adoption);
 		req.setAttribute("animal", animal);
 		
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendView.jsp").forward(req, resp);

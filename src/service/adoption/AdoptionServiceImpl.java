@@ -154,4 +154,14 @@ public class AdoptionServiceImpl implements AdoptionService {
 		return adoptionDao.selectStatusbyanimalName(adoption);
 	}
 
+	@Override
+	public Adoption getByanimalCode(Animal animal) {
+		
+		Adoption adoption = new Adoption();
+		
+		adoption.setAnimalCode(animal.getAnimal_Code());
+		
+		return adoption;
+	}
+
 }

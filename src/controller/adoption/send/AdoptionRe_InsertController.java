@@ -51,7 +51,13 @@ public class AdoptionRe_InsertController extends HttpServlet {
 
 		animalService.write(req, resp);
 
-		resp.sendRedirect("/adoption/send/list");
+		int roleControl = (int) req.getSession().getAttribute("role_id");
+		
+		if(roleControl==0) {
+			resp.sendRedirect("/adoption/send/list");
+		} else if(roleControl==1) {
+			resp.sendRedirect("/adoption/send/mlist");
+		}
 
 	}
 

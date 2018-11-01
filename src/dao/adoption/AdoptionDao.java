@@ -36,4 +36,7 @@ public interface AdoptionDao {
 	public void update(Adoption adoption);
 	
 	public int selectStatusbyanimalName(Adoption adoption);
+	
+	// 동물 코드로 입양 신청서 가져오기
+	public Adoption getByanimalCode(Adoption adoption);
 }

@@ -62,24 +62,36 @@ td {
 <c:forEach items="${animalList }" var="animal">
 
 <tr>
-	<c:forEach items="${boardList }" var="board">
-		<c:choose>
-			<c:when test="${animal.animal_Code eq board.animalCode }">
-				<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td>
-			</c:when>
-			<c:when test="${animal.animal_Code ne board.animalCode }">
-				<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
-			</c:when>
-		</c:choose>
+	<c:if test="${animal.status eq 1 }">
+		<c:set var="doneLoop" value="false" />
+		<c:set var="AllSet" value="false" />
+
+		<c:if test="${not doneLoop }">
+			<c:forEach items="${adoptList }" var="adopt">
+				<c:if test="${adopt.status eq 1 }">
+					<c:if test="${animal.animal_Code eq adopt.animalCode}">
+						<%-- break; --%>
+						<c:set var="doneLoop" value="true" />
+						<c:set var="AllSet" value="true" />
+					</c:if>
+				</c:if>
+				<c:if test="${adopt.status ne 1 }">
+					<c:if test="${animal.animal_Code ne adopt.animalCode}">
+						<%-- break; --%>
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+				</c:if>
+			</c:forEach>
+		</c:if>
 		
+		<c:if test="${AllSet eq true }">
+			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td>
+		</c:if>
+		<c:if test="${AllSet ne true }">
+			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
+		</c:if>
 		
-<%-- 		<c:if test="${animal.animal_Code eq board.animalCode }"> --%>
-<%-- 			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td> --%>
-<%-- 		</c:if> --%>
-<%-- 		<c:if test="${animal.animal_Code ne board.animalCode }"> --%>
-<%-- 			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td> --%>
-<%-- 		</c:if> --%>
-	</c:forEach>
+		</c:if>
 <td>${animal.animal_Gender_Code }</td>
 <td>${animal.species_Name }</td>
 </tr>
@@ -154,8 +166,6 @@ td {
 		<button id="btnWrite">글쓰기</button>
 	</div>
 	</div>
-</div>
-
 </div>
 
 <jsp:include page="/view/layout/footer.jsp" />

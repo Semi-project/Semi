@@ -8,14 +8,20 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnList").click(function() {
-		$(location).attr("href", "/adoption/send/list");
+		
+		var userControl = ${role_id};
+		
+		if(userControl == 0){
+			$(location).attr("href", "/adoption/send/list");
+		} else if(userControl == 1)
+			$(location).attr("href", "/adoption/send/mlist");
+		
 	});
-// 	$("#btnUpdate").click(function() {
-// 		$(location).attr("href", "/board/update?boardno=${boardView.boardno }");
-// 	});
+	
 	$("#btnDelete").click(function() {
 		$(location).attr("href", "/adoption/send/delete?animal_code=${animal.animal_Code }");
 	});
+	
 	$("#btnCharity").click(function(){
 		
 		var animalCode = ${animal.animal_Code};
@@ -68,7 +74,15 @@ $(document).ready(function() {
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>
 	<button id="btnDelete" class="btn btn-danger">삭제</button>
-	<button id="btnCharity" class="btn btn-info">후원하기</button>
+	
+	<c:if test="${adoption.status == 0 }">
+		<button id="btnCharity" class="btn btn-info" style="visibility: visible;">후원하기</button>
+	</c:if>
+	<c:if test="${adoption.status != 1 }">
+		<button id="btnCharity" class="btn btn-info" style="visibility: hidden;">후원하기</button>
+	</c:if>
+	
+	
 </div>
 </div>
 

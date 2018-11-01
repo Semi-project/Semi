@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.adoption.Adoption;
+import dto.animal.Animal;
 import dto.file.Animal_Filetb;
 import util.Paging;
 
@@ -49,4 +50,7 @@ public interface AdoptionService {
 	public void write(HttpServletRequest req, HttpServletResponse resp);
 
 	public int getStatus(Adoption adoption);
+	
+	// 동물코드로 입양 신청서 찾기
+	public Adoption getByanimalCode(Animal animal);
 }
