@@ -278,11 +278,11 @@ public class AnimalServiceImpl implements AnimalService {
 										// JPG, GIF, PNG, BMP
 									} else {
 										file.setFile_OriginName(data);
-										//									System.out.println("1: " + file);
+										// System.out.println("1: " + file);
 										if (file.getFile_SaveName() != null) {
-											//										file.setAnimal_Code(animalDao.selectSeqNextval());
+											// file.setAnimal_Code(animalDao.selectSeqNextval());
 											file.setFileno(animal_fileDao.selectFileno());
-											//										System.out.println("2:" + file);
+											// System.out.println("2:" + file);
 											animal_fileDao.insertFiletb(file);
 
 										}

@@ -1,7 +1,6 @@
 package controller.adoption.send;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -43,57 +42,10 @@ public class AdoptionRe_ListController extends HttpServlet {
 		List<Animal> animalList = animalService.getPagingListAdmin(paging);
 		req.setAttribute("animalList", animalList);
 
+		// 입양신청서 리스트
 		List<Adoption> list = adoptionService.getList();
-		req.setAttribute("boardList", list);
-
-		///////////////테스트////////////////////////////////////
-		for(int i=0; i<animalList.size(); i++) {
-			System.out.println((i+1) +". " + animalList.get(i).getAnimal_Name());
-		}
-
-		System.out.println("---------------------");
-
-		for(int i=0; i<animalList.size(); i++) {
-			if(animalList.get(i).getStatus()==0) {
-				//				System.out.println("승인되지 않은 동물: " + animalList.get(i).getAnimal_Name());
-				System.out.println(animalList.get(i).getAnimal_Name());
-			} else if(animalList.get(i).getStatus()==1) {
-
-				boolean doneList = false;
-				List check = new ArrayList<>();
-
-				if(doneList == false) {
-					for(int j=0; j<list.size(); j++) {
-
-						if(animalList.get(i).getAnimal_Code() == list.get(j).getAnimalCode()) {
-							doneList = true;
-							check.add(true);
-						} else if(animalList.get(i).getAnimal_Code() != list.get(j).getAnimalCode()) {
-							doneList = true;
-							check.add(false);
-						}
-					}
-
-					boolean doneCheck = false;
-					if(doneCheck!=true) {					
-						for(int k=0; k<check.size(); k++) {
-							if(check.contains(true)) {
-								//System.out.println("승인되고 신청된 동물 : " + animalList.get(i).getAnimal_Name());
-								System.out.println(animalList.get(i).getAnimal_Name() + " [ 입양 완료 ]");
-								doneCheck = true;
-							} else if(!check.contains(true)){
-								//System.out.println("승인되고 신청되지 않은 동물 : " + animalList.get(i).getAnimal_Name());
-								System.out.println(animalList.get(i).getAnimal_Name());
-								doneCheck = true;
-							}
-						}
-					}
-
-				}
-			}
-		}
-
-
+		req.setAttribute("adoptList", list);
+		
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
 

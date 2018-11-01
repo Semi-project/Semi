@@ -16,6 +16,15 @@ $(document).ready(function() {
 	$("#btnDelete").click(function() {
 		$(location).attr("href", "/adoption/send/delete?animal_code=${animal.animal_Code }");
 	});
+	$("#btnCharity").click(function(){
+		
+		var animalCode = ${animal.animal_Code};
+		
+		var animalName = ${animal.animal_Name};
+		var url = '/charity/start?animalCode=' + animalCode + "&animalName=" + animalName;
+		
+		location.href = url;
+	});
 });
 </script>
 
@@ -25,9 +34,11 @@ $(document).ready(function() {
 <hr>
 
 <div>
+<form id="animalInfo" action="/charity/start" method="POST">
 <table class="table table-bordered">
 <tr>
 	<td class="info">동물번호</td><td>${animal.animal_Code }</td>
+	
 </tr>
 <tr>
 	<td class="info">이름</td><td colspan="2">${animal.animal_Name }</td>
@@ -51,12 +62,13 @@ $(document).ready(function() {
 	<td class="info">특징</td><td colspan="2">${animal.animal_Feature }</td>
 </tr>
 </table>
+</form>
 </div>
 
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>
-	<button id="btnUpdate" class="btn btn-info">수정</button>
 	<button id="btnDelete" class="btn btn-danger">삭제</button>
+	<button id="btnCharity" class="btn btn-info">후원하기</button>
 </div>
 </div>
 

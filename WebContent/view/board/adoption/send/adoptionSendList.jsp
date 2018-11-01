@@ -149,15 +149,19 @@ td {
 						<c:set var="AllSet" value="false" />
 						
 						<c:if test="${not doneLoop }">
-							<c:forEach items="${boardList }" var="board">
-								<c:if test="${animal.animal_Code eq board.animalCode}">
-									<%-- break; --%>
-									<c:set var="doneLoop" value="true" />
-									<c:set var="AllSet" value="true" />
-								</c:if>
-								<c:if test="${animal.animal_Code ne board.animalCode}">
-									<%-- break; --%>
-									<c:set var="doneLoop" value="true" />
+							<c:forEach items="${adoptList }" var="adopt">
+								<c:if test="${adopt.status eq 1 }">
+									<c:if test="${animal.animal_Code eq adopt.animalCode}">
+										<%-- break; --%>
+										<c:set var="doneLoop" value="true" />
+										<c:set var="AllSet" value="true" />
+									</c:if>
+									</c:if>
+										<c:if test="${adopt.status ne 1 }">
+										<c:if test="${animal.animal_Code ne adopt.animalCode}">
+										<%-- break; --%>
+										<c:set var="doneLoop" value="true" />
+									</c:if>
 								</c:if>
 							</c:forEach>
 						</c:if>

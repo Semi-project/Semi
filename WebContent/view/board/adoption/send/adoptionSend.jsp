@@ -17,7 +17,6 @@ div.title {
 $(document).ready(function() {
 
 	$("#btnCancel").click(function() {
-		
 		history.go(-1);
 	});
 
