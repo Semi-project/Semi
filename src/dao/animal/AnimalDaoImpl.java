@@ -266,7 +266,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters,";
 		sql += " animal_feature, status,";
-		sql += " animal.species_code, species_name";
+		sql += " animal.species_code, species_name, userid";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code=animal.species_code";
 		sql += " ORDER BY animal_code DESC";
@@ -298,6 +298,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus(rs.getInt("status"));
 				animal.setSpecies_Code(rs.getInt("species_code"));
 				animal.setSpecies_Name(rs.getString("species_name"));
+				animal.setUserid(rs.getString("userid"));
 
 				list.add(animal);
 			}
@@ -326,7 +327,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters,";
 		sql += " animal_feature, status,";
-		sql += " animal.species_code, species_name";
+		sql += " animal.species_code, species_name, userid";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code = animal.species_code";
 		sql += " AND status=1";
@@ -359,6 +360,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus(rs.getInt("status"));
 				animal.setSpecies_Code(rs.getInt("species_code"));
 				animal.setSpecies_Name(rs.getString("species_name"));
+				animal.setUserid(rs.getString("userid"));
 
 				list.add(animal);
 			}

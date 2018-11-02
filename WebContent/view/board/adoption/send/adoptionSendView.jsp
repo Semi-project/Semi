@@ -37,6 +37,8 @@ $(document).ready(function() {
 <table class="table table-bordered">
 <tr>
 	<td class="info">동물번호</td><td>${animal.animal_Code }</td>
+</tr>
+<tr>
 	<td class="info">입양 보내는 분</td><td>${animal.userid }</td>
 </tr>
 <tr>
