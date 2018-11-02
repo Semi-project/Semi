@@ -19,6 +19,8 @@ $(document).ready(function() {
 	});
 	
 	$("#btnDelete").click(function() {
+		
+		
 		$(location).attr("href", "/adoption/send/delete?animal_code=${animal.animal_Code }");
 	});
 	
@@ -35,7 +37,7 @@ $(document).ready(function() {
 <table class="table table-bordered">
 <tr>
 	<td class="info">동물번호</td><td>${animal.animal_Code }</td>
-	
+	<td class="info">입양 보내는 분</td><td>${animal.userid }</td>
 </tr>
 <tr>
 	<td class="info">이름</td><td colspan="2">${animal.animal_Name }</td>
@@ -64,7 +66,9 @@ $(document).ready(function() {
 
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>
-	<button id="btnDelete" class="btn btn-danger">삭제</button>	
+	<c:if test="${role_control eq 0 }">
+		<button id="btnDelete" class="btn btn-danger">삭제</button>
+	</c:if>	
 </div>
 </div>
 

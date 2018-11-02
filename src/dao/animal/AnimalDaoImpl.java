@@ -102,8 +102,8 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql = "INSERT INTO animal";
 		sql += " (animal_name, animal_code, animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters, animal_feature, ";
-		sql += " status, species_code)";
-		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		sql += " status, species_code, userid)";
+		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn.setAutoCommit(false);
@@ -118,7 +118,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setString(6, animal.getAnimal_Neuters());
 			ps.setString(7, animal.getAnimal_Feature());
 			ps.setInt(8, 0);
-			ps.setInt(9, 2002);
+			ps.setInt(9, animal.getSpecies_Code());
+			ps.setString(10, animal.getUserid());
 
 			ps.executeUpdate();
 

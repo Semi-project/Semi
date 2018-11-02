@@ -66,7 +66,11 @@ $(document).ready(function() {
 			enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
-					<td>이름</td>
+					<td>유저 아이디</td>
+					<td><input type="text" id="userid" name="userid" value="${userid }" readonly /></td>
+				</tr>
+				<tr>
+					<td>동물 이름</td>
 					<td><input type="text" id="name" name="name" /></td>
 				</tr>
 				<tr>
