@@ -18,5 +18,8 @@ public interface Notice_CommentDao {
 
 	// 댓글 카운트 - 댓글 존재 여부 확인
 	public int countComment(Notice_Comments comment);
+	
+	//댓글 검색 - userid
+	public Notice_Comments selectNotice_CommentByUserId(Notice_Comments comment);
 
 }

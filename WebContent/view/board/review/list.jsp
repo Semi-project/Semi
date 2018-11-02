@@ -84,7 +84,34 @@
 .sub_photo .tx_brief a {
 	color: #666
 }
+
+.thumbnail {
+	background-color: gray;
+	margin: 10px;
+	width: 150px;
+	height: 150px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
 /* //갤러리 */
+
+/* 버튼 좌우정렬 및 상하정렬 */
+#btnWriteBox {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	height: 30px;
+	margin: auto;
+}
+
+#btnWriteBox {
+	right: 10px;
+}
+
+#btnWrite {
+	height: 25px;
+}
 </style>
 
 <script>
@@ -96,38 +123,39 @@
 </script>
 <div class="col-lg-2"></div>
 <!-- 갤러리시작 -->
-<div class="col-lg-8">
+<div class="col-lg-12 text-center">
 	<div class="sub_photo">
 		<div class="title_area">
 			<h4 class="hh_photo">
 				<strong class="blind">갤러리</strong>
 			</h4>
 		</div>
-		<ul>
-			<c:forEach items="${boardList }" var="board" varStatus="status">
-				<li>
-					<p class="thmb">
-						<a href="#"> <img
-							src="${fileList[status.index].file_SaveName}" alt="">
-						</a>
-					</p> <a
-					href="/review/view?boardno=${board.boardno }&curPage=${paging.curPage}"><strong>${board.title }</strong></a>
-					<p class="tx_brief">
-						<fmt:formatDate value="${board.insert_dat }" pattern="yyyy-MM-dd" />
-					</p>
-				</li>
-			</c:forEach>
-			<!-- li가 게시판 1개글입니다 보일 갤러리 갯수만큼 li반복합니다.-->
-		</ul>
+		<div>
+			<ul>
+				<c:forEach items="${boardList }" var="board" varStatus="status">
+					<li>
+						<p class="thmb">
+						<div class="thumbnail"
+							style="background-image:url('${fileList[status.index].file_SaveName}')"></div>
+						</p> <a
+						href="/review/view?boardno=${board.boardno }&curPage=${paging.curPage}"><strong>${board.title }</strong></a>
+						<p class="tx_brief">
+							<fmt:formatDate value="${board.insert_dat }" pattern="yyyy-MM-dd" />
+						</p>
+					</li>
+				</c:forEach>
+				<!-- li가 게시판 1개글입니다 보일 갤러리 갯수만큼 li반복합니다.-->
+			</ul>
+		</div>
 	</div>
 	<!-- 갤러리끝 -->
 </div>
-<div class="col-lg-2"></div>
-
-
-<div id="btnBox" style="float: right; margin-top: 10px">
+<div class="col-lg-12 text-center">
 	<button id="btnWrite">글쓰기</button>
+	<div id="btnBox" style="float: right; margin-top: 10px"></div>
 </div>
+
+
 <div class="col-lg-12">
 	<div id="pagingBox" class="text-center">
 		<ul class="pagination pagination-sm">

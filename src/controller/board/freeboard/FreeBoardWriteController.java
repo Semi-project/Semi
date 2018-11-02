@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.board.Free_Board;
 import service.board.free.Free_BoardService;
 import service.board.free.Free_BoardServiceImpl;
 
@@ -21,6 +22,8 @@ public class FreeBoardWriteController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//로그인 처리 
+		Free_Board freeboard =new Free_Board();
+//		System.out.println("씨크릿"+freeboard.getSecret());
 		
 		if(req.getSession().getAttribute("login")==null) {
 			resp.sendRedirect("/main");

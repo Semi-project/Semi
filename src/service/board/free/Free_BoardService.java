@@ -65,4 +65,25 @@ public interface Free_BoardService {
 		//페이징위해 
 		public int getCurPage(HttpServletRequest req);
 		
-}
+		//검색 파라미터 받기 
+		public String nameSearch(HttpServletRequest req);
+		
+		
+		//추천
+		/*
+		 * 게시글 추천상태 확인
+		 * 	true - 추천한 게시글
+		 * 	false - 추천한적 없는 게시글
+		 */
+		public boolean recommendCheck(Free_Board chk);
+		
+		// 추천 로직
+		public boolean recommend(Free_Board board);
+		
+		// 추천수 구하기
+		public int getRecommend(Free_Board board);
+	}
+
+	
+		
+

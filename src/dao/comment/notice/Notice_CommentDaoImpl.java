@@ -9,7 +9,6 @@ import java.util.List;
 import dto.board.Notice_Board;
 import dto.comment.Notice_Comments;
 import util.DBConn;
-import util.Paging;
 
 public class Notice_CommentDaoImpl implements Notice_CommentDao {
 
@@ -86,6 +85,12 @@ public class Notice_CommentDaoImpl implements Notice_CommentDao {
 	public int countComment(Notice_Comments comment) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Notice_Comments selectNotice_CommentByUserId(Notice_Comments comment) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

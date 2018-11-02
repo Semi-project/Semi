@@ -18,8 +18,8 @@ import dao.board.free.Free_BoardDao;
 import dao.board.free.Free_BoardDaoImpl;
 import dao.board.recommend.RecommendDao;
 import dao.board.recommend.RecommendDaoImpl;
-import dao.board.review.BoardCateDao;
-import dao.board.review.BoardCateDaoImpl;
+import dao.comment.free.Free_CommentDao;
+import dao.comment.free.Free_CommentDaoImpl;
 import dao.file.free.Free_FileDao;
 import dao.file.free.Free_FileDaoImpl;
 import dao.member.MemberDao;
@@ -28,16 +28,14 @@ import dto.board.Free_Board;
 import dto.board.Free_Board_param;
 import dto.comment.Free_Comments;
 import dto.file.Free_Filetb;
-import util.Paging;
 
 public class Free_BoardServiceImpl implements Free_BoardService {
 
 	private Free_BoardDao freeboardDao = new Free_BoardDaoImpl();
 	private MemberDao memberDao = new MemberDaoImpl();
-	private BoardCateDao boardCateDao = new BoardCateDaoImpl();
 	private RecommendDao recommentsDao = new RecommendDaoImpl();
 	private Free_FileDao free_fileDao = new Free_FileDaoImpl();
-
+	private Free_CommentDao freecommentdao = new Free_CommentDaoImpl();
 	@Override
 	public List<Free_Board> selectFreeboard(Free_Board_param fbp) {
 
@@ -363,11 +361,11 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 
 		Free_Board_param fbp= new Free_Board_param();
 
-		String pageNum = req.getParameter("pageNum");
+		String pageNumber = req.getParameter("pageNumber");
 		//System.out.println(pageNum);
 		//null이나 ""이 아니면 int로 변환하여 DTO에 저장
-		if( pageNum != null && !"".equals(pageNum) ) {
-			fbp.setPageNum(Integer.parseInt(pageNum));
+		if( pageNumber != null && !"".equals(pageNumber) ) {
+			fbp.setPageNumber(Integer.parseInt(pageNumber));
 		}
 
 		return fbp;
@@ -383,17 +381,53 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	}
 	@Override
 	public int getCurPage(HttpServletRequest req) {
-		//요청파라미터 받기
-		String curPage = req.getParameter("curPage");
-
-		//null이나 ""이 아니면 int로 리턴
-		if( curPage != null && !"".equals(curPage) ) {
-			return Integer.parseInt( curPage );
-		}
-
-		//null이나 "" 면 0으로 반환
-		return 0;
+	return 0;
 	}
+	
+	
+	
+	
+	@Override
+	public String nameSearch(HttpServletRequest req) {
+		//요청파라미터 받기
+		String namesearch = req.getParameter("search");
+	System.out.println(namesearch);
+		return namesearch;
+	}
+	
+	
+	//추천
+	
+	
+	@Override
+	public boolean recommendCheck(Free_Board freeboard) {
+		System.out.println(freeboard);
+		if( recommentsDao.selectCountRecommend(freeboard) > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	@Override
+	public boolean recommend(Free_Board board) {
+		if( recommendCheck(board) ) {
+			recommentsDao.deleteRecommend(board);
+			return false;
+		} else {
+			recommentsDao.insertRecommend(board);
+			return true;
+		}
+		
+	}
+	
+	@Override
+	public int getRecommend(Free_Board freeboard) {
+		return recommentsDao.selectTotalRecommend(freeboard);
+	
+	}
+	
+
+	
 
 
 

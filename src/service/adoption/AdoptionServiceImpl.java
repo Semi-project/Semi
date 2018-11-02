@@ -119,29 +119,6 @@ public class AdoptionServiceImpl implements AdoptionService {
 		adoptionDao.deleteAdoptionList(names);
 	}
 
-	@Override
-	public void update(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getTotalCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getNick(Adoption adoption) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Animal_Filetb viewFile(Adoption adoption) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void updateList(String names) {
@@ -156,13 +133,12 @@ public class AdoptionServiceImpl implements AdoptionService {
 
 	@Override
 	public Adoption getByanimalCode(Animal animal) {
-		
 		Adoption adoption = new Adoption();
-		
+
 		adoption.setAnimalCode(animal.getAnimal_Code());
-		
+
 		adoption = adoptionDao.getByanimalCode(adoption);
-		
+
 		return adoption;
 	}
 

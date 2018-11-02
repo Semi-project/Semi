@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.board.Notice_Board;
+import dto.file.Notice_Filetb;
 import util.DBConn;
 import util.Paging;
 
 public class Notice_BoardDaoImpl implements Notice_BoardDao {
+	
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 	// DB연결 객체
 	private Connection conn = DBConn.getConnection();
 
-//----------------------------------------------------------------------
+//공지사항 리스트----------------------------------------------------------------------
 	@Override
 	public List<Notice_Board> selectNoticeBoardAll() {
 		String sql = "";
@@ -72,16 +74,15 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		
 		String sql = "";
 		sql += "INSERT INTO notice_board(BOARDNO,CATENO,TITLE,CONTENT,HIT,USERID,RECOMEND)";
-		sql += " VALUES(?, ?, ?, ?, 0,?,0)";
+		sql += " VALUES(notice_board_seq.currval, 1001, ?, ?, 0,?,0)";
 		ps = null;
 		try {
 			conn.setAutoCommit(false);
+			
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, noticeBoard.getBoardno());
-			ps.setInt(2, noticeBoard.getCateno());
-			ps.setString(3, noticeBoard.getTitle());
-			ps.setString(4, noticeBoard.getContent());
-			ps.setString(5, noticeBoard.getUserid());
+			ps.setString(1, noticeBoard.getTitle());
+			ps.setString(2, noticeBoard.getContent());
+			ps.setString(3, noticeBoard.getUserid());
 			ps.executeUpdate();
 
 			conn.commit();
@@ -96,31 +97,27 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		} finally {
 			try {
 				// DB객체 닫기
-				if (ps != null)
-					ps.close();
+				if (ps != null)		ps.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
-//----------------------------------------------------------------------
+//글 수정----------------------------------------------------------------------
 	@Override
 	public void updateNoticeBoard(Notice_Board noticeBoard) {
 
 		// 다음 게시글 번호 조회 쿼리
 		String sql = "";
-		sql += "UPDATE notice_board";
+		sql += " UPDATE notice_board";
 		sql += " SET title = ?,";
-		sql += " 	content = ?";
+		sql += " content = ?";
 		sql += " WHERE boardno = ?";
-		ps = null;
 
 		try {
 			conn.setAutoCommit(false);
 
-			// DB작업
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, noticeBoard.getTitle());
 			ps.setString(2, noticeBoard.getContent());
@@ -141,16 +138,20 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		} finally {
 			try {
 				// DB객체 닫기
-				if (ps != null)
-					ps.close();
+				if (ps != null)		ps.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
-//----------------------------------------------------------------------
+	
+@Override
+	public void insertFile(Notice_Filetb notice_Filetb) {
+		// TODO Auto-generated method stub
+		
+	}
+	//----------------------------------------------------------------------
 	@Override
 	public String selectNoticeBoardByTitle(Notice_Board noticeBoard) {
 		// TODO Auto-generated method stub
@@ -290,13 +291,11 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		}
 
 	}
-//----------------------------------------------------------------------
+//공지사항 글 삭제----------------------------------------------------------------------
 	@Override
 	public void deleteNoticeBoard(Notice_Board noticeBoard) {
 		String sql = "DELETE notice_board WHERE boardno=?";
-
-		// DB 객체
-		ps = null;
+		String name = null;
 
 		try {
 			conn.setAutoCommit(false);
@@ -320,14 +319,12 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		} finally {
 			try {
 				// DB객체 닫기
-				if (ps != null)
-					ps.close();
+				if (ps != null)		ps.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
 //----------------------------------------------------------------------
 	@Override

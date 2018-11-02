@@ -1,5 +1,6 @@
 package service.member;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,32 +13,32 @@ import javax.servlet.http.HttpServletResponse;
 import dao.member.MemberDao;
 import dao.member.MemberDaoImpl;
 import dto.member.Member;
+import util.Paging;
 
 public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao = new MemberDaoImpl();
 
-	@Override
-	public Member login(Member member) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void logout(Member member) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public Member selectMemberByUserId(Member member) {
 		return memberDao.selectMemberByUserId(member);
 	}
+
 	@Override
 	public void updateMember(HttpServletRequest req, Member member) throws Exception {
 		memberDao.updateMember(member);
 
 	}
+	@Override
+	public int updateMember(Member member ) throws Exception {
+		int result = 0;
+		
+		result = memberDao.updateMember(member);
+		
+		return result;
 
+	}
 	@Override
 	public void updateMemberPassword(Member member) {
 		// TODO Auto-generated method stub
@@ -45,8 +46,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void deleteMemberByUserId(Member member) {
-		// TODO Auto-generated method stub
+	public void deleteMemberByUserId(Member member) throws Exception {
+		memberDao.deleteMemberByUserId(member);
 
 	}
 
@@ -127,5 +128,36 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectCntMemberByUser(member);
 	}
 
+	@Override
+	public List<Member> getAllList(Paging paging) {
+
+		return memberDao.selectMemberAll(paging);
+	}
+
+	@Override
+	public String getSearch(HttpServletRequest req) {
+		String search = req.getParameter("search");
+
+		return search;
+	}
+
+	@Override
+	public int getCurPage(HttpServletRequest req) {
+		// 요청파라미터 받기
+		String curPage = req.getParameter("curPage");
+
+		// null이나 ""이 아니면 int로 리턴
+		if (curPage != null && !"".equals(curPage)) {
+			return Integer.parseInt(curPage);
+		}
+
+		// null이나 "" 면 0으로 반환
+		return 0;
+	}
+
+	@Override
+	public int getTotalCount(String search) {
+		return memberDao.selectCntAll(search);
+	}
 
 }

@@ -24,18 +24,18 @@ public class FreeBoardUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Free_Board freeboard = freeboardService.getParam(req, resp);
-		System.out.println("프리보드 "+freeboard);
+//		System.out.println("프리보드 "+freeboard);
 	
 		Free_Board view=freeboardService.view(freeboard);
-		System.out.println("뷰값"+view);
+//		System.out.println("뷰값"+view);
 		
 		req.setAttribute("view", view);
-//		req.setAttribute("userid",freeboardService.getUserid(freeboard));
+		req.setAttribute("userid",freeboardService.getUserid(freeboard));
 		
 		
 		Free_Filetb freefiletb=freeboardService.viewFile(freeboard);
 		
-		System.out.println("뷰파일값"+freefiletb);
+//		System.out.println("뷰파일값"+freefiletb);
 		req.setAttribute("freefile", freefiletb);
 		
 		req.getRequestDispatcher("/view/board/Free/update.jsp")
@@ -48,7 +48,7 @@ public class FreeBoardUpdateController extends HttpServlet {
 
 		freeboardService.updateFreeboard(req);
 	
-		System.out.println("리퀘스트"+req);
+//		System.out.println("리퀘스트"+req);
 		resp.sendRedirect("/freeboard/list");
 	}
   

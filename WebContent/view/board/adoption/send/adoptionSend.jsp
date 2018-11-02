@@ -11,8 +11,6 @@ div.title {
 <script type="text/javascript"
 	src="/resource/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 
-
-
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -20,6 +18,10 @@ $(document).ready(function() {
 		history.go(-1);
 	});
 
+	function checkAll(){
+		
+	}
+	
 	$("#btnSave").click(function() {
 		submitContents();
 	});

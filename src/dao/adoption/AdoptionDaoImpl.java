@@ -559,23 +559,23 @@ public class AdoptionDaoImpl implements AdoptionDao {
 
 	@Override
 	public int selectStatusbyanimalName(Adoption adoption) {
-		String sql ="";
-		sql+="SELECT status FROM adoption WHERE animal_name=?";
+		String sql = "";
+		sql += "SELECT status FROM adoption WHERE animal_name=?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		int cnt =-1;
+		int cnt = -1;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, adoption.getAnimalName());
-			rs=ps.executeQuery();
-			
-			while(rs.next()) {
-				cnt=rs.getInt(1);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				cnt = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				// DB객체 닫기
 				if (ps != null)
@@ -585,26 +585,25 @@ public class AdoptionDaoImpl implements AdoptionDao {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return cnt;
 	}
 
 	@Override
 	public Adoption getByanimalCode(Adoption adoption) {
-
 		String sql = "SELECT * FROM adoption WHERE animal_code=?";
-		
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
+
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, adoption.getAnimalCode());
-			
+
 			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
+
+			while (rs.next()) {
+
 				adoption.setAdoptionCalltime(rs.getString("adoption_calltime"));
 				adoption.setAdoptionHousing(rs.getString("adoption_housing"));
 				adoption.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
@@ -614,21 +613,79 @@ public class AdoptionDaoImpl implements AdoptionDao {
 				adoption.setUserid(rs.getString("userid"));
 				adoption.setStatus(rs.getInt("status"));
 				adoption.setAdoptionCode(rs.getInt("adoption_code"));
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null)	rs.close();
-				if(ps!=null)	ps.close();
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return adoption;
+
+	}
+	@Override
+	public List<Adoption> selectAllByUserid(Adoption adoption) {
+		
+		String sql = "";
+	    sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
+	          + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
+	          + "adoption_code, " + "animal_code, " + "USERID FROM adoption WHERE userid = ?";
+	   
+	    sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null ;
+		
+		List list = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+				Adoption adop = new Adoption();
+				
+				adop.setAdoptionCalltime(rs.getString("adoption_calltime"));
+				adop.setAdoptionHousing(rs.getString("adoption_housing"));
+				adop.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+				adop.setAdoptionExp(rs.getString("adoption_exp"));
+				adop.setAdoptionReason(rs.getString("adoption_reason"));
+				adop.setAnimalName(rs.getString("animal_name"));
+				adop.setUserid(rs.getString("userid"));
+				adop.setStatus(rs.getInt("status"));
+				adop.setAdoptionCode(rs.getInt("adoption_code"));
+				adop.setAnimalCode(rs.getInt("animal_code"));
+				
+				
+				list.add(adop);
+				
+			}
+		
+		
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(ps != null) ps.close();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return adoption;
+		return list;
 	}
 
 }

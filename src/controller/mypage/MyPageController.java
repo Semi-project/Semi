@@ -29,17 +29,24 @@ public class MyPageController extends HttpServlet {
 		
 		Member memberView  = memberService.selectMemberByUserId(member);
 		
+		String phone = memberView.getPhone();
+		
+//		String phone1 = phone.substring(0,3);
+//		
+//		String phone2 = phone.substring(3,7);
+//		
+//		String phone3 = phone.substring(7,11);
+		
+		
 		req.setAttribute("memberView", memberView);
+//		req.setAttribute("phone1", phone1);
+//		req.setAttribute("phone2", phone2);
+//		req.setAttribute("phone3", phone3);
+		
 		
 		req.getRequestDispatcher("/view/mypage/view.jsp").forward(req, resp);
 		
 	
 	}
-	@Override
-		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
-		
-		}
-
+	
 }
