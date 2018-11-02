@@ -78,6 +78,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus(rs.getInt("status"));
 				animal.setSpecies_Code(rs.getInt("species_code"));
 				animal.setSpecies_Name(rs.getString("species_name"));
+				animal.setUserid(rs.getString("userid"));
 			}
 
 		} catch (SQLException e) {

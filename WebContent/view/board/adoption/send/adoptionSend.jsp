@@ -17,13 +17,36 @@ $(document).ready(function() {
 	$("#btnCancel").click(function() {
 		history.go(-1);
 	});
-
-	function checkAll(){
-		
-	}
 	
 	$("#btnSave").click(function() {
-		submitContents();
+		
+		var aniName = $("input:text[name='name']").val();
+		var aniAge = $("input:number[name='age']").val();
+		var aniGender = $("input:radio[name='gender']").val();
+		var aniGr = $("input:number[name='weight']").val();
+		var aniNeuter = $("input:radio[name='neuter']").val();
+		var aniSpecies = $("input:[id='species']").val();
+		var aniContent = $("textarea").val();
+		
+		if(aniName == "" || aniName == null){
+			alert("동물 이름을 입력해주세요.");
+		} else if(aniAge == "" || aniAge == null){
+			alert("동물 나이를 입력해주세요.");
+		} else if(aniGender == "" || aniAge == null){
+			alert("동물 성별을 선택해주세요");
+		} else if(aniGr == "" || aniGr == null){
+			alert("동물 몸무게를 입력해주세요.");
+		} else if(aniNeuter == "" || aniNeuter == null){
+			alert("동물 중성화 수술 여부를 선택해주세요.");
+		} else if(aniSpecies == "" || aniSpecies == null){
+			alert("동물 품종을 선택해주세요");
+		} else if(aniContent == "" || aniContent == null){
+			alert("내용을 입력해주세요");
+		}
+// 		else{
+// 			submitContents();
+// 		}
+		
 	});
 
 	$("input:radio[name='animal']").click(function(){
@@ -61,9 +84,10 @@ $(document).ready(function() {
 <div>
 	<h3>입양 보내실 동물</h3>
 	<hr>
-	<div style="width:70%">
-		<form id="frm" action="/adoption/send/insert" method="post"
-			enctype="multipart/form-data">
+	<div style="width:85%;">
+<!-- 		<form id="frm" action="/adoption/send/insert" method="post" -->
+<!-- 			enctype="multipart/form-data"> -->
+		<form id="frm"	enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
 					<td>유저 아이디</td>
@@ -132,7 +156,7 @@ $(document).ready(function() {
 							name="content" style="width: 766px; height: 412px;"></textarea></td>
 				</tr>
 			</table>
-			<div style="">
+			<div style="text-align:center">
 				<button id="btnSave" class="btn btn-info">저장</button>
 				<button id="btnCancel" class="btn btn-danger">취소</button>
 			</div>

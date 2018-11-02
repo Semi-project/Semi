@@ -20,7 +20,6 @@ $(document).ready(function() {
 	
 	$("#btnDelete").click(function() {
 		
-		
 		$(location).attr("href", "/adoption/send/delete?animal_code=${animal.animal_Code }");
 	});
 	
@@ -71,6 +70,9 @@ $(document).ready(function() {
 	<c:if test="${role_control eq 0 }">
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
 	</c:if>	
+	<c:if test="${animal.userid eq userid }">
+		<button id="btnDelete" class="btn btn-danger">삭제</button>
+	</c:if>
 </div>
 </div>
 
