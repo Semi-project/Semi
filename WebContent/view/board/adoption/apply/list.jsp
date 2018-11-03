@@ -118,7 +118,7 @@ $(document).ready(function() {
 //전체 체크/해제
 function checkAll() {
 	// checkbox들
-	var $checkboxes=$("input:checkbox[name='checkRow']");
+	var $checkboxes=$("input:checkbox[name='checkRow']:enabled");
 
 	// checkAll 체크상태 (true:전체선택, false:전체해제)
 	var check_status = $("#checkAll").is(":checked");
@@ -193,7 +193,12 @@ td {
 <tbody>
 <c:forEach items="${boardList }" var="board">
 <tr>
-<td><input type="checkbox" name="checkRow" value="${board.adoptionCode }" /></td>
+<c:if test="${board.status eq 0 }">
+	<td><input type="checkbox" name="checkRow" value="${board.adoptionCode }" /></td>
+</c:if>
+<c:if test="${board.status eq 1 }">
+	<td><input type="checkbox" name="checkRow" value="${board.adoptionCode }" disabled /></td>
+</c:if>
 <td>${board.adoptionCode }</td>
 <td><a href="/adoption/application/view?adoption_code=${board.adoptionCode }">${board.animalName }</a></td>
 <td>${board.userid }</td>

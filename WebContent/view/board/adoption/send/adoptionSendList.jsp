@@ -79,7 +79,6 @@ $(document).ready(function() {
 			// 전체 enabled 체크박스를 checked로 바꾸기
 			$checkboxes.each(function() {
 				this.checked = true;
-				console.log(this.val)
 			});
 		} else {
 			// 전체 체크박스를 checked 해제하기
