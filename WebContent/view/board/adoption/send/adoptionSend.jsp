@@ -14,42 +14,85 @@ div.title {
 <script type="text/javascript">
 $(document).ready(function() {
 
-	function check(){
-		
-		var aniName = document.getElementById("name");
-		var aniAge = document.getElementById("age");
-		var aniGender = document.getElementByName("gender");
-		var aniGr = document.getElementById("weight");
-		var aniNeuter = document.getElementByName("neuter");
-		var aniSpecies = document.getElementById("species");
-		var aniContent = document.getElementById("inputText");
-		
-		if(aniName == "" || aniName == null){
-			alert("동물 이름을 입력해주세요.");
-		} else if(aniAge == "" || aniAge == null){
-			alert("동물 나이를 입력해주세요.\n생후 1년이 되지 않았다면 0을 입력해주세요");
-		} else if(aniGender == "" || aniGender == null){
-			alert("동물 성별을 선택해주세요.");
-		} else if(aniGr == "" || aniGr == null){
-			alert("체중를 입력해주세요.");
-		} else if(aniNeuter == "" || aniNeuter == null){
-			alert("중성화 수술 여부를 선택해주세요.");
-		} else if(aniSpecies == "" || aniSpecies == null){
-			alert("품종을 선택해주세요.");
-		} else if(aniContent == "" || aniContent == null){
-			alert("내용을 입력해주세요.");
-		}
-		
-	}
-	
 	$("#btnCancel").click(function() {
 		history.go(-1);
 	});
 	
 	$("#btnSave").click(function() {
 		
-		submitContents();
+		var aniName = document.getElementById("name").value;
+		var aniAge = document.getElementById("age").val();
+		var aniGender = document.getElementByName("gender").val();
+		var aniGr = document.getElementById("weight").val();
+		var aniNeuter = document.getElementByName("neuter").val();
+		var aniSpecies = document.getElementById("species").val();
+		var aniContent = document.getElementById("inputText").val();
 		
+		var oMsg = $("idMsg");
+		
+		if(aniName==""){
+// 			alert("동물의 이름을 입력해주세요");
+			showErrorMsg(oMsg, "필수 정보입니다.");
+			return false;
+		} else if (aniAge==""){
+			alert("나이릅 입력해주세요");
+			return false;
+		} else if (aniGender==""){
+			alert("성별을 선택해주세요");
+			return false;
+		} else if (aniGr==""){
+			alert("체중을 입력해주세요");
+			return false;
+		} else if (aniNeuter==""){
+			alert("중성화 여부를 선택해주세요");
+			return false;
+		} else if (aniSpecies==""){
+			alert("품종을 선택해주세요");
+			return false;
+		} else if (aniContent==""){
+			alert("특성, 성격 등 " + aniName + "을 소개해주세요");
+			return false;
+		} else{
+			submitContents();
+		}
+		
+// 		submitContents();
+		
+// 		alert("동물 이름 : " + aniName);
+		
+// 		var checked = false;
+// 		if(!checked){
+// 		if(aniName == "" || aniName == null){
+// 			alert("동물 이름을 입력해주세요.");
+// 			return false;
+			
+// 		} else if(aniAge == "" || aniAge == null){
+// 			alert("동물 나이를 입력해주세요.\n생후 1년이 되지 않았다면 0을 입력해주세요");
+// 			return false;
+			
+// 		} else if(aniGender == "" || aniGender == null){
+// 			alert("동물 성별을 선택해주세요.");
+// 			return false;
+			
+// 		} else if(aniGr == "" || aniGr == null){
+// 			alert("체중를 입력해주세요.");
+// 			return false;
+			
+// 		} else if(aniNeuter == "" || aniNeuter == null){
+// 			alert("중성화 수술 여부를 선택해주세요.");
+// 			return false;
+			
+// 		} else if(aniSpecies == "" || aniSpecies == null){
+// 			alert("품종을 선택해주세요.");
+// 			return false;
+			
+// 		} else if(aniContent == "" || aniContent == null){
+// 			alert("내용을 입력해주세요.");
+// 			return false;
+// 		} 
+// 		} else if(checked) {
+// 			submitContents();
+// 		}
 	});
 
 	$("input:radio[name='animal']").click(function(){
@@ -87,9 +130,9 @@ $(document).ready(function() {
 <div>
 	<h3>입양 보내실 동물</h3>
 	<hr>
-	<div style="width:85%;">
-		<form id="frm" action="/adoption/send/insert" method="post"
-			enctype="multipart/form-data">
+	<div style="width:80%;">
+		<form id="frm" name="frm" action="/adoption/send/insert" method="post"
+			 enctype="multipart/form-data">
 			<table class="table table-bordered">
 				<tr>
 					<td>유저 아이디</td>
@@ -130,27 +173,27 @@ $(document).ready(function() {
 					</td>
 				</tr>
 				<tr>
-             	<td id="select1">
-					<select id="species" name="species1">
-            			<c:forEach var="species" items="${speciesList[0] }">
-							<option value="${species.species_Code }">${species.species_Name }</option>
-						</c:forEach>
-            		</select>
-            	</td>
-            	<td id="select2" style="display:none;">
-            		<select id="species" name="species2">
-            			<c:forEach var="species" items="${speciesList[1] }">
-							<option value="${species.species_Code }">${species.species_Name }</option>
-						</c:forEach>
-            		</select>
-            	</td>
-            	<td id="select3" style="display:none;">
-            		<select id="species" name="species3">
-            			<c:forEach var="species" items="${speciesList[2] }">
-							<option value="${species.species_Code }">${species.species_Name }</option>
-						</c:forEach>
-            		</select>
-            	</td>
+             		<td id="select1">
+						<select id="species" name="species1">
+            				<c:forEach var="species" items="${speciesList[0] }">
+								<option value="${species.species_Code }">${species.species_Name }</option>
+							</c:forEach>
+            			</select>
+            		</td>
+	            	<td id="select2" style="display:none;">
+            			<select id="species" name="species2">
+	            			<c:forEach var="species" items="${speciesList[1] }">
+								<option value="${species.species_Code }">${species.species_Name }</option>
+							</c:forEach>
+            			</select>
+            		</td>
+            		<td id="select3" style="display:none;">
+	            		<select id="species" name="species3">
+            				<c:forEach var="species" items="${speciesList[2] }">
+								<option value="${species.species_Code }">${species.species_Name }</option>
+							</c:forEach>
+            			</select>
+            		</td>
 				</tr>
 				<tr>
 					<td>내용</td>
@@ -160,7 +203,7 @@ $(document).ready(function() {
 			</table>
 			<div style="text-align:center">
 				<button id="btnSave" class="btn btn-info">저장</button>
-				<button id="btnCancel" class="btn btn-danger">취소</button>
+				<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 			</div>
 		</form>
 	</div>
