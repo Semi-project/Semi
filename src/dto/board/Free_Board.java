@@ -13,14 +13,14 @@ public class Free_Board {
 	private int hit ; //조회수
 	private String userid; //작성자
 	private int recommend; //추천수
+	private int secret;
+//	private int secret;
+	//private int lock; lock = 0 비밀글, 1= 공개글
 	
 	public Free_Board() {}
-	
-	
-	
-	
 	public Free_Board(int boardno, int cateno, String title, String content, Date insert_Dat, Date update_Dat, int hit,
 			String userid, int recommend) {
+	
 		this.boardno = boardno;
 		this.cateno = cateno;
 		this.title = title;
@@ -30,11 +30,8 @@ public class Free_Board {
 		this.hit = hit;
 		this.userid = userid;
 		this.recommend = recommend;
+		this.secret = secret;
 	}
-
-
-
-
 	public int getBoardno() {
 		return boardno;
 	}
@@ -89,12 +86,20 @@ public class Free_Board {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
+	public int getSecret() {
+		return secret;
+	}
+	public void setSecret(int secret) {
+		this.secret = secret;
+	}
 	@Override
 	public String toString() {
 		return "Free_Board [boardno=" + boardno + ", cateno=" + cateno + ", title=" + title + ", content=" + content
 				+ ", insert_Dat=" + insert_Dat + ", update_Dat=" + update_Dat + ", hit=" + hit + ", userid=" + userid
-				+ ", recommend=" + recommend + "]";
+				+ ", recommend=" + recommend  + ", secret=" + secret+ "]";
 	}
+	
 
+	
 	
 }

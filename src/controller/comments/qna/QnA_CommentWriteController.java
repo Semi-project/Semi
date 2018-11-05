@@ -40,6 +40,8 @@ public class QnA_CommentWriteController extends HttpServlet {
 		qna_Comment.setContent(content);
 		
 		try {
+		
+			
 			qna_CommentService.insertComment(qna_Comment);
 		
 			resp.sendRedirect("/qnaboard/view?boardno="+qna_Comment.getBoardno());

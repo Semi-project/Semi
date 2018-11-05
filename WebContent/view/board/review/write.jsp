@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="/view/layout/header.jsp"/>
+<jsp:include page="/view/layout/header.jsp" />
 <style>
 div.title {
 	margin-top: 80px;
@@ -17,26 +17,29 @@ div.title {
 
 
 <script type="text/javascript">
-   $(document).ready(function() {
-      //jquery.form.js 플러그인 사용
-      //   http://malsup.com/jquery/form/
+	$(document).ready(function() {
+		//jquery.form.js 플러그인 사용
+		//   http://malsup.com/jquery/form/
 
-      $("#fileForm").submit(function() {
-         submitContents();
-         
-         $("#fileForm").ajaxForm({
-            
-            dataType : "json",
-            success : function(res) {
-               console.log("성공");
-            },
-            error : function() {
-               console.log("실패");
-            }
-   
-         });
-      });
-   });
+		$("#fileForm").submit(function() {
+			submitContents();
+
+			$("#fileForm").ajaxForm({
+
+				dataType : "json",
+				success : function(res) {
+					console.log("성공");
+				},
+				error : function() {
+					console.log("실패");
+				}
+
+			});
+		});
+		$("#btnCancel").click(function() {
+			history.go(-1);
+		});
+	});
 </script>
 
 <style type="text/css">
@@ -87,7 +90,7 @@ div.title {
 	</div>
 
 	<div class="text-center">
-	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
 </div>
 

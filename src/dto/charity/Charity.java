@@ -4,61 +4,102 @@ import java.util.Date;
 
 public class Charity {
 
-	private int charity_Code;
-	private int charity_Cate_Code;
-	private int charity_Amount;
-	private String userId;
-	private Date charity_Date;
-	private int charity_Payment;
-	
+	private String imp_uid;
+	private String merchant_uid;
+	private String pay_method;
+	private String name;
+	private int paid_amount;
+	private String buyer_name;
+	private String buyer_email;
+	private String userid;
+	private Date charity_date;
+
 	@Override
 	public String toString() {
-		return "charity [charity_Code=" + charity_Code
-				+ ", charity_Cate_Code=" + charity_Cate_Code
-				+ ", charity_Amount=" + charity_Amount
-				+ ", userId=" + userId
-				+ ", charity_Date=" + charity_Date
-				+ ", charity_Payment=" + charity_Payment + "]";
+		return "Charity [imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", pay_method=" + pay_method
+				+ ", name=" + name + ", paid_amount=" + paid_amount + ", buyer_name=" + buyer_name + ", buyer_email="
+				+ buyer_email + ", userid=" + userid + ", charity_date=" + charity_date + "]";
 	}
-	
-	
-	
-	public int getCharity_Code() {
-		return charity_Code;
+
+	public String getImp_uid() {
+		return imp_uid;
 	}
-	public void setCharity_Code(int charity_Code) {
-		this.charity_Code = charity_Code;
+
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
 	}
-	public int getCharity_Cate_Code() {
-		return charity_Cate_Code;
+
+	public String getMerchant_uid() {
+		return merchant_uid;
 	}
-	public void setCharity_Cate_Code(int charity_Cate_Code) {
-		this.charity_Cate_Code = charity_Cate_Code;
+
+	public void setMerchant_uid(String merchant_uid) {
+		this.merchant_uid = merchant_uid;
 	}
-	public int getCharity_Amount() {
-		return charity_Amount;
+
+	public String getPay_method() {
+		return pay_method;
 	}
-	public void setCharity_Amount(int charity_Amount) {
-		this.charity_Amount = charity_Amount;
+
+	public void setPay_method(String pay_method) {
+		this.pay_method = pay_method;
 	}
-	public String getUserId() {
-		return userId;
+
+	public String getName() {
+		return name;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public Date getCharity_Date() {
-		return charity_Date;
+
+	public int getPaid_amount() {
+		return paid_amount;
 	}
-	public void setCharity_Date(Date charity_Date) {
-		this.charity_Date = charity_Date;
+
+	public void setPaid_amount(int paid_amount) {
+		this.paid_amount = paid_amount;
 	}
-	public int getCharity_Payment() {
-		return charity_Payment;
+
+	public String getBuyer_name() {
+		return buyer_name;
 	}
-	public void setCharity_Payment(int charity_Payment) {
-		this.charity_Payment = charity_Payment;
+
+	public void setBuyer_name(String buyer_name) {
+		this.buyer_name = buyer_name;
 	}
-	
-	
+
+	public String getBuyer_email() {
+		return buyer_email;
+	}
+
+	public void setBuyer_email(String buyer_email) {
+		this.buyer_email = buyer_email;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public Date getCharity_date() {
+		return charity_date;
+	}
+
+	public void setCharity_date(Date charity_date) {
+		this.charity_date = charity_date;
+	}
+
+	/////////////////////////////////
+//	private int charity_Code;
+//	private int charity_Cate_Code;
+//	private int charity_Amount;
+//	private String userId;
+//	private Date charity_Date;
+//	private int charity_Payment;
+//	
+
 }

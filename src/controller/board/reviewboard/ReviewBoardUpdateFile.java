@@ -25,6 +25,7 @@ public class ReviewBoardUpdateFile extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	//	System.out.println(req.getParameter("boardno"));
 	//	System.out.println(req.getParameter("fileno"));
+		req.setCharacterEncoding("UTF-8");
 		Review_Board board = new Review_Board();
 		board.setBoardno(Integer.parseInt(req.getParameter("boardno")));
 		int fileno = Integer.parseInt(req.getParameter("fileno"));

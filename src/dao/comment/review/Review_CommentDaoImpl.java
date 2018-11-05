@@ -75,9 +75,9 @@ public class Review_CommentDaoImpl implements Review_CommentDao {
 			conn.setAutoCommit(false);
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, comment.getBoardno());
-			ps.setString(2, comment.getUserid());
-			ps.setString(3, comment.getContent());
+			ps.setString(1, comment.getUserid());
+			ps.setString(2, comment.getContent());
+			ps.setInt(3, comment.getBoardno());
 			ps.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {

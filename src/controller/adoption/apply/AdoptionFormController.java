@@ -16,7 +16,7 @@ import service.animal.AnimalServiceImpl;
 /**
  * Servlet implementation class AdoptionForm
  */
-@WebServlet("/adoption/form")
+@WebServlet("/adoption/application/insert")
 public class AdoptionFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdoptionService adoptionService = new AdoptionServiceImpl();
@@ -28,16 +28,18 @@ public class AdoptionFormController extends HttpServlet {
 			resp.sendRedirect("/main");
 			return;
 		}
-		req.getRequestDispatcher("/view/board/adoption/form.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/adoption/apply/application.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// System.out.println("들어옴");
-		//요청 파라미터 한글 인코딩 설정 : UTF-8
-				req.setCharacterEncoding("UTF-8");
+		// 요청 파라미터 한글 인코딩 설정 : UTF-8
+		req.setCharacterEncoding("UTF-8");
 
-				adoptionService.write(req ,resp);
-				
+		adoptionService.write(req, resp);
+
+		resp.sendRedirect("/main");
+
 	}
 }

@@ -2,6 +2,7 @@ package service.board.review;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -82,6 +83,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 	@Override
 	public void write(HttpServletRequest req, HttpServletResponse resp) {
 		// 파일 업로드 처리
+		
 		Review_Board board = new Review_Board();
 		board.setCateno(1001);
 		board.setBoardno(review_BoardDao.selectReview_Boardno());
@@ -145,13 +147,25 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 				continue;
 			if (item.isFormField()) {
 				if ("title".equals(item.getFieldName())) {
-					String data = item.getString();
+					String data=null;
+					try {
+						data = item.getString("UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					// 데이터 처리
 					// System.out.println("타이틀 넣음");
 					board.setTitle(data);
 
 				} else if ("content".equals(item.getFieldName())) {
-					String content = item.getString();
+					String content = null;
+					try {
+						content = item.getString("UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					board.setContent(content);
 					review_BoardDao.insertReviewBoard(board);
 					Review_Filetb file = new Review_Filetb();
@@ -187,11 +201,11 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 								} else {
 //											System.out.println(data);
 									file.setFile_OriginName(data);
-									System.out.println("1: " + file);
+									// System.out.println("1: " + file);
 									if (file.getFile_SaveName() != null) {
 										file.setBoardno(board.getBoardno());
 										file.setFileno(review_BoardFileDao.selectFileno());
-										System.out.println("2 :" + file);
+										// System.out.println("2 :" + file);
 										review_BoardFileDao.insertFiletb(file);
 									}
 								}
@@ -258,7 +272,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 		if (!isMultipart) {
 			// 파일 첨부가 없을 경우
 			board = new Review_Board();
-			
+
 			board.setTitle(req.getParameter("title"));
 			board.setUserid((String) req.getSession().getAttribute("userid"));
 			board.setContent(req.getParameter("content"));
@@ -309,21 +323,34 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 				if (item.isFormField()) {
 
 					if ("boardno".equals(item.getFieldName())) {
-						board.setBoardno(Integer.parseInt(item.getString()));
+						try {
+							board.setBoardno(Integer.parseInt(item.getString("UTF-8")));
+						} catch (NumberFormatException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 
 					if ("title".equals(item.getFieldName())) {
-						board.setTitle(item.getString());
+						try {
+							board.setTitle(item.getString("UTF-8"));
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					///
 					else if ("content".equals(item.getFieldName())) {
 						String content = item.getString();
 						board.setContent(content);
-						review_BoardDao.insertReviewBoard(board);
+						review_BoardDao.updateReviewBoard(board);
 						Review_Filetb file = new Review_Filetb();
 
 						StringTokenizer str = new StringTokenizer(content, " =><\"", false);
-//						int i = 0;
+////						int i = 0;
 						while (str.hasMoreTokens()) {
 							String data = str.nextToken();
 							if (data.equals(" ")) {
@@ -416,7 +443,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 
 	}
 
-	/*현재 안쓰이는 메소드 */
+	/* 현재 안쓰이는 메소드 */
 	@Override
 	public int updateFile(HttpServletRequest req) {
 		int boardno = Integer.parseInt(req.getParameter("boardno"));
@@ -430,7 +457,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 	@Override
 	public void delete(HttpServletRequest req, Review_Board board) {
 		String path = req.getServletContext().getRealPath("/");
-
+		//System.out.println(board);
 		List<Review_Filetb> list = review_BoardFileDao.selectFiletb(board);
 		// System.out.println(list);
 		for (int i = 0; i < list.size(); i++) {
@@ -441,9 +468,8 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 			// System.out.println("삭제됨");
 			// System.out.println(list.get(i).getFile_SaveName());
 		}
-		review_BoardDao.deleteReviewBoard(board);
 		review_BoardFileDao.deleteFiletbByboardno(board);
-
+		review_BoardDao.deleteReviewBoard(board);
 	}
 
 	@Override
@@ -457,7 +483,10 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 
 		board = review_BoardDao.selectReviewBoardByBoardNo(board);
 
-		if (!loginId.equals(board.getUserid())) {
+		if (loginId == null) {
+			return false;
+		}
+		if ((!loginId.equals(board.getUserid()))) {
 			return false;
 		}
 
@@ -468,6 +497,25 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 	public String getNick(Review_Board review_Board) {
 		// TODO Auto-generated method stub
 		return review_BoardDao.selectNickByBoardno(review_Board);
+	}
+
+	@Override
+	public List<Review_Filetb> thumbnail(HttpServletRequest req) {
+		List<Review_Filetb> list = new ArrayList<Review_Filetb>();
+		list = review_BoardFileDao.selectByBoardnolimit();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getFile_SaveName().contains("jpg") || list.get(i).getFile_SaveName().contains("JPG")
+					|| list.get(i).getFile_SaveName().contains("GIF") || list.get(i).getFile_SaveName().contains("gif")
+					|| list.get(i).getFile_SaveName().contains("png") || list.get(i).getFile_SaveName().contains("PNG")
+					|| list.get(i).getFile_SaveName().contains("bmp")
+					|| list.get(i).getFile_SaveName().contains("BMP")) {
+
+			} else {
+				list.get(i).setFile_SaveName(req.getServletContext().getRealPath("img") + "\thum.png");
+			}
+		}
+
+		return list;
 	}
 
 }

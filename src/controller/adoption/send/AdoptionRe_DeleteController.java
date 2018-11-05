@@ -26,25 +26,20 @@ public class AdoptionRe_DeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
-		boolean sent = false;
-		
+
 		Animal animal = animalService.getParam(req, resp);
-		
+
 		animal_filetb.setAnimal_Code(animal.getAnimal_Code());
 
 		animalService.deleteAnimalByAnimal_Code(animal, animal_filetb);
 
-//		삭제 확인 alert 띄우기
-		
-//		PrintWriter out = resp.getWriter();
-//
-//		out.println("<script type=\"text/javascript\">");
-//		out.println("alert('해당 동물이 목록에서 삭제되었습니다.');");
-//		out.println("location='/view/adoption/send/adoptionSendView.jsp';");
-//		out.println("</script>");
-
 		resp.sendRedirect("/adoption/send/list");
 
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		super.doPost(req, resp);
 	}
 }

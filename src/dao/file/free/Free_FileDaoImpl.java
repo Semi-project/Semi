@@ -14,7 +14,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 	private Connection conn=DBConn.getConnection();
 	private PreparedStatement ps =null;
 	private ResultSet rs=null;
-	private Free_Filetb free_file = new Free_Filetb();
+	
 
 	
 
@@ -24,20 +24,20 @@ public class Free_FileDaoImpl implements Free_FileDao {
 		//다음 게시글 번호 조회 쿼리
 		String sql = "";
 		sql += "SELECT * FROM free_filetb";
-		sql += " WHERE boardno = ?";
-		sql += " ORDER BY boardno";
-		System.out.println("freefileno"+freefileno);
+		sql += " WHERE fileno = ?";
+		sql += " ORDER BY fileno";
+		System.out.println("1"+freefileno);
 		
 		Free_Filetb freeboardfile = new Free_Filetb();
-		System.out.println("맨처음"+freefileno);
+//		System.out.println("2"+freeboardfile);
 		
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, freefileno);
-
+//			System.out.println("3"+freefileno);
 			rs = ps.executeQuery();
-			
+//			System.out.println("4");
 			while(rs.next()) {
 			
 				freeboardfile.setFileno( rs.getInt("fileno") );
@@ -45,7 +45,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				freeboardfile.setFile_OriginName( rs.getString("file_OriginName") );
 				freeboardfile.setFile_SaveName( rs.getString("file_SaveName") );
 				freeboardfile.setFilesize(rs.getLong("filesize"));
-				 System.out.println("check1"+freeboardfile);
+//				 System.out.println("5"+freeboardfile);
 			}
 			
 		} catch (SQLException e) {
@@ -61,7 +61,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 			}
 		}
 		
-		System.out.println("check2"+freeboardfile);
+//		System.out.println("6"+freeboardfile);
 		return freeboardfile;
 	}
 
@@ -81,6 +81,7 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				ps.setString(2, freefiletb.getFile_OriginName());
 				ps.setString(3, freefiletb.getFile_SaveName());
 				ps.setLong(4, freefiletb.getFilesize());
+			
 			
 				ps.executeUpdate();
 				conn.commit();
@@ -113,11 +114,11 @@ public class Free_FileDaoImpl implements Free_FileDao {
 		sql += "SELECT * FROM Free_Filetb";
 		sql += " WHERE boardno = ?";
 		sql += " ORDER BY fileno";
-		
+		Free_Filetb free_file = new Free_Filetb();
 		try {
 			ps= conn.prepareStatement(sql);
-			ps.setInt(1, free_file.getBoardno());
-			
+			ps.setInt(1, freeboard.getBoardno());
+//			System.out.println("f1"+free_file);
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
@@ -127,8 +128,9 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				free_file.setFile_OriginName(rs.getString("file_OriginName"));
 				free_file.setFile_SaveName(rs.getString("file_savename"));
 				free_file.setFilesize(rs.getLong("filesize"));
+				
+//				System.out.println("f2"+free_file);
 			}
-			System.out.println("check3"+free_file);
 		
 		
 		} catch (SQLException e) {
@@ -144,8 +146,53 @@ public class Free_FileDaoImpl implements Free_FileDao {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Check4"+free_file);
+//		System.out.println("f3"+free_file);
 		return free_file;
 	}
+
+
+
+
+	@Override
+	public void delete(Free_Board freeboard) {
 	
+			//다음 게시글 번호 조회 쿼리
+			String sql ="DELETE free_filetb WHERE boardno=?";
+			
+			//DB 객체
+			PreparedStatement ps = null; 
+			
+			try {
+				conn.setAutoCommit(false);
+				//DB작업
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, freeboard.getBoardno());
+				ps.executeUpdate();
+				
+				conn.commit();
+
+			} catch (SQLException e) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+				e.printStackTrace();
+			} finally {
+				try {
+					//DB객체 닫기
+					if(ps!=null)	ps.close();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	
+
+		
 	}
+	
+	

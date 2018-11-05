@@ -263,4 +263,48 @@ public class Review_FileDaoImpl implements Review_FileDao {
 		return boardFile;
 	}
 
+	@Override
+	public List<Review_Filetb> selectByBoardnolimit() {
+		String sql = "";
+		sql += "SELECT fileno, boardno,FILE_ORIGINNAME,FILE_SAVENAME FROM(";
+		sql += " SELECT fileno, boardno, FILE_ORIGINNAME,FILE_SAVENAME, ROW_NUMBER() OVER(PARTITION BY boardno ORDER BY fileno ASC) as rn";
+		sql += " FROM review_filetb) WHERE rn=1 ORDER BY boardno desc";
+
+		ps = null;
+		rs = null;
+		List<Review_Filetb> list = new ArrayList<Review_Filetb>();
+
+		try {
+			// DB작업
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Review_Filetb boardFile = new Review_Filetb();
+
+				boardFile.setFileno(rs.getInt("fileno"));
+				boardFile.setBoardno(rs.getInt("boardno"));
+				boardFile.setFile_OriginName(rs.getString("FILE_ORIGINNAME"));
+				boardFile.setFile_SaveName(rs.getString("FILE_SAVENAME"));
+				list.add(boardFile);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// DB객체 닫기
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
+
 }

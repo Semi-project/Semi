@@ -3,65 +3,62 @@ package dto.comment;
 import java.util.Date;
 
 public class Free_Comments {
-	// 댓글번호
-	private int commentNo;
+	
 
-	// 작성자
-	private String userid;
 
-	// 댓글내용
-	private String content;
-
-	// 작성일
-	private Date insertDat;
-
-	// 게시글코드
+	
+	private int rnum;
+	private int comment_no;
 	private int boardno;
-
-	public int getCommentNo() {
-		return commentNo;
+	private String userid;
+	private String userpw;
+	private String content;
+	private Date insert_dat;
+	public int getRnum() {
+		return rnum;
 	}
-
-	public void setCommentNo(int commentNo) {
-		this.commentNo = commentNo;
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
-
-	public String getUserid() {
-		return userid;
+	public int getComment_no() {
+		return comment_no;
 	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setComment_no(int commnt_no) {
+		this.comment_no = commnt_no;
 	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Date getInsertDat() {
-		return insertDat;
-	}
-
-	public void setInsertDat(Date insertDat) {
-		this.insertDat = insertDat;
-	}
-
 	public int getBoardno() {
 		return boardno;
 	}
-
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
 	}
-
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public String getUserpw() {
+		return userpw;
+	}
+	public void setUserpw(String userpw) {
+		this.userpw = userpw;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Date getInsert_dat() {
+		return insert_dat;
+	}
+	public void setInsert_dat(Date insert_dat) {
+		this.insert_dat = insert_dat;
+	}
 	@Override
 	public String toString() {
-		return "Free_Comments [commentNo=" + commentNo + ", userid=" + userid + ", content=" + content + ", insertDat="
-				+ insertDat + ", boardno=" + boardno + "]";
+		return "Free_Comments [rnum=" + rnum + ", comment_no=" + comment_no + ", boardno=" + boardno + ", userid="
+				+ userid + ", userpw=" + userpw + ", content=" + content + ", insert_dat=" + insert_dat + "]";
 	}
-
 }

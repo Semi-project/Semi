@@ -1,49 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<style>
+#footer_wrap {
+	width: 100%;
+	height: 118px;
+	clear: both;
+	margin-top: 30px;
+}
 
-<div class="back">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-9">
-				<div class="row">
-					<div class="col-lg-4">
-						<h2>
-							<small>소개</small>
-						</h2>
-						<ul class="list-unstyled">
-							<li>공지사항</li>
-							<li>오시는길</li>
-							<li>...</li>
-						</ul>
-					</div>
-					<div class="col-lg-4">
-						<h2>
-							<small>참여하기</small>
-						</h2>
-						<ul class="list-unstyled">
-							<li>입양하기</li>
-							<li>입양보내기</li>
-							<li>...</li>
-						</ul>
-					</div>
-					
-					<div class="col-lg-4">
-						<h2>
-							<small>고객센터</small>
-						</h2>
-						<ul class="list-unstyled">
-							<li>Q&A</li>
-							<li>오시는길</li>
-							<li>...</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">...</div>
-		</div>
-	</div>
+#footer_wrap ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
 
-</div>
+#footer_wrap ul li {
+	
+}
+</style>
+<div id="footer_wrap">	</div>
 
 
 
