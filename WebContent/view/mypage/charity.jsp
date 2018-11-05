@@ -8,6 +8,7 @@
 
 
 
+
 <style>
 #top {
    margin-top: 100px;
@@ -151,26 +152,28 @@ ul.side-navi-sub li:hover {
    <div class="col-lg-8">
       <div id="top" class="">
          <form method="GET" name="adoption" id="adoption" action="/mypage/adoption">
-<h3>입양신청내역</h3>
+<h3>후원내역</h3>
 <hr>
 <table class="table table-hover table-striped table-condensed">
 <thead>
 <tr>
-<th style="width: 10%">번호</th>
-<th style="width: 45%">신청한 동물</th>
-<th style="width: 20%">작성자</th>
-<th style="width: 20%">승인상태</th>
+<th style="width: 10%">결제 종류</th>
+<th style="width: 20%">동물번호</th>
+<th style="width: 20%">결제금액</th>
+<th style="width: 20%">결제자</th>
+<th style="width: 30%">결제날짜</th>
 </tr>
 </thead>
 
 <tbody>
 
-<c:forEach items="${adoptionList }" var="adoption">
+<c:forEach items="${charityList }" var="charity">
 <tr>
-<td>${adoption.adoptionCode }</td>
-<td>${adoption.animalName }</td>
-<td>${adoption.userid }</td>
-<td>${adoption.status }</td>
+<td>${charity.pay_method }</td>
+<td>${charity.name }</td>
+<td>${charity.paid_amount }</td>
+<td>${charity.userid }</td>
+<td><fmt:formatDate value="${charity.charity_date }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>
 
@@ -192,7 +195,7 @@ ul.side-navi-sub li:hover {
   	<!-- 처음으로 가기 -->
   	<c:if test="${paging.curPage ne 1 }">
     <li>
-      <a href="/mypage/adoption?search=${paging.search }" aria-label="First">
+      <a href="/mypage/charity?search=${paging.search }" aria-label="First">
         <span aria-hidden="true">&larr;처음</span>
       </a>
     </li>
@@ -212,7 +215,7 @@ ul.side-navi-sub li:hover {
     
   	<c:if test="${paging.curPage ne 1 }">
     <li>
-      <a href="/mypage/adoption?curPage=${paging.curPage-1 }&search=${paging.search }" aria-label="Previous">
+      <a href="/mypage/charity?curPage=${paging.curPage-1 }&search=${paging.search }" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -230,10 +233,10 @@ ul.side-navi-sub li:hover {
 
 		<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 		<c:if test="${paging.curPage eq i}">          
-    	  <li class="active"><a href="/mypage/adoption?curPage=${i }&search=${paging.search }">${i }</a></li>
+    	  <li class="active"><a href="/mypage/charity?curPage=${i }&search=${paging.search }">${i }</a></li>
     	</c:if>
 		<c:if test="${paging.curPage ne i}">          
-    	  <li><a href="/mypage/adoption?curPage=${i }&search=${paging.search }">${i }</a></li>
+    	  <li><a href="/mypage/charity?curPage=${i }&search=${paging.search }">${i }</a></li>
     	</c:if>
     </c:forEach>
 
@@ -250,7 +253,7 @@ ul.side-navi-sub li:hover {
 	
   	<c:if test="${paging.curPage ne paging.totalPage }">
     <li>
-      <a href="/mypage/adoption?curPage=${paging.curPage+1 }&search=${paging.search }" aria-label="Next">
+      <a href="/mypage/charity?curPage=${paging.curPage+1 }&search=${paging.search }" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

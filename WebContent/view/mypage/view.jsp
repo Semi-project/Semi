@@ -135,16 +135,18 @@ ul.side-navi-sub li:hover {
 </style>
 
 <div class="row ">
-   <div class="col-lg-2">
+   <div class="col-lg-2" style="margin-left: 20px; margin-top:10px;" >
       <div class="mypage">마이페이지</div>
       <div class="side">
          <ul id="side-navi">
             <li class="group">
                <div class="title">회원정보</div>
                <ul class="side-navi-sub">
-                  <li><a href="/mypage/update">개인정보수정</a></li>
+                  <li><a href="/mypage/check">개인정보수정</a></li>
                   <li><a href="/mypage/adoption">입양신청내역</a>
-                  <li><a href="/mypage/delete">회원탈퇴하기</a>
+                  <li><a href="/mypage/deletcheck">회원탈퇴하기</a>
+                  <li><a href="/mypage/updatepasswordcheck">비밀번호변경</a>
+                  <li><a href="/mypage/charity">후원내역</a>
                </ul>
             </li>
             <li class="group">
@@ -156,7 +158,7 @@ ul.side-navi-sub li:hover {
 
 
    </div>
-   <div class="col-lg-8">
+   <div class="col-lg-8" >
       <div id="top" class="">
          <form method="POST" name="mypage" id="mypage" action="/mypage/view">
 

@@ -117,10 +117,7 @@ public class AdoptionDaoImpl implements AdoptionDao {
 		String sql = "";
 		sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
 				+ "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
-				+ "adoption_code, " + "animal_code, " + "USERID FROM adoption";
-		if (paging.getSearch() != null && !"".equals(paging.getSearch())) {
-			sql += " WHERE animal_name LIKE '%" + paging.getSearch() + "%'";
-		}
+				+ "adoption_code, " + "animal_code, " + "USERID FROM adoption WHERE userid = ?";
 		sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -128,10 +125,11 @@ public class AdoptionDaoImpl implements AdoptionDao {
 		try {
 			// DB작업
 			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, paging.getStartNo());
-			ps.setInt(2, paging.getEndNo());
-
+			
+			ps.setString(1, paging.getUserid());
+			ps.setInt(2, paging.getStartNo());
+			ps.setInt(3, paging.getEndNo());
+			
 			rs = ps.executeQuery();
 
 			// 조회 결과 담기

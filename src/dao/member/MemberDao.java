@@ -18,7 +18,7 @@ public interface MemberDao {
 	// 회원정보수정
 	public int updateMember(Member member);
 	// 비밀번호 변경
-	public void updateMemberPassword(Member member);
+	public int updateMemberPassword(Member member) throws Exception;
 
 	// 회원삭제
 	public void deleteMemberByUserId(Member member) throws SQLException;
@@ -44,5 +44,7 @@ public interface MemberDao {
 	public Member selectMemberPwByuserInfo(Member member);
 	
 	public int selectCntAll(String search);
+
+	public boolean selectUserPwCheck(Member member);
 	
 }

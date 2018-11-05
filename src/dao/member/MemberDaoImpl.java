@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.omg.CosNaming.NamingContextPackage.NotEmpty;
+
 import dto.member.Member;
 import util.DBConn;
 import util.Paging;
@@ -194,6 +196,7 @@ public class MemberDaoImpl implements MemberDao {
 		sql += "	email = ? ,	";
 		sql += "    address = ?";
 		sql += " WHERE userid = ? ";
+		
 
 		try {
 
@@ -235,9 +238,35 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void updateMemberPassword(Member member) {
-		// TODO Auto-generated method stub
-
+	public int updateMemberPassword(Member member) throws Exception {
+		String sql ="";
+		sql += " UPDATE member";
+		sql += " SET userpw = ? ";
+		sql += "  WHERE userid =?";
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserpw());
+			ps.setString(2,  member.getUserid());
+			
+			ps.executeQuery();
+			
+			conn.commit();
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			conn.rollback();
+		}finally {
+			try {
+				if(ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}return 1;
 	}
 
 	@Override
@@ -502,4 +531,46 @@ public class MemberDaoImpl implements MemberDao {
 		return cnt;
 	}
 
+	@Override
+	public boolean selectUserPwCheck(Member member) {
+		Member m = new Member();
+		boolean flag = false;
+		
+		String sql = "SELECT userid , userpw FROM MEMBER WHERE userid = ? AND userpw = ?";
+					   
+		try {
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getUserid());
+			ps.setString(2, member.getUserpw());
+
+			rs = ps.executeQuery();
+			
+			
+			while (rs.next()) {
+				m.setUserid(rs.getString("userid"));
+				m.setUserpw(rs.getString("userpw"));
+				
+				if(m != null && !"".equals(m)) {
+					flag = true;
+				}
+			}
+			
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+				
+			} finally {
+				try {
+					if (ps != null)
+						ps.close();
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return flag;
+		}
 }

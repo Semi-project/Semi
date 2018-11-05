@@ -1,25 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <jsp:include page="/view/layout/header.jsp" />
 
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	var result = '${result}';
-	var successMsg = '${successMsg}';
-	var failMsg = '${failMsg}';
-	
-	if(result == 'success'){
-		alert(successMsg);
-	}
-	else if(result == 'fali'){
-		alert(failMsg);
-	}
-});
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js">
 </script>
 
+<script type="text/javascript">
 
+function tocheckpw2() {
+    var pw = document.getElementById("userpw").value;
+    var pwck = document.getElementById("PwCheck").value;
 
+    if (pw != pwck) {
+        document.getElementById('pwsame').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
+        return false;
+    }
+}
+
+</script>
 <style>
 #top {
    margin-top: 100px;
@@ -129,11 +132,29 @@ ul.side-navi-sub li a {
    color: #000;
 }
 
+ul.side-navi-sub li:hover {
+   background: #cf0;
+}
 
+div.row{
+display : inline-block;
+
+}
+div.text-center{
+	display : inline-block;
+	margin-left : 300px;
+
+}
 </style>
 
+
+
+
+</head>
+<body>
+
 <div class="row ">
-   <div class="col-lg-2" style="margin-left: 20px; margin-top:10px;" >
+   <div class="col-lg-2" style="margin-left: 20px; margin-top:10px;">
       <div class="mypage">마이페이지</div>
       <div class="side">
          <ul id="side-navi">
@@ -144,7 +165,7 @@ ul.side-navi-sub li a {
                   <li><a href="/mypage/adoption">입양신청내역</a>
                   <li><a href="/mypage/deletcheck">회원탈퇴하기</a>
                   <li><a href="/mypage/updatepasswordcheck">비밀번호변경</a>
-                  <li><a href="/mypage/charity">후원내역</a>
+                   <li><a href="/mypage/charity">후원내역</a>
                </ul>
             </li>
             <li class="group">
@@ -153,40 +174,31 @@ ul.side-navi-sub li a {
 
          </ul>
       </div>
-
-
-   </div>
-   <div class="col-lg-8" >
-      <div id="top" class="">
-         <form method="POST" name="mypage" id="mypage" action="/mypage/view">
-
-            <table style="width: 80%; margin: 0 auto;">
-               <tr>
-                  <td id="title"><input type="radio" name="info" value="first"/>1.사이트에 다시 가입하기위해</td>
-                  
-               </tr>
-
-               <tr>
-                 <td id="title"><input type="radio" name="info" value="second"/>2.더이상 활동하지않기위해</td>
-               </tr>
-
-               <tr>
-                   <td id="title"><input type="radio" name="info" value="third"/>3.다른사이트로 이전하기위해</td>
-               </tr>
-
-               <tr>
-                   <td id="title"><input type="radio" name="info" value="fourth"/>4.기타</td>
-               </tr>
-
-
-            </table>
-
-         </form>
-         <button id ="btnDelete">탈퇴하기</button>
-         <button id ="btnCancel">취소하기</button>
-      </div>
-
-   </div>
-   <div class="col-lg-2"></div>
 </div>
+</div>
+
+ <div class="text-center" >
+
+<h1>비밀번호 변경</h1>
+<hr>
+
+<form action="/mypage/userpwupdate" onsubmit="return tocheckpw2()" data-ajax="false" method="post">
+   
+    <input type="hidden" id="userid" value="${memberView.userid }"/>
+    <label for="userpw">비밀번호 </label>
+    <input type="password" id="userpw" name="userpw" required><br>
+    <label for="pck">비밀번호 확인 </label>
+    <input type="password" id="PwCheck" required><br>
+    <p id="pwsame" style="color:red;"></p>
+ 
+    <br><br>
+    <input type="submit" value="확인">
+    <input type="reset" value="취소">
+</form>
+
+
+</div>
+</body>
+
+</html>
 <jsp:include page="/view/layout/footer.jsp" />

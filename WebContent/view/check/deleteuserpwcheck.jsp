@@ -1,24 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<jsp:include page="/view/layout/header.jsp" />
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<script type="text/javascript">
+<jsp:include page="/view/layout/header.jsp" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 확인</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
 $(document).ready(function() {
 	
 	var result = '${result}';
-	var successMsg = '${successMsg}';
-	var failMsg = '${failMsg}';
+	var msg = '${msg}'
 	
-	if(result == 'success'){
-		alert(successMsg);
+	if(result == 'fail'){
+		alert(msg);
 	}
-	else if(result == 'fali'){
-		alert(failMsg);
-	}
+	
+	$("#deletcheck").click(function(){
+		$("form").submit();
+	});
 });
+
+
 </script>
-
-
 
 <style>
 #top {
@@ -129,11 +138,28 @@ ul.side-navi-sub li a {
    color: #000;
 }
 
+ul.side-navi-sub li:hover {
+   background: #cf0;
+}
 
+div.text-center{
+	display : inline-block;
+	margin-left : 300px;
+
+}
+
+div.row{
+display : inline-block;
+
+}
 </style>
 
-<div class="row ">
-   <div class="col-lg-2" style="margin-left: 20px; margin-top:10px;" >
+
+</head>
+<body>
+
+<div class="row " >
+   <div class="col-lg-2"style="margin-left: 20px; margin-top:10px;">
       <div class="mypage">마이페이지</div>
       <div class="side">
          <ul id="side-navi">
@@ -153,40 +179,25 @@ ul.side-navi-sub li a {
 
          </ul>
       </div>
-
-
-   </div>
-   <div class="col-lg-8" >
-      <div id="top" class="">
-         <form method="POST" name="mypage" id="mypage" action="/mypage/view">
-
-            <table style="width: 80%; margin: 0 auto;">
-               <tr>
-                  <td id="title"><input type="radio" name="info" value="first"/>1.사이트에 다시 가입하기위해</td>
-                  
-               </tr>
-
-               <tr>
-                 <td id="title"><input type="radio" name="info" value="second"/>2.더이상 활동하지않기위해</td>
-               </tr>
-
-               <tr>
-                   <td id="title"><input type="radio" name="info" value="third"/>3.다른사이트로 이전하기위해</td>
-               </tr>
-
-               <tr>
-                   <td id="title"><input type="radio" name="info" value="fourth"/>4.기타</td>
-               </tr>
-
-
-            </table>
-
-         </form>
-         <button id ="btnDelete">탈퇴하기</button>
-         <button id ="btnCancel">취소하기</button>
-      </div>
-
-   </div>
-   <div class="col-lg-2"></div>
 </div>
+</div>
+
+<div id="text-content" align="center" style="padding-top:0;">
+    <form name="ckeckform" method="post" action="/mypage/deletcheck">
+ 	<input type="hidden" name="userid" value ="${userid}" >
+        <table>
+            <tr>
+              <td bgcolor="skyblue">비밀번호</td>
+              <td><input type="password" name="userpw" maxlength="10"></td>
+            </tr>
+        </table>
+        
+        <br> 
+    </form>
+    <button id="deletcheck" >확인</button>
+</div>
+<div class="col-lg-2"></div>
+
+
+
 <jsp:include page="/view/layout/footer.jsp" />

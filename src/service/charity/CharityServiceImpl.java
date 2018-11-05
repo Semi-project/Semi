@@ -11,6 +11,7 @@ import dao.charity.CharityDaoImpl;
 import dao.payment.PaymentDao;
 import dao.payment.PaymentDaoImpl;
 import dto.charity.Charity;
+import util.Paging;
 
 public class CharityServiceImpl implements CharityService {
 
@@ -52,6 +53,30 @@ public class CharityServiceImpl implements CharityService {
 		
 		charityDao.insert(charity);
 
+	}
+
+	@Override
+	public int getCurPage(HttpServletRequest req) {
+		// 요청파라미터 받기
+		String curPage = req.getParameter("curPage");
+
+				// null이나 ""이 아니면 int로 리턴
+		if (curPage != null && !"".equals(curPage)) {
+					return Integer.parseInt(curPage);
+				}
+		return 0;
+	}
+
+	@Override
+	public int getTotalCount(String search) {
+		// TODO Auto-generated method stub
+		return charityDao.selectCharityCntAll(search);
+	}
+
+	@Override
+	public List<Charity> getPagingList(Paging paging) {
+		
+		return charityDao.selectPagingList(paging);
 	}
 
 

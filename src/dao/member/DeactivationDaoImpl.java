@@ -3,6 +3,7 @@ package dao.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import dto.member.Deactivation;
@@ -18,9 +19,39 @@ public class DeactivationDaoImpl implements DeactivationDao {
 	private Connection conn = DBConn.getConnection();
 
 	@Override
-	public DeactivationDao insertDeactivation(Deactivation deactivation) {
-		// TODO Auto-generated method stub
-		return null;
+	public void insertDeactivation(Deactivation deactivation) throws Exception {
+
+		String sql = "";
+		sql += "INSERT INTO Deactivation ( USERID, + DEACT_SUGG, + DEACT_DATE)";
+		sql += " VALUES ( ? ,? ,?)";
+		
+		try {
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1,  deactivation.getUserid());
+			ps.setString(2, deactivation.getDeactSugg());
+			ps.setDate(3, deactivation.getDeactDate() );
+			
+			conn.commit();
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			conn.rollback();
+		}finally {
+			
+			try {
+				if(ps != null) ps.close();
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 	}
 
 	@Override

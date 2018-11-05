@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="/view/layout/header.jsp" />
 
-
+<script>
+$(document).ready(function() {
+	$(".home").click(function({
+		
+	}))
+});
+</script>
 <style>
 .charity {
 	margin: 0;

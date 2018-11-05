@@ -20,7 +20,7 @@ public interface MemberService {
 	public void updateMember(HttpServletRequest req, Member member) throws Exception;
 
 	// 비밀번호 변경
-	public void updateMemberPassword(Member member);
+	public int updateMemberPassword(Member member) throws Exception;
 	public int updateMember(Member member ) throws Exception ;
 	// 회원삭제
 	public void deleteMemberByUserId(Member member)  throws Exception;
@@ -52,5 +52,7 @@ public interface MemberService {
 	public int getCurPage(HttpServletRequest req);
 
 	public int getTotalCount(String search);
+
+	public boolean selectUserPwCheck(Member member);
 
 }

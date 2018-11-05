@@ -40,9 +40,13 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 	@Override
-	public void updateMemberPassword(Member member) {
-		// TODO Auto-generated method stub
-
+	public int updateMemberPassword(Member member) throws Exception {
+		
+		int result =0;
+		
+		result = memberDao.updateMemberPassword(member);
+		
+		return result;
 	}
 
 	@Override
@@ -158,6 +162,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getTotalCount(String search) {
 		return memberDao.selectCntAll(search);
+	}
+
+	@Override
+	public boolean selectUserPwCheck(Member member) {
+		boolean flag = false;
+		
+		flag = memberDao.selectUserPwCheck(member);
+		return flag;
 	}
 
 }

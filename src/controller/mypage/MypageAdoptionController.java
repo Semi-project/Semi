@@ -32,15 +32,12 @@ public class MypageAdoptionController extends HttpServlet {
     	int totalCount = adoptionService.getTotalCount(search);
     	Paging paging = new Paging(totalCount , curPage);
     	
-    	Member memberView = new Member();
-    	
-    	memberView.setUserid((String)req.getSession().getAttribute("userid"));
+    	paging.setUserid((String)req.getSession().getAttribute("userid"));
     	
 //    	member.setUserid((String)req.getSession().getAttribute("userid"));
    
     	List<Adoption> adoptionList = adoptionService.getPagingList(paging);
     	req.setAttribute("adoptionList", adoptionList);
-    	req.setAttribute("memberView", memberView);
     	req.setAttribute("paging",paging);
     	
     	
