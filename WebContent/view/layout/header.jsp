@@ -39,20 +39,20 @@
 </script>
 <style>
 /*테스트 */
-
-/* Custom, iPhone Retina */
-/* 작은 기기들 (태블릿, 768px 이상) */
-@media ( min-width : @screen-sm-min) {
+@media ( max-width : @screen-xs-max) {
+	...
 }
 
-/* 중간 기기들 (데스크탑, 992px 이상) */
-@media ( min-width : @screen-md-min) {
+@media ( min-width : @screen-sm-min) and (max-width: @screen-sm-max) {
+	...
 }
 
-/* 큰 기기들 (큰 데스크탑, 1200px 이상) */
+@media ( min-width : @screen-md-min) and (max-width: @screen-md-max) {
+	...
+}
+
 @media ( min-width : @screen-lg-min) {
-
-	
+	...
 }
 
 ul.top_menu a {
@@ -77,7 +77,7 @@ ul.top_menu li {
 	padding: 26px 0 17px;
 	height: 64px;
 	font-size: 100%;
-	display: inline-bl
+	display: inline-block;
 }
 
 /*네비게이션 전체 영역 제어*/
@@ -159,7 +159,6 @@ ul.top_menu li {
 .dropdown>ul>li:hover>ul {
 	display: block;
 	z-index: 70;
-	
 }
 </style>
 </head>
@@ -170,9 +169,9 @@ ul.top_menu li {
 				<div class="col-lg-4"></div>
 				<div class="col-lg-4">
 					<div class="main_logo">
-						<h1>
-							<a href="/main"><img src="/img/main/logo.png" /></a>
-						</h1>
+
+						<a href="/main"><img src="/img/main/logo.png" alt="logo" /></a>
+
 					</div>
 				</div>
 

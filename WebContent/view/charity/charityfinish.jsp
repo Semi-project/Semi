@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="/view/layout/header.jsp" />
 
-
+<script>
+$(document).ready(function() {
+	$(".home").click(function() {
+		$(location).attr("href", "/main")
+	});
+});
+</script>
 <style>
 .charity {
 	margin: 0;
@@ -78,7 +84,7 @@
 				<img src="/img/charity/finish.PNG" />
 			</div>
 			<div class="col-lg-12 text-center">
-			<button class="home">홈으로</button>
+				<button class="home">홈으로</button>
 			</div>
 		</div>
 	</div>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dto.board.QnA;
 import service.board.qna.QnAService;
 import service.board.qna.QnAServiceImpl;
+import util.Paging;
 
 @WebServlet("/qnaboard/list")
 public class QnABoardListController extends HttpServlet {
@@ -21,9 +22,14 @@ public class QnABoardListController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 	
+				
+
 		List<QnA> qnaList = qnaService.selectQnA();
 		req.setAttribute("qnaList", qnaList);
+		
+		
 		
 		req.getRequestDispatcher("/view/board/qna/list.jsp").forward(req, resp);
 		

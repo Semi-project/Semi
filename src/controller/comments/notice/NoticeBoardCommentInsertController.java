@@ -30,7 +30,7 @@ public class NoticeBoardCommentInsertController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		Notice_Comments notice_comments = new Notice_Comments();
-		System.out.println("코멘트"+notice_comments);
+//		System.out.println("코멘트"+notice_comments);
 		String boardno = (String) req.getParameter("boardno");
 		String content = (String) req.getParameter("content");
 //System.out.println("코멘트보드넘버"+boardno);
@@ -39,10 +39,10 @@ public class NoticeBoardCommentInsertController extends HttpServlet {
 		notice_comments.setBoardno( Integer.parseInt(boardno) );
 		notice_comments.setUserid((String)req.getSession().getAttribute("userid"));
 		notice_comments.setContent(content);
-//		System.out.println("코멘트2"+notice_comments);
 		notice_commentService.insertComment(notice_comments);
 		
 		resp.sendRedirect("/noticeboard/view?boardno="+notice_comments.getBoardno());
+		System.out.println("코멘트2"+notice_comments);
 	}
 	
 }

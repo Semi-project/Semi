@@ -16,17 +16,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		return subscriptionDao.insertSubscription(subscription);
 	}
 
-	@Override
-	public Subscription selectSubscriptionByuserId(Member member) {
-
-		return null;
-	}
-
-	@Override
-	public Subscription updateSubscription(Subscription sub) {
-
-		return null;
-	}
 
 	@Override
 	public Subscription getParam(HttpServletRequest req) {

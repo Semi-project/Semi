@@ -123,6 +123,44 @@
 #step3 {
 	background-color: #c6c6c6;
 }
+#charity {
+	border-top: 2px solid #283444;
+	width: 100%;
+}
+
+#charity th {
+	border-bottom: 1px solid #ececec;
+	background: #f8f8f8;
+	color: #6e6e6e;
+	width: 196px;
+	height: 40px;
+	font-weight: normal;
+}
+
+#charity td {
+	border-bottom: 1px solid #ececec;
+	color: #6e6e6e;
+	padding: 7px 0 7px 15px;
+}
+
+#charity .last th, #charity .last td {
+	border-bottom: 1px solid #283444;
+}
+
+#charity td select {
+	height: 25px;
+	line-height: 25px;
+	border: 1px solid #ececec;
+	padding-left: 5px;
+}
+
+#charity td input[type=text] {
+	width: 395px;
+	line-height: 23px;
+	height: 53px;
+	border: 1px solid #ececec;
+	padding-left: 10px;
+}
 </style>
 </head>
 <body>
@@ -134,7 +172,7 @@
 							<div class="charity" id="step2">후원자정보 입력 및 결제</div>
 							<div class="charity" id="step3">후원 완료</div>
 						</div>
-			<table>
+			<table id="charity" style="margin: 0 auto;">
 				<tr>
 					<th>결제수단</th>
 					<td><select id="pay_method">

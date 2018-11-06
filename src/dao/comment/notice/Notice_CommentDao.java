@@ -22,4 +22,7 @@ public interface Notice_CommentDao {
 	//댓글 검색 - userid
 	public Notice_Comments selectNotice_CommentByUserId(Notice_Comments comment);
 
+	// 코멘트 조회 - 코멘트 번호를 rnum을 통해 같이 조회한다
+	public List selectComment(Notice_Board noticeboard);
+	
 }

@@ -235,26 +235,19 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void updateMemberPassword(Member member) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteMemberByUserId(Member member) throws SQLException {
-
+	public int updateMemberPassword(Member member) {
 		String sql = "";
-		sql += "DELETE member";
-		sql += " WHERE userid= ?";
-		sql += " AND userpw = ?";
+		sql += " UPDATE member";
+		sql += " SET userpw = ? ";
+		sql += "  WHERE userid =?";
 
 		try {
 			conn.setAutoCommit(false);
 
 			ps = conn.prepareStatement(sql);
 
-			ps.setString(1, member.getUserid());
-			ps.setString(2, member.getUserpw());
+			ps.setString(1, member.getUserpw());
+			ps.setString(2, member.getUserid());
 
 			ps.executeQuery();
 
@@ -262,19 +255,64 @@ public class MemberDaoImpl implements MemberDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			conn.rollback();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} finally {
 			try {
 				if (ps != null)
 					ps.close();
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
+		return 1;
 	}
 
+	@Override
+	   public void deleteMemberByUserId(Member member) throws SQLException {
+
+	      String sql = "";
+	      sql += "UPDATE member SET";
+	      sql += " userpw= null";
+	      sql += " , name = null";
+	      sql += " , gender = null";
+	      sql += " , userbirth= null";
+	      sql += " , phone= null";
+	      sql += " , address= null";
+	      sql += " , email= null";
+	      sql += " , subscription_no= null";
+	      sql += " , role_id= null";
+	      sql += " WHERE userid=?";
+
+	      try {
+	         conn.setAutoCommit(false);
+
+	         ps = conn.prepareStatement(sql);
+	         
+	         ps.setString(1, member.getUserid());
+	         
+
+	         ps.executeQuery();
+
+	         conn.commit();
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	         conn.rollback();
+	      } finally {
+	         try {
+	            if (ps != null)
+	               ps.close();
+
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         }
+	      }
+	}
 	@Override
 	public Member selectUseridByUserInfo(Member member) {
 		// TODO Auto-generated method stub
@@ -502,4 +540,45 @@ public class MemberDaoImpl implements MemberDao {
 		return cnt;
 	}
 
+	@Override
+	public boolean selectUserPwCheck(Member member) {
+		Member m = new Member();
+		boolean flag = false;
+
+		String sql = "SELECT userid , userpw FROM MEMBER WHERE userid = ? AND userpw = ?";
+
+		try {
+
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, member.getUserid());
+			ps.setString(2, member.getUserpw());
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				m.setUserid(rs.getString("userid"));
+				m.setUserpw(rs.getString("userpw"));
+
+				if (m != null && !"".equals(m)) {
+					flag = true;
+				}
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
 }

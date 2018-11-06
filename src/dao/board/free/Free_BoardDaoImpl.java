@@ -21,16 +21,29 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 	@Override
 	public List<Free_Board> selectFreeBoard(Free_Board_param fbp) {
 		
+		//검색값 namesearch and contentsearch
+		
+		
 		
 		//String sql="SELECT * FROM free_board ORDER BY boardno DESC";
 		String sql="";
-		sql += "SELECT boardno, cateno,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,RECOMEND,INSERT_DAT";
+		sql += "SELECT boardno, cateno,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,RECOMMEND,INSERT_DAT";
 		sql +=	"   FROM";
 		sql +=	"   (SELECT ROW_NUMBER() OVER(ORDER BY boardno desc)AS RNUM,";
-		sql +=	"      boardno, cateno,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,RECOMEND,INSERT_DAT";  
-		sql +=	"      FROM free_board"; 
-		if( fbp.getNamesearch()!=null && !"".equals(fbp.getNamesearch()) ) {
-			sql+= " WHERE title LIKE '%"+fbp.getNamesearch()+"%'";
+		sql +=	"    boardno, cateno,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,INSERT_DAT,"; 
+		sql +=  "	(SELECT COUNT(*) FROM recommend WHERE boardno=free_board.boardno) recommend";
+		sql +=	" FROM free_board"; 
+		if(fbp.getNamesearch()!=null || fbp.getContentsearch()!=null) {
+			sql+=" WHERE ";
+		}
+		if( fbp.getNamesearch()!=null) {
+			sql+= " userid LIKE '%"+fbp.getNamesearch()+"%'";
+		}
+		if(fbp.getNamesearch() != null && fbp.getContentsearch() !=null) {
+			sql+= " and ";
+		}
+		if(fbp.getContentsearch()!=null) {
+			sql+= "title Like '%"+fbp.getContentsearch()+"%'";
 		}
 		sql +=	"      "; 
 		sql +=	"   ) A"; 
@@ -53,7 +66,7 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 				b.setContent(rs.getString("content"));
 				b.setHit(rs.getInt("hit"));
 				b.setInsert_Dat(rs.getDate("insert_Dat"));
-				b.setRecommend(rs.getInt("recomend"));
+				b.setRecommend(rs.getInt("recommend"));
 				b.setTitle(rs.getString("title"));
 				b.setUpdate_Dat(rs.getDate("update_Dat"));
 				b.setUserid(rs.getString("userid"));
@@ -82,8 +95,8 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 	@Override
 	public void insertFreeBoard(Free_Board freeBoard) {
 		String sql = "";
-		sql += "INSERT INTO free_board(BOARDNO,TITLE,userid,CONTENT,CATENO,RECOMEND,HIT) ";
-		sql += " VALUES (free_board_seq.currval, ?, ?, ?,1000,1,0)";
+		sql += "INSERT INTO free_board(BOARDNO,TITLE,userid,CONTENT,CATENO,RECOMMEND,HIT) ";
+		sql += " VALUES (free_board_seq.currval, ?, ?, ?,1000,0,0)";
 		
 		try {
 			conn.setAutoCommit(false);
@@ -123,7 +136,10 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 	@Override
 	public Free_Board viewFreeBoard(Free_Board freeBoard) {
 		//System.out.println(freeBoard.toString());
-		String sql="SELECT * FROM free_board WHERE boardno=?";
+		String sql="select"
+				+ " BOARDNO,CATENO,TITLE,CONTENT,UPDATE_DAT,HIT,USERID,"
+				+ "(SELECT COUNT(*) FROM recommend WHERE boardno=free_board.boardno) "
+				+ "RECOMMEND,INSERT_DAT from free_board where boardno=?";
 		
 		Free_Board fb= null;
 		
@@ -143,7 +159,7 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 						rs.getDate("update_Dat"), // 수정일
 						rs.getInt("hit"), //조회수
 						rs.getString("userid"), //작성자
-						rs.getInt("recomend")
+						rs.getInt("recommend")
 				);
 				
 		
@@ -259,7 +275,7 @@ public class Free_BoardDaoImpl implements Free_BoardDao {
 				fb.setContent(rs.getString("content"));
 				fb.setHit(rs.getInt("hit"));
 				fb.setInsert_Dat(rs.getDate("insert_Dat"));
-				fb.setRecommend(rs.getInt("recomend"));
+				fb.setRecommend(rs.getInt("recommend"));
 				fb.setTitle(rs.getString("title"));
 				fb.setUpdate_Dat(rs.getDate("update_Dat"));
 				fb.setUserid(rs.getString("userid"));

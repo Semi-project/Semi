@@ -17,7 +17,7 @@ public class CharityMainController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (req.getSession().getAttribute("login") == null) {
-			resp.sendRedirect("/main"); // 2018- 10- 23 일 정리
+			resp.sendRedirect("/member/login"); // 2018- 10- 23 일 정리
 			return;
 		}
 		

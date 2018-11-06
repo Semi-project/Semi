@@ -1,28 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<jsp:include page="/view/layout/header.jsp" />    
-<!DOCTYPE html>
-<html>
-<head>
-    <title>탈퇴 화면</title>
-    
-    <style type="text/css">
-        table{
-            margin-left:auto; 
-            margin-right:auto;
-            border:3px solid skyblue;
-        }
-        
-        td{
-            border:1px solid skyblue
-        }
-        
-        #title{
-            background-color:skyblue
-        }
-        
-        #top {
+   pageEncoding="UTF-8"%>
+<jsp:include page="/view/layout/header.jsp" />
+
+<script type="text/javascript">
+$(document).ready(function() {
+   $("#dtnbtnDelete").click(function(){
+      var deactSugg = $(":input:radio[name=DEACT_SUGG]:checked").val();
+      //location.href = '/member/delete';
+         
+   });
+      
+   
+});
+</script>
+
+
+
+<style>
+#top {
    margin-top: 100px;
 }
 
@@ -130,37 +125,22 @@ ul.side-navi-sub li a {
    color: #000;
 }
 
-ul.side-navi-sub li:hover {
-   background: #cf0;
-}
-    </style>
-    
-       
- <script type="text/javascript">
-        // 비밀번호 미입력시 경고창
-        function checkValue(){
-            if(!document.deleteform.userpw.value){
-                alert("비밀번호를 입력하지 않았습니다.");
-                return false;
-            }
-        }
- </script>
- 
- 
-</head>
-<body>
+
+</style>
 
 <div class="row ">
-   <div class="col-lg-2">
+   <div class="col-lg-2" style="margin-left: 20px; margin-top:10px;" >
       <div class="mypage">마이페이지</div>
       <div class="side">
          <ul id="side-navi">
             <li class="group">
                <div class="title">회원정보</div>
                <ul class="side-navi-sub">
-                  <li><a href="/mypage/update">개인정보수정</a></li>
+                  <li><a href="/mypage/check">개인정보수정</a></li>
                   <li><a href="/mypage/adoption">입양신청내역</a>
-                  <li><a href="/mypage/delete">회원탈퇴하기</a>
+                  <li><a href="/mypage/deletcheck">회원탈퇴하기</a>
+                  <li><a href="/mypage/updatepasswordcheck">비밀번호변경</a>
+                  <li><a href="/mypage/charity">후원내역</a>
                </ul>
             </li>
             <li class="group">
@@ -169,31 +149,47 @@ ul.side-navi-sub li:hover {
 
          </ul>
       </div>
-      
-      
-</div>
-<div style="text-align: center;">
-<br><br>
-    <b><font size="6" color="gray">내 정보</font></b>
-    <br><br><br>
- 
-    <form name="deleteform" method="post" action="/mypage/delete"
-        onsubmit="return checkValue()">
- 
-        <table>
-            <tr>
-                <td bgcolor="skyblue">비밀번호</td>
-                <td><input type="password" name="userpw" maxlength="50"></td>
-            </tr>
-        </table>
-        
-        <br> 
-        <input type="button" value="취소" />
-        <input type="submit" value="확인" /> 
-    </form>
-   </div>
-   </div>
-</body>
-</html>
 
+
+   </div>
+   <div class="col-lg-8" >
+      <div id="top" class="">
+         <form method="POST" name="delete" id="delete" action="/mypage/delete">
+
+            <table style="width: 80%; margin: 0 auto;">
+      
+                  
+            
+               
+            
+               <tr>
+                  <td id="title"><input type="radio" name="deactSugg" value="1.사이트에 다시 가입하기위해"/>1.사이트에 다시 가입하기위해</td>
+                  
+               </tr>
+
+               <tr>
+                 <td id="title"><input type="radio" name="deactSugg" value="2.더이상 활동하지않기위해"/>2.더이상 활동하지않기위해</td>
+               </tr>
+
+               <tr>
+                   <td id="title"><input type="radio" name="deactSugg" value="3.다른사이트로 이전하기위해"/>3.다른사이트로 이전하기위해</td>
+               </tr>
+
+               <tr>
+                   <td id="title"><input type="radio" name='deactSugg' value="4.기타"/>4.기타</td>
+               </tr>
+
+
+            </table>
+
+         <input id="dtnbtnDelete" type="submit" value="탈퇴하기"/>
+            <input type="reset" value="취소"/>
+
+         </form>
+
+      </div>
+
+   </div>
+   <div class="col-lg-2"></div>
+</div>
 <jsp:include page="/view/layout/footer.jsp" />

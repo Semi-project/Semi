@@ -37,7 +37,7 @@ public class CharityOneOnOne extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 
 		if (req.getSession().getAttribute("login") == null) {
-			resp.sendRedirect("/main"); // 2018- 10- 23 일 정리
+			resp.sendRedirect("/member/login"); // 2018- 10- 23 일 정리
 			return;
 		}
 //		if (req.getSession().getAttribute("charity") == null) {

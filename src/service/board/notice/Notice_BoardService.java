@@ -18,12 +18,15 @@ public interface Notice_BoardService {
 
 	// 전체 게시글 수 조회
 	public int getTotalCount();
+	
+	//요청파라미터에서 search 반환
+	public String getSearch(HttpServletRequest req);
 
 	// 게시글 전체 조회
-	public List<Notice_Board> getList();
+	public List getList();
 
 	// 게시글 페이징 조회
-	public List<Notice_Board> getPagingList(Paging paging);
+	public List getPagingList(Paging paging);
 
 	// 게시글 상세 조회
 	// 조회된 게시글의 조회수도 증가시킨다

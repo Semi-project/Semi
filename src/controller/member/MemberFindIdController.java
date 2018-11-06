@@ -47,7 +47,7 @@ public class MemberFindIdController extends HttpServlet {
 		System.out.println(idList);
 		Gson gson = new Gson();
 		Map map = new HashMap<>();
-		map.put("idList", idList);
+		map.put("idList", idList); //가입된 아이디를 map으로 저장하여 출력 
 		String json = gson.toJson(map);
 		resp.getWriter().println(json);
 	};

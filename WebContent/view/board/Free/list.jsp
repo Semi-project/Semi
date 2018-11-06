@@ -6,11 +6,100 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!-- Semantic UI -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/css/SemanticUI/semantic.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/semantic.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/SemanticUI/semantic.css" /> 
+<style type="text/css">
+.board_total {
+	padding: 30px 0 15px 0;
+	font-size: 11px;
+	color: #727272;
+}
+
+.board_total span {
+	color: #fb5d40;
+	vertical-align: -1px;
+}
+
+.board_total .board_select {
+	border: 1px solid #ececec;
+	width: 115px;
+	height: 29px;
+	line-height: 29px;
+	padding-left: 15px;
+}
+
+.board_total input {
+	height: 27px;
+	line-height: 27px;
+	border: 1px solid #ececec;
+	padding-left: 10px;
+	width: 138px;
+	margin: 0 10px;
+}
+
+.board_total a {
+	width: 65px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	background: #283444;
+	color: #fff;
+	display: inline-block;
+}
+
+.board {
+	border-top: 2px solid #283444;
+	border-bottom: 1px solid #283444;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 27px;
+}
+
+.board th {
+	border-bottom: 1px solid #283444;
+	color: #727272;
+	height: 42px;
+	font-weight: normal;
+}
+
+.board td {
+	border-bottom: 1px solid #ececec;
+	color: #6d6e72;
+	font-size: 12px;
+	height: 40px;
+	text-align: center;
+}
+
+.board td.board_title {
+	text-align: left;
+}
+
+.board td a {
+	font-size: 12px;
+}
+
+.board .board_subject {
+	text-align: left;
+	padding-left: 80px;
+}
+
+.board .board_subject a {
+	color: #6d6e72;
+}
+
+.board .board_subject a:hover {
+	color: #283444;
+}
+
+.board .board_subject img {
+	padding-left: 3px;
+	vertical-align: -1px;
+}
+
+.board .board_last td {
+	border: 0;
+}
+
+
+</style>
    
 <%
 List<Free_Board> blist = (List) request.getAttribute("boardlist");
@@ -21,19 +110,26 @@ List<Free_Board> blist = (List) request.getAttribute("boardlist");
 <div>
 &nbsp;
 </div>
-<div align="center">
+<div class="container">
+
+	<h3>자유 게시판</h3>
+	<hr>
 
 
-<form id="_formTable">
 
-<table  style="width: 1300px" class="ui single line table" >
+<form id="_formTable" >
+
+	<table class="board">
+<!-- <table  style="width: 1300px" class="ui single line table" > -->
 <col width="250px"><col width="350px"><col width="200px"><col width="200px"><col width="300px">
 		<tr>
-			<th style="font-weight: bold; padding-left:15px">게시글번호</th>
-			<th style="font-weight: bold; padding-left:15px">제목</th>
-			<th style="font-weight: bold; padding-left:15px">작성자</th>
-			<th style="font-weight: bold; padding-left:15px">조회수</th>
-			<th style="font-weight: bold; padding-left:15px">날짜</th>
+			<th style="width: 70px; text-align: center;">번호</th>
+			<th style="width: 45%; text-align: center;">제목</th>
+			<th style="width: 20%; text-align: center;">작성자</th>
+			<th style="width: 10%; text-align: center;">조회수</th>
+			<th style="width: 10%; text-align: center;">추천수</th>
+			<th style="width: 20%; text-align: center;">날짜</th>
+			
 			<!-- <th>비밀글 or 공개글  <c:if test="${i.lock ==1}">비밀글</c:if> 0일경우에는 공개글 </th> -->
 		</tr>
 	
@@ -55,31 +151,30 @@ List<Free_Board> blist = (List) request.getAttribute("boardlist");
 			</td>
 			<td style="padding-left:15px">${i.userid}</td>
 			<td style="padding-left:15px">${i.hit}</td>
+			<td style="padding-left:15px">${i.recommend }</td>
 			<td style="padding-left:15px">${i.insert_Dat}</td>
 		</tr>
 		</c:forEach>
 	</table>
 	
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}">
-</form>
+
 	
 	<c:if test="${login ne null }">
 	<br>
-	<button class="ui active button" onclick="goWriteBtn()">
-  	<i class="write icon"></i>
-  	글쓰기
-	</button>
+<!-- 	<button class="ui active button" onclick="goWriteBtn()"> -->
+<!--   	<i class="write icon"></i> -->
+<!--   	글쓰기 -->
+<!-- 	</button> -->
 	
-		<!-- <input type="button" class="primary ui button" value="글쓰기" onclick="goWriteBtn()"> -->
-		<script>
-		function goWriteBtn() {
-			location.href = "/freeboard/write";
-		}
-		</script>
-		
-	
-	
+ 	<input type="button" class="ui active button" value="글쓰기" onclick="goWriteBtn()">  
+ 		<script> 
+ 		function goWriteBtn() {
+ 			location.href = "/freeboard/write";
+ 		}
+ 		</script> 
 	</c:if>
+
 	
 	
 
@@ -114,30 +209,29 @@ List<Free_Board> blist = (List) request.getAttribute("boardlist");
 	</td>
 	<td>
 		<div class="ui input">
-			<input type="text" style="width: 200px; height: 50px" id ="search" name="userid">
+			<input type="text" style="width: 200px; height: 50px" name="namesearch" value="${fbpp.namesearch}">
 		</div>
 	</td>
-	<td>작성일</td>
-	<td>
-		<div class="ui input">
-			<input type="date" style="width: 200px; height: 50px">
-		</div>
-	</td>
+	
 	<td>
 	제목
 	</td>
 	<td>
 		<div class="ui input">
-		<input type="text" style="width:200px; height: 50px">
+		<input type="text" style="width:200px; height: 50px" name="contentsearch" value="${fbpp.contentsearch }">
 		</div>
 	</td>
 </tr>
 </table>
 
-	<button class="ui pink basic button" id=search name="userid" value='submit' >검색</button>
-	<button class="ui black basic button" >초기화</button>
+	<button class="ui pink basic button" onclick="submitSearch()">검색</button>
+<!-- 	<button class="ui black basic button" >초기화</button> -->
 </div>
+</form>
 <script>
+function submitSearch(){
+	$('#_formTable').attr({"target":"_self","action":"/freeboard/list"}).submit();
+}
 function goPage(pageNumber) {
 	   $("#_pageNumber").val(pageNumber);
 	   

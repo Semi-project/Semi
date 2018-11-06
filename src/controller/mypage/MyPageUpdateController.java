@@ -57,10 +57,8 @@ public class MyPageUpdateController extends HttpServlet {
 				
 				String successMsg ="";
 				successMsg ="수정에 성공했습니다";
-//				req.setAttribute("successMsg", successMsg);
+				req.setAttribute("successMsg", successMsg);
 				
-				PrintWriter out = resp.getWriter(); 
-				out.println("<script>alert('성공'); </script>"); 
 				
     		}
     		

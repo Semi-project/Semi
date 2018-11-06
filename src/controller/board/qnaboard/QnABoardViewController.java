@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.file.qna.QnA_FileDao;
+import dao.file.qna.QnA_FileDaoImpl;
 import dto.board.QnA;
 import dto.comment.QnA_Comments;
 import dto.file.QnA_Filetb;
@@ -23,24 +25,36 @@ public class QnABoardViewController extends HttpServlet {
 
 	private QnAService qnaService = new QnAServiceImpl();
 	private QnA_CommentService qna_CommnetService = new QnA_CommentServiceImpl();
-	
+	private QnA_FileDao qna_filedao = new QnA_FileDaoImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		// 요청파라미터 -> MODEL
-		/*QnA qna = qnaService.getParam(req, resp);*/
-		
+		QnA qna = qnaService.getParam(req, resp);
+		System.out.println(qna);
 		int boardNo = Integer.parseInt(req.getParameter("boardno"));
 		
 		QnA qnaView = qnaService.viewQnA(boardNo);
+	
+		QnA_Filetb qnaftb;
+		try {
+			qnaftb = qnaService.viewFile(qnaView);
+			System.out.println("파일조회"+qnaftb);
+			req.setAttribute("qna_file", qnaftb);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
 		
 		String loginId = (String) req.getSession().getAttribute("userid");
 		req.setAttribute("loginId", loginId);
 		req.setAttribute("qnaView", qnaView);
 	/*	System.out.println(qnaView);*/
 		
-		QnA_Filetb qna_file = new QnA_Filetb();
-		req.setAttribute("qna_file", qna_file);
+		
+		
 		
 		
 		

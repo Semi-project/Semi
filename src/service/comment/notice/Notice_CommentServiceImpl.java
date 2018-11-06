@@ -49,15 +49,19 @@ public class Notice_CommentServiceImpl implements Notice_CommentService {
 	}
 
 	@Override
-	public List getCommentList(Notice_Board freeboard) {
-		// TODO Auto-generated method stub
-		return null;
+	public List getCommentList(Notice_Board noticeboard) {
+		return notice_CommentDao.selectComment(noticeboard);
 	}
 
 	@Override
 	public boolean deleteComment(Notice_Comments comment) {
-		// TODO Auto-generated method stub
-		return false;
+		notice_CommentDao.deleteComment(comment);
+
+		if (notice_CommentDao.countComment(comment) > 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

@@ -31,13 +31,16 @@ public class Animal {
 
 	// 동물 이름
 	private String animal_Name;
+	
+	// 유저 아이디
+	private String userid;
 
 	@Override
 	public String toString() {
 		return "Animal [animal_Code=" + animal_Code + ", animal_Age=" + animal_Age + ", animal_Gender_Code="
 				+ animal_Gender_Code + ", animal_Gr=" + animal_Gr + ", animal_Neuters=" + animal_Neuters
 				+ ", animal_Feature=" + animal_Feature + ", status=" + status + ", species_Code=" + species_Code
-				+ ", species_Name=" + species_Name + ", animal_Name=" + animal_Name + "]";
+				+ ", species_Name=" + species_Name + ", animal_Name=" + animal_Name + ", userid=" + userid + "]";
 	}
 
 	public int getAnimal_Code() {
@@ -120,6 +123,15 @@ public class Animal {
 		this.animal_Name = animal_Name;
 	}
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	
 	
 }
 

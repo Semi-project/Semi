@@ -30,7 +30,7 @@
 					username : $("#username").val(),
 					useremail : email
 				},
-				dataType : "text",
+				dataType : "json",
 				success : function(d) {
 					console.log(d);
 					alert("찾으시는 아이디는 : "+d.idList+"입니다.");
@@ -43,22 +43,7 @@
 			});
 		});
 	});
-// 	function findID() {
-// 		if ('' == document.find.username.value) {
-// 			alert('이름을 입력하세요.');
-// 			document.findID.username.focus();
-// 			return;
-// 		}
-// 		if ('' == document.find.email.value) {
-// 			alert('이메일 입력하세요.');
-// 			document.find.email.focus();
-// 			return;
-// 		}
 
-// 		// 		document.find.action = 'id_find_pro.jsp';
-// 		// 		document.find.method = 'post';
-// 		document.find.submit();
-// 	}
 	function myClose() {
 		self.close();
 	}
@@ -90,7 +75,7 @@
 
 
 			</table>
-			<input type="button" value="아이디찾기" id="findid" onClick="fㅇㅇㅇindID()">&nbsp;&nbsp;
+			<input type="button" value="아이디찾기" id="findid">&nbsp;&nbsp;
 			<input type="button" value="닫기" onClick="myClose()">
 		</form>
 	</div>

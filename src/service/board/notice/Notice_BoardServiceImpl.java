@@ -59,19 +59,16 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 
 	@Override
 	public int getTotalCount() {
-		// TODO Auto-generated method stub
 		return notice_BoardDao.selectNoticeBoardCntAll();
 	}
 
 	@Override
-	public List<Notice_Board> getList() {
-		// TODO Auto-generated method stub
+	public List getList() {
 		return notice_BoardDao.selectNoticeBoardAll();
 	}
 
 	@Override
-	public List<Notice_Board> getPagingList(Paging paging) {
-
+	public List getPagingList(Paging paging) {
 		return notice_BoardDao.selectNoticeBoardPagingList(paging);
 	}
 
@@ -362,6 +359,14 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 		// notice_BoardFileDao.insertFiletb(notice_filetb);
 
 		return 0;
+	}
+//검색-------------------------------------------------------------------------
+	@Override
+	public String getSearch(HttpServletRequest req) {
+		//요청파라미터 받기
+		String search = req.getParameter("search");
+				
+		return search;
 	}
 
 	

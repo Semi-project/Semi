@@ -29,9 +29,7 @@ public class ReviewBoardDeleteController extends HttpServlet {
 			resp.sendRedirect("/review/list");
 			return;
 		}
-		//System.out.println("1");
-		
-		review_BoardService.delete(req,review_Board);/// 구현하기
+		review_BoardService.delete(req,review_Board);
 		resp.sendRedirect("/review/list");
 	}
 }

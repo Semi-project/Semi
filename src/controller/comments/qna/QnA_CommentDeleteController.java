@@ -44,7 +44,7 @@ public class QnA_CommentDeleteController extends HttpServlet {
 		
 		String commentNo = (String) req.getParameter("comment_No");
 		
-		qnaComment.setCommentNo( Integer.parseInt(commentNo) );
+		qnaComment.setComment_No( Integer.parseInt(commentNo) );
 		
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");

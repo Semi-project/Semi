@@ -211,14 +211,26 @@ public class AnimalServiceImpl implements AnimalService {
 						// 체중
 						animal.setAnimal_Gr(item.getString("utf-8"));
 
-					} else if ("nueter".equals(item.getFieldName())) {
+					} else if ("neuter".equals(item.getFieldName())) {
 						// 중성화
 						animal.setAnimal_Neuters(item.getString("utf-8"));
 
-						// } else if ("species".equals(item.getFieldName())) {
-						// 중성화
-						// animal.setSpecies_Code(Integer.parseInt(item.getString("UTF-8")));
+					} else if ("species1".equals(item.getFieldName())) {
+						// 품종
+						animal.setSpecies_Code(Integer.parseInt(item.getString("utf-8")));
 
+					}else if ("species2".equals(item.getString())) {
+						// 고양이
+						animal.setSpecies_Code(Integer.parseInt(item.getString("utf-8")));
+						
+					}else if ("species3".equals(item.getString())) {
+						// 기타
+						animal.setSpecies_Code(Integer.parseInt(item.getString("utf-8")));
+						
+					} else if ("userid".equals(item.getFieldName())) {
+						// 유저 아이디
+						animal.setUserid(item.getString("utf-8"));
+						
 					}else if ("content".equals(item.getFieldName())) {
 						// 특징
 						String content = item.getString("utf-8");

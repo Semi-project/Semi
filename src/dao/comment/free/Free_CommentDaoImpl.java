@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +90,7 @@ public class Free_CommentDaoImpl implements Free_CommentDao {
 				+ "		boardno,"
 				+ "		userid,"
 				+ "		content,"
-				+ "		insert_dat"
+				+ "		to_char(insert_dat, 'yyyy-mm-dd hh24:mi:ss') insert_dat"
 				+ "	FROM free_comments"
 				+ "	WHERE boardno = ?"
 				+ "	ORDER BY insert_dat"
@@ -108,18 +110,22 @@ public class Free_CommentDaoImpl implements Free_CommentDao {
 
 			while( rs.next() ) {
 				Free_Comments comment = new Free_Comments();
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 				comment.setRnum(rs.getInt("rnum"));
 				comment.setComment_no(rs.getInt("comment_no"));
 				comment.setBoardno(rs.getInt("boardno"));
 				comment.setUserid(rs.getString("userid"));
 				comment.setContent(rs.getString("content"));
-				comment.setInsert_dat(rs.getDate("insert_dat"));
+				 comment.setInsert_dat(format.parse(rs.getString("insert_dat")));
 
 				commentList.add(comment);
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {

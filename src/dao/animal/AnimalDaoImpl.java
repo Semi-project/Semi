@@ -78,6 +78,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus(rs.getInt("status"));
 				animal.setSpecies_Code(rs.getInt("species_code"));
 				animal.setSpecies_Name(rs.getString("species_name"));
+				animal.setUserid(rs.getString("userid"));
 			}
 
 		} catch (SQLException e) {
@@ -102,8 +103,8 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql = "INSERT INTO animal";
 		sql += " (animal_name, animal_code, animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters, animal_feature, ";
-		sql += " status, species_code)";
-		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		sql += " status, species_code, userid)";
+		sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn.setAutoCommit(false);
@@ -118,7 +119,8 @@ public class AnimalDaoImpl implements AnimalDao {
 			ps.setString(6, animal.getAnimal_Neuters());
 			ps.setString(7, animal.getAnimal_Feature());
 			ps.setInt(8, 0);
-			ps.setInt(9, 2002);
+			ps.setInt(9, animal.getSpecies_Code());
+			ps.setString(10, animal.getUserid());
 
 			ps.executeUpdate();
 
@@ -265,7 +267,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters,";
 		sql += " animal_feature, status,";
-		sql += " animal.species_code, species_name";
+		sql += " animal.species_code, species_name, userid";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code=animal.species_code";
 		sql += " ORDER BY animal_code DESC";
@@ -297,6 +299,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus(rs.getInt("status"));
 				animal.setSpecies_Code(rs.getInt("species_code"));
 				animal.setSpecies_Name(rs.getString("species_name"));
+				animal.setUserid(rs.getString("userid"));
 
 				list.add(animal);
 			}
@@ -325,7 +328,7 @@ public class AnimalDaoImpl implements AnimalDao {
 		sql += " animal_age, animal_gender_code,";
 		sql += " animal_gr, animal_neuters,";
 		sql += " animal_feature, status,";
-		sql += " animal.species_code, species_name";
+		sql += " animal.species_code, species_name, userid";
 		sql += " FROM animal, species";
 		sql += " WHERE species.species_code = animal.species_code";
 		sql += " AND status=1";
@@ -358,6 +361,7 @@ public class AnimalDaoImpl implements AnimalDao {
 				animal.setStatus(rs.getInt("status"));
 				animal.setSpecies_Code(rs.getInt("species_code"));
 				animal.setSpecies_Name(rs.getString("species_name"));
+				animal.setUserid(rs.getString("userid"));
 
 				list.add(animal);
 			}

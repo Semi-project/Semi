@@ -35,13 +35,15 @@ public class QnABoardWriteController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			req.setCharacterEncoding("UTF-8");
 		
-		/*QnA qna = qnaService.getParam(req, resp);*/
+		QnA qna = qnaService.getParam(req, resp);
 		
 		/*System.out.println(qna);*/
 		
 		//System.out.println(qna.getBoardno());
 		try {
 			qnaService.writeQnA(req);
+			
+			System.out.println("첨부파일"+req);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
