@@ -30,38 +30,41 @@ public class MemberLoginController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Member member = new Member();
-		String url = req.getRequestURI().toString();
+		String url = req.getRequestURI().toString();//login.do 
 		// System.out.println(url);
 		member = memberService.getParam(req, resp);
-		member = memberService.selectMemberByUserId(member);
-		int idCnt = memberService.checkUserId(member);
-		int userCnt = memberService.checkUser(member);
-		// String message = "";
+		//System.out.println("111111111111111111111: "+member);
+		int idCnt = memberService.checkUserId(member); //아이디 체크 
+		int userCnt = memberService.checkUser(member); // 비밀번호 체크 
+		System.out.println("usercnt"+userCnt);
+		 String message = "";
 		int cnt = -1;
 		if (url.indexOf("login.do") != -1) {
 
 			if (idCnt == 0 && userCnt == 0) {
-				// message = "존재하지 않는 아이디입니다.";
+				 message = "존재하지 않는 아이디입니다.";
 				cnt = 1;
-				resp.getWriter().println(cnt);
-				// System.out.println(message);
+				resp.getWriter().print(cnt);
+				 System.out.println(message);
 			} else if (idCnt == 1 && userCnt == 1) {
-				// message = member.getUserid() + "님 환영합니다.";
-				// System.out.println(message);
-				req.getSession().setAttribute("login", true);
-				req.getSession().setAttribute("userid", member.getUserid());
-				req.getSession().setAttribute("nick", member.getName());
-				req.getSession().setAttribute("role_id", member.getRole_id());
-				//System.out.println(member.getRole_id());
-				//System.out.println(member.getName());
+				message = member.getUserid() + "님 환영합니다.";
+				 System.out.println(message);
+				member = memberService.selectMemberByUserId(member);	
+			//	System.out.println("222222222222222 : "+member);
+				req.getSession().setAttribute("login", true); // 로그인 세션 유지 
+				req.getSession().setAttribute("userid", member.getUserid()); // 아이디
+				req.getSession().setAttribute("nick", member.getName()); // 닉=이름 
+				req.getSession().setAttribute("role_id", member.getRole_id()); // 권한 
+				// System.out.println(member.getRole_id());
+				// System.out.println(member.getName());
 				cnt = 0;
-				resp.getWriter().println(cnt);
+				resp.getWriter().print(cnt);
 
 			} else {
-				// message = "비밀번호가 틀렸습니다.";
+				 message = "비밀번호가 틀렸습니다.";
 				cnt = 2;
-				resp.getWriter().println(cnt);
-				// System.out.println(message);
+				resp.getWriter().print(cnt);
+				 System.out.println(message);
 			}
 
 //			req.setAttribute("message", message);

@@ -17,47 +17,39 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 	private ResultSet rs = null;
 	// DB연결 객체
 	private Connection conn = DBConn.getConnection();
-
+//------------------------------------------------------------------------
 	@Override
 	public void insertFiletb(Notice_Filetb notice_filetb) {
 
 		String sql = "";
-		sql += "INSERT INTO notice_filetb(fileno,boardno,file_originname,file_savename)";
-		sql += " VALUES (?, ?, ?, ?)";
-
-		ps = null;
+		sql += "INSERT INTO notice_filetb(fileno,boardno,file_originname,file_savename,filesize)";
+		sql += " VALUES (notice_filetb_seq.nextval, ?, ?, ?, ?)";
+//		System.out.println("진행중"+notice_filetb);
 
 		try {
 			conn.setAutoCommit(false);
+			
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, notice_filetb.getFileno());
-			ps.setInt(2, notice_filetb.getBoardno());
-			ps.setString(3, notice_filetb.getFile_OriginName());
-			ps.setString(4, notice_filetb.getFile_SaveName());
+			ps.setInt(1, notice_filetb.getBoardno());
+			ps.setString(2, notice_filetb.getFile_OriginName());
+			ps.setString(3, notice_filetb.getFile_SaveName());
+			ps.setLong(4, notice_filetb.getFilesize());
 
 			ps.executeUpdate();
 
 			conn.commit();
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
+		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				// DB객체 닫기
-				if (ps != null)
-					ps.close();
-
+				if (ps != null)	ps.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
+//-----------------------------------------------------------------------
 	@Override
 	public int deleteFiletbByfileno(int fileno, Notice_Board board) {
 		String sql = "";
@@ -143,15 +135,13 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 		// 게시글 번호 반환
 		return fileno;
 	}
-
+//----------------------------------------------------------------------------
 	@Override
-	public List<Notice_Filetb> selectFiletb(Notice_Board board) {
+	public Notice_Filetb selectFiletb(Notice_Board board) {
 		String sql = "";
-		sql += "SELECT *FROM notice_filetb WHERE boardno=? ORDER by fileno";
+		sql += "SELECT * FROM notice_filetb WHERE boardno=? ORDER by fileno";
 
-		ps = null;
-		rs = null;
-		List<Notice_Filetb> list = new ArrayList<Notice_Filetb>();
+		Notice_Filetb notice_filetb = new Notice_Filetb();
 		// DB작업
 		try {
 			ps = conn.prepareStatement(sql);
@@ -160,13 +150,12 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				Notice_Filetb boardFile = new Notice_Filetb();
-				boardFile.setFileno(rs.getInt("fileno"));
-				boardFile.setBoardno(rs.getInt("boardno"));
-				boardFile.setFile_OriginName(rs.getString("FILE_ORIGINNAME"));
-				boardFile.setFile_SaveName(rs.getString("file_SaveName"));
+//				Notice_Filetb boardFile = new Notice_Filetb();
+				notice_filetb.setFileno(rs.getInt("fileno"));
+				notice_filetb.setBoardno(rs.getInt("boardno"));
+				notice_filetb.setFile_OriginName(rs.getString("FILE_ORIGINNAME"));
+				notice_filetb.setFile_SaveName(rs.getString("file_SaveName"));
 
-				list.add(boardFile);
 			}
 
 		} catch (SQLException e) {
@@ -185,16 +174,15 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 			}
 		}
 
-		return list;
+		return notice_filetb;
 	}
-
+//------------------------------------------------------------------------------------------
 	@Override
 	public Notice_Filetb selectByFileno(int fileno) {
 		String sql = "";
-		sql += "SELECT *FROM notice_filetb WHERE fileno=? ORDER by fileno";
-		ps = null;
-		rs = null;
-		Notice_Filetb boardFile = new Notice_Filetb();
+		sql += "SELECT * FROM notice_filetb WHERE fileno = ? ORDER by fileno";
+		
+		Notice_Filetb notice_filetb = new Notice_Filetb();
 
 		try {
 			// DB작업
@@ -205,10 +193,11 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 
 			while (rs.next()) {
 
-				boardFile.setFileno(rs.getInt("fileno"));
-				boardFile.setBoardno(rs.getInt("boardno"));
-				boardFile.setFile_OriginName(rs.getString("FILE_ORIGINNAME"));
-				boardFile.setFile_SaveName(rs.getString("FILE_SAVENAME"));
+				notice_filetb.setFileno(rs.getInt("fileno"));
+				notice_filetb.setBoardno(rs.getInt("boardno"));
+				notice_filetb.setFile_OriginName(rs.getString("FILE_ORIGINNAME"));
+				notice_filetb.setFile_SaveName(rs.getString("FILE_SAVENAME"));
+				notice_filetb.setFilesize(rs.getLong("filesize"));
 			}
 
 		} catch (SQLException e) {
@@ -216,19 +205,17 @@ public class Notice_FileDaoImpl implements Notice_FileDao {
 		} finally {
 			try {
 				// DB객체 닫기
-				if (ps != null)
-					ps.close();
-				if (rs != null)
-					rs.close();
+				if (ps != null)		ps.close();
+				if (rs != null)		rs.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
-		return boardFile;
+		return notice_filetb;
 	}
-
+//--------------------------------------------------------------------
 	@Override
 	public void deleteFiletbByboardno(Notice_Board board) {
 

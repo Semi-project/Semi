@@ -20,4 +20,6 @@ public interface Review_FileDao {
 	public List<Review_Filetb> selectFiletb(Review_Board board);
 
 	public Review_Filetb selectByFileno(int fileno);
+	
+	public List<Review_Filetb> selectByBoardnolimit();
 }

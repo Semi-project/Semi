@@ -13,6 +13,17 @@ public class Notice_Filetb {
 
 	// 파일저장이름
 	private String file_SaveName;
+	
+	// 파일사이즈
+	private long filesize;
+
+	public long getFilesize() {
+		return filesize;
+	}
+
+	public void setFilesize(long l) {
+		this.filesize = l;
+	}
 
 	public int getFileno() {
 		return fileno;
@@ -49,7 +60,7 @@ public class Notice_Filetb {
 	@Override
 	public String toString() {
 		return "Notice_Filetb [fileno=" + fileno + ", boardno=" + boardno + ", file_OriginName=" + file_OriginName
-				+ ", file_SaveName=" + file_SaveName + "]";
+				+ ", file_SaveName=" + file_SaveName + ", filesize=" + filesize + "]";
 	}
 
 }

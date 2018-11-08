@@ -6,39 +6,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.adoption.Adoption;
+import dto.animal.Animal;
 import dto.file.Animal_Filetb;
 import util.Paging;
 
 public interface AdoptionService {
 
-	// ì…ì–‘ì‹ ì²­ì„œ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ (í˜ì´ì§•)
-	public List<Adoption> getPagingList(Paging paging);
 
-	// ì…ì–‘ ì‹ ì²­ì„œì— íŒŒë¼ë¯¸í„° ì „ë‹¬
-	public Adoption getParam(HttpServletRequest req, HttpServletResponse resp);
+   // ÀÔ¾ç ½ÅÃ»¼­¿¡ ÆÄ¶ó¹ÌÅÍ Àü´Ş
+   public Adoption getParam(HttpServletRequest req, HttpServletResponse resp);
 
-	// ìš”ì²­íŒŒë¼ë¯¸í„°ì—ì„œ curPage ë°˜í™˜
-	public int getCurPage(HttpServletRequest req);
+   // ¿äÃ»ÆÄ¶ó¹ÌÅÍ¿¡¼­ curPage ¹İÈ¯
+   public int getCurPage(HttpServletRequest req);
+   public String getSearch(HttpServletRequest req);
 
-	// ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ ì¡°íšŒ
-	public int getTotalCount();
+   public int getTotalCount(String search) ;
 
-	// ê²Œì‹œê¸€ ì „ì²´ ì¡°íšŒ
-	public List<Adoption> getList();
+   // °Ô½Ã±Û ÀüÃ¼ Á¶È¸
+   public List<Adoption> getList();
 
-	// ê¸€ ì‘ì„±ì ë‹‰ë„¤ì„ ì–»ê¸°
-	public String getNick(Adoption adoption);
+   
 
-	// ì²¨ë¶€íŒŒì¼ ì–»ê¸°
-	public Animal_Filetb viewFile(Adoption adoption);
+   // ÀÔ¾ç½ÅÃ»¼­ ¸®½ºÆ® Ãâ·Â (ÆäÀÌÂ¡)
+   public List<Adoption> getPagingList(Paging paging);
+   
+   
+   public Adoption view(Adoption adoptionView);
+   
+   
+   // °Ô½Ã±Û ¼öÁ¤
+   public void updateList(String names);
+   // »èÁ¦
+   public void delete(Adoption adoption);
+   public void deleteAdoptionList(String names);
+   public void write(HttpServletRequest req, HttpServletResponse resp);
 
-	// ê²Œì‹œê¸€ ìˆ˜ì •
-	// ê²Œì‹œê¸€ ë‚´ìš©ê³¼ ì²¨ë¶€íŒŒì¼ì„ í•¨ê»˜ ì ìš©í•œë‹¤
-	public void update(HttpServletRequest req);
+   public int getStatus(Adoption adoption);
+   // µ¿¹°ÄÚµå·Î ÀÔ¾ç ½ÅÃ»¼­ Ã£±â
+   public Adoption getByanimalCode(Animal animal);
 
-	// ì‚­ì œ
-	public void delete(Adoption adoption);
-
-	public void write(HttpServletRequest req, HttpServletResponse resp);
-
+   List<Adoption> getPagingUseridList(Paging paging);
 }

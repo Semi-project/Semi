@@ -92,8 +92,8 @@ div #section1 {
 }
 
 .tabList-v1 .tabItem a {
-	padding-left: 18px;
-	padding-right: 18px;
+	padding-left: 26px;
+	padding-right: 26px;
 }
 
 .tabPanel {
@@ -137,4 +137,8 @@ div #section1 {
 
 .tabPanel .panel .panel-item .date {
 	display: inline-block;
+}
+
+#oneonone {
+	float: left;
 }

@@ -18,6 +18,7 @@ public interface AnimalService {
 	// 동물 정보 전체 조회
 	public Animal selectAnimalByanimal_Code(Animal animal);
 		
+	public List<Animal> selectAllAnimal();
 	// 동물 정보 삽입
 	public void insertAnimal(Animal animal, Animal_Filetb animal_file);
 		
@@ -27,11 +28,11 @@ public interface AnimalService {
 	// 동물 정보 삭제
 	public void deleteAnimalByAnimal_Code(Animal animal, Animal_Filetb animal_filetb);
 	
-	// Write에 쓸 파라미터 가져오기
-	public Animal write(HttpServletRequest req, HttpServletResponse resp);
+	// 입양보내기 입력
+	public void write(HttpServletRequest req, HttpServletResponse resp);
 	
 	// 품종 가져오기
-	public List<Species> getSpecies();
+	public List getSpecies();
 	
 	// 페이징 필요 메소드
 	
@@ -41,11 +42,19 @@ public interface AnimalService {
 	//요청파라미터에서 curPage 반환
 	public int getCurPage(HttpServletRequest req);
 	
-	// 허가된 동물 페이징 조회
-	public List getPagingListAuth(Paging paging);
+	// 관리자 페이징
+	public List getPagingListAdmin(Paging paging);
 	
-	// 허가되지 않은 동물 페이징 조회
-	public List getPagingListUnauth(Paging paging);
+	// 수락된 동물 수 조회
+	public int getCountAcpt();
+	
+	// 일반 유저 페이징
+	public List selectPagingListUser(Paging paging);
 	
 	
+	// 리스트에서 삭제
+	public void animalListDelete(String codes);
+	
+	// 리스트에서 수락
+	public void animalListAccept(String codes);
 }

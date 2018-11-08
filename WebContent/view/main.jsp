@@ -125,7 +125,6 @@
 </script>
 <div style="text-align: center;">
 	<div class="col-lg-12"></div>
-
 	<div class="col-lg-12">
 		<div class="top">
 			<section class="container">
@@ -144,15 +143,15 @@
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
 							<img src="/img/main/137.png" alt="...">
-							<div class="carousel-caption">...</div>
+							<div class="carousel-caption"></div>
 						</div>
 						<div class="item">
 							<img src="/img/main/143.png" alt="...">
-							<div class="carousel-caption">...</div>
+							<div class="carousel-caption"></div>
 						</div>
 						<div class="item">
 							<img src="/img/main/145.png" alt="...">
-							<div class="carousel-caption">...</div>
+							<div class="carousel-caption"></div>
 						</div>
 					</div>
 
@@ -167,10 +166,10 @@
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-
 			</section>
 		</div>
 	</div>
+
 	<!-- endof first div 12  -->
 	<div class="col-lg-12">
 		<div id="section1">
@@ -180,92 +179,50 @@
 					<ul class="tabList-v1" data-tab="tabs">
 						<li class="tabItem is-selected"><a href="#tab01-1">공지사항</a></li>
 						<li class="tabItem"><a href="#tab01-2">입양 동물</a></li>
-						<li class="tabItem"><a href="#tab01-3">입양게시판</a></li>
+						<li class="tabItem"><a href="#tab01-3">입양후기</a></li>
 
 					</ul>
 					<div class="tabPanel">
-						<h4 class="a11y">모집에 대한 내용입니다.</h4>
+						<h4 class="a11y">공지사항</h4>
 						<ul id="tab01-1" class="panel is-selected">
-							<li><a href="#none">2017년 1차 글로벌새마을청년봉사단(제3기) 국내교육을
-									시행합니다.</a></li>
-							<li><a href="#none">(수정)2017년 3차 월드프렌즈 코이카봉사단(115기) 모집을
-									합니다.</a></li>
-							<li><a href="#none">2017년 2차 월드프렌즈 코디네이터 모집,선발을 실시합니다.</a></li>
-							<li><a href="#none">제 2기 KOICA-UNV 대학봉사단 활동국가 미리보기 강연을
-									실시합니다.</a></li>
-							<li><a href="#none">(수정)114기 월드프렌즈 코이카봉사단 모집(~12.26)을
-									실시합니다.</a></li>
+							<c:forEach items="${noticeList }" var="notice" begin="0" end="3">
+								<li><a href="/noticeboard/view?boardno=${notice.boardno }">${notice.title }/&nbsp;&nbsp;${notice.userid }/&nbsp;&nbsp;${notice.insert_dat }</a></li>
+							</c:forEach>
 						</ul>
-						<h4 class="a11y">합격자 발표에 대한 내용입니다.</h4>
+						<h4 class="a11y">입양을 기다리는 동물들</h4>
 						<ul id="tab01-2" class="panel">
-							<li><a href="#none">2017년 1차 글로벌새마을청년봉사단(제3기) 국내교육을
-									시행합니다.</a></li>
-							<li><a href="#none">2017년 2차 월드프렌즈 코디네이터 모집,선발을 실시합니다.</a></li>
-							<li><a href="#none">(수정)2017년 3차 월드프렌즈 코이카봉사단(115기) 모집을
-									합니다.</a></li>
-							<li><a href="#none">(수정)114기 월드프렌즈 코이카봉사단 모집(~12.26)을
-									실시합니다.</a></li>
-							<li><a href="#none">제 2기 KOICA-UNV 대학봉사단 활동국가 미리보기 강연을
-									실시합니다.</a></li>
+							<c:forEach items="${animalList }" var="animal" begin="0" end="3">
+								<li><a href="/adoption/send/view?animal_code=${animal.animal_Code }">이름&nbsp;:&nbsp;${animal.animal_Name }&nbsp;/&nbsp;나이
+										&nbsp;:&nbsp;${animal.animal_Age }살&nbsp;/&nbsp;성별&nbsp;:&nbsp;${animal.animal_Gender_Code }</a></li>
+							</c:forEach>
 						</ul>
-						<h4 class="a11y">국내교육에 대한 내용입니다.</h4>
+						<h4 class="a11y">입양후기</h4>
 						<ul id="tab01-3" class="panel">
-							<li><a href="#none">2017년 2차 월드프렌즈 코디네이터 모집,선발을 실시합니다.</a></li>
-							<li><a href="#none">2017년 1차 글로벌새마을청년봉사단(제3기) 국내교육을
-									시행합니다.</a></li>
-							<li><a href="#none">(수정)2017년 3차 월드프렌즈 코이카봉사단(115기) 모집을
-									합니다.</a></li>
-							<li><a href="#none">제 2기 KOICA-UNV 대학봉사단 활동국가 미리보기 강연을
-									실시합니다.</a></li>
-							<li><a href="#none">(수정)114기 월드프렌즈 코이카봉사단 모집(~12.26)을
-									실시합니다.</a></li>
-						</ul>
-
-					</div>
-				</div>
-
-				<br /> <br />
-				<div class="main-tab v1">
-					<h3 class="a11y">기수별 게시판, 국가별 게시판 탭 목록입니다.</h3>
-					<ul class="tabList" data-tab="tabs">
-						<li class="tabItem is-selected"><a href="#tab03-1">기수별
-								게시판</a></li>
-						<li class="tabItem"><a href="#tab03-2">국가별 게시판</a></li>
-					</ul>
-					<div class="tabPanel">
-						<h4 class="a11y">기수별 게시판에 대한 내용입니다.</h4>
-						<ul id="tab03-1" class="panel is-selected">
-							<li class="panel-item"><a href="#none">동티모르 커뮤니티 방 신설을
-									요청합니다.</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none">안녕하세요. 도미니카 Las
-									Terrenas 에서 당신을..</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none"><strong>[콜롬비아]</strong>[문의
-									및 요청] 파견증명서 출력을 요청</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none"><strong>[도미니카공화국]</strong>
-									활동기관명 재변경 요청합니다.</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none"><strong>[콜롬비아]</strong>[문의
-									및 요청] 파견증명서 출력을 요청</a> <span class="date">2016-09-07</span></li>
-						</ul>
-						<h4 class="a11y">국가별 게시판에 대한 내용입니다.</h4>
-						<ul id="tab03-2" class="panel">
-							<li class="panel-item"><a href="#none"><strong>[콜롬비아]</strong>[문의
-									및 요청] 파견증명서 출력을 요청</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none">동티모르 커뉴니티 방 신설을
-									요청합니다.</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none"><strong>[도미니카공화국]</strong>
-									활동기관명 재변경 요청합니다.</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none">안녕하세요. 도미니카 Las
-									Terrenas 에서 당신을..</a> <span class="date">2016-09-07</span></li>
-							<li class="panel-item"><a href="#none"><strong>[콜롬비아]</strong>[문의
-									및 요청] 파견증명서 출력을 요청</a> <span class="date">2016-09-07</span></li>
+							<c:forEach items="${list }" var="board" begin="0" end="3">
+								<li><a href="/review/view?boardno=${board.boardno }">${board.title }/&nbsp;&nbsp;${board.userid }/&nbsp;&nbsp;${board.insert_dat }</a></li>
+							</c:forEach>
 						</ul>
 					</div>
+					<div id="oneonone">
+						<a href="/charity/foroneonone" target="_blank"><img
+							src="/img/main/oneonone.jpg" alt="" /></a>
+					</div>
+
 				</div>
+
 			</div>
+
 		</div>
 
 		<!-- endof col-lg-6 first -->
-		<div class="col-lg-6"></div>
+		<div class="col-lg-3">
+			<div id="banner">
+				<a href="https://www.wadiz.kr/web/campaign/detail/19638"
+					target="_blank"><img src="/img/main/eating.png" alt=""></a>
+			</div>
+		</div>
+		<div class="col-lg-3"></div>
+
 	</div>
 
 </div>

@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.file.free.Free_FileDao;
 import dto.board.Free_Board;
+import dto.board.Free_Board_param;
 import dto.comment.Free_Comments;
 import dto.file.Free_Filetb;
 import util.Paging;
@@ -16,16 +16,18 @@ public interface Free_BoardService {
 	
 	
 	// 자유게시판 전체 조회
-	public List<Free_Board> selectFreeboard();
 	
 	// 자유게시판 글 쓰기 및 파일 업로드
 	public void writeFreeboard(HttpServletRequest req); //, File file);
+	
+	
+	public Free_Board_param getParampage(HttpServletRequest req, HttpServletResponse resp);
 	
 	// 자유게시판 삭제
 	public void deleteFreeboard(Free_Board freeBoard);
 	
 	// 자유게시판 수정
-	public Free_Board updateFreeboard(Free_Board freeBoard );//, File file);
+	public void updateFreeboard(HttpServletRequest req );//, File file);
 	
 	//게시판 제목으로 찾기
 	public String searchFreeBoardBytitle(Free_Board freeBoard);
@@ -39,8 +41,7 @@ public interface Free_BoardService {
 	// 게시판 총 글수 출력
 	public int selecntFreeBoardCntAll();
 
-	// 게시판 리스트 페이징 처리
-	public List<Free_Board> selectFreeBoardPagingList(Paging paging);
+
 
 	// 추천수 올려주기
 	public void updateRecommend(Free_Board freeBoard);
@@ -57,5 +58,40 @@ public interface Free_BoardService {
 	
 	//첨부파일 얻기
 		public Free_Filetb viewFile(Free_Board freeboard);
+		//페이징 위해 
+		public List<Free_Board> selectFreeboard(Free_Board_param fbp);
+		//업데이트위해 
+		public String getUserid(Free_Board freeboard);
+		//페이징위해 
+		public int getCurPage(HttpServletRequest req);
+		
+		
+		//검색값 가져오기 
+		public Free_Board_param getSearchParam(HttpServletRequest req,HttpServletResponse resp);
+		
+		
+		//검색 파라미터 받기 
+		public String nameSearch(HttpServletRequest req);
+		
+		
+		//추천
+		/*
+		 * 게시글 추천상태 확인
+		 * 	true - 추천한 게시글
+		 * 	false - 추천한적 없는 게시글
+		 */
+		public boolean recommendCheck(Free_Board chk);
+		
+		// 추천 로직
+		public boolean recommend(Free_Board board);
+		
+		// 추천수 구하기
+		public int getRecommend(Free_Board board);
+		
+		
+		public Free_Board getSCRParam(HttpServletRequest req, HttpServletResponse resp);
+	}
+
 	
-}
+		
+

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Review_CommentDaoImpl implements Review_CommentDao {
 	@Override
 	public List<Review_Comments> select(Review_Board board) {
 		String sql = "SELECT * FROM (" + "SELECT rownum rnum, B.* FROM (" + "	SELECT" + "		comment_no,"
-				+ "		boardno," + "		userid," + "		content," + "		insert_dat"
+				+ "		boardno," + "		userid," + "		content," + "		to_char(insert_dat, 'yyyy-mm-dd hh24:mi:ss') insert_dat"
 				+ "	FROM review_comments" + "	WHERE boardno = ?" + "	ORDER BY insert_dat" + "	) B"
 				+ ") ORDER BY rnum DESC";
 		List<Review_Comments> commentList = new ArrayList<Review_Comments>();
@@ -35,18 +37,19 @@ public class Review_CommentDaoImpl implements Review_CommentDao {
 
 			while (rs.next()) {
 				Review_Comments comment = new Review_Comments();
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 				comment.setRnum(rs.getInt("rnum"));
 				comment.setBoardno(rs.getInt("boardno"));
 				comment.setCommentNo(rs.getInt("comment_no"));
 				comment.setUserid(rs.getString("userid"));
 				comment.setContent(rs.getString("content"));
-				comment.setInsertDat(rs.getDate("insert_dat"));
+				comment.setInsertDat(format.parse(rs.getString("insert_dat")));
 
 				commentList.add(comment);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException | ParseException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -69,15 +72,15 @@ public class Review_CommentDaoImpl implements Review_CommentDao {
 	
 		// TODO Auto-generated method stub
 		String sql = "";
-		sql += "INSERT INTO review_comments(comment_no,userid,content,boardno)";
-		sql += " VALUES(review_COMMENTS_SEQ.nextval,?,?,?)";
+		sql += "INSERT INTO review_comments(comment_no,userid,content,boardno,insert_dat)";
+		sql += " VALUES(review_COMMENTS_SEQ.nextval,?,?,?,sysdate)";
 		try {
 			conn.setAutoCommit(false);
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, comment.getBoardno());
-			ps.setString(2, comment.getUserid());
-			ps.setString(3, comment.getContent());
+			ps.setString(1, comment.getUserid());
+			ps.setString(2, comment.getContent());
+			ps.setInt(3, comment.getBoardno());
 			ps.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {

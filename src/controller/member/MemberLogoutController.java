@@ -13,13 +13,13 @@ import service.member.MemberServiceImpl;
 
 @WebServlet("/member/logout")
 public class MemberLogoutController extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-   private MemberService memberService = new MemberServiceImpl();
-   
-   @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      req.getSession().invalidate();
-      resp.sendRedirect("/main");
-   }
+	//private MemberService memberService = new MemberServiceImpl();
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getSession().invalidate();
+		resp.sendRedirect("/main");
+	}
 }

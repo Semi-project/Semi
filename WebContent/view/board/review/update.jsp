@@ -22,7 +22,7 @@
 	$(document)
 			.ready(
 					function() {
-						
+
 						var count = $(this).attr("id");
 						$("button[name^='button']")
 								.on(
@@ -80,10 +80,9 @@
 
 						$("#btnUpdate").on("click", function(e) {
 							submitContents();
-							
+
 							$(this).parent("form").ajaxForm({
-						         
-						         	
+
 								// 										type : "post",
 								// 										urlㅌ : "/notice/file/write",
 								// 										data : {
@@ -101,10 +100,14 @@
 								}
 							});
 						});
+
+						$("#btnCancel").click(function() {
+							history.go(-1);
+						});
 					});
 </script>
 <div class="container">
-	<h3>공지사항</h3>
+	<h3>입양후기</h3>
 	<hr>
 	<div>
 		<form action="/review/update" method="post"

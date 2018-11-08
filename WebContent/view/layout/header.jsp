@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>댕냥이</title>
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/main.css">
 <!-- 자바 스크립트 -->
@@ -39,18 +39,20 @@
 </script>
 <style>
 /*테스트 */
-
-/* Custom, iPhone Retina */
-/* 작은 기기들 (태블릿, 768px 이상) */
-@media ( min-width : @screen-sm-min) {
+@media ( max-width : @screen-xs-max) {
+	...
 }
 
-/* 중간 기기들 (데스크탑, 992px 이상) */
-@media ( min-width : @screen-md-min) {
+@media ( min-width : @screen-sm-min) and (max-width: @screen-sm-max) {
+	...
 }
 
-/* 큰 기기들 (큰 데스크탑, 1200px 이상) */
+@media ( min-width : @screen-md-min) and (max-width: @screen-md-max) {
+	...
+}
+
 @media ( min-width : @screen-lg-min) {
+	...
 }
 
 ul.top_menu a {
@@ -60,13 +62,13 @@ ul.top_menu a {
 
 ul.top_menu {
 	position: absolute;
-	right: 20px;
+	right: 10px;
 	top: 20px;
 }
 
 ul.top_menu li {
 	display: inline;
-	padding-left: 20px;
+	padding-right: 30px;
 }
 
 .main_logo {
@@ -75,6 +77,7 @@ ul.top_menu li {
 	padding: 26px 0 17px;
 	height: 64px;
 	font-size: 100%;
+	display: inline-block;
 }
 
 /*네비게이션 전체 영역 제어*/
@@ -137,8 +140,25 @@ ul.top_menu li {
 }
 
 #main_nav {
-	/* 	z-index: 40; */
+	/*    z-index: 40; */
 	display: inline-block;
+}
+
+.dropdown>ul>li {
+	display: inline-block;
+	position: relative;
+}
+
+.dropdown>ul>li>ul {
+	position: absolute;
+	list-style-type: none;
+	padding-left: 0px;
+	display: none;
+}
+
+.dropdown>ul>li:hover>ul {
+	display: block;
+	z-index: 70;
 }
 </style>
 </head>
@@ -149,11 +169,10 @@ ul.top_menu li {
 				<div class="col-lg-4"></div>
 				<div class="col-lg-4">
 					<div class="main_logo">
-						<h1>
-							<a href=#>댕냥이</a>
-						</h1>
-					</div>
 
+						<a href="/main"><img src="/img/main/logo.png" alt="logo" /></a>
+
+					</div>
 				</div>
 
 			</header>
@@ -163,25 +182,32 @@ ul.top_menu li {
 
 		</div>
 		<div class="col-lg-4">
-
-			<ul class="top_menu">
-				<!-- 비로그인상태 -->
-				<c:if test="${not login }">
-					<li><a href="/member/login">로그인</a></li>
-					<li><a href="/member/join">회원가입</a></li>
-				</c:if>
-				<c:if test="${login }">
-					<c:if test="${role_id ne 1}">
-						<li>관리자</li>
+			<div class="dropdown">
+				<ul class="top_menu">
+					<!-- 비로그인상태 -->
+					<c:if test="${not login }">
+						<li><a href="/member/login">로그인</a></li>
+						<li><a href="/member/start">회원가입</a></li>
 					</c:if>
-					<c:if test="${role_id ne 0}">
-						<li>일반회원</li>
+					<c:if test="${login }">
+						<c:if test="${role_id ne 1}">
+							<li>관리자</li>
+							<li><a href="#">관리자페이지</a>
+								<ul>
+									<li><a href="/adoption/application/list">입양신청서</a></li>
+									<li><a href="/adoption/send/list">입양보내기</a></li>
+									<li><a href="/member/list">회원목록</a></li>
+								</ul></li>
+						</c:if>
+						<c:if test="${role_id ne 0}">
+							<li>일반회원</li>
+						</c:if>
+						<li><strong>${nick } 님, 환영합니다</strong></li>
+						<li><a href="/member/logout">로그아웃</a></li>
+						<li><a href="/mypage/view">마이페이지</a></li>
 					</c:if>
-					<li><strong>${nick } 님, 환영합니다</strong></li>
-					<li><a href="/member/logout">로그아웃</a></li>
-					<li><a>마이페이지</a></li>
-				</c:if>
-			</ul>
+				</ul>
+			</div>
 		</div>
 		<div></div>
 		<div class="col-lg-12">
@@ -197,15 +223,28 @@ ul.top_menu li {
 					<li class="navi_set">
 						<div class="topnav" id="topnav_2">참여하기</div>
 						<ul class="subnav">
-							<li><a href="/adoption/apply/list">입양하기</a></li>
-							<li><a href="/adoption/send/list"> 입양보내기</a></li>
+							<li><a href="/adoption/application/insert">입양하기</a></li>
+							<c:choose>
+								<c:when test="${role_id eq 1}">
+									<li><a href="/adoption/send/mlist"> 입양보내기</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="/adoption/send/mlist"> 입양보내기</a></li>
+								</c:otherwise>
+							</c:choose>
 							<li><a href="/review/list">입양후기</a></li>
 						</ul>
 					</li>
-
+					<li class="navi_set">
+						<div class="topnav" id="topnav_1">후원하기</div>
+						<ul class="subnav">
+							<li><a href="/charity/main">후원</a></li>
+							<li><a href="/charity/foroneonone">1:1 후원</a></li>
+						</ul>
+					</li>
 					<li class="navi_set"><div class="topnav" id="topnav_4">정보마당</div>
 						<ul class="subnav">
-							<li><a href="/qnaboard/list">Q & A</a></li>
+							<li><a href="/qnaboard/paginglist">QnA게시판</a></li>
 							<li><a href="/freeboard/list">자유게시판</a></li>
 						</ul></li>
 				</ul>

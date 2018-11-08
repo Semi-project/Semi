@@ -1,6 +1,6 @@
-/noticeboard/
 /controller/
 /dao/
+/dto/
 /file/
 /service/
-/dto/
+/util/

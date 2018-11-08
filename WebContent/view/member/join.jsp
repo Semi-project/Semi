@@ -184,6 +184,8 @@
 											if (d == 0) {
 												alert("사용가능한 아이디입니다.");
 											} else {
+												checkid=-1;
+												$("#userid").val('');
 												alert("아이디가 중복됩니다.");
 											}
 
@@ -224,6 +226,8 @@
 											alert("사용 할 수 있는 이메일 입니다.");
 
 										} else {
+											mail = -1;
+											$("#email").val('');
 											alert("중복된 이메일입니다 다른 이메일을 입력해주세요");
 										}
 
@@ -370,44 +374,196 @@
 					});
 </script>
 <style>
-div#top{
+div#top {
 	margin-top: 30px;
 }
-th {
-	background: #ffeff4;
-	fonti-size: 12px;
-	text-align: left;
-	border-top: 1px solid #ccc;
-	padding: 5px 10px;
+
+/* th { */
+/* 	background: #ffeff4; */
+/* 	fonti-size: 12px; */
+/* 	text-align: left; */
+/* 	border-top: 1px solid #ccc; */
+/* 	padding: 5px 10px; */
+/* } */
+
+/* td { */
+/* 	font-size: 12px; */
+/* 	border-top: 1px solid #ccc; */
+/* 	padding: 5px 10px; */
+/* 	color: #0000ff; */
+/* } */
+
+/* table { */
+/* 	border-bottom: 1px solid #ccc; */
+/* } */
+
+/* input { */
+/* 	vertical-align: middle; */
+/* 	background: #f2f2f2; */
+/* 	margin-right: 3px; */
+/* } */
+
+/* select { */
+/* 	width: 70px; */
+/* } */
+#join_frm {
+	
 }
 
-td {
+#join_frm .bar {
+	width: 30px;
+	margin: 25px 0 20px 0;
+	height: 2px;
+	background: #283444;
+}
+
+#join_frm .join_title {
+	font-size: 20px;
+	color: #283444;
+}
+
+#join_frm .join_table {
+	width: 100%;
+	border-top: 1px solid #e3e3e3;
+	margin: 20px 0 30px 0;
+}
+
+#join_frm .join_table th {
+	width: 196px;
+	background: #f7f7f7;
+	color: #6d6e72;
+	height: 40px;
+	border-bottom: 1px solid #e3e3e3;
+	font-weight: normal;
+}
+
+#join_frm .join_table td {
+	padding: 7px 0 7px 30px;
+	color: #6d6e72;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+#join_frm .join_table td input[type=radio] {
+	vertical-align: -2px;
+}
+
+#join_frm .join_table td input[type=text], #join_frm .join_table td input[type=password]
+	{
+	height: 23px;
+	border: 1px solid #ececec;
+	line-height: 23px;
+	color: #6d6e72;
+	padding-left: 10px;
+	width: 225px;
+	margin-right: 10px;
+}
+
+#join_frm .join_table td a {
+	height: 25px;
+	width: 75px;
+	background: #283444;
+	line-height: 25px;
+	text-align: center;
+	display: inline-block;
+	color: #fff;
 	font-size: 12px;
-	border-top: 1px solid #ccc;
-	padding: 5px 10px;
-	color: #0000ff;
 }
 
-table {
-	border-bottom: 1px solid #ccc;
+#join_frm .join_table td span {
+	line-height: 25px;
+	font-size: 11px;
 }
 
-input {
-	vertical-align: middle;
-	background: #f2f2f2;
-	margin-right: 3px;
+#join_frm .join_table td select {
+	height: 25px;
+	line-height: 25px;
 }
 
-select {
-	width: 70px;
+#join_frm .join_ok {
+	padding-top: 30px;
+	border-top: 1px solid #283444;
+	text-align: center;
+}
+
+#join_frm .join_ok a {
+	width: 145px;
+	height: 55px;
+	line-height: 55px;
+	font-size: 16px;
+	text-align: center;
+	margin: 0 auto;
+	display: inline-block;
+	background: #fa5c3f;
+	color: #fff;
+}
+
+#join_frm .join_ok a.navy {
+	background: #283444;
+}
+
+#join {
+	margin-top: 30px;
+}
+
+#join a {
+	width: 15%;
+	margin: 0 auto;
+	display: block;
+	padding: 0.7em 1.5em 0.8em 1.5em;
+	font-size: 16px;
+	color: #fff;
+	border: 1px solid #ffeff4;
+	border-radius: 2em;
+	background: #ffeff4;
+	text-align: center;
+	letter-spacing: -0.5px;
+	font-weight: bold;
+}
+
+#join a:hover {
+	background: #fff;
+	color: black;
+}
+
+.subject {
+	overflow: hidden;
+}
+
+.subject span {
+	float: left;
+	font-size: 40px;
+	font-weight: 500;
+	color: #263441;
+	font-family: 'NanumBarunGothic', 'Nanum Gothic', '돋움', Dotum, sans-serif;
+	letter-spacing: -2px;
+}
+
+.subject p {
+	float: right;
+	font-size: 11px;
+	color: #b4b2b3;
+}
+
+.subject p img {
+	vertical-align: -1px;
+}
+
+.subject_comment {
+	padding: 15px 0;
+	color: #6d6e72;
 }
 </style>
 </head>
 <body>
 	<div class="col-lg-2"></div>
-	<div class="col-lg-8" id ="top">
+
+	<div class="col-lg-8" id="join_frm"
+		style="border-top: #283444 solid 1px; padding-top: 15px;">
+		<div class="subject">
+			<span>회원가입</span>
+		</div>
 		<form method="POST" name="inputForm" action="/member/join">
-			<table style=""width: 80%; margin: 0 auto;">
+			<table class="join_table" style=""width: 80%; margin: 0 auto;">
 				<tr>
 
 					<th><label for="name">이름 </label></th>
@@ -458,31 +614,31 @@ select {
 					<td><input type="text" name="homeAddress" id="homeAddress"
 						size="60"></td>
 				</tr>
-				<tr>
-					<th><label for="phone1">연락처 </label></th>
+<!-- 				<tr> -->
+<!-- 					<th><label for="phone1">연락처 </label></th> -->
 
-					<td><select id="phone1">
-							<option value=""></option>
-							<option value="02">02</option>
-							<option value="031">031</option>
-							<option value="032">032</option>
-							<option value="033">033</option>
-							<option value="041">041</option>
-							<option value="042">042</option>
-							<option value="043">043</option>
-							<option value="051">051</option>
-							<option value="052">052</option>
-							<option value="053">053</option>
-							<option value="054">054</option>
-							<option value="055">055</option>
-							<option value="061">061</option>
-							<option value="062">062</option>
-							<option value="063">063</option>
-							<option value="064">064</option>
-							<option value="070">070</option>
-					</select> - <input type="text" name="phone2" id="phone2" size="5">-
-						<input type="text" name="phone3" id="phone3" size="6"></td>
-				</tr>
+<!-- 					<td><select id="phone1"> -->
+<!-- 							<option value=""></option> -->
+<!-- 							<option value="02">02</option> -->
+<!-- 							<option value="031">031</option> -->
+<!-- 							<option value="032">032</option> -->
+<!-- 							<option value="033">033</option> -->
+<!-- 							<option value="041">041</option> -->
+<!-- 							<option value="042">042</option> -->
+<!-- 							<option value="043">043</option> -->
+<!-- 							<option value="051">051</option> -->
+<!-- 							<option value="052">052</option> -->
+<!-- 							<option value="053">053</option> -->
+<!-- 							<option value="054">054</option> -->
+<!-- 							<option value="055">055</option> -->
+<!-- 							<option value="061">061</option> -->
+<!-- 							<option value="062">062</option> -->
+<!-- 							<option value="063">063</option> -->
+<!-- 							<option value="064">064</option> -->
+<!-- 							<option value="070">070</option> -->
+<!-- 					</select> - <input type="text" name="phone2" id="phone2" size="5">- -->
+<!-- 						<input type="text" name="phone3" id="phone3" size="6"></td> -->
+<!-- 				</tr> -->
 
 				<tr>
 					<th>휴대폰</th>
@@ -515,9 +671,10 @@ select {
 						<input type="radio" name="sms" value="0">받지 않습니다.</td>
 				</tr>
 			</table>
-			<input type="button" id="join" value="회원가입">
+			<div id="join">
+				<a>회원가입</a>
+				<!-- 			<input type="button" id="join" value="회원가입"> -->
+			</div>
 		</form>
 	</div>
 	<div class="col-lg-2"></div>
-
-	<jsp:include page="/view/layout/footer.jsp" />

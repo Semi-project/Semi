@@ -30,23 +30,24 @@ public class FreeBoardDownloadController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 String param = req.getParameter("fileno");
-		
+	
 		int freeboardfileno = 0;
 		if( param!=null && !"".equals(param) ) {
 			freeboardfileno = Integer.parseInt(param);
 		}
-		
+//		System.out.println(freeboardfileno);
 		
 		// 다운로드 대상 파일 정보 찾기;
 		Free_Filetb freeboardfile = freefileDao.selectByfileno(freeboardfileno);
 		
-		System.out.println(freeboardfile);
+		
+	
 		//다운로드 파일 찾기
 		String path = getServletContext().getRealPath("upload");
 		File file = new File(
 		path,freeboardfile.getFile_SaveName());
 		
-		System.out.println(file);
+//		System.out.println(file);
 		
 		// 파일이 존재할 때만 동작
 		if( file.exists() && file.isFile() ) {

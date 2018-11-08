@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.board.Review_Board;
+import dto.file.Review_Filetb;
 import service.board.review.Review_BoardService;
 import service.board.review.Review_BoardServiceImpl;
 import util.Paging;
@@ -31,7 +32,9 @@ public class ReviewBoardListController extends HttpServlet {
 		req.setAttribute("boardList", boardList);
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
-
+		List<Review_Filetb> fileList=review_BoardService.thumbnail(req);//썸네일 
+		req.setAttribute("fileList", fileList);
+		
 		req.getRequestDispatcher("/view/board/review/list.jsp").forward(req, resp);
 
 	}

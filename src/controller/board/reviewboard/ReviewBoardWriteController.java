@@ -13,7 +13,7 @@ import service.board.review.Review_BoardServiceImpl;
 import service.comment.review.Review_CommentService;
 import service.comment.review.Review_CommentServiceImpl;
 
-@WebServlet("/reviewer/write")
+@WebServlet("/review/write")
 public class ReviewBoardWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,11 @@ public class ReviewBoardWriteController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if (req.getSession().getAttribute("login") == null || req.getSession().getAttribute("role_id")=="1") {
-			resp.sendRedirect("/main"); //2018- 10- 23 일 정리 
+		if (req.getSession().getAttribute("login") == null) {
+			resp.sendRedirect("/main"); // 2018- 10- 23 일 정리
 			return;
 		}
-		//System.out.println();
+		// System.out.println();
 		req.getRequestDispatcher("/view/board/review/write.jsp").forward(req, resp);
 	}
 
