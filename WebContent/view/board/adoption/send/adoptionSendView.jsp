@@ -7,6 +7,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
 	$("#btnList").click(function() {
 		
 		var userControl = "${role_id}";
@@ -67,13 +68,7 @@ $(document).ready(function() {
 
 <div class="text-center">	
 	<button id="btnList" class="btn btn-primary">목록</button>
-<%-- 	<c:if test="${role_control eq 0 }"> --%>
-<%-- 		<button id="btnDelete" class="btn btn-danger">삭제</button> --%>
-<%-- 	</c:if>	 --%>
-<%-- 	<c:if test="${animal.userid eq userid or role_control eq 0 }"> --%>
-<%-- 		<button id="btnDelete" class="btn btn-danger">삭제</button> --%>
-<%-- 	</c:if> --%>
-	<c:if test="${role_control eq 0 }">
+	<c:if test="${animal.userid eq userid or role_id eq 0 }">
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
 	</c:if>
 </div>

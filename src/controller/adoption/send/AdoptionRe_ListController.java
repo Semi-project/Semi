@@ -30,6 +30,21 @@ public class AdoptionRe_ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		// 로그인 확인
+		if(req.getSession().getAttribute("role_id") != null) {
+			int roleId = (int)req.getSession().getAttribute("role_id");
+			
+			if (roleId != 0) {
+				System.out.println(req.getSession().getAttribute("role_id"));
+				resp.sendRedirect("/adoption/send/mlist");
+				return;
+			}
+		} else {
+			resp.sendRedirect("/adoption/send/mlist");
+			return;
+		}
+		
+		
 		// 현재 페이지 번호 얻기
 		int curPage = animalService.getCurPage(req);
 

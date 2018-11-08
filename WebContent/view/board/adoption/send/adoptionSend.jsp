@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <jsp:include page="/view/layout/header.jsp" />
 <style>
 div.title {
@@ -15,116 +16,78 @@ div.title {
 $(document).ready(function() {
 
 	$("#btnCancel").click(function() {
-		history.go(-1);
+		
+		var toList = "${role_id}";
+		
+		if(toList == 0){
+			$(location).attr("href", "/adoption/send/list");
+		} else {
+			$(location).attr("href", "/adoption/send/mlist");
+		}		
 	});
 	
 	$("#btnSave").click(function() {
 		
-		var aniName = document.getElementById("name").value;
-		var aniAge = document.getElementById("age").val();
-		var aniGender = document.getElementByName("gender").val();
-		var aniGr = document.getElementById("weight").val();
-		var aniNeuter = document.getElementByName("neuter").val();
-		var aniSpecies = document.getElementById("species").val();
-		var aniContent = document.getElementById("inputText").val();
-		
-		var oMsg = $("idMsg");
-		
-		if(aniName==""){
-// 			alert("동물의 이름을 입력해주세요");
-			showErrorMsg(oMsg, "필수 정보입니다.");
-			return false;
-		} else if (aniAge==""){
-			alert("나이릅 입력해주세요");
-			return false;
-		} else if (aniGender==""){
-			alert("성별을 선택해주세요");
-			return false;
-		} else if (aniGr==""){
-			alert("체중을 입력해주세요");
-			return false;
-		} else if (aniNeuter==""){
-			alert("중성화 여부를 선택해주세요");
-			return false;
-		} else if (aniSpecies==""){
-			alert("품종을 선택해주세요");
-			return false;
-		} else if (aniContent==""){
-			alert("특성, 성격 등 " + aniName + "을 소개해주세요");
-			return false;
-		} else{
-			submitContents();
-		}
-		
-// 		submitContents();
-		
-// 		alert("동물 이름 : " + aniName);
-		
-// 		var checked = false;
-// 		if(!checked){
-// 		if(aniName == "" || aniName == null){
-// 			alert("동물 이름을 입력해주세요.");
-// 			return false;
-			
-// 		} else if(aniAge == "" || aniAge == null){
-// 			alert("동물 나이를 입력해주세요.\n생후 1년이 되지 않았다면 0을 입력해주세요");
-// 			return false;
-			
-// 		} else if(aniGender == "" || aniGender == null){
-// 			alert("동물 성별을 선택해주세요.");
-// 			return false;
-			
-// 		} else if(aniGr == "" || aniGr == null){
-// 			alert("체중를 입력해주세요.");
-// 			return false;
-			
-// 		} else if(aniNeuter == "" || aniNeuter == null){
-// 			alert("중성화 수술 여부를 선택해주세요.");
-// 			return false;
-			
-// 		} else if(aniSpecies == "" || aniSpecies == null){
-// 			alert("품종을 선택해주세요.");
-// 			return false;
-			
-// 		} else if(aniContent == "" || aniContent == null){
-// 			alert("내용을 입력해주세요.");
-// 			return false;
-// 		} 
-// 		} else if(checked) {
-// 			submitContents();
-// 		}
-	});
-
-	$("input:radio[name='animal']").click(function(){
-		var selected = $('input[name="animal"]:checked').val();
+		var aniName = $("#name").val();
+		var aniAge = $("#age").val();
+		var aniGender = $("[name='gender']").val();
+		var aniGr = $("#weight").val();
+		var aniNeuter = $("[name='neuter']").val();
+		var aniSpecies = $("#species").val();
 				
-		var show1 = document.getElementById("select1");
-		var show2 = document.getElementById("select2");
-		var show3 = document.getElementById("select3");
-		
-		if (selected == "dog") {
+		if(aniName=="") {
+			alert("동물의 이름을 입력해주세요");
+			$("#name").focus();
+			return false;
 			
-			show1.style.display = "block";
-			show2.style.display = "none";
-			show3.style.display = "none";
+		} else if (aniAge=="") {
+			alert("나이를 입력해주세요");
+			$("#age").focus();
+			return false;
 			
-		} else if (selected == "cat") {
+		} else if (aniGr=="") {
+			alert("체중을 입력해주세요");
+			$("#weight").focus();
+			return false;
+            
+       } else {
+    	   submitContents($("#btnSave"));
 			
-			show1.style.display = "none";
-			show2.style.display = "block";
-			show3.style.display = "none";
-			
-		} else if (selected == "etc") {
-
-			show1.style.display = "none";
-			show2.style.display = "none";
-			show3.style.display = "block";
-
+			$("frm").submit();
 		}
-	
+		
 	});
-	
-});
+
+		$("input:radio[name='animal']").click(function() {
+			var selected = $("input:radio[name='animal']:checked").val();
+
+			var show1 = document.getElementById("select1");
+			var show2 = document.getElementById("select2");
+			var show3 = document.getElementById("select3");
+
+			if (selected == "dog") {
+
+				show1.style.display = "block";
+				show2.style.display = "none";
+				show3.style.display = "none";
+
+			} else if (selected == "cat") {
+
+				show1.style.display = "none";
+				show2.style.display = "block";
+				show3.style.display = "none";
+
+			} else if (selected == "etc") {
+
+				show1.style.display = "none";
+				show2.style.display = "none";
+				show3.style.display = "block";
+
+			}
+
+		});
+
+	});
 </script>
 
 <div>
@@ -208,7 +171,6 @@ $(document).ready(function() {
 		</form>
 	</div>
 
-
 </div>
 
 <script type="text/javascript">
@@ -223,17 +185,18 @@ $(document).ready(function() {
 			bUseToolbar : true, //툴바 사용여부
 			bUseVerticalResizer : false, //입력창 크기 조절 바
 			bUseModeChanger : true
-		//모드 탭
 		}
 	});
 
 	//<form>의 submit에 맞춰 스마트에디터 내용 적용
 	function submitContents(elClickedObj) {
-		oEditors.getById["inputText"].exec("UPDATE_CONTENTS_FIELD", []);
+	oEditors.getById["inputText"].exec("UPDATE_CONTENTS_FIELD", []);
+
 		try {
 			elClickedObj.form.submit();
 		} catch (e) {
 		}
+
 	}
 </script>
 

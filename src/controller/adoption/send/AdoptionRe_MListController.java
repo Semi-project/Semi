@@ -48,6 +48,7 @@ public class AdoptionRe_MListController extends HttpServlet {
 
 		req.getRequestDispatcher("/view/board/adoption/send/adoptionSendMList.jsp").forward(req, resp);
 
+		
 	}
 
 }
