@@ -33,13 +33,7 @@ public class AdoptionRe_DeleteController extends HttpServlet {
 
 		animalService.deleteAnimalByAnimal_Code(animal, animal_filetb);
 
-		int roleControl = (int) req.getSession().getAttribute("role_id");
-		
-		if(roleControl==0) {
-	         resp.sendRedirect("/adoption/send/list");
-	      } else if(roleControl==1) {
-	         resp.sendRedirect("/adoption/send/mlist");
-	      }
+		resp.sendRedirect("/adoption/send/list");
 
 	}
 

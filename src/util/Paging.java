@@ -15,7 +15,15 @@ public class Paging {
 	private int endNo;	//게시물리스트 마지막 번호
 	
 	private String search; //검색어
-	
+	private String userid;
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
 	public String getSearch() {
 		return search;
 	}

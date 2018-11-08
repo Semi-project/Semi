@@ -13,35 +13,37 @@ import util.Paging;
 public interface AdoptionService {
 
 
-	// ì…ì–‘ ì‹ ì²­ì„œì— íŒŒë¼ë¯¸í„° ì „ë‹¬
-	public Adoption getParam(HttpServletRequest req, HttpServletResponse resp);
+   // ÀÔ¾ç ½ÅÃ»¼­¿¡ ÆÄ¶ó¹ÌÅÍ Àü´Ş
+   public Adoption getParam(HttpServletRequest req, HttpServletResponse resp);
 
-	// ìš”ì²­íŒŒë¼ë¯¸í„°ì—ì„œ curPage ë°˜í™˜
-	public int getCurPage(HttpServletRequest req);
-	public String getSearch(HttpServletRequest req);
+   // ¿äÃ»ÆÄ¶ó¹ÌÅÍ¿¡¼­ curPage ¹İÈ¯
+   public int getCurPage(HttpServletRequest req);
+   public String getSearch(HttpServletRequest req);
 
-	public int getTotalCount(String search) ;
+   public int getTotalCount(String search) ;
 
-	// ê²Œì‹œê¸€ ì „ì²´ ì¡°íšŒ
-	public List<Adoption> getList();
+   // °Ô½Ã±Û ÀüÃ¼ Á¶È¸
+   public List<Adoption> getList();
 
-	
+   
 
-	// ì…ì–‘ì‹ ì²­ì„œ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ (í˜ì´ì§•)
-	public List<Adoption> getPagingList(Paging paging);
-	
-	
-	public Adoption view(Adoption adoptionView);
-	
-	
-	// ê²Œì‹œê¸€ ìˆ˜ì •
-	public void updateList(String names);
-	// ì‚­ì œ
-	public void delete(Adoption adoption);
-	public void deleteAdoptionList(String names);
-	public void write(HttpServletRequest req, HttpServletResponse resp);
+   // ÀÔ¾ç½ÅÃ»¼­ ¸®½ºÆ® Ãâ·Â (ÆäÀÌÂ¡)
+   public List<Adoption> getPagingList(Paging paging);
+   
+   
+   public Adoption view(Adoption adoptionView);
+   
+   
+   // °Ô½Ã±Û ¼öÁ¤
+   public void updateList(String names);
+   // »èÁ¦
+   public void delete(Adoption adoption);
+   public void deleteAdoptionList(String names);
+   public void write(HttpServletRequest req, HttpServletResponse resp);
 
-	public int getStatus(Adoption adoption);
-	// ë™ë¬¼ì½”ë“œë¡œ ì…ì–‘ ì‹ ì²­ì„œ ì°¾ê¸°
-	public Adoption getByanimalCode(Animal animal);
+   public int getStatus(Adoption adoption);
+   // µ¿¹°ÄÚµå·Î ÀÔ¾ç ½ÅÃ»¼­ Ã£±â
+   public Adoption getByanimalCode(Animal animal);
+
+   List<Adoption> getPagingUseridList(Paging paging);
 }

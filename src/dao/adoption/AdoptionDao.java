@@ -8,43 +8,45 @@ import util.Paging;
 
 public interface AdoptionDao {
 
-	// ì „ì²´ ë¦¬ìŠ¤íŠ¸ ê°¯ìˆ˜
-	public int selectAdoptionCntAll(String search);
+   // ÀüÃ¼ ¸®½ºÆ® °¹¼ö
+   public int selectAdoptionCntAll(String search);
 
-	// ì¼ë°˜ ì „ì²´ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
-	public List<Adoption> selectAll();
+   // ÀÏ¹İ ÀüÃ¼ ¸®½ºÆ® Ãâ·Â
+   public List<Adoption> selectAll();
 
-	// ì¼ë°˜ ì „ì²´ ë¦¬ìŠ¤íŠ¸ í˜ì´ì§• ì²˜ë¦¬ í›„ ì¶œë ¥
-	public List<Adoption> selectPagingList(Paging paging);
+   // ÀÏ¹İ ÀüÃ¼ ¸®½ºÆ® ÆäÀÌÂ¡ Ã³¸® ÈÄ Ãâ·Â
+   public List<Adoption> selectPagingList(Paging paging);
 
-	// ë™ë¬¼ ì´ë¦„ë¡œ ê²€ìƒ‰
-	public List<Adoption> selectAdoptionByAnimal_name(Adoption adoption);
+   // µ¿¹° ÀÌ¸§·Î °Ë»ö
+   public List<Adoption> selectAdoptionByAnimal_name(Adoption adoption);
 
-	public Adoption selectAdoptionByAdoption_code(Adoption adoption);
+   public Adoption selectAdoptionByAdoption_code(Adoption adoption);
 
-	// ì…ì–‘ ì‹ ì²­í•˜ê¸°
-	public void insertAdoption(Adoption adoption);
+   // ÀÔ¾ç ½ÅÃ»ÇÏ±â
+   public void insertAdoption(Adoption adoption);
 
-	// ì‹œí€€ìŠ¤ ë„˜ë²„
-	public int selectSeqNextval();
+   // ½ÃÄö½º ³Ñ¹ö
+   public int selectSeqNextval();
 
-	// ì„ íƒí•œê±° ì‚­ì œ
-	public void deleteAdoptionList(String names);
+   // ¼±ÅÃÇÑ°Å »èÁ¦
+   public void deleteAdoptionList(String names);
 
-	// ì„ íƒí•œê±° update
-	public void updateAdoptionList(String names);
+   // ¼±ÅÃÇÑ°Å update
+   public void updateAdoptionList(String names);
 
-	public void delete(Adoption adoption);
+   public void delete(Adoption adoption);
 
-	public void update(Adoption adoption);
+   public void update(Adoption adoption);
 
-	public int selectStatusbyanimalName(Adoption adoption);
-	// ë™ë¬¼ ì½”ë“œë¡œ ì…ì–‘ ì‹ ì²­ì„œ ê°€ì ¸ì˜¤ê¸°
-	public Adoption getByanimalCode(Adoption adoption);
+   public int selectStatusbyanimalName(Adoption adoption);
+   // µ¿¹° ÄÚµå·Î ÀÔ¾ç ½ÅÃ»¼­ °¡Á®¿À±â
+   public Adoption getByanimalCode(Adoption adoption);
 
-	public List<Adoption> selectAllByUserid(Adoption adoption);
-	
-	
-	
-	
+   public List<Adoption> selectAllByUserid(Adoption adoption);
+
+   public List<Adoption> selectUseridPagingList(Paging paging);
+   
+   
+   
+   
 }

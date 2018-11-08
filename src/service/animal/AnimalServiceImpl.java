@@ -236,8 +236,6 @@ public class AnimalServiceImpl implements AnimalService {
 						String content = item.getString("utf-8");
 						animal.setAnimal_Feature(content);					
 
-//						System.out.println("AnimalServiceImpl : " + content);
-						
 						// 동물 코드 가져오기
 						int animalCode = animalDao.selectSeqNextval();
 						animal.setAnimal_Code(animalCode);

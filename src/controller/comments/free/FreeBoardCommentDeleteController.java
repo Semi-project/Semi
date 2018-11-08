@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.comment.free.Free_CommentDao;
+import dao.comment.free.Free_CommentDaoImpl;
 import dto.comment.Free_Comments;
 import service.board.free.Free_BoardService;
 import service.board.free.Free_BoardServiceImpl;
@@ -21,7 +23,7 @@ public class FreeBoardCommentDeleteController extends HttpServlet {
   
 	private Free_BoardService freeboardservice = new Free_BoardServiceImpl();
 	private Free_CommentService fcs= new Free_CommentServiceImpl();
-
+	private Free_CommentDao fc= new Free_CommentDaoImpl();
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
@@ -29,7 +31,9 @@ public class FreeBoardCommentDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Free_Comments comment = new Free_Comments();
-		
+		/*
+		 * 
+		 */
 		
 		String commentno = (String) req.getParameter("comment_no");
 	
@@ -38,6 +42,9 @@ public class FreeBoardCommentDeleteController extends HttpServlet {
 		boolean success = fcs.deleteComment(comment);
 		
 		resp.getWriter().append("{\"success\":"+success+"}");
+		
+		//리스트 가져와
+		
 		
 		
 		

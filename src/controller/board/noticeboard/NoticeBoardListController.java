@@ -26,13 +26,27 @@ public class NoticeBoardListController extends HttpServlet {
 		int totalCount = notice_BoardService.getTotalCount();
 		Paging paging = new Paging(totalCount, curPage);
 
+
+		//검색어 얻기
+		String search = notice_BoardService.getSearch(req);
+		
+		//페이징 객체에 검색어 적용
+		paging.setSearch(search);
+		System.out.println(search);
+		
 		// System.out.println(paging);
 		List<Notice_Board> notice_boardList = notice_BoardService.getPagingList(paging);
 		req.setAttribute("notice_boardList", notice_boardList);
+		
+		//게시글목록 MODEL로 추가
+//		List<Notice_Board> boardList = notice_BoardService.getPagingList(paging);
+//		req.setAttribute("boardList", boardList);
+		
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
 
-		req.getRequestDispatcher("/view/board/notice/list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/view/board/notice/list.jsp")
+			.forward(req, resp);
 
 	}
 }

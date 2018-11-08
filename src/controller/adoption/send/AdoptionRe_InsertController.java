@@ -48,9 +48,7 @@ public class AdoptionRe_InsertController extends HttpServlet {
       req.setCharacterEncoding("UTF-8");
       // 응답 객체 MIME타입(Content-Type) 설정
       resp.setContentType("text/html;charset=UTF-8");
-      
-      System.out.println("값이 넘어온다");
-      
+
       animalService.write(req, resp);
 
       int roleControl = (int) req.getSession().getAttribute("role_id");

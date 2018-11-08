@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% response.setHeader("Cache-Controll", "no-cache"); %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>upDatePage</title>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js">
-</script>
+<jsp:include page="/view/layout/header.jsp" />
 
 
 <script type="text/javascript" 
@@ -17,11 +11,8 @@
 </script>
 
 <div style="text-align: center;"></div>
-</head>
-<body>
 
-
-<h1>글쓰기</h1>
+<h1>Q&A</h1>
 <hr>
 
 <form action="update" method="post"> 
@@ -81,6 +72,4 @@ $(document).ready(function(){
 </script>
 
 
-
-</body>
-</html>
+<jsp:include page="/view/layout/footer.jsp" />

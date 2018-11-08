@@ -13,679 +13,740 @@ import util.Paging;
 
 public class AdoptionDaoImpl implements AdoptionDao {
 
-	private Connection conn = DBConn.getConnection();
-
-	@Override
-	public int selectAdoptionCntAll(String search) {
-
-		// Ï†ÑÏ≤¥ Í≤åÏãúÍ∏Ä Ïàò Ï°∞Ìöå ÏøºÎ¶¨
-		String sql = "";
-		sql += "SELECT COUNT(*) FROM adoption";
-		if (search != null && !"".equals(search)) {
-			sql += " WHERE animal_name LIKE '%" + search + "%'";
-		}
-
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		int cnt = 0;
-		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-
-			rs.next();
-
-			cnt = rs.getInt(1);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (ps != null)
-					ps.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return cnt;
-	}
-
-	@Override
-	public List<Adoption> selectAll() {
-		String sql = "";
-		sql += "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, " + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, "
-				+ "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "STATUS, " + "adoption_code, animal_code, "
-				+ "USERID FROM adoption ORDER BY animal_name";
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		// ÏµúÏ¢Ö Ï°∞Ìöå Í≤∞Í≥º Îã¥ÏùÑ List
-		List<Adoption> list = new ArrayList<>();
-
-		try {
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-
-			// Ï†ÑÏ≤¥Ï°∞Ìöå Í≤∞Í≥º Îã¥Í∏∞
-			while (rs.next()) {
-				Adoption b = new Adoption();
-
-				// ResultSetÏùò Í≤∞Í≥º Ìñâ ÌïòÎÇòÏî© DTOÏóê Ï†ÄÏû•
-				b.setAdoptionCalltime(rs.getString("adoption_calltime"));
-				b.setAdoptionHousing(rs.getString("adoption_housing"));
-				b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
-				b.setAdoptionExp(rs.getString("adoption_exp"));
-				b.setAdoptionReason(rs.getString("adoption_reason"));
-				b.setAnimalName(rs.getString("animal_name"));
-				b.setUserid(rs.getString("userid"));
-				b.setStatus(rs.getInt("status"));
-				b.setAdoptionCode(rs.getInt("adoption_code"));
-				b.setAnimalCode(rs.getInt("animal_code"));
-
-				// Ï°∞ÌöåÍ≤∞Í≥ºÎ•º ListÎ°ú ÏÉùÏÑ±
-				list.add(b);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// Ï†ÑÏ≤¥Ï°∞Ìöå Í≤∞Í≥º Î∞òÌôò
-		return list;
-
-	}
-
-	@Override
-	public List<Adoption> selectPagingList(Paging paging) {
-		String sql = "";
-		sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
-				+ "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
-				+ "adoption_code, " + "animal_code, " + "USERID FROM adoption";
-		if (paging.getSearch() != null && !"".equals(paging.getSearch())) {
-			sql += " WHERE animal_name LIKE '%" + paging.getSearch() + "%'";
-		}
-		sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<Adoption> list = new ArrayList<>();
-		try {
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, paging.getStartNo());
-			ps.setInt(2, paging.getEndNo());
-
-			rs = ps.executeQuery();
-
-			// Ï°∞Ìöå Í≤∞Í≥º Îã¥Í∏∞
-			while (rs.next()) {
-				Adoption b = new Adoption();
-
-				// ResultSetÏùò Í≤∞Í≥º Ìñâ ÌïòÎÇòÏî© DTOÏóê Ï†ÄÏû•
-				b.setAdoptionCalltime(rs.getString("adoption_calltime"));
-				b.setAdoptionHousing(rs.getString("adoption_housing"));
-				b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
-				b.setAdoptionExp(rs.getString("adoption_exp"));
-				b.setAdoptionReason(rs.getString("adoption_reason"));
-				b.setAnimalName(rs.getString("animal_name"));
-				b.setUserid(rs.getString("userid"));
-				b.setStatus(rs.getInt("status"));
-				b.setAdoptionCode(rs.getInt("ADOPTION_CODE"));
-				b.setAnimalCode(rs.getInt("animal_code"));
-				// Ï°∞ÌöåÍ≤∞Í≥ºÎ•º ListÎ°ú ÏÉùÏÑ±
-				list.add(b);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// Í≤∞Í≥º Î∞òÌôò
-		return list;
-	}
-
-	@Override
-	public List<Adoption> selectAdoptionByAnimal_name(Adoption adoption) {
-		String sql = "SELECT";
-		sql += "ANIMAL_NAME";
-		sql += ", ADOPTION_REASON";
-		sql += ", ADOPTION_EXP";
-		sql += ", ADOPTION_CURANIMAL";
-		sql += ", ADOPTION_HOUSING";
-		sql += ", ADOPTION_CALLTIME";
-		sql += ", status";
-		sql += ", adoption_code";
-		sql += ", animal_code";
-		sql += ",USERID";
-		sql += " FROM adoption WHERE animal_name=? order by adoption_calltime";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<Adoption> list = new ArrayList<>();
-		try {
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-
-			ps.setString(1, adoption.getAnimalName());
-			rs = ps.executeQuery();
-
-			// Ï°∞Ìöå Í≤∞Í≥º Îã¥Í∏∞
-			while (rs.next()) {
-				Adoption b = new Adoption();
-
-				// ResultSetÏùò Í≤∞Í≥º Ìñâ ÌïòÎÇòÏî© DTOÏóê Ï†ÄÏû•
-				b.setAdoptionCalltime(rs.getString("adotpion_calltime"));
-				b.setAdoptionHousing(rs.getString("adoption_housing"));
-				b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
-				b.setAdoptionExp(rs.getString("adoption_exp"));
-				b.setAdoptionReason(rs.getString("adoption_reason"));
-				b.setAnimalName(rs.getString("animal_name"));
-				b.setUserid(rs.getString("userid"));
-				b.setStatus(rs.getInt("status"));
-				b.setAdoptionCode(rs.getInt("adoption_code"));
-				b.setAnimalCode(rs.getInt("animal_code"));
-
-				// Ï°∞ÌöåÍ≤∞Í≥ºÎ•º ListÎ°ú ÏÉùÏÑ±
-				list.add(b);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// Í≤∞Í≥º Î∞òÌôò
-		return list;
-	}
-
-	@Override
-	public Adoption selectAdoptionByAdoption_code(Adoption adoption) {
-		String sql = "SELECT ";
-		sql += "ANIMAL_NAME";
-		sql += ", ADOPTION_REASON";
-		sql += ", ADOPTION_EXP";
-		sql += ", ADOPTION_CURANIMAL";
-		sql += ", ADOPTION_HOUSING";
-		sql += ", ADOPTION_CALLTIME";
-		sql += ", status";
-		sql += ", adoption_code";
-		sql += ", animal_code";
-		sql += ",USERID";
-		sql += " FROM adoption WHERE adoption_code=? order by adoption_calltime";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		// List<Adoption> list = new ArrayList<>();
-		Adoption b = new Adoption();
-
-		try {
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, adoption.getAdoptionCode());
-			rs = ps.executeQuery();
-
-			// Ï°∞Ìöå Í≤∞Í≥º Îã¥Í∏∞
-			while (rs.next()) {
-
-				// ResultSetÏùò Í≤∞Í≥º Ìñâ ÌïòÎÇòÏî© DTOÏóê Ï†ÄÏû•
-				b.setAdoptionCalltime(rs.getString("adoption_calltime"));
-				b.setAdoptionHousing(rs.getString("adoption_housing"));
-				b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
-				b.setAdoptionExp(rs.getString("adoption_exp"));
-				b.setAdoptionReason(rs.getString("adoption_reason"));
-				b.setAnimalName(rs.getString("animal_name"));
-				b.setUserid(rs.getString("userid"));
-				b.setStatus(rs.getInt("status"));
-				b.setAdoptionCode(rs.getInt("adoption_code"));
-				b.setAnimalCode(rs.getInt("animal_code"));
-
-				// Ï°∞ÌöåÍ≤∞Í≥ºÎ•º ListÎ°ú ÏÉùÏÑ±
-//				list.add(b);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// Í≤∞Í≥º Î∞òÌôò
-		return b;
-	}
-
-	@Override
-	public void insertAdoption(Adoption adoption) {
-		String sql = "";
-		sql += "INSERT INTO adoption(" + " ANIMAL_CODE," + " ANIMAL_NAME," + " ADOPTION_CODE," + " ADOPTION_REASON,"
-				+ " ADOPTION_EXP," + " ADOPTION_CURANIMAL," + " ADOPTION_HOUSING," + " ADOPTION_CALLTIME," + " USERID,"
-				+ " STATUS)";
-		sql += " VALUES (?,?,?,?,?,?,?,?,?,0)";
-
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-
-		try {
-			conn.setAutoCommit(false);
-			ps = conn.prepareStatement(sql);
-
-//					"ANIMAL_CODE," + 
-			if (adoption.getAnimalCode() == -1) {
-				ps.setString(1, null);
-			} else {
-				ps.setInt(1, adoption.getAnimalCode());
-			}
-			// " ANIMAL_NAME," +
-			ps.setString(2, adoption.getAnimalName());
-//					" ADOPTION_CODE," + 
-			ps.setInt(3, adoption.getAdoptionCode());
-//					" ADOPTION_REASON," +
-			ps.setString(4, adoption.getAdoptionReason());
-//					" ADOPTION_EXP," + 
-			ps.setString(5, adoption.getAdoptionExp());
-
-//					" ADOPTION_CURANIMAL," + 
-			ps.setString(6, adoption.getAdoptionCuranimal());
-
-//					" ADOPTION_HOUSING," + 
-			ps.setString(7, adoption.getAdoptionHousing());
-
-//					" ADOPTION_CALLTIME," + 
-			ps.setString(8, adoption.getAdoptionCalltime());
-
-//					" USERID," + 
-			ps.setString(9, adoption.getUserid());
-
-			// DBÏûëÏóÖ
-
-			ps.executeUpdate();
-
-			conn.commit();
-
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	@Override
-	public int selectSeqNextval() {
-
-		// Îã§Ïùå Í≤åÏãúÍ∏Ä Î≤àÌò∏ Ï°∞Ìöå ÏøºÎ¶¨
-		String sql = "";
-		sql += "SELECT adoption_seq.nextval FROM dual";
-
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		// Í≤åÏãúÍ∏ÄÎ≤àÌò∏
-		int adoption_code = 0;
-
-		try {
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-
-			// Í≤∞Í≥º Îã¥Í∏∞
-			while (rs.next()) {
-				adoption_code = rs.getInt(1);
-			}
-			// System.out.println(adoption_code);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		// Í≤åÏãúÍ∏Ä Î≤àÌò∏ Î∞òÌôò
-		return adoption_code;
-	}
-
-	@Override
-	public void deleteAdoptionList(String names) {
-		String sql = "DELETE FROM adoption WHERE adoption_code IN ( " + names + " )";
-
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			conn.setAutoCommit(false);
-			ps = conn.prepareStatement(sql);
-
-			ps.executeUpdate();
-			conn.commit();
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	@Override
-	public void delete(Adoption adoption) {
-		String sql = "";
-		sql += "DELETE adoption";
-		sql += "WHERE adoption_code=?";
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-
-		try {
-			conn.setAutoCommit(false);
-
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, adoption.getAdoptionCode());
-
-			ps.executeUpdate();
-
-			conn.commit();
-
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	@Override
-	public void updateAdoptionList(String names) {
-		String sql = "UPDATE adoption set status=1 WHERE adoption_code IN ( " + names + " )";
-
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			conn.setAutoCommit(false);
-			ps = conn.prepareStatement(sql);
-
-			ps.executeUpdate();
-			conn.commit();
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	@Override
-	public void update(Adoption adoption) {
-		String sql = "";
-		sql += "UPDATE adoption";
-		sql += "SET status=1 WHERE adoption_code=?";
-		// DB Í∞ùÏ≤¥
-		PreparedStatement ps = null;
-
-		try {
-			conn.setAutoCommit(false);
-
-			// DBÏûëÏóÖ
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, adoption.getAdoptionCode());
-
-			ps.executeUpdate();
-
-			conn.commit();
-
-		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	@Override
-	public int selectStatusbyanimalName(Adoption adoption) {
-		String sql = "";
-		sql += "SELECT status FROM adoption WHERE animal_name=?";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		int cnt = -1;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, adoption.getAnimalName());
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				cnt = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				// DBÍ∞ùÏ≤¥ Îã´Í∏∞
-				if (ps != null)
-					ps.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return cnt;
-	}
-
-	@Override
-	public Adoption getByanimalCode(Adoption adoption) {
-		String sql = "SELECT * FROM adoption WHERE animal_code=?";
-
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, adoption.getAnimalCode());
-
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-
-				adoption.setAdoptionCalltime(rs.getString("adoption_calltime"));
-				adoption.setAdoptionHousing(rs.getString("adoption_housing"));
-				adoption.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
-				adoption.setAdoptionExp(rs.getString("adoption_exp"));
-				adoption.setAdoptionReason(rs.getString("adoption_reason"));
-				adoption.setAnimalName(rs.getString("animal_name"));
-				adoption.setUserid(rs.getString("userid"));
-				adoption.setStatus(rs.getInt("status"));
-				adoption.setAdoptionCode(rs.getInt("adoption_code"));
-
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return adoption;
-
-	}
-	@Override
-	public List<Adoption> selectAllByUserid(Adoption adoption) {
-		
-		String sql = "";
-	    sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
-	          + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
-	          + "adoption_code, " + "animal_code, " + "USERID FROM adoption WHERE userid = ?";
-	   
-	    sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
-		PreparedStatement ps = null;
-		ResultSet rs = null ;
-		
-		List list = new ArrayList<>();
-		
-		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			
-			
-			while(rs.next()) {
-				Adoption adop = new Adoption();
-				
-				adop.setAdoptionCalltime(rs.getString("adoption_calltime"));
-				adop.setAdoptionHousing(rs.getString("adoption_housing"));
-				adop.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
-				adop.setAdoptionExp(rs.getString("adoption_exp"));
-				adop.setAdoptionReason(rs.getString("adoption_reason"));
-				adop.setAnimalName(rs.getString("animal_name"));
-				adop.setUserid(rs.getString("userid"));
-				adop.setStatus(rs.getInt("status"));
-				adop.setAdoptionCode(rs.getInt("adoption_code"));
-				adop.setAnimalCode(rs.getInt("animal_code"));
-				
-				
-				list.add(adop);
-				
-			}
-		
-		
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs != null) rs.close();
-				if(ps != null) ps.close();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return list;
-	}
+   private Connection conn = DBConn.getConnection();
+
+   @Override
+   public int selectAdoptionCntAll(String search) {
+
+      // ¿¸√º ∞‘Ω√±€ ºˆ ¡∂»∏ ƒı∏Æ
+      String sql = "";
+      sql += "SELECT COUNT(*) FROM adoption";
+      if (search != null && !"".equals(search)) {
+         sql += " WHERE animal_name LIKE '%" + search + "%'";
+      }
+
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+
+      int cnt = 0;
+      try {
+         ps = conn.prepareStatement(sql);
+         rs = ps.executeQuery();
+
+         rs.next();
+
+         cnt = rs.getInt(1);
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (ps != null)
+               ps.close();
+            if (rs != null)
+               rs.close();
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      return cnt;
+   }
+
+   @Override
+   public List<Adoption> selectAll() {
+      String sql = "";
+      sql += "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, " + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, "
+            + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "STATUS, " + "adoption_code, animal_code, "
+            + "USERID FROM adoption ORDER BY animal_name";
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+
+      // √÷¡æ ¡∂»∏ ∞·∞˙ ¥„¿ª List
+      List<Adoption> list = new ArrayList<>();
+
+      try {
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+         rs = ps.executeQuery();
+
+         // ¿¸√º¡∂»∏ ∞·∞˙ ¥„±‚
+         while (rs.next()) {
+            Adoption b = new Adoption();
+
+            // ResultSet¿« ∞·∞˙ «‡ «œ≥™æø DTOø° ¿˙¿Â
+            b.setAdoptionCalltime(rs.getString("adoption_calltime"));
+            b.setAdoptionHousing(rs.getString("adoption_housing"));
+            b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            b.setAdoptionExp(rs.getString("adoption_exp"));
+            b.setAdoptionReason(rs.getString("adoption_reason"));
+            b.setAnimalName(rs.getString("animal_name"));
+            b.setUserid(rs.getString("userid"));
+            b.setStatus(rs.getInt("status"));
+            b.setAdoptionCode(rs.getInt("adoption_code"));
+            b.setAnimalCode(rs.getInt("animal_code"));
+
+            // ¡∂»∏∞·∞˙∏¶ List∑Œ ª˝º∫
+            list.add(b);
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      // ¿¸√º¡∂»∏ ∞·∞˙ π›»Ø
+      return list;
+
+   }
+
+   @Override
+   public List<Adoption> selectPagingList(Paging paging) {
+      String sql = "";
+      sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
+            + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
+            + "adoption_code, " + "animal_code, " + "USERID FROM adoption";
+      if (paging.getSearch() != null && !"".equals(paging.getSearch())) {
+         sql += " WHERE animal_name LIKE '%" + paging.getSearch() + "%'";
+      }
+      sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      List<Adoption> list = new ArrayList<>();
+      try {
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+
+         ps.setInt(1, paging.getStartNo());
+         ps.setInt(2, paging.getEndNo());
+
+         rs = ps.executeQuery();
+
+         // ¡∂»∏ ∞·∞˙ ¥„±‚
+         while (rs.next()) {
+            Adoption b = new Adoption();
+
+            // ResultSet¿« ∞·∞˙ «‡ «œ≥™æø DTOø° ¿˙¿Â
+            b.setAdoptionCalltime(rs.getString("adoption_calltime"));
+            b.setAdoptionHousing(rs.getString("adoption_housing"));
+            b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            b.setAdoptionExp(rs.getString("adoption_exp"));
+            b.setAdoptionReason(rs.getString("adoption_reason"));
+            b.setAnimalName(rs.getString("animal_name"));
+            b.setUserid(rs.getString("userid"));
+            b.setStatus(rs.getInt("status"));
+            b.setAdoptionCode(rs.getInt("ADOPTION_CODE"));
+            b.setAnimalCode(rs.getInt("animal_code"));
+            // ¡∂»∏∞·∞˙∏¶ List∑Œ ª˝º∫
+            list.add(b);
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      // ∞·∞˙ π›»Ø
+      return list;
+   }
+
+   @Override
+   public List<Adoption> selectAdoptionByAnimal_name(Adoption adoption) {
+      String sql = "SELECT";
+      sql += "ANIMAL_NAME";
+      sql += ", ADOPTION_REASON";
+      sql += ", ADOPTION_EXP";
+      sql += ", ADOPTION_CURANIMAL";
+      sql += ", ADOPTION_HOUSING";
+      sql += ", ADOPTION_CALLTIME";
+      sql += ", status";
+      sql += ", adoption_code";
+      sql += ", animal_code";
+      sql += ",USERID";
+      sql += " FROM adoption WHERE animal_name=? order by adoption_calltime";
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      List<Adoption> list = new ArrayList<>();
+      try {
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+
+         ps.setString(1, adoption.getAnimalName());
+         rs = ps.executeQuery();
+
+         // ¡∂»∏ ∞·∞˙ ¥„±‚
+         while (rs.next()) {
+            Adoption b = new Adoption();
+
+            // ResultSet¿« ∞·∞˙ «‡ «œ≥™æø DTOø° ¿˙¿Â
+            b.setAdoptionCalltime(rs.getString("adotpion_calltime"));
+            b.setAdoptionHousing(rs.getString("adoption_housing"));
+            b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            b.setAdoptionExp(rs.getString("adoption_exp"));
+            b.setAdoptionReason(rs.getString("adoption_reason"));
+            b.setAnimalName(rs.getString("animal_name"));
+            b.setUserid(rs.getString("userid"));
+            b.setStatus(rs.getInt("status"));
+            b.setAdoptionCode(rs.getInt("adoption_code"));
+            b.setAnimalCode(rs.getInt("animal_code"));
+
+            // ¡∂»∏∞·∞˙∏¶ List∑Œ ª˝º∫
+            list.add(b);
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      // ∞·∞˙ π›»Ø
+      return list;
+   }
+
+   @Override
+   public Adoption selectAdoptionByAdoption_code(Adoption adoption) {
+      String sql = "SELECT ";
+      sql += "ANIMAL_NAME";
+      sql += ", ADOPTION_REASON";
+      sql += ", ADOPTION_EXP";
+      sql += ", ADOPTION_CURANIMAL";
+      sql += ", ADOPTION_HOUSING";
+      sql += ", ADOPTION_CALLTIME";
+      sql += ", status";
+      sql += ", adoption_code";
+      sql += ", animal_code";
+      sql += ",USERID";
+      sql += " FROM adoption WHERE adoption_code=? order by adoption_calltime";
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      // List<Adoption> list = new ArrayList<>();
+      Adoption b = new Adoption();
+
+      try {
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+
+         ps.setInt(1, adoption.getAdoptionCode());
+         rs = ps.executeQuery();
+
+         // ¡∂»∏ ∞·∞˙ ¥„±‚
+         while (rs.next()) {
+
+            // ResultSet¿« ∞·∞˙ «‡ «œ≥™æø DTOø° ¿˙¿Â
+            b.setAdoptionCalltime(rs.getString("adoption_calltime"));
+            b.setAdoptionHousing(rs.getString("adoption_housing"));
+            b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            b.setAdoptionExp(rs.getString("adoption_exp"));
+            b.setAdoptionReason(rs.getString("adoption_reason"));
+            b.setAnimalName(rs.getString("animal_name"));
+            b.setUserid(rs.getString("userid"));
+            b.setStatus(rs.getInt("status"));
+            b.setAdoptionCode(rs.getInt("adoption_code"));
+            b.setAnimalCode(rs.getInt("animal_code"));
+
+            // ¡∂»∏∞·∞˙∏¶ List∑Œ ª˝º∫
+//            list.add(b);
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      // ∞·∞˙ π›»Ø
+      return b;
+   }
+
+   @Override
+   public void insertAdoption(Adoption adoption) {
+      String sql = "";
+      sql += "INSERT INTO adoption(" + " ANIMAL_CODE," + " ANIMAL_NAME," + " ADOPTION_CODE," + " ADOPTION_REASON,"
+            + " ADOPTION_EXP," + " ADOPTION_CURANIMAL," + " ADOPTION_HOUSING," + " ADOPTION_CALLTIME," + " USERID,"
+            + " STATUS)";
+      sql += " VALUES (?,?,?,?,?,?,?,?,?,0)";
+
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+
+      try {
+         conn.setAutoCommit(false);
+         ps = conn.prepareStatement(sql);
+
+//               "ANIMAL_CODE," + 
+         if (adoption.getAnimalCode() == -1) {
+            ps.setString(1, null);
+         } else {
+            ps.setInt(1, adoption.getAnimalCode());
+         }
+         // " ANIMAL_NAME," +
+         ps.setString(2, adoption.getAnimalName());
+//               " ADOPTION_CODE," + 
+         ps.setInt(3, adoption.getAdoptionCode());
+//               " ADOPTION_REASON," +
+         ps.setString(4, adoption.getAdoptionReason());
+//               " ADOPTION_EXP," + 
+         ps.setString(5, adoption.getAdoptionExp());
+
+//               " ADOPTION_CURANIMAL," + 
+         ps.setString(6, adoption.getAdoptionCuranimal());
+
+//               " ADOPTION_HOUSING," + 
+         ps.setString(7, adoption.getAdoptionHousing());
+
+//               " ADOPTION_CALLTIME," + 
+         ps.setString(8, adoption.getAdoptionCalltime());
+
+//               " USERID," + 
+         ps.setString(9, adoption.getUserid());
+
+         // DB¿€æ˜
+
+         ps.executeUpdate();
+
+         conn.commit();
+
+      } catch (SQLException e) {
+         try {
+            conn.rollback();
+         } catch (SQLException e1) {
+            e1.printStackTrace();
+         }
+
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+   }
+
+   @Override
+   public int selectSeqNextval() {
+
+      // ¥Ÿ¿Ω ∞‘Ω√±€ π¯»£ ¡∂»∏ ƒı∏Æ
+      String sql = "";
+      sql += "SELECT adoption_seq.nextval FROM dual";
+
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+
+      // ∞‘Ω√±€π¯»£
+      int adoption_code = 0;
+
+      try {
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+         rs = ps.executeQuery();
+
+         // ∞·∞˙ ¥„±‚
+         while (rs.next()) {
+            adoption_code = rs.getInt(1);
+         }
+         // System.out.println(adoption_code);
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      // ∞‘Ω√±€ π¯»£ π›»Ø
+      return adoption_code;
+   }
+
+   @Override
+   public void deleteAdoptionList(String names) {
+      String sql = "DELETE FROM adoption WHERE adoption_code IN ( " + names + " )";
+
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+
+      try {
+         conn.setAutoCommit(false);
+         ps = conn.prepareStatement(sql);
+
+         ps.executeUpdate();
+         conn.commit();
+      } catch (SQLException e) {
+         try {
+            conn.rollback();
+         } catch (SQLException e1) {
+            e1.printStackTrace();
+         }
+         e.printStackTrace();
+      } finally {
+         try {
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+   }
+
+   @Override
+   public void delete(Adoption adoption) {
+      String sql = "";
+      sql += "DELETE adoption";
+      sql += "WHERE adoption_code=?";
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+
+      try {
+         conn.setAutoCommit(false);
+
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+         ps.setInt(1, adoption.getAdoptionCode());
+
+         ps.executeUpdate();
+
+         conn.commit();
+
+      } catch (SQLException e) {
+         try {
+            conn.rollback();
+         } catch (SQLException e1) {
+            e1.printStackTrace();
+         }
+
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+   }
+
+   @Override
+   public void updateAdoptionList(String names) {
+      String sql = "UPDATE adoption set status=1 WHERE adoption_code IN ( " + names + " )";
+
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+
+      try {
+         conn.setAutoCommit(false);
+         ps = conn.prepareStatement(sql);
+
+         ps.executeUpdate();
+         conn.commit();
+      } catch (SQLException e) {
+         try {
+            conn.rollback();
+         } catch (SQLException e1) {
+            e1.printStackTrace();
+         }
+         e.printStackTrace();
+      } finally {
+         try {
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+   }
+
+   @Override
+   public void update(Adoption adoption) {
+      String sql = "";
+      sql += "UPDATE adoption";
+      sql += "SET status=1 WHERE adoption_code=?";
+      // DB ∞¥√º
+      PreparedStatement ps = null;
+
+      try {
+         conn.setAutoCommit(false);
+
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+         ps.setInt(1, adoption.getAdoptionCode());
+
+         ps.executeUpdate();
+
+         conn.commit();
+
+      } catch (SQLException e) {
+         try {
+            conn.rollback();
+         } catch (SQLException e1) {
+            e1.printStackTrace();
+         }
+
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+   }
+
+   @Override
+   public int selectStatusbyanimalName(Adoption adoption) {
+      String sql = "";
+      sql += "SELECT status FROM adoption WHERE animal_name=?";
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      int cnt = -1;
+      try {
+         ps = conn.prepareStatement(sql);
+         ps.setString(1, adoption.getAnimalName());
+         rs = ps.executeQuery();
+
+         while (rs.next()) {
+            cnt = rs.getInt(1);
+         }
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      return cnt;
+   }
+
+   @Override
+   public Adoption getByanimalCode(Adoption adoption) {
+      String sql = "SELECT * FROM adoption WHERE animal_code=?";
+
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+
+      try {
+         ps = conn.prepareStatement(sql);
+         ps.setInt(1, adoption.getAnimalCode());
+
+         rs = ps.executeQuery();
+
+         while (rs.next()) {
+
+            adoption.setAdoptionCalltime(rs.getString("adoption_calltime"));
+            adoption.setAdoptionHousing(rs.getString("adoption_housing"));
+            adoption.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            adoption.setAdoptionExp(rs.getString("adoption_exp"));
+            adoption.setAdoptionReason(rs.getString("adoption_reason"));
+            adoption.setAnimalName(rs.getString("animal_name"));
+            adoption.setUserid(rs.getString("userid"));
+            adoption.setStatus(rs.getInt("status"));
+            adoption.setAdoptionCode(rs.getInt("adoption_code"));
+
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      return adoption;
+
+   }
+   @Override
+   public List<Adoption> selectAllByUserid(Adoption adoption) {
+      
+      String sql = "";
+       sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
+             + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
+             + "adoption_code, " + "animal_code, " + "USERID FROM adoption WHERE userid = ?";
+      
+       sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
+      PreparedStatement ps = null;
+      ResultSet rs = null ;
+      
+      List list = new ArrayList<>();
+      
+      try {
+         ps = conn.prepareStatement(sql);
+         rs = ps.executeQuery();
+         
+         
+         
+         while(rs.next()) {
+            Adoption adop = new Adoption();
+            
+            adop.setAdoptionCalltime(rs.getString("adoption_calltime"));
+            adop.setAdoptionHousing(rs.getString("adoption_housing"));
+            adop.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            adop.setAdoptionExp(rs.getString("adoption_exp"));
+            adop.setAdoptionReason(rs.getString("adoption_reason"));
+            adop.setAnimalName(rs.getString("animal_name"));
+            adop.setUserid(rs.getString("userid"));
+            adop.setStatus(rs.getInt("status"));
+            adop.setAdoptionCode(rs.getInt("adoption_code"));
+            adop.setAnimalCode(rs.getInt("animal_code"));
+            
+            
+            list.add(adop);
+            
+         }
+      
+      
+      
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }finally {
+         try {
+            if(rs != null) rs.close();
+            if(ps != null) ps.close();
+            
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+      
+      return list;
+   }
+   
+   @Override
+   public List<Adoption> selectUseridPagingList(Paging paging) {
+      String sql = "";
+      sql += "SELECT *FROM (" + "SELECT rownum rnum, B.*FROM (" + "SELECT ANIMAL_NAME, " + "ADOPTION_REASON, "
+            + "ADOPTION_EXP, " + "ADOPTION_CURANIMAL, " + "ADOPTION_HOUSING, " + "ADOPTION_CALLTIME, " + "status, "
+            + "adoption_code, " + "animal_code, " + "USERID FROM adoption WHERE userid=?";
+      if (paging.getSearch() != null && !"".equals(paging.getSearch())) {
+         sql += " WHERE animal_name LIKE '%" + paging.getSearch() + "%'";
+      }
+      sql += " ORDER BY adoption_code desc) B ORDER BY rnum ) WHERE rnum between ? AND ?";
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      List<Adoption> list = new ArrayList<>();
+      try {
+         // DB¿€æ˜
+         ps = conn.prepareStatement(sql);
+
+         ps.setString(1 , paging.getUserid());
+         ps.setInt(2, paging.getStartNo());
+         ps.setInt(3, paging.getEndNo());
+
+         rs = ps.executeQuery();
+
+         // ¡∂»∏ ∞·∞˙ ¥„±‚
+         while (rs.next()) {
+            Adoption b = new Adoption();
+
+            // ResultSet¿« ∞·∞˙ «‡ «œ≥™æø DTOø° ¿˙¿Â
+            b.setAdoptionCalltime(rs.getString("adoption_calltime"));
+            b.setAdoptionHousing(rs.getString("adoption_housing"));
+            b.setAdoptionCuranimal(rs.getString("adoption_curanimal"));
+            b.setAdoptionExp(rs.getString("adoption_exp"));
+            b.setAdoptionReason(rs.getString("adoption_reason"));
+            b.setAnimalName(rs.getString("animal_name"));
+            b.setUserid(rs.getString("userid"));
+            b.setStatus(rs.getInt("status"));
+            b.setAdoptionCode(rs.getInt("ADOPTION_CODE"));
+            b.setAnimalCode(rs.getInt("animal_code"));
+            // ¡∂»∏∞·∞˙∏¶ List∑Œ ª˝º∫
+            list.add(b);
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            // DB∞¥√º ¥›±‚
+            if (rs != null)
+               rs.close();
+            if (ps != null)
+               ps.close();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+
+      // ∞·∞˙ π›»Ø
+      return list;
+   }
 
 }

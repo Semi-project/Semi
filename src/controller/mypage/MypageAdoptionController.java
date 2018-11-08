@@ -18,33 +18,30 @@ import util.Paging;
 
 @WebServlet("/mypage/adoption")
 public class MypageAdoptionController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	private AdoptionService adoptionService = new AdoptionServiceImpl();
+   private static final long serialVersionUID = 1L;
+   
+   private AdoptionService adoptionService = new AdoptionServiceImpl();
        
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	int curPage = adoptionService.getCurPage(req);
-    	
-    	String search = "";
-    	
-    	int totalCount = adoptionService.getTotalCount(search);
-    	Paging paging = new Paging(totalCount , curPage);
-    	
-    	Member memberView = new Member();
-    	
-    	memberView.setUserid((String)req.getSession().getAttribute("userid"));
-    	
-//    	member.setUserid((String)req.getSession().getAttribute("userid"));
+       
+       int curPage = adoptionService.getCurPage(req);
+       
+       String search = "";
+       
+       int totalCount = adoptionService.getTotalCount(search);
+       Paging paging = new Paging(totalCount , curPage);
+       
+       paging.setUserid((String)req.getSession().getAttribute("userid"));
+       
+//       member.setUserid((String)req.getSession().getAttribute("userid"));
    
-    	List<Adoption> adoptionList = adoptionService.getPagingList(paging);
-    	req.setAttribute("adoptionList", adoptionList);
-    	req.setAttribute("memberView", memberView);
-    	req.setAttribute("paging",paging);
-    	
-    	
-    	req.getRequestDispatcher("/view/mypage/adoptionlist.jsp").forward(req, resp);
+       List<Adoption> adoptionList = adoptionService.getPagingUseridList(paging);
+       req.setAttribute("adoptionList", adoptionList);
+       req.setAttribute("paging",paging);
+       
+       
+       req.getRequestDispatcher("/view/mypage/adoptionlist.jsp").forward(req, resp);
     
     }
 

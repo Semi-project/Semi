@@ -18,8 +18,6 @@ import util.Paging;
 public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao = new MemberDaoImpl();
 
-	
-
 	@Override
 	public Member selectMemberByUserId(Member member) {
 		return memberDao.selectMemberByUserId(member);
@@ -30,18 +28,25 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.updateMember(member);
 
 	}
+
 	@Override
-	public int updateMember(Member member ) throws Exception {
+	public int updateMember(Member member) throws Exception {
 		int result = 0;
-		
+
 		result = memberDao.updateMember(member);
-		
+
 		return result;
 
 	}
+
 	@Override
-	public void updateMemberPassword(Member member) {
-		// TODO Auto-generated method stub
+	public int updateMemberPassword(Member member) {
+
+		int result = 0;
+
+		result = memberDao.updateMemberPassword(member);
+
+		return result;
 
 	}
 
@@ -158,6 +163,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getTotalCount(String search) {
 		return memberDao.selectCntAll(search);
+	}
+
+	@Override
+	public boolean selectUserPwCheck(Member member) {
+		boolean flag = false;
+
+		flag = memberDao.selectUserPwCheck(member);
+		return flag;
 	}
 
 }

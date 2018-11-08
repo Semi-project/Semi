@@ -24,7 +24,7 @@ public interface Notice_BoardDao {
 		public Notice_Board selectNoticeBoardByBoardNo(Notice_Board noticeBoard);
 		
 		//게시판 제목으로 찾기
-		public String selectNoticeBoardByTitle(Notice_Board noticeBoard);
+		public int selectNoticeBoardByTitle(String search);
 
 		//게시판 내용으로 찾기
 		public String selectNoticeBoardByContent(Notice_Board noticeBoard);
@@ -37,8 +37,9 @@ public interface Notice_BoardDao {
 
 		// 게시판 리스트 페이징 처리
 		public List<Notice_Board> selectNoticeBoardPagingList(Paging paging);
-		//2018-10-21 완료 
 		
+		//게시글 페이징 조회
+		public List getPagingList(Paging paging);
 		
 		// 글쓰기
 		public int selectNotice_Boardno();

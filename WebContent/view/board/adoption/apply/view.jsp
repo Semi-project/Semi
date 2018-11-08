@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <jsp:include page="/view/layout/header.jsp" />
 <style>
 .question {
@@ -67,11 +67,31 @@
 .question label {
 	margin-right: 1%;
 }
-
-
-
-
 </style>
+<script>
+	$(document).ready(function() {
+		$("#btn").click(function() {
+			$.ajax({
+				type : "post",
+				url : "/adoption/application/updatelist",
+				data : {
+					names : "${param.adoption_code}"
+				},
+				dataType : "text",
+				success : function(d) {
+					console.log(d);
+					location.href = "/adoption/application/list";
+
+				},
+				error : function() {
+
+					console.log("실패");
+				}
+
+			});
+		});
+	});
+</script>
 <div class="wrapper">
 	<div class="row ">
 
@@ -100,26 +120,22 @@
 					</tr>
 					<tr>
 						<th><label>1. 입양을 원하시는 아이의 이름을 적어주세요.</label><br></th>
-						<td><label> ${adoptionView.animalName }
-						</label></td>
+						<td><label> ${adoptionView.animalName } </label></td>
 					</tr>
 					<tr>
 						<th><label>2. 입양을 원하시는 이유를 적어주세요.</label><br></th>
-						<td><label>${adoptionView.adoptionReason }
-						</label></td>
+						<td><label>${adoptionView.adoptionReason } </label></td>
 					</tr>
 					<tr>
 						<th><label>3. 입양해서 기르신 반려동물이 있나요?<br> 있다면
 								소개해주세요.
 						</label><br></th>
-						<td><label>${adoptionView.adoptionExp }
-						</label></td>
+						<td><label>${adoptionView.adoptionExp } </label></td>
 					</tr>
 					<tr>
 						<th><label>4. 키우고 계신 반려동물이 있나요?<br> 있다면 소개해주세요.
 						</label></th>
-						<td><label> ${adoptionView.adoptionCuranimal }
-						</label></td>
+						<td><label> ${adoptionView.adoptionCuranimal } </label></td>
 					</tr>
 					<tr>
 						<th><label class="control-label">5. 현재 주거 형태가 어떻게
@@ -130,14 +146,13 @@
 						<th><label>6. 입양 후 모니터링을 위한 전화연락이나 방문이 가능한 시간대를
 								선택해주세요</label></th>
 						<td style="padding-left: 30px;">
-							${adoptionView.adoptionCalltime }
-						</td>
+							${adoptionView.adoptionCalltime }</td>
 					</tr>
 
 
 				</table>
 
-				<button type="submit" style="margin-top: 10px;">입양수락</button>
+				<button id="btn" type="button" style="margin-top: 10px;">입양수락</button>
 
 			</form>
 		</div>

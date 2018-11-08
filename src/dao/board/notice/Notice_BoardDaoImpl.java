@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dto.board.Notice_Board;
 import dto.file.Notice_Filetb;
+import oracle.sql.DATE;
 import util.DBConn;
 import util.Paging;
 
@@ -42,7 +44,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 				b.setTitle(rs.getString("title"));
 				b.setContent(rs.getString("content"));
 				b.setInsert_dat(rs.getDate("insert_dat"));
-				b.setInsert_dat(rs.getDate("update_dat"));
+				b.setUpdate_dat(rs.getDate("update_dat"));
 				b.setHit(rs.getInt("hit"));
 				b.setUserid(rs.getString("userid"));
 				b.setRecomend(rs.getInt("recomend"));
@@ -68,21 +70,22 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		// 전체조회 결과 반환
 		return list;
 	}
-//----------------------------------------------------------------------
+//공지사항 추가----------------------------------------------------------------------
 	@Override
 	public void insertNoticeBoard(Notice_Board noticeBoard) {
 		
 		String sql = "";
-		sql += "INSERT INTO notice_board(BOARDNO,CATENO,TITLE,CONTENT,HIT,USERID,RECOMEND)";
-		sql += " VALUES(notice_board_seq.currval, 1001, ?, ?, 0,?,0)";
+		sql += "INSERT INTO notice_board(BOARDNO,CATENO,TITLE,CONTENT,HIT,USERID,RECOMEND,insert_dat)";
+		sql += " VALUES(notice_board_seq.currval, 1001, ?, ?, 0,?,0,?)";
 		ps = null;
 		try {
 			conn.setAutoCommit(false);
-			
+			Date today =new Date();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, noticeBoard.getTitle());
 			ps.setString(2, noticeBoard.getContent());
 			ps.setString(3, noticeBoard.getUserid());
+			ps.setDate(4, new java.sql.Date(today.getTime()));
 			ps.executeUpdate();
 
 			conn.commit();
@@ -151,11 +154,41 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		// TODO Auto-generated method stub
 		
 	}
-	//----------------------------------------------------------------------
+//제목으로 검색----------------------------------------------------------------------
 	@Override
-	public String selectNoticeBoardByTitle(Notice_Board noticeBoard) {
-		// TODO Auto-generated method stub
-		return null;
+	public int selectNoticeBoardByTitle(String search) {
+		//전체 게시글 수 조회 쿼리
+		String sql = "";
+		sql += "SELECT COUNT(*) FROM notice_board";
+		if( search!=null && !"".equals(search) ) {
+			sql+= " WHERE title LIKE '%"+search+"%'";
+		}
+		
+		//DB 객체
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		int cnt = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			rs.next();
+			
+			cnt = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)	ps.close();
+				if(rs!=null)	rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
 	}
 //----------------------------------------------------------------------
 	@Override
@@ -177,7 +210,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		rs = null;
 		String sql = "";
 		sql += "SELECT COUNT(*) FROM notice_board";
-		int cnt = -1;
+		int cnt = 0;
 		try {
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -202,11 +235,21 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 	}
 //----------------------------------------------------------------------
 	@Override
-	public List<Notice_Board> selectNoticeBoardPagingList(Paging paging) {
+	public List selectNoticeBoardPagingList(Paging paging) {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += " SELECT rownum rnum, B.* FROM (";
-		sql += " 	SELECT * FROM notice_board";
+		sql += " 	SELECT ";
+		sql += "		boardno, ";
+		sql += "		title, ";
+		sql += "		content, ";
+		sql += "		insert_dat, ";
+		sql += "		hit, ";
+		sql += "		userid";
+		sql += " 		FROM notice_board";
+		if( paging.getSearch()!=null && !"".equals(paging.getSearch()) ) {
+			sql+= " WHERE title LIKE '%"+paging.getSearch()+"%'";
+		}
 		sql += " 	ORDER BY boardno DESC";
 		sql += " ) B";
 		sql += " ORDER BY rnum";
@@ -214,7 +257,9 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		sql += "WHERE rnum between ? AND ?";
 		ps = null;
 		rs = null;
-		List<Notice_Board> list = new ArrayList<Notice_Board>();
+		
+		
+		List list = new ArrayList();
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, paging.getStartNo());
@@ -225,13 +270,14 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
 				// ResultSet의 결과 행 하나씩 DTO에 저장
 				notice_board.setBoardno(rs.getInt("boardno"));
-				notice_board.setCateno(rs.getInt("cateno"));
+//				notice_board.setCateno(rs.getInt("cateno"));
 				notice_board.setTitle(rs.getString("title"));
 				notice_board.setContent(rs.getString("content"));
-				notice_board.setHit(rs.getInt("hit"));
 				notice_board.setInsert_dat(rs.getDate("insert_dat"));
+//				notice_board.setUpdate_dat(rs.getDate("update_dat"));
+				notice_board.setHit(rs.getInt("hit"));
 				notice_board.setUserid(rs.getString("userid"));
-				notice_board.setRecomend(rs.getInt("recomend"));
+//				notice_board.setRecomend(rs.getInt("recomend"));
 
 				// 조회결과를 List로 생성
 				list.add(notice_board);
@@ -454,6 +500,12 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 		}
 
 		return userid;
+	}
+//
+	@Override
+	public List getPagingList(Paging paging) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

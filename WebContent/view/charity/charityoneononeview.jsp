@@ -32,7 +32,11 @@
 						});
 			});
 </script>
-
+<style>
+table th {
+	width: 35%;
+}
+</style>
 <div class="container">
 
 	<h3>1:1 후원하기</h3>
@@ -42,36 +46,36 @@
 		<form id="animalInfo" action="" method="POST">
 			<table class="table table-bordered">
 				<tr>
-					<td class="info">동물번호</td>
+					<th>동물번호</th>
 					<td>${animal.animal_Code }</td>
 
 				</tr>
 				<tr>
-					<td class="info">이름</td>
+					<th>이름</th>
 					<td colspan="2">${animal.animal_Name }</td>
 				</tr>
 				<tr>
-					<td class="info">나이</td>
+					<th>나이</th>
 					<td colspan="2">${animal.animal_Age }</td>
 				</tr>
 				<tr>
-					<td class="info">성별</td>
+					<th>성별</th>
 					<td colspan="2">${animal.animal_Gender_Code }</td>
 				</tr>
 				<tr>
-					<td class="info">체중</td>
+					<th>체중</th>
 					<td colspan="2">${animal.animal_Gr }</td>
 				</tr>
 				<tr>
-					<td class="info">중성화여부</td>
+					<th>중성화여부</th>
 					<td colspan="2">${animal.animal_Neuters }</td>
 				</tr>
 				<tr>
-					<td class="info">품종</td>
+					<th>품종</th>
 					<td colspan="2">${animal.species_Name }</td>
 				</tr>
 				<tr>
-					<td class="info">특징</td>
+					<th>특징</th>
 					<td colspan="2">${animal.animal_Feature }</td>
 				</tr>
 			</table>

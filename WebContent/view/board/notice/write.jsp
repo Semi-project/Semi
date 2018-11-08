@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 <div class="container">
 
-<h3>게시글 쓰기</h3>
+<h3>공지사항 글 쓰기</h3>
 <hr>
 
 <div>

@@ -4,9 +4,9 @@
 
 <script>
 $(document).ready(function() {
-	$(".home").click(function({
-		
-	}))
+	$(".home").click(function() {
+		$(location).attr("href", "/main")
+	});
 });
 </script>
 <style>
@@ -84,7 +84,7 @@ $(document).ready(function() {
 				<img src="/img/charity/finish.PNG" />
 			</div>
 			<div class="col-lg-12 text-center">
-			<button class="home">홈으로</button>
+				<button class="home">홈으로</button>
 			</div>
 		</div>
 	</div>

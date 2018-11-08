@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.animal.Animal;
+import dto.member.Deactivation;
 import dto.member.Member;
 
 public interface DeactivationService {
@@ -12,5 +13,7 @@ public interface DeactivationService {
 
 	// Param 가져오기
 	public Member getParam(HttpServletRequest req, HttpServletResponse resp);
+
+	public void insert(Deactivation deactivation);
 
 }

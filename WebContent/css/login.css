@@ -1,7 +1,18 @@
 @charset "UTF-8";
 
 body {
-	background: #eee !important;
+	background: #ffffff !important;
+}
+
+#findid {
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
+#findpw {
+	display: inline-block;
+	margin-left: 40px;
 }
 
 .wrapper {

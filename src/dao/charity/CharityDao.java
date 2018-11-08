@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.charity.Charity;
 import dto.member.Member;
+import util.Paging;
 
 public interface CharityDao {
 
@@ -13,4 +14,8 @@ public interface CharityDao {
 	// 후원정보 userId 로 조회
 	public List<Charity> selectAll(Charity charity);
 
+	public int selectCharityCntAll(String search);
+
+	public List<Charity> selectPagingList(Paging paging);
+	
 }

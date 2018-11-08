@@ -401,7 +401,7 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	
 	@Override
 	public boolean recommendCheck(Free_Board freeboard) {
-		System.out.println(freeboard);
+	System.out.println(freeboard);
 		if( recommentsDao.selectCountRecommend(freeboard) > 0 ) {
 			return true;
 		} else {
@@ -424,6 +424,32 @@ public class Free_BoardServiceImpl implements Free_BoardService {
 	public int getRecommend(Free_Board freeboard) {
 		return recommentsDao.selectTotalRecommend(freeboard);
 	
+	}
+	@Override
+	public Free_Board_param getSearchParam(HttpServletRequest req, HttpServletResponse resp) {
+		 
+		Free_Board_param fbs = new Free_Board_param();
+		
+		String namesearch = req.getParameter("namesearch");
+		
+	String contentsearch =req.getParameter("contentsearch");
+	
+	System.out.println("네임서치"+namesearch);
+	System.out.println("내용서치"+contentsearch);
+			
+		fbs.setNamesearch(namesearch);
+		fbs.setContentsearch(contentsearch);
+		return fbs;
+	}
+	@Override
+	public Free_Board getSCRParam(HttpServletRequest req, HttpServletResponse resp) {
+		
+		Free_Board fb= new Free_Board();
+	String secret = req.getParameter("secret");
+	if( secret != null && !"".equals(secret) ) {
+		fb.setSecret(Integer.parseInt(secret));
+	}
+		return fb;
 	}
 	
 
