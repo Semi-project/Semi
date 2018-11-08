@@ -67,6 +67,7 @@ public class FreeBoardViewController extends HttpServlet {
 		 */
 		
 		Free_Board free_board = freeboardService.view(fb);
+		System.out.println("프리보드 출력"+free_board);
 		req.setAttribute("freeboardService", free_board);
 		
 		

@@ -87,7 +87,7 @@
 
 		<div class="row">
 
-			<div class="col-lg-2">.....</div>
+			<div class="col-lg-2"></div>
 
 			<div class="col-lg-8">
 				<h3>${boardView.title }</h3>
@@ -97,8 +97,6 @@
 					<li>글번호 : ${boardView.boardno }</li>
 					<li>|</li>
 					<li>조회수 : ${boardView.hit }</li>
-					<li>|</li>
-					<li>추천수 :${boardView.recomend }</li>
 					<li>|</li>
 					<li>작성일 :${boardView.insert_dat }</li>
 				</ul>
@@ -175,7 +173,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-2">....</div>
+		<div class="col-lg-2"></div>
 	</div>
 </div>
 

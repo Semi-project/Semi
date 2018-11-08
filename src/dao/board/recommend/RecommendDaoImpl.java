@@ -112,7 +112,8 @@ public class RecommendDaoImpl implements RecommendDao{
 	public int selectTotalRecommend(Free_Board freeboard) {
 		String sql = "SELECT COUNT(*) FROM recommend"
 				+ " WHERE boardno=?";
-		
+				
+				
 		int cnt = 0;
 		
 		try {

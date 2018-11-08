@@ -512,6 +512,7 @@ public class Review_BoardServiceImpl implements Review_BoardService {
 
 			} else {
 				list.get(i).setFile_SaveName(req.getServletContext().getRealPath("img") + "\thum.png");
+//				System.out.println(list.get(i).getFile_SaveName());
 			}
 		}
 

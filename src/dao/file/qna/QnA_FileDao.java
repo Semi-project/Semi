@@ -1,19 +1,24 @@
 package dao.file.qna;
 
-import java.util.List;
+import java.sql.SQLException;
 
+import dto.board.QnA;
 import dto.file.QnA_Filetb;
 
 public interface QnA_FileDao {
 
-	// 삽입
-	public void insertFiletb(QnA_Filetb qna_filetb);
+	//첨부파일 입력
+		public void insertFile(QnA_Filetb qnafile) throws SQLException ;
+		
+		//첨부파일 조회
+		public QnA_Filetb selectFile(QnA qna) ;
 
-	// 업데이트
-//	public void updateFiletbByfileno(QnA_filetb qna_filetb);
-	// 삭제
-	public void deleteFiletbByfileno(QnA_Filetb qna_filetb);
+		//파일번호로 첨부파일 정보 조회
+		public QnA_Filetb selectByFileno(int fileno);
+		
+		//첨부파일 삭제
+		public int delete(QnA qna) throws SQLException;
 
-	// 리스트
-	public List<QnA_Filetb> selectFiletbAll();
+		//삭제리스트의 첨부파일 삭제
+		public void deletedeleteBoardListFile(String names);
 }

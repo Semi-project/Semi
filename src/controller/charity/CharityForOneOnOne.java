@@ -28,7 +28,10 @@ public class CharityForOneOnOne extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		if (req.getSession().getAttribute("login") == null) {
+			resp.sendRedirect("/member/login"); // 2018- 10- 23 일 정리
+			return;
+		}
 		// 동물 리스트
 		int curPage = animalService.getCurPage(req);
 		int statusSet = animalService.getCountAcpt();

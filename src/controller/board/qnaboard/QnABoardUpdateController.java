@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.board.QnA;
+import dto.file.QnA_Filetb;
 import service.board.qna.QnAService;
 import service.board.qna.QnAServiceImpl;
 
@@ -23,7 +24,12 @@ public class QnABoardUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		/*QnA qna = qnaService.getParam(req, resp);*/
+	QnA qna2=qnaService.getParam2(req, resp);
 		
+		if (!qnaService.checkWriter(req, qna2)) {
+			resp.sendRedirect("/qnaboard/paginglist");
+			return;
+		}
 		int boardNo = Integer.parseInt(req.getParameter("boardno"));
 		
 //		if( !qnaService.che ) {
@@ -38,8 +44,14 @@ public class QnABoardUpdateController extends HttpServlet {
 		
 		//글 작성자 닉네임 전달
 		
-		// 첨부파일 전달
-//		QnA_Filetb qna_Filetb = qnaService.
+		
+		try {
+			QnA_Filetb qna_Filetb = qnaService.viewFile(qna2);
+			req.setAttribute("qnafile", qna_Filetb);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//view 지정
 		req.getRequestDispatcher("/view/board/qna/update.jsp").forward(req, resp);

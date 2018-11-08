@@ -28,6 +28,7 @@ public class QnABoardPagingListController extends HttpServlet {
 	
 		//현재 페이지 번호 얻기
 				int curPage = qnaService.getCurPage(req);
+				System.out.println("현재페이지"+curPage);
 				
 				//검색어 얻기
 				
@@ -50,20 +51,25 @@ public class QnABoardPagingListController extends HttpServlet {
 				
 				//페이징 객체
 				int totalCount = qnaService.getTotalCount(searchVal, search);
+				System.out.println("totalCount"+totalCount);
 				Paging paging = new Paging(totalCount, curPage);
-				
+				System.out.println("paging"+paging);
 				//페이징 객체에 검색어 적용
 				paging.setSearch(search);
 				
 //				System.out.println(paging);
 				
 				//게시글목록 MODEL로 추가
+				List<QnA> qnaList1 = qnaService.selectQnA();
+				
+				
 				List<QnA> qnaList = qnaService.getQnAPagingList(paging , search, searchVal);
 				req.setAttribute("qnaList", qnaList);
 				
+				System.out.println("리스트 뿌려지나:"+qnaList);
 				//페이징 객체 MODEL로 추가
 				req.setAttribute("paging", paging);
-				
+				System.out.println("페이징 뿌려지나 "+paging);
 				//VIEW지정
 				req.getRequestDispatcher("/view/board/qna/list.jsp")
 					.forward(req, resp);

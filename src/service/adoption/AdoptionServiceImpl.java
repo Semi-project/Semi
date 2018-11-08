@@ -15,131 +15,135 @@ import dto.file.Animal_Filetb;
 import util.Paging;
 
 public class AdoptionServiceImpl implements AdoptionService {
-	private AdoptionDao adoptionDao = new AdoptionDaoImpl();
-	private AnimalDao animalDao = new AnimalDaoImpl();
+   private AdoptionDao adoptionDao = new AdoptionDaoImpl();
+   private AnimalDao animalDao = new AnimalDaoImpl();
 
-	@Override
-	public Adoption getParam(HttpServletRequest req, HttpServletResponse resp) {
-		// ÏöîÏ≤≠ÌååÎùºÎØ∏ÌÑ∞ Ï†ïÎ≥¥Î•º Ï†ÄÏû•Ìï† DTOÍ∞ùÏ≤¥
-		Adoption adoption = new Adoption();
+   @Override
+   public Adoption getParam(HttpServletRequest req, HttpServletResponse resp) {
+      // ø‰√ª∆ƒ∂ÛπÃ≈Õ ¡§∫∏∏¶ ¿˙¿Â«“ DTO∞¥√º
+      Adoption adoption = new Adoption();
 
-		// ÏöîÏ≤≠ÌååÎùºÎØ∏ÌÑ∞ Î∞õÍ∏∞
-		String adoption_code = req.getParameter("adoption_code");
-		String animal_name = req.getParameter("animal_name");
-		// nullÏù¥ÎÇò ""Ïù¥ ÏïÑÎãàÎ©¥ intÎ°ú Î≥ÄÌôòÌïòÏó¨ DTOÏóê Ï†ÄÏû•
-		if (adoption_code != null && !"".equals(adoption_code)) {
-			adoption.setAdoptionCode(Integer.parseInt(adoption_code));
-		}
-		if (animal_name != null && !"".equals(animal_name)) {
-			adoption.setAnimalName(animal_name);
-		}
-		// ÏöîÏ≤≠ÌååÎùºÎØ∏ÌÑ∞Í∞Ä Í∞ùÏ≤¥Î°ú Î≥ÄÌôòÎêú DTO Î∞òÌôò
-		return adoption;
+      // ø‰√ª∆ƒ∂ÛπÃ≈Õ πﬁ±‚
+      String adoption_code = req.getParameter("adoption_code");
+      String animal_name = req.getParameter("animal_name");
+      // null¿Ã≥™ ""¿Ã æ∆¥œ∏È int∑Œ ∫Ø»Ø«œø© DTOø° ¿˙¿Â
+      if (adoption_code != null && !"".equals(adoption_code)) {
+         adoption.setAdoptionCode(Integer.parseInt(adoption_code));
+      }
+      if (animal_name != null && !"".equals(animal_name)) {
+         adoption.setAnimalName(animal_name);
+      }
+      // ø‰√ª∆ƒ∂ÛπÃ≈Õ∞° ∞¥√º∑Œ ∫Ø»Øµ» DTO π›»Ø
+      return adoption;
 
-	}
+   }
 
-	@Override
-	public int getCurPage(HttpServletRequest req) {
+   @Override
+   public int getCurPage(HttpServletRequest req) {
 
-		// ÏöîÏ≤≠ÌååÎùºÎØ∏ÌÑ∞ Î∞õÍ∏∞
-		String curPage = req.getParameter("curPage");
+      // ø‰√ª∆ƒ∂ÛπÃ≈Õ πﬁ±‚
+      String curPage = req.getParameter("curPage");
 
-		// nullÏù¥ÎÇò ""Ïù¥ ÏïÑÎãàÎ©¥ intÎ°ú Î¶¨ÌÑ¥
-		if (curPage != null && !"".equals(curPage)) {
-			return Integer.parseInt(curPage);
-		}
+      // null¿Ã≥™ ""¿Ã æ∆¥œ∏È int∑Œ ∏Æ≈œ
+      if (curPage != null && !"".equals(curPage)) {
+         return Integer.parseInt(curPage);
+      }
 
-		// nullÏù¥ÎÇò "" Î©¥ 0ÏúºÎ°ú Î∞òÌôò
-		return 0;
-	}
+      // null¿Ã≥™ "" ∏È 0¿∏∑Œ π›»Ø
+      return 0;
+   }
 
-	@Override
-	public String getSearch(HttpServletRequest req) {
-		// ÏöîÏ≤≠ÌååÎùºÎØ∏ÌÑ∞ Î∞õÍ∏∞
-		String search = req.getParameter("search");
+   @Override
+   public String getSearch(HttpServletRequest req) {
+      // ø‰√ª∆ƒ∂ÛπÃ≈Õ πﬁ±‚
+      String search = req.getParameter("search");
 
-		return search;
-	}
+      return search;
+   }
 
-	@Override
-	public List<Adoption> getList() {
-		return adoptionDao.selectAll();
-	}
+   @Override
+   public List<Adoption> getList() {
+      return adoptionDao.selectAll();
+   }
 
-	@Override
-	public int getTotalCount(String search) {
-		return adoptionDao.selectAdoptionCntAll(search);
-	}
+   @Override
+   public int getTotalCount(String search) {
+      return adoptionDao.selectAdoptionCntAll(search);
+   }
 
-	@Override
-	public List<Adoption> getPagingList(Paging paging) {
-		return adoptionDao.selectPagingList(paging);
-	}
+   @Override
+   public List<Adoption> getPagingList(Paging paging) {
+      return adoptionDao.selectPagingList(paging);
+   }
 
-	@Override
-	public Adoption view(Adoption adoptionView) {
-		return adoptionDao.selectAdoptionByAdoption_code(adoptionView);
-	}
+   @Override
+   public Adoption view(Adoption adoptionView) {
+      return adoptionDao.selectAdoptionByAdoption_code(adoptionView);
+   }
 
-	@Override
-	public void write(HttpServletRequest req, HttpServletResponse resp) {
+   @Override
+   public void write(HttpServletRequest req, HttpServletResponse resp) {
 
-		String animal_name = req.getParameter("q1");
-		String adoption_reason = req.getParameter("q2");
-		String adoption_exp = req.getParameter("q3");
-		String adoption_curanimal = req.getParameter("q4");
-		String adoption_housing = req.getParameter("q5");
-		String adoption_CallTime = req.getParameter("q6");
-		int adoption_code = adoptionDao.selectSeqNextval();
-		Animal animal = new Animal();
-		animal.setAnimal_Name(animal_name);
-		int animal_code = animalDao.animal_code(animal);
-		Adoption adoption = new Adoption();
-		adoption.setAdoptionCalltime(adoption_CallTime);
-		adoption.setAdoptionCode(adoption_code);
-		adoption.setAdoptionCuranimal(adoption_curanimal);
-		adoption.setAdoptionExp(adoption_exp);
-		adoption.setAdoptionHousing(adoption_housing);
-		adoption.setAdoptionReason(adoption_reason);
+      String animal_name = req.getParameter("q1");
+      String adoption_reason = req.getParameter("q2");
+      String adoption_exp = req.getParameter("q3");
+      String adoption_curanimal = req.getParameter("q4");
+      String adoption_housing = req.getParameter("q5");
+      String adoption_CallTime = req.getParameter("q6");
+      int adoption_code = adoptionDao.selectSeqNextval();
+      Animal animal = new Animal();
+      animal.setAnimal_Name(animal_name);
+      int animal_code = animalDao.animal_code(animal);
+      Adoption adoption = new Adoption();
+      adoption.setAdoptionCalltime(adoption_CallTime);
+      adoption.setAdoptionCode(adoption_code);
+      adoption.setAdoptionCuranimal(adoption_curanimal);
+      adoption.setAdoptionExp(adoption_exp);
+      adoption.setAdoptionHousing(adoption_housing);
+      adoption.setAdoptionReason(adoption_reason);
 
-		adoption.setAnimalCode(animal_code);
-		adoption.setAnimalName(animal_name);
-		adoption.setUserid((String) req.getSession().getAttribute("userid"));
+      adoption.setAnimalCode(animal_code);
+      adoption.setAnimalName(animal_name);
+      adoption.setUserid((String) req.getSession().getAttribute("userid"));
 
-		adoptionDao.insertAdoption(adoption);
-	}
+      adoptionDao.insertAdoption(adoption);
+   }
 
-	@Override
-	public void delete(Adoption adoption) {
-		adoptionDao.delete(adoption);
-	}
+   @Override
+   public void delete(Adoption adoption) {
+      adoptionDao.delete(adoption);
+   }
 
-	@Override
-	public void deleteAdoptionList(String names) {
-		adoptionDao.deleteAdoptionList(names);
-	}
+   @Override
+   public void deleteAdoptionList(String names) {
+      adoptionDao.deleteAdoptionList(names);
+   }
 
 
-	@Override
-	public void updateList(String names) {
-		// TODO Auto-generated method stub
-		adoptionDao.updateAdoptionList(names);
-	}
+   @Override
+   public void updateList(String names) {
+      // TODO Auto-generated method stub
+      adoptionDao.updateAdoptionList(names);
+   }
 
-	@Override
-	public int getStatus(Adoption adoption) {
-		return adoptionDao.selectStatusbyanimalName(adoption);
-	}
+   @Override
+   public int getStatus(Adoption adoption) {
+      return adoptionDao.selectStatusbyanimalName(adoption);
+   }
 
-	@Override
-	public Adoption getByanimalCode(Animal animal) {
-		Adoption adoption = new Adoption();
+   @Override
+   public Adoption getByanimalCode(Animal animal) {
+      Adoption adoption = new Adoption();
 
-		adoption.setAnimalCode(animal.getAnimal_Code());
+      adoption.setAnimalCode(animal.getAnimal_Code());
 
-		adoption = adoptionDao.getByanimalCode(adoption);
+      adoption = adoptionDao.getByanimalCode(adoption);
 
-		return adoption;
-	}
+      return adoption;
+   }
 
+   @Override
+   public List<Adoption> getPagingUseridList(Paging paging) {
+      return adoptionDao.selectUseridPagingList(paging);
+   }
 }

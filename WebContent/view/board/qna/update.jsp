@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% response.setHeader("Cache-Controll", "no-cache"); %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>upDatePage</title>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js">
 </script>
@@ -15,28 +9,35 @@
 		src="/resource/smarteditor/js/HuskyEZCreator.js" 
 		charset="utf-8">
 </script>
-
+<jsp:include page="/view/layout/header.jsp" />
 <div style="text-align: center;"></div>
-</head>
-<body>
 
+<style type="text/css">
+#content {
+	width: 98%;
+}
+</style>
 
+<div class="container">
 <h1>글쓰기</h1>
 <hr>
 
 <form action="update" method="post"> 
 <input type="hidden" id="cateno" name="cateno" value="1002"/>
 <input type="hidden" id="boardno" name="boardno" value="${qnaView.boardno}"/> 
-
-<label>제목 : <input type="text" name="title" value="${qnaView.title }" /></label><br>
-<label>작성자 : <input type="text" name="userid" value="${qnaView.userid }" readonly="readonly"/></label><br>
-<label>본문: </label><br>
- <textarea rows="10" id="content" name="content" >${qnaView.content}</textarea> 
+<table class="table table-bordered">
+<tr><td class=info>제목 :</td><td><input type="text" name="title" style="width:100%" value="${qnaView.title }" /></td></tr>
+<tr><td class="info">작성자 :</td><td><input name="userid" value="${qnaView.userid }" /></td></tr>
+<tr><td class="info">본문</td></tr>
+ <tr><td colspan="2"><textarea  id="content" name="content" >${qnaView.content}</textarea></td></tr>
+ 
+</table>
+<div class="text-center">	
 <button id="btnUpdate" onclick='location.href="/view/board/qna/view.jsp";'>수정하기</button>
-
+</div>
 
 </form>
-
+</div>
 
 <script type="text/javascript">
 // 스마트에디터 스킨적용
@@ -79,8 +80,6 @@ $(document).ready(function(){
 	})
 });
 </script>
+<jsp:include page="/view/layout/footer.jsp" />
 
 
-
-</body>
-</html>

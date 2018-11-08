@@ -7,12 +7,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("table").on("click", "tr", function() {
-		//클릭이벤트가 발생한 <tr>의 첫번째 <td>자식의 텍스트
-		var animal_code = $(this).children("td").eq(0).text();
-		
-		$(location).attr("href","/adoption/send/view?animal_code="+animal_code);
-	});
 	
 	$("#btnWrite").click(function(){
 		$(location).attr("href", "/adoption/send/insert");
@@ -23,13 +17,97 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-th, td:not(:nth-child(2)) {
+.board_total {
+	padding: 30px 0 15px 0;
+	font-size: 11px;
+	color: #727272;
+}
+
+.board_total span {
+	color: #fb5d40;
+	vertical-align: -1px;
+}
+
+.board_total .board_select {
+	border: 1px solid #ececec;
+	width: 115px;
+	height: 29px;
+	line-height: 29px;
+	padding-left: 15px;
+}
+
+.board_total input {
+	height: 27px;
+	line-height: 27px;
+	border: 1px solid #ececec;
+	padding-left: 10px;
+	width: 138px;
+	margin: 0 10px;
+}
+
+.board_total a {
+	width: 65px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	background: #283444;
+	color: #fff;
+	display: inline-block;
+}
+
+.board {
+	border-top: 2px solid #283444;
+	border-bottom: 1px solid #283444;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 27px;
+}
+
+.board th {
+	border-bottom: 1px solid #283444;
+	color: #727272;
+	height: 42px;
+	font-weight: normal;
+}
+
+.board td {
+	border-bottom: 1px solid #ececec;
+	color: #6d6e72;
+	font-size: 12px;
+	height: 40px;
 	text-align: center;
 }
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
+
+.board td.board_title {
+	text-align: left;
 }
+
+.board td a {
+	font-size: 12px;
+}
+
+.board .board_subject {
+	text-align: left;
+	padding-left: 80px;
+}
+
+.board .board_subject a {
+	color: #6d6e72;
+}
+
+.board .board_subject a:hover {
+	color: #283444;
+}
+
+.board .board_subject img {
+	padding-left: 3px;
+	vertical-align: -1px;
+}
+
+.board .board_last td {
+	border: 0;
+}
+
 
 #btnDeleteBox {
 	float:left;
@@ -46,15 +124,15 @@ td {
 
 <div class="container">
 
-<h3>게시글 목록</h3>
+<h3>입양보내기</h3>
 <hr>
 
-<table class="table table-hover table-striped table-condensed">
+<table class="board">
 <thead>
 <tr>
-<th style="width: 45%">동물 이름</th>
-<th style="width: 20%">성별</th>
-<th style="width: 10%">품종</th>
+<th style="width: 45%; text-align: center;">동물 이름</th>
+<th style="width: 20%; text-align: center;">성별</th>
+<th style="width: 10%; text-align: center;">품종</th>
 </tr>
 </thead>
 
@@ -85,10 +163,10 @@ td {
 		</c:if>
 		
 		<c:if test="${AllSet eq true }">
-			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td>
+			<td class="board_subject"><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name } [ 입양 완료 ]</a></td>
 		</c:if>
 		<c:if test="${AllSet ne true }">
-			<td><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
+			<td class="board_subject"><a href="/adoption/send/view?animal_code=${animal.animal_Code }">${animal.animal_Name }</a></td>
 		</c:if>
 		
 		</c:if>

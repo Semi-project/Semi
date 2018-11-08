@@ -28,7 +28,7 @@ public interface Notice_CommentService {
 	public void insertComment(Notice_Comments comment);
 		
 	//댓글 목록
-	public List getCommentList(Notice_Board freeboard);
+	public List getCommentList(Notice_Board noticeboard);
 		
 	//댓글 삭제
 	public boolean deleteComment(Notice_Comments comment);

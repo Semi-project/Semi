@@ -47,12 +47,14 @@ public class FreeBoardListController extends HttpServlet {
 		Free_Board_param fbpp= freeboardService.getParampage(req, resp); //현재페이지 정보
 		
 		//검색
-		String namesearch = freeboardService.nameSearch(req);
-		fbpp.setNamesearch(namesearch);
-	
-
+		Free_Board_param fbss=freeboardService.getSearchParam(req, resp);
 		
 		
+	fbpp.setNamesearch(fbss.getNamesearch());
+		fbpp.setContentsearch(fbss.getContentsearch());
+		
+				
+		System.out.println(fbss.toString());
 		/////////////////////////////
 		
 	

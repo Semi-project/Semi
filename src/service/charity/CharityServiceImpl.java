@@ -11,6 +11,7 @@ import dao.charity.CharityDaoImpl;
 import dao.payment.PaymentDao;
 import dao.payment.PaymentDaoImpl;
 import dto.charity.Charity;
+import util.Paging;
 
 public class CharityServiceImpl implements CharityService {
 
@@ -49,10 +50,33 @@ public class CharityServiceImpl implements CharityService {
 
 	@Override
 	public void insertCharity(Charity charity) {
-		
+
 		charityDao.insert(charity);
 
 	}
 
+	@Override
+	public int getCurPage(HttpServletRequest req) {
+		// ?붿껌?뚮씪誘명꽣 諛쏄린
+		String curPage = req.getParameter("curPage");
+
+		// null?대굹 ""???꾨땲硫?int濡?由ы꽩
+		if (curPage != null && !"".equals(curPage)) {
+			return Integer.parseInt(curPage);
+		}
+		return 0;
+	}
+
+	@Override
+	public int getTotalCount(String search) {
+		// TODO Auto-generated method stub
+		return charityDao.selectCharityCntAll(search);
+	}
+
+	@Override
+	public List<Charity> getPagingList(Paging paging) {
+
+		return charityDao.selectPagingList(paging);
+	}
 
 }

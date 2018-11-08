@@ -18,7 +18,6 @@ import dao.file.qna.QnA_FileDao;
 import dao.file.qna.QnA_FileDaoImpl;
 import dto.file.QnA_Filetb;
 
-
 @WebServlet("/qnaboard/file/download")
 public class QnA_BoardFileDownloadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,19 +27,24 @@ public class QnA_BoardFileDownloadController extends HttpServlet {
       
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		String param = req.getParameter("fileno");
+
+		String param = req.getParameter("qna_file");
 		
 		int fileno = 0;
 		
 		if( param!=null && !"".equals(param) ) {
 			fileno = Integer.parseInt(param);
 		}
+		System.out.println("파일넘버"+fileno);
 		
 		QnA_Filetb qna_File = qna_FileDao.selectByFileno(fileno);
 		
+		
+		
+		
 		String path = getServletContext().getRealPath("upload");
-		File file = new File(path , qna_File.getStoredName());
+		File file = new File(path , qna_File.getFile_savename());
+		System.out.println("qna파일"+file);
 		
 		if( file.exists() && file.isFile() ) {
 			
@@ -53,7 +57,7 @@ public class QnA_BoardFileDownloadController extends HttpServlet {
 			//응답 파일 저장 위치 지정
 			resp.setHeader(
 				"Content-Disposition", 
-				"attachment;fileName=" + new String(qna_File.getOriginName().getBytes("UTF-8"), "8859_1" ) + ";" );
+				"attachment;fileName=" + new String(qna_File.getFile_originname().getBytes("UTF-8"), "8859_1" ) + ";" );
 			
 			// text/html;charset=utf-8
 			//다운 받는 내용을 바이너리파일로 인식시키기

@@ -88,13 +88,69 @@
 .thumbnail {
 	background-color: gray;
 	margin: 10px;
-	width: 150px;
-	height: 150px;
+	width: 50px;
+	height: 50px;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
 /* //갤러리 */
+
+
+.board {
+	border-top: 2px solid #283444;
+	border-bottom: 1px solid #283444;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 27px;
+}
+
+.board th {
+	border-bottom: 1px solid #283444;
+	color: #727272;
+	height: 42px;
+	font-weight: normal;
+}
+
+.board td {
+	border-bottom: 1px solid #ececec;
+	color: #6d6e72;
+	font-size: 12px;
+	height: 40px;
+	text-align: center;
+}
+
+.board td.board_title {
+	text-align: left;
+}
+
+.board td a {
+	font-size: 12px;
+}
+
+.board .board_subject {
+	text-align: left;
+	padding-left: 80px;
+}
+
+.board .board_subject a {
+	color: #6d6e72;
+}
+
+.board .board_subject a:hover {
+	color: #283444;
+}
+
+.board .board_subject img {
+	padding-left: 3px;
+	vertical-align: -1px;
+}
+
+.board .board_last td {
+	border: 0;
+}
+
+
 
 /* 버튼 좌우정렬 및 상하정렬 */
 #btnWriteBox {
@@ -112,6 +168,7 @@
 #btnWrite {
 	height: 25px;
 }
+
 </style>
 
 <script>
@@ -121,102 +178,112 @@
 		});
 	});
 </script>
-<div class="col-lg-2"></div>
-<!-- 갤러리시작 -->
-<div class="col-lg-12 text-center">
-	<div class="sub_photo">
-		<div class="title_area">
-			<h4 class="hh_photo">
-				<strong class="blind">갤러리</strong>
-			</h4>
+
+<div class="container">
+	
+	<hr>
+	<div class="list">
+		<div style="margin-top: 20px;">
+			<h3>입양후기</h3>
 		</div>
-		<div>
-			<ul>
+
+
+		<hr>
+		<table class="board ">
+			<thead>
+				<tr>
+					<th style="width: 10%; text-align: center;">번호</th>
+					<th style="width: 5%; text-align: center;"></th>
+					<th style="width: 25%; text-align: center;">제목</th>
+					<th style="width: 20%; text-align: center;">작성자</th>
+					<th style="width: 10%; text-align: center;">조회수</th>
+					<th style="width: 20%; text-align: center;">작성일</th>
+				</tr>
+			</thead>
+
+			<tbody>
 				<c:forEach items="${boardList }" var="board" varStatus="status">
-					<li>
-						<p class="thmb">
-						<div class="thumbnail"
-							style="background-image:url('${fileList[status.index].file_SaveName}')"></div>
-						</p> <a
-						href="/review/view?boardno=${board.boardno }&curPage=${paging.curPage}"><strong>${board.title }</strong></a>
-						<p class="tx_brief">
-							<fmt:formatDate value="${board.insert_dat }" pattern="yyyy-MM-dd" />
-						</p>
-					</li>
+					<tr>
+						<td>${board.boardno }</td>
+						<td><div class="thumbnail"
+								style="background-image:url('${fileList[status.index].file_SaveName}')"></div>
+						</td>
+						<td style="text-align: center;"><a
+							href="/review/view?boardno=${board.boardno }&curPage=${paging.curPage}">${board.title }</a></td>
+						<td>${board.userid }</td>
+						<td>${board.hit }</td>
+						<td><fmt:formatDate value="${board.insert_dat }"
+								pattern="yyyy-MM-dd" /></td>
+					</tr>
 				</c:forEach>
-				<!-- li가 게시판 1개글입니다 보일 갤러리 갯수만큼 li반복합니다.-->
-			</ul>
+
+			</tbody>
+
+		</table>
+		<div id="btnBox" style="float: right; margin-top: 10px">
+			<button id="btnWrite">글쓰기</button>
 		</div>
-	</div>
-	<!-- 갤러리끝 -->
-</div>
-<div class="col-lg-12 text-center">
-	<button id="btnWrite">글쓰기</button>
-	<div id="btnBox" style="float: right; margin-top: 10px"></div>
-</div>
-
-
-<div class="col-lg-12">
-	<div id="pagingBox" class="text-center">
-		<ul class="pagination pagination-sm">
-			<!-- 처음으로 가기 -->
-			<c:if test="${paging.curPage ne 1 }">
-				<li><a href="/review/list" aria-label="First"> <span
-						aria-hidden="true">&larr;처음</span>
-				</a></li>
-			</c:if>
-
-
-
-
-
-			<!-- 이전 페이지 -->
-			<!-- 첫 페이지라면 버튼 동작 안 되게 만들기 -->
-			<c:if test="${paging.curPage eq 1 }">
-				<li class="disabled"><span aria-hidden="true">&laquo;</span></li>
-			</c:if>
-
-			<c:if test="${paging.curPage ne 1 }">
-				<li><a href="/review/list?curPage=${paging.curPage-1 }"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-			</c:if>
-
-
-
-
-
-			<!-- 페이징 리스트 -->
-			<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
-				var="i">
-
-				<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
-				<c:if test="${paging.curPage eq i}">
-					<li class="active"><a href="/review/list?curPage=${i }">${i }</a></li>
+		<div id="pagingBox" class="text-center">
+			<ul class="pagination pagination-sm">
+				<!-- 처음으로 가기 -->
+				<c:if test="${paging.curPage ne 1 }">
+					<li><a href="/review/list" aria-label="First"> <span
+							aria-hidden="true">&larr;처음</span>
+					</a></li>
 				</c:if>
-				<c:if test="${paging.curPage ne i}">
-					<li><a href="/review/list?curPage=${i }">${i }</a></li>
+
+
+
+
+
+				<!-- 이전 페이지 -->
+				<!-- 첫 페이지라면 버튼 동작 안 되게 만들기 -->
+				<c:if test="${paging.curPage eq 1 }">
+					<li class="disabled"><span aria-hidden="true">&laquo;</span></li>
 				</c:if>
-			</c:forEach>
+
+				<c:if test="${paging.curPage ne 1 }">
+					<li><a href="/review/list?curPage=${paging.curPage-1 }"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+				</c:if>
 
 
 
 
 
-			<!-- 다음 페이지 -->
-			<c:if test="${paging.curPage eq paging.totalPage }">
-				<li class="disabled"><span aria-hidden="true">&raquo;</span></li>
-			</c:if>
+				<!-- 페이징 리스트 -->
+				<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+					var="i">
 
-			<c:if test="${paging.curPage ne paging.totalPage }">
-				<li><a href="/review/list?curPage=${paging.curPage+1 }"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</c:if>
-		</ul>
+					<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
+					<c:if test="${paging.curPage eq i}">
+						<li class="active"><a href="/review/list?curPage=${i }">${i }</a></li>
+					</c:if>
+					<c:if test="${paging.curPage ne i}">
+						<li><a href="/review/list?curPage=${i }">${i }</a></li>
+					</c:if>
+				</c:forEach>
 
+
+
+
+
+				<!-- 다음 페이지 -->
+				<c:if test="${paging.curPage eq paging.totalPage }">
+					<li class="disabled"><span aria-hidden="true">&raquo;</span></li>
+				</c:if>
+
+				<c:if test="${paging.curPage ne paging.totalPage }">
+					<li><a href="/review/list?curPage=${paging.curPage+1 }"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</c:if>
+			</ul>
+
+
+		</div>
 
 	</div>
-
 </div>
 <jsp:include page="/view/layout/footer.jsp" />

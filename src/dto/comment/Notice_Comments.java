@@ -3,51 +3,35 @@ package dto.comment;
 import java.util.Date;
 
 public class Notice_Comments {
-	// 댓글번호
-	private int commentNo;
-
-	// 작성자
-	private String userid;
-
-	// 댓글내용
-	private String content;
-
-	// 작성일
-	private Date insertDat;
-
-	// 게시글코드
+	
+	private int rnum;
+	private int comment_no;
 	private int boardno;
-
-	public int getCommentNo() {
-		return commentNo;
+	private String userid;
+	private String userpw;
+	private String content;
+	private Date insert_dat;
+	
+	@Override
+	public String toString() {
+		return "Notice_Comments [rnum=" + rnum + ", comment_no=" + comment_no + ", boardno=" + boardno + ", userid="
+				+ userid + ", userpw=" + userpw + ", content=" + content + ", insert_dat=" + insert_dat + "]";
 	}
 
-	public void setCommentNo(int commentNo) {
-		this.commentNo = commentNo;
+	public int getRnum() {
+		return rnum;
 	}
 
-	public String getUserid() {
-		return userid;
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public int getComment_no() {
+		return comment_no;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Date getInsertDat() {
-		return insertDat;
-	}
-
-	public void setInsertDat(Date insertDat) {
-		this.insertDat = insertDat;
+	public void setComment_no(int comment_no) {
+		this.comment_no = comment_no;
 	}
 
 	public int getBoardno() {
@@ -58,10 +42,37 @@ public class Notice_Comments {
 		this.boardno = boardno;
 	}
 
-	@Override
-	public String toString() {
-		return "Notice_Comments [commentNo=" + commentNo + ", userid=" + userid + ", content=" + content
-				+ ", insertDat=" + insertDat + ", boardno=" + boardno + "]";
+	public String getUserid() {
+		return userid;
 	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getUserpw() {
+		return userpw;
+	}
+
+	public void setUserpw(String userpw) {
+		this.userpw = userpw;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Date getInsert_dat() {
+		return insert_dat;
+	}
+
+	public void setInsert_dat(Date insert_dat) {
+		this.insert_dat = insert_dat;
+	}
+	
 
 }

@@ -21,59 +21,99 @@
 </script>
 
 <style type="text/css">
-th
-,
-td
-
-:not
-
-
-
-(
-:nth-child(2)
-
-
-
-)
-{
-text-align
-
-
-
-:
-
-
-center
-;
+.board_total {
+	padding: 30px 0 15px 0;
+	font-size: 11px;
+	color: #727272;
 }
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
+
+.board_total span {
+	color: #fb5d40;
+	vertical-align: -1px;
+}
+
+.board_total .board_select {
+	border: 1px solid #ececec;
+	width: 115px;
+	height: 29px;
+	line-height: 29px;
+	padding-left: 15px;
+}
+
+.board_total input {
+	height: 27px;
+	line-height: 27px;
+	border: 1px solid #ececec;
+	padding-left: 10px;
+	width: 138px;
+	margin: 0 10px;
+}
+
+.board_total a {
+	width: 65px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	background: #283444;
+	color: #fff;
+	display: inline-block;
+}
+
+.board {
+	border-top: 2px solid #283444;
+	border-bottom: 1px solid #283444;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 27px;
+}
+
+.board th {
+	border-bottom: 1px solid #283444;
+	color: #727272;
+	height: 42px;
+	font-weight: normal;
+}
+
+.board td {
+	border-bottom: 1px solid #ececec;
+	color: #6d6e72;
+	font-size: 12px;
+	height: 40px;
+	text-align: center;
+}
+
+.board td.board_title {
+	text-align: left;
+}
+
+.board td a {
+	font-size: 12px;
+}
+
+.board .board_subject {
+	text-align: left;
+	padding-left: 80px;
+}
+
+.board .board_subject a {
+	color: #6d6e72;
+}
+
+.board .board_subject a:hover {
+	color: #283444;
+}
+
+.board .board_subject img {
+	padding-left: 3px;
+	vertical-align: -1px;
+}
+
+.board .board_last td {
+	border: 0;
 }
 
 #pagingBox {
 	position: relative;
-}
-
-/* 버튼 좌우정렬 및 상하정렬 */
-#btnWriteBox, #btnDeleteBox {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	height: 30px;
-	margin: auto;
-}
-
-#btnWriteBox {
-	right: 10px;
-}
-
-#btnDeleteBox {
-	left: 10px;
-}
-
-#btnDelete, #btnWrite {
-	height: 25px;
 }
 </style>
 
@@ -82,15 +122,15 @@ td {
 	<h3>회원 목록</h3>
 	<hr>
 
-	<table class="table table-hover table-striped table-condensed">
+	<table class="board">
 		<thead>
 			<tr>
 
-				<th style="width: 10%">아이디</th>
-				<th style="width: 25%">이름</th>
-				<th style="width: 15%">전화번호</th>
-				<th style="width: 25%">주소</th>
-				<th style="width: 10%">이메일</th>
+				<th style="width: 10%; text-align: center;">아이디</th>
+				<th style="width: 10%; text-align: center;">이름</th>
+				<th style="width: 15%; text-align: center;">전화번호</th>
+				<th style="width: 35%; text-align: center;">주소</th>
+				<th style="width: 10%; text-align: center;">이메일</th>
 			</tr>
 		</thead>
 
@@ -99,7 +139,7 @@ td {
 				<tr>
 
 					<td>${member.userid }</td>
-					<td>${member.name }</td>
+					<td >${member.name }</td>
 					<td>${member.phone }</td>
 					<td>${member.address }</td>
 					<td>${member.email }</td>

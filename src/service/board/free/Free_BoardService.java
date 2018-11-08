@@ -65,6 +65,11 @@ public interface Free_BoardService {
 		//페이징위해 
 		public int getCurPage(HttpServletRequest req);
 		
+		
+		//검색값 가져오기 
+		public Free_Board_param getSearchParam(HttpServletRequest req,HttpServletResponse resp);
+		
+		
 		//검색 파라미터 받기 
 		public String nameSearch(HttpServletRequest req);
 		
@@ -82,6 +87,9 @@ public interface Free_BoardService {
 		
 		// 추천수 구하기
 		public int getRecommend(Free_Board board);
+		
+		
+		public Free_Board getSCRParam(HttpServletRequest req, HttpServletResponse resp);
 	}
 
 	

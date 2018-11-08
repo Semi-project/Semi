@@ -32,7 +32,7 @@ public class ReviewBoardListController extends HttpServlet {
 		req.setAttribute("boardList", boardList);
 		// 페이징 객체 MODEL로 추가
 		req.setAttribute("paging", paging);
-		List<Review_Filetb> fileList=review_BoardService.thumbnail(req);
+		List<Review_Filetb> fileList=review_BoardService.thumbnail(req);//썸네일 
 		req.setAttribute("fileList", fileList);
 		
 		req.getRequestDispatcher("/view/board/review/list.jsp").forward(req, resp);

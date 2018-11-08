@@ -30,6 +30,8 @@ public class AdoptionFormUpdateListController extends HttpServlet {
 			 adoptionService.updateList(names);
 		}
 
+		resp.getWriter().println("1");
+		
 		resp.sendRedirect("/adoption/application/list");
 
 	}
