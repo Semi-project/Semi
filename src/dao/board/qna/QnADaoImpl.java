@@ -238,7 +238,7 @@ public class QnADaoImpl implements QnADao{
 		sql += " FROM QNA";
 		if( search!=null && !"".equals(search) &&  searchVal.equals("title")) {
 			sql += " AND title LIKE '%"+search+"%'";
-		}
+		} !"".equals(search) / search != "" && searchVal == ("title")
 		else if(search!=null && !"".equals(search) && searchVal.equals("content")) {
 			sql += " AND content LIKE '%"+search+"%'";
 		}
